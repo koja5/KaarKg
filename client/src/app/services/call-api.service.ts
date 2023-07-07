@@ -71,7 +71,7 @@ export class CallApiService {
   }
 
   getDocument(body: any) {
-    return this.http.post('/api/upload/getDocument', body, {
+    return this.http.post('./api/upload/getDocument', body, {
       responseType: 'blob',
       headers: new HttpHeaders().append('Content-Type', 'application/json'),
     });

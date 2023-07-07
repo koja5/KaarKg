@@ -16,7 +16,7 @@ const routes: Routes = [
     path: 'document',
     component: DocumentComponent,
     loadChildren: () =>
-      import('../pages/documents/routing-module/document.module').then(
+      import('./../pages/documents/routing-module/document.module').then(
         (m) => m.DocumentModule
       ),
   },

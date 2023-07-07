@@ -11,10 +11,10 @@
 
 /* You can add global styles to this file, and also import other style files */
 
-@import "~bootstrap/scss/bootstrap";
+@import "../node_modules/bootstrap/dist/css/bootstrap";
 
 :root {
-  --primary: #0071DC;
+  --primary: #0071dc;
   --white: #ffffff;
 }
 
@@ -16253,9 +16253,8 @@ aside .widget-info i {
 }
 
 .home-action-button {
-  margin-right: 12px;
-  width: 45px;
-  height: 38px;
+  width: 54px !important;
+  height: 38px !important;
   font-size: 42px;
 }
 
