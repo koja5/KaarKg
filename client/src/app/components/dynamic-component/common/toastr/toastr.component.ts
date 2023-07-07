@@ -3,7 +3,7 @@ import { ToastrService } from 'ngx-toastr';
 import { HelpService } from 'src/app/services/help.service';
 
 @Component({
-  selector: 'app-toastr',
+  selector: 'app-toastr-component',
   templateUrl: './toastr.component.html',
   styleUrls: ['./toastr.component.scss'],
 })
