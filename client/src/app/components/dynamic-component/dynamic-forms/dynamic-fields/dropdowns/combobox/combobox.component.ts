@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 import { CallApiService } from 'src/app/services/call-api.service';
 import { ConfigurationService } from 'src/app/services/configuration.service';
 import { HelpService } from 'src/app/services/help.service';
@@ -13,7 +13,7 @@ import { FieldConfig } from '../../../models/field-config';
 })
 export class ComboboxComponent implements OnInit {
   public config: FieldConfig;
-  public group: FormGroup;
+  public group: UntypedFormGroup;
 
   public data: any;
   public language: any;
@@ -24,7 +24,7 @@ export class ComboboxComponent implements OnInit {
     private configurationService: ConfigurationService
   ) {
     this.config = new FieldConfig();
-    this.group = new FormGroup({});
+    this.group = new UntypedFormGroup({});
   }
 
   ngOnInit(): void {

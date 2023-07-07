@@ -6,7 +6,6 @@ import { DocumentComponent } from '../pages/documents/document.component';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'category/KAPLA-Bausteine',
     component: HomeComponent,
   },
   {

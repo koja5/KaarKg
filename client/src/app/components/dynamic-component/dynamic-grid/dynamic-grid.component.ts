@@ -6,7 +6,7 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import {
   DialogEditEventArgs,
@@ -38,7 +38,7 @@ export class DynamicGridComponent implements OnInit {
   @Input() partOfTab!: boolean;
   @ViewChild(DynamicFormsComponent) form!: DynamicFormsComponent;
   @ViewChild('grid') public grid!: GridComponent;
-  @ViewChild('orderForm') public orderForm!: FormGroup;
+  @ViewChild('orderForm') public orderForm!: UntypedFormGroup;
   @ViewChild('editSettingsTemplate') editSettingsTemplate!: DialogComponent;
   @ViewChild('container') public container!: ElementRef;
 

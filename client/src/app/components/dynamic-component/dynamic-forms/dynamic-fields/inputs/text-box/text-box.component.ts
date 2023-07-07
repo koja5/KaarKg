@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 import { HelpService } from 'src/app/services/help.service';
 import { FieldConfig } from '../../../models/field-config';
 import { TextBoxComponent as SyncfusionTextBoxComponent } from '@syncfusion/ej2-angular-inputs';
@@ -11,14 +11,14 @@ import { TextBoxComponent as SyncfusionTextBoxComponent } from '@syncfusion/ej2-
 })
 export class TextBoxComponent implements OnInit {
   public config: FieldConfig;
-  public group: FormGroup;
+  public group: UntypedFormGroup;
   public language: any;
   @ViewChild('default')
   public textareaObj!: SyncfusionTextBoxComponent;
 
   constructor(private helpService: HelpService) {
     this.config = new FieldConfig();
-    this.group = new FormGroup({});
+    this.group = new UntypedFormGroup({});
   }
 
   ngOnInit(): void {

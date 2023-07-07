@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 import { HelpService } from 'src/app/services/help.service';
 import { FieldConfig } from '../../../models/field-config';
 
@@ -14,12 +14,12 @@ export class ButtonComponent implements OnInit {
   @Input() icon!: string;
   @Output() clickEmitter: EventEmitter<any> = new EventEmitter();
   public config: FieldConfig;
-  public group: FormGroup;
+  public group: UntypedFormGroup;
   public language: any;
 
   constructor(private helpService: HelpService) {
     this.config = new FieldConfig();
-    this.group = new FormGroup({});
+    this.group = new UntypedFormGroup({});
   }
 
   ngOnInit(): void {
