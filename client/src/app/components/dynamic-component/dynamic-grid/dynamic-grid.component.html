@@ -1,0 +1,117 @@
+<div *ngIf="loader" style="height: 70vh">
+  <app-loader></app-loader>
+</div>
+<div *ngIf="!loader" #container>
+  <ejs-grid #grid *ngIf="config" width="100%" allowTextWrap="true" [height]="height" [dataSource]="data"
+    [editSettings]="config.editSettings" [toolbar]="config.toolbar" [allowSorting]="config.sorting.enable"
+    [sortSettings]="config.sorting.initialSorting" [allowGrouping]="config.grouping.enable"
+    [allowResizing]="config.allowResizing" [allowPaging]="config.paging.enable" [allowExcelExport]="true"
+    [allowPdfExport]="true" [pageSettings]="config.paging.settings" [allowFiltering]="config.filtering.enable"
+    [filterSettings]="config.filtering.settings" [allowExcelExport]='true' [contextMenuItems]="config.contextMenuItems"
+    (actionComplete)="actionComplete($event)" (toolbarClick)='toolbarClick($event)'>
+    <e-columns>
+      <e-column *ngFor="let item of config.columns; let i = index" [type]="item.type" [field]="item.field"
+        [headerText]="language[item.field] ? language[item.field] : item.title" [width]="item.width"
+        [class]="item.class" [textAlign]="item.position ? item.position : 'center'" [isPrimaryKey]="item.isPrimaryKey"
+        [editType]="item.editType ? item.editType : null" [allowEditing]="item.allowEditing" [format]="item.format"
+        [validationRules]="item.validation" [allowFiltering]="item.allowFiltering === false ? false : true">
+        <ng-template #template let-data *ngIf="item.template">
+          <div *ngIf="item.template.type === 'button'">
+            <button [class]="item.template.class" *ngIf="item.template.action === 'open'" (click)="
+                  openPage(item.template.link, item.template.parameters, data)
+                ">
+              <mat-icon class="mat-icon notranslate material-icons mat-icon-no-color" aria-hidden="false"
+                *ngIf="item.template.classIcon">{{ item.template.classIcon }}</mat-icon>
+              <span *ngIf="item.template.label">{{ item.template.label }}</span>
+            </button>
+
+            <button [class]="item.template.class" *ngIf="
+                  item.template.action === 'previewDocument' &&
+                  data.type === 'application/pdf'
+                " (click)="previewDocument(data)">
+              <mat-icon class="mat-icon notranslate material-icons mat-icon-no-color" aria-hidden="false"
+                *ngIf="item.template.classIcon">{{ item.template.classIcon }}</mat-icon>
+              <span *ngIf="item.template.label">{{ item.template.label }}</span>
+            </button>
+
+            <button [class]="item.template.class" *ngIf="
+                  item.template.action === 'previewInvoice'
+                " (click)="previewInvoice(data)">
+              <mat-icon class="mat-icon notranslate material-icons mat-icon-no-color" aria-hidden="false"
+                *ngIf="item.template.classIcon">{{ item.template.classIcon }}</mat-icon>
+              <span *ngIf="item.template.label">{{ item.template.label }}</span>
+            </button>
+
+            <!-- <button
+                [class]="item.template.class"
+                *ngIf="item.template.action === 'downloadDocument'"
+                (click)="downloadDocument(data)"
+              >
+                <mat-icon
+                  class="mat-icon notranslate material-icons mat-icon-no-color"
+                  aria-hidden="false"
+                  *ngIf="item.template.classIcon"
+                  >{{ item.template.classIcon }}</mat-icon
+                >
+                <span *ngIf="item.template.label">{{ item.template.label }}</span>
+              </button> -->
+          </div>
+
+          <div *ngIf="item.template.type === 'dropdownbutton'">
+            <button *ngIf="item.template.items" ejs-dropdownbutton class="background-none" [items]="item.template.items"
+              content="{{
+                  language[item.template.content]
+                    ? language[item.template.content]
+                    : item.template.content
+                }}" (select)="clickDropDownButton($event, data, item.template)"></button>
+          </div>
+
+          <div *ngIf="item.template.type === 'fileType'">
+            <mat-icon class="mat-icon notranslate material-icons mat-icon-no-color" aria-hidden="false">{{
+              getFileTypeIcon(data, item.template.field) }}</mat-icon>
+          </div>
+
+          <div *ngIf="item.template.choices">
+            <div *ngFor="let item of item.template.choices">
+              <div *ngIf="
+                    item.operator === '==' && data[item.field] === item.value
+                  " [innerHtml]="item.html"></div>
+              <div *ngIf="
+                    item.operator === '!=' && data[item.field] !== item.value
+                  " [innerHtml]="item.html"></div>
+              <div *ngIf="item.operator === '>' && data[item.field] > item.value" [innerHtml]="item.html"></div>
+              <div *ngIf="item.operator === '>' && data[item.field] < item.value" [innerHtml]="item.html"></div>
+            </div>
+          </div>
+        </ng-template>
+      </e-column>
+    </e-columns>
+
+    <ng-template #editSettingsTemplate let-data>
+      <div ngForm>
+        <div class="form-row">
+          <app-dynamic-forms *ngIf="config.config && config.config.length > 0" [config]="config" [partOfGrid]="true"
+            (submit)="submitEmitter($event)" #form="dynamicForm">
+          </app-dynamic-forms>
+          <!-- <div style="width: 100%">
+              <app-dynamic-upload
+                *ngIf="config.uploadConfig"
+                [path]="config.uploadConfig.path"
+                [file]="config.uploadConfig.file"
+              ></app-dynamic-upload>
+            </div> -->
+        </div>
+      </div>
+    </ng-template>
+  </ejs-grid>
+</div>
+
+
+<ejs-dialog id='invoiceDialog' #invoiceDialog showCloseIcon='true' (beforeOpen)="onBeforeOpen($event)" showOnInit="true"
+  [visible]="false" [isModal]="true" [position]="dialogPosition" width="300px">
+  <ng-template #content>
+    <div>
+      <app-invoice [data]="selectedData"></app-invoice>
+    </div>
+  </ng-template>
+</ejs-dialog>

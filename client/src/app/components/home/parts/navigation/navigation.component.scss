@@ -1,0 +1,24 @@
+.children {
+  position: initial;
+  box-shadow: none;
+  border: none;
+  display: none;
+}
+
+.children.true {
+  display: block;
+}
+
+.children a {
+  text-decoration: none;
+  display: flex;
+  position: relative;
+  align-items: center;
+  border: none;
+  letter-spacing: -0.035em;
+  color: #222529;
+  font-size: 1.4rem;
+  font-weight: 600;
+  text-transform: capitalize;
+  transition: none;
+}

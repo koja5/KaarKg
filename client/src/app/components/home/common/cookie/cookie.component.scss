@@ -1,0 +1,36 @@
+.cookie {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 9999;
+  color: #fff;
+  box-sizing: border-box;
+  display: inline-block;
+  width: 100%;
+  background-color: #084ea2;
+  margin: 0 auto;
+  font-size: 16px;
+}
+
+.cookie-message {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1650px;
+  padding: 0 10px;
+  margin: 0 auto;
+}
+
+.accept button {
+  color: #fff;
+  margin: 0;
+  text-decoration: none;
+  font-size: 16px;
+  border: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-color: transparent;
+  font-weight: 600;
+}

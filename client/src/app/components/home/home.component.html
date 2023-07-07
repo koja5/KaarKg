@@ -1,0 +1,274 @@
+<body *ngIf="language">
+    <div class="page-wrapper">
+        <header class="header">
+            <app-header-top></app-header-top>
+            <!-- End .header-top -->
+            <div class="sticky-wrapper">
+                <div class="header-middle sticky-header" data-sticky-options="{'mobile': true}">
+                    <div class="container-fluid">
+                        <div class="header-left justify-content-lg-center">
+                            <button class="mobile-menu-toggler text-primary mr-2" type="button"
+                                (click)="mobileNavigation = 'opened'">
+                                <i class="fas fa-bars"></i>
+                            </button>
+                            <a href="demo40.html" class="logo">
+                                <img src="assets/images/logo-black.png" class="w-100" width="111" height="44"
+                                    alt="Porto Logo">
+                            </a>
+                        </div>
+                        <!-- End .header-left -->
+
+                        <div class="header-right w-lg-max">
+                            <div
+                                class="header-icon header-search header-search-inline header-search-category d-sm-block d-none w-lg-max text-right mt-0">
+                                <a href="#" class="search-toggle" role="button"><app-mat-icon
+                                        class="home-action-button display-flex" icon="search"></app-mat-icon></a>
+                                <form action="#" method="get">
+                                    <div class="header-search-wrapper mr-1">
+                                        <input type="search" class="form-control" name="q" id="q"
+                                            placeholder="{{language.homeSearchPlaceholder}}"
+                                            (input)="onSearchChange($event)">
+                                        <!-- End .select-custom -->
+                                        <button class="btn" title="search" type="submit"><mat-icon
+                                                class="mt-1">search</mat-icon></button>
+                                    </div>
+                                    <!-- End .header-search-wrapper -->
+                                </form>
+                            </div>
+                            <!-- End .header-search -->
+
+                            <div (click)="showFavorite()"
+                                class="header-contact header-wishlist d-lg-flex pl-4 pr-sm-4 pr-2 ml-2">
+                                <a class="header-icon mr-0" title="wishlist">
+                                    <app-mat-icon class="home-action-button display-flex"
+                                        icon="favorite"></app-mat-icon>
+                                </a>
+                                <h6 class="text-capitalize">
+                                    <span>{{language.homeFavorites}}</span><a>{{language.homeWishlist}}</a>
+                                </h6>
+                            </div>
+
+                            <div *ngIf="!username"
+                                class="header-contact header-login-mobile d-lg-flex pr-sm-4 mr-lg-5 ml-lg-5 pointer"
+                                (click)="loginDialog.show()">
+                                <a class="header-icon mr-0" title="login">
+                                    <app-mat-icon class="home-action-button display-flex" icon="person"></app-mat-icon>
+                                </a>
+                                <h6 class="text-capitalize"><span
+                                        class="ls-n-20">{{language.homeWelcome}}</span><a>{{language.homeSignInSignUp}}</a>
+                                </h6>
+                            </div>
+
+                            <div class="separator"></div>
+
+                            <div class="cart-dropdown-wrapper d-flex align-items-center pt-2 ml-lg-3 mr-lg-3">
+                                <span class="cart-subtotal text-right font2 mr-3">{{language.homeShoppingCart}}
+                                    <span class="cart-price d-block font2">$0.00</span>
+                                </span>
+
+                                <div class="header-contact dropdown cart-dropdown">
+                                    <a href="#" title="Cart" class="dropdown-arrow cart-toggle" role="button"
+                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                                        data-display="static">
+                                        <app-mat-icon class="home-action-button display-flex"
+                                            icon="shopping_bag"></app-mat-icon>
+                                        <span class=" cart-count badge-circle">3</span>
+                                    </a>
+
+
+                                </div>
+                                <!-- End .dropdown -->
+                            </div>
+
+
+                            <div class="dropdown d-flex" *ngIf="username">
+                                <button *ngIf="items" ejs-dropdownbutton class="background-none border-none"
+                                    [items]="items" content="{{ username }}"
+                                    (select)="profileIconSelectEvent($event)"></button>
+                            </div>
+
+                        </div>
+                        <!-- End .header-right -->
+                    </div>
+                    <!-- End .container -->
+                </div>
+                <!-- End .header-middle -->
+            </div>
+        </header>
+        <!-- End .header -->
+
+        <main class="main home">
+            <div class="container-fluid p-0">
+                <div class="row m-0">
+                    <div class="sidebar-overlay"></div>
+                    <aside class="col-lg-3 sidebar-home mobile-sidebar">
+                        <app-navigation></app-navigation>
+                    </aside>
+
+                    <div class="col-lg-9">
+                        <app-products [searchProduct]="searchProduct"></app-products>
+                    </div>
+
+                </div>
+            </div>
+        </main>
+
+        <!-- End .main -->
+    </div>
+    <!-- End .page-wrapper -->
+
+    <!-- <div class="loading-overlay">
+      <div class="bounce-loader">
+        <div class="bounce1"></div>
+        <div class="bounce2"></div>
+        <div class="bounce3"></div>
+      </div>
+    </div> -->
+
+    <div class="mobile-menu-overlay"></div>
+    <!-- End .mobil-menu-overlay -->
+
+    <!-- End .mobile-menu-container -->
+
+    <div class="sticky-navbar">
+        <div class="sticky-info">
+            <a href="demo40.html">
+                <i class="icon-home"></i>Home
+            </a>
+        </div>
+        <div class="sticky-info">
+            <a href="demo40-shop.html" class="">
+                <i class="icon-bars"></i>Categories
+            </a>
+        </div>
+        <div class="sticky-info">
+            <a href="wishlist.html" class="">
+                <i class="icon-wishlist-2"></i>Wishlist
+            </a>
+        </div>
+        <div class="sticky-info">
+            <a href="login.html" class="">
+                <i class="icon-user-2"></i>Account
+            </a>
+        </div>
+        <div class="sticky-info">
+            <a href="cart.html" class="">
+                <i class="icon-shopping-cart position-relative">
+                    <span class="cart-count badge-circle">3</span>
+                </i>Cart
+            </a>
+        </div>
+    </div>
+
+    <div class="newsletter-popup mfp-hide bg-img" id="newsletter-popup-form"
+        style="background: #f1f1f1 no-repeat center/cover url(assets/images/newsletter_popup_bg.jpg)">
+        <div class="newsletter-popup-content">
+            <img src="assets/images/logo-black.png" alt="Logo" class="logo-newsletter" width="111" height="44">
+            <h2>Subscribe to newsletter</h2>
+
+            <p>
+                Subscribe to the Porto mailing list to receive updates on new arrivals, special offers and our
+                promotions.
+            </p>
+
+            <form action="#">
+                <div class="input-group">
+                    <input type="email" class="form-control" id="newsletter-email" name="newsletter-email"
+                        placeholder="Your email address" required />
+                    <input type="submit" class="btn btn-primary" value="Submit" />
+                </div>
+            </form>
+            <div class="newsletter-subscribe">
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" value="0" id="show-again" />
+                    <label for="show-again" class="custom-control-label">
+                        Don't show this popup again
+                    </label>
+                </div>
+            </div>
+        </div>
+        <!-- End .newsletter-popup-content -->
+
+
+
+        <button title="Close (Esc)" type="button" class="mfp-close">
+            ×
+        </button>
+    </div>
+    <!-- End .newsletter-popup -->
+
+    <a id="scroll-top" href="#top" title="Top" role="button"><i class="icon-angle-up"></i></a>
+
+
+
+
+
+    <!-- DIALOGS -->
+
+    <ejs-dialog #loginDialog [showCloseIcon]='true' [header]="loginFormTitle" [position]="{Y: 100}" [visible]='false'
+        width="450px">
+        <ng-template #content>
+            <app-login (closeLoginDialog)="closeLoginDialog()"
+                (changeLoginFormTypeEvent)="changeLoginFormType($event)"></app-login>
+        </ng-template>
+    </ejs-dialog>
+
+    <!-- END DIALOGS -->
+
+    <div class="cart-overlay {{rightCard}} {{mobileNavigation}}"></div>
+
+    <div class="right-side-card row {{rightCard}}">
+        <a (click)="rightCard = ''" title="Close (Esc)" class="btn-close"></a>
+
+        <div class="dropdownmenu-wrapper custom-scrollbar">
+
+            <h3>{{language.homeFavoriteCard}}</h3>
+
+            <div class="dropdown-cart-products" *ngFor="let item of listFavorites; let i = index">
+                <div class="product">
+                    <div class="product-details">
+                        <h5 class="product-title">
+                            <a>{{item.title}}</a>
+                        </h5>
+
+                        <span class="cart-product-info">
+                            <span class="cart-product-qty"></span> {{item.product_number}}
+                        </span>
+                    </div>
+
+                    <figure class="product-image-container">
+                        <a class="product-image">
+                            <img src="assets/images/products/{{item.image}}" alt="product" width="80" height="80">
+                        </a>
+                    </figure>
+
+                    <a (click)="removeFavorite(i)" class="btn-remove" title="Remove Product"><span>×</span></a>
+                </div>
+
+            </div>
+
+            <!-- <div class="dropdown-cart-total">
+            <span>SUBTOTAL:</span>
+
+            <span class="cart-total-price float-right">$134.00</span>
+        </div>
+
+        <div class="dropdown-cart-action">
+            <a href="cart.html" class="btn btn-gray btn-block view-cart">View
+                Cart</a>
+            <a href="checkout.html" class="btn btn-dark btn-block">Checkout</a>
+        </div> -->
+        </div>
+    </div>
+
+    <div class="mobile-navigation row {{mobileNavigation}}">
+        <a (click)="mobileNavigation = ''" title="Close (Esc)" class="btn-close"></a>
+
+        <div class="dropdownmenu-wrapper custom-scrollbar">
+            <app-navigation></app-navigation>
+        </div>
+    </div>
+
+    <app-cookie *ngIf="cookieMessage == ''" (cookieEmitter)="cookieEmitter()"></app-cookie>
+
+</body>

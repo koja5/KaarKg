@@ -1,0 +1,20 @@
+{
+    "title": "Was sind Cookies auf Websites?",
+    "text": [
+        "Cookies sind kleine Dateien mit Informationen, die ein Webserver generiert und an einen Webbrowser sendet. Webbrowser speichern die Cookies, die sie erhalten, für einen festgelegten Zeitraum oder für die Dauer der Sitzung eines Benutzers auf einer Website. Sie hängen die entsprechenden Cookies an auf zukünftige Anfragen des Benutzers an den Webserver.",
+        " ",
+        "Cookies helfen dabei, Websites über den Benutzer zu informieren und ermöglichen es den Websites, die Benutzererfahrung zu personalisieren. Zum Beispiel verwenden E-Commerce-Websites Cookies, um zu erfahren, welche Waren Benutzer in ihren Einkaufswagen gelegt haben. Darüber hinaus sind einige Cookies aus Sicherheitsgründen erforderlich, wie z Authentifizierungs-Cookies (siehe unten).",
+        " ",
+        "Die im Internet verwendeten Cookies werden auch als HTTP-Cookies bezeichnet. Wie ein Großteil des Internets werden Cookies über das HTTP-Protokoll gesendet.",
+        " ",
+        "Webbrowser speichern Cookies in einer bestimmten Datei auf den Geräten der Benutzer. Der Google Chrome-Webbrowser speichert beispielsweise alle Cookies in einer Datei mit der Bezeichnung Cookies. Chrome-Benutzer können die vom Browser gespeicherten Cookies anzeigen, indem sie die Entwicklertools öffnen und auf die Anwendung klicken und klicken Sie im Menü auf der linken Seite auf Cookies.",
+        " ",
+        "Benutzersitzungen: Cookies helfen dabei, Website-Aktivitäten einem bestimmten Benutzer zuzuordnen. Ein Sitzungscookie enthält eine eindeutige Zeichenfolge (eine Kombination aus Buchstaben und Zahlen), die einer Benutzersitzung mit relevanten Daten und Inhalten für diesen Benutzer entspricht.",
+        " ",
+        "Angenommen, Alice hat ein Konto auf einer Shopping-Website. Sie meldet sich auf der Homepage der Website bei ihrem Konto an. Wenn sie sich anmeldet, generiert der Server der Website ein Sitzungscookie und sendet das Cookie an Alices Browser. Dieses Cookie weist die Website an, Alices Konto zu laden Inhalt, sodass auf der Startseite jetzt 'Willkommen, Alice' steht",
+        " ",
+        "Alice klickt dann auf eine Produktseite, auf der eine Jeans angezeigt wird. Wenn der Webbrowser von Alice eine HTTP-Anforderung an die Website für die Jeans-Produktseite sendet, enthält er Alices Sitzungscookie mit der Anforderung. Da die Website über dieses Cookie verfügt, erkennt sie die Benutzer als Alice, und sie muss sich nicht erneut anmelden, wenn die neue Seite geladen wird.",
+        " ",
+        "Personalisierung: Cookies helfen einer Website, sich Benutzeraktionen oder Benutzereinstellungen zu merken, und ermöglichen es der Website, die Benutzererfahrung anzupassen."
+    ]
+}

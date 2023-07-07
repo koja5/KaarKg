@@ -1,0 +1,8 @@
+<section *ngIf="language">
+    <div class="card mt-0 mb-0">
+        <h2 class="primary-heading">{{ language.title }}</h2>
+        <p class="paragraph" *ngFor="let item of language.text">
+            {{ item }}
+        </p>
+    </div>
+</section>

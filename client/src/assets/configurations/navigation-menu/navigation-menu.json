@@ -1,0 +1,24 @@
+[
+  {
+    "title": "Configurations",
+    "rights": [
+    ],
+    "menu": [
+      {
+        "icon": "admin_panel_settings",
+        "title": "Category & product",
+        "link": "/dashboard/navigation-product"
+      },
+      {
+        "icon": "group",
+        "title": "All users",
+        "link": "/dashboard/all-users"
+      },
+      {
+        "icon": "inventory_2",
+        "title": "All products",
+        "link": "/dashboard/all-products"
+      }
+    ]
+  }
+]

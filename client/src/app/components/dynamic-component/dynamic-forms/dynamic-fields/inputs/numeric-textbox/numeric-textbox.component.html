@@ -1,0 +1,21 @@
+<div *ngIf="config.schedule === undefined" [ngClass]="[config.width]" [formGroup]="group" class="form-group">
+  <label *ngIf="config?.title" class="custom-label">{{config.title
+    }}</label>
+  <ejs-numerictextbox #default cssClass="{{ config.class }}" [id]="config.name"
+    [placeholder]="config.placeholder ? config.placeholder : ''" [formControlName]="config.name"
+    [readonly]="config.readonly" [disabled]="config.disabled!" [format]="config.format" [min]="config?.min" [max]="config?.max"></ejs-numerictextbox>
+</div>
+
+<div *ngIf="config.schedule" [ngClass]="[config?.width]" [formGroup]="group">
+  <label *ngIf="config?.title" class="custom-label">{{config.title
+    }}</label>
+  <div class="e-input-group e-control-wrapper e-outline">
+    <input *ngIf="!config?.multiline" class="{{
+        config?.class
+      }} e-field e-input e-control e-textbox e-lib e-input " value="" name="{{ config?.name }}"
+      type="{{ config?.type }}" />
+    <textarea *ngIf="config?.multiline" class="{{
+        config?.class
+      }} e-field e-input e-control e-textbox e-lib e-input  border-none" value="" name="{{ config?.name }}"></textarea>
+  </div>
+</div>

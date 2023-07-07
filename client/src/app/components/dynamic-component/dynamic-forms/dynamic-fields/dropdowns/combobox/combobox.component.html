@@ -1,0 +1,13 @@
+<div *ngIf="!config?.schedule" [ngClass]="[config.width]" [formGroup]="group" class="form-group">
+    <label *ngIf="config?.title" class="custom-label">{{config.title
+        }}</label>
+    <ejs-combobox cssClass="{{ config.class }}" [id]="config.name" [dataSource]="data"
+        [fields]="config.field" [placeholder]="config.placeholder ? config.placeholder : ''"
+        [allowFiltering]="config.fieldConfig?.filter" [ignoreAccent]="config.fieldConfig?.ignoreAccent"
+        [filterBarPlaceholder]="config.fieldConfig?.filterPlaceholder" [formControlName]="config.name"
+        [readonly]="config.readonly">
+        <ng-template *ngIf="data" #noRecordsTemplate>
+            <span class="norecord"> {{language?.noRecords}}</span>
+        </ng-template>
+    </ejs-combobox>
+</div>

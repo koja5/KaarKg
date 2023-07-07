@@ -1,0 +1,15 @@
+.product-desc p {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  margin: 0px;
+}
+
+.product-desc p.show {
+    display: block;
+}
+
+.more-text {
+    color: var(--primary) !important;
+}

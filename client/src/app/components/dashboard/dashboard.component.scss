@@ -1,0 +1,77 @@
+@import url(https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700&amp;display=swap);
+@import url("../../../assets/css/navigation-menu.css");
+
+.person-account {
+  font-size: 25px;
+  margin-right: 3px;
+}
+
+.dropdown-item {
+  cursor: pointer;
+}
+
+.dropdown-item .mat-icon {
+  font-size: 21px;
+}
+
+.metismenu li a .mat-icon {
+  margin-right: 7px;
+}
+
+.metismenu li a {
+  text-decoration: none;
+}
+
+.expand-icon {
+  position: absolute;
+  right: 5px;
+}
+
+.sidebar-enable.mobile .page-content {
+  margin-left: 68px;
+  transition: 0.3s;
+}
+
+.vertical {
+  transition: 0.3s;
+}
+
+mat-icon {
+  color: #545a6d;
+}
+
+.new-message-notification {
+  font-size: 10px;
+  border-radius: 50%;
+  background: red;
+  width: 17px;
+  text-align: center;
+  height: 17px;
+  color: #fff;
+  font-weight: bold;
+  bottom: 8px;
+  right: 77px;
+  position: absolute;
+  top: 10px;
+}
+
+.swap-button {
+  width: 35px !important;
+}
+
+.center-text {
+  display: inline-flex;
+  align-items: center;
+}
+
+.logo-dashboard {
+    text-align: center;
+    margin: auto;
+    margin-top: 10px;
+    width: 160px;
+}
+
+.logo-sm img {
+    height: 45px;
+    margin-left: 11px;
+}

@@ -1,0 +1,7 @@
+<div [ngClass]="[config.width]" [formGroup]="group" class="form-group">
+  <label *ngIf="config.title" class="custom-label">{{ config.title
+    }}</label>
+  <p *ngIf="config.text" class="label-text">
+    {{ config.text }}
+  </p>
+</div>

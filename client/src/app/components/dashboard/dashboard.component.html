@@ -1,0 +1,284 @@
+<body data-topbar="dark" [ngClass]="[sidebarClass, layoutOrientation, mobileClass]">
+    <!-- <body data-layout="horizontal" data-topbar="dark"> -->
+
+    <!-- Begin page -->
+    <div id="layout-wrapper">
+        <header id="page-topbar">
+            <div class="navbar-header">
+                <div class="d-flex">
+                    <!-- LOGO -->
+                    <div class="navbar-brand-box">
+                        <a routerLink="control-panel" class="logo logo-dashboard logo-dark">
+                            <span class="logo-sm">
+                                <img src="./assets/images/logo-sm.png" alt="" height="45" />
+                            </span>
+                            <span>
+                                <img src="./assets/images/logo-black.png" alt="" height="50" />
+                            </span>
+                        </a>
+
+                        <a routerLink="control-panel" class="logo logo-dashboard logo-light">
+                            <span class="logo-sm">
+                                <img src="./assets/images/logo-sm.png" alt="" height="45" />
+                            </span>
+                            <span class="logo-lg">
+                                <img src="./assets/images/logo-black.png" alt="" height="50" />
+                            </span>
+                        </a>
+                    </div>
+
+                    <button *ngIf="layoutOrientation === 'vertical'" (click)="collapseSidebar()" type="button"
+                        class="btn btn-sm px-3 font-size-16 header-item waves-effect" id="vertical-menu-btn">
+                        <mat-icon class="swap-button" style="font-size: 30px">swap_horiz</mat-icon>
+                    </button>
+                    <button *ngIf="layoutOrientation === 'horizontal' && mobile" type="button"
+                        class="btn btn-sm px-3 font-size-16 header-item waves-effect"
+                        (click)="collapseHorizontalSidebar()">
+                        <mat-icon *ngIf="horizontalSideBar === ''" style="font-size: 30px">expand_more</mat-icon>
+                        <mat-icon *ngIf="horizontalSideBar !== ''" style="font-size: 30px">expand_less</mat-icon>
+                    </button>
+
+                    <!-- App Search-->
+                    <!-- <form class="app-search d-none d-lg-block">
+              <div class="position-relative">
+                <input type="text" class="form-control" placeholder="Search..." />
+                <span class="bx bx-search-alt"></span>
+              </div>
+            </form> -->
+                </div>
+
+                <div class="d-flex">
+                    <div class="dropdown d-inline-block d-lg-none ms-2">
+                        <button type="button" class="btn header-item noti-icon waves-effect"
+                            id="page-header-search-dropdown" data-bs-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false">
+                            <i class="mdi mdi-magnify"></i>
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end p-0"
+                            aria-labelledby="page-header-search-dropdown">
+                            <form class="p-3">
+                                <div class="form-group m-0">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" placeholder="Search ..."
+                                            aria-label="Recipient's username" />
+                                        <div class="input-group-append">
+                                            <button class="btn btn-primary" type="submit">
+                                                <i class="mdi mdi-magnify"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="dropdown d-none d-lg-inline-block ms-1">
+                        <button type="button" class="btn header-item noti-icon waves-effect"
+                            data-bs-toggle="fullscreen">
+                            <i class="bx bx-fullscreen"></i>
+                        </button>
+                    </div>
+
+                    <div class="center-text pr-4 pointer" (click)="openHomePage()">
+                        <mat-icon class="screen">tab_move</mat-icon> <span class="pl-2">Open home page</span>
+                    </div>
+
+                    <div class="button-options center-text width-auto mr-3">
+                        <mat-icon class="screen pointer" *ngIf="!isFullScreen"
+                            (click)="openFullscreen()">fullscreen</mat-icon>
+                        <mat-icon class="screen pointer" *ngIf="isFullScreen"
+                            (click)="closeFullscreen()">fullscreen_exit</mat-icon>
+                    </div>
+
+                    <div class="dropdown d-flex">
+                        <button *ngIf="items" ejs-dropdownbutton class="background-none border-none" [items]="items"
+                            content="{{ username }}" (select)="profileIconSelectEvent($event)"></button>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- ========== Left Sidebar Start ========== -->
+        <div *ngIf="layoutOrientation !== 'horizontal'" class="vertical-menu">
+            <div data-simplebar="init" class="h-100 navigation-container">
+                <div class="simplebar-wrapper" style="margin: 0px">
+                    <div class="simplebar-height-auto-observer-wrapper">
+                        <div class="simplebar-height-auto-observer"></div>
+                    </div>
+                    <div class="simplebar-mask">
+                        <div class="simplebar-offset" style="right: 0px; bottom: 0px">
+                            <div class="simplebar-content-wrapper" style="height: 100%; overflow: hidden">
+                                <div class="simplebar-content" style="padding: 0px">
+                                    <div id="sidebar-menu" class="mm-active">
+                                        <ul class="metismenu list-unstyled mm-show" id="side-menu"
+                                            *ngFor="let item of menu; let i = index">
+                                            <li class="menu-title" key="t-menu">
+                                                {{ item.title }}
+                                            </li>
+
+                                            <li *ngFor="let parent of item.menu; let j = index">
+                                                <a *ngIf="!parent.children" routerLink="{{ parent.link }}"
+                                                    (click)="clickParentActiveNode(i, j)"
+                                                    class="waves-effect {{ activeParentNode[i][j] }}">
+                                                    <div class="center-text">
+                                                        <mat-icon aria-hidden="false">{{
+                                                            parent.icon
+                                                            }}</mat-icon>
+                                                        <span key="t-dashboards">{{ parent.title }}</span>
+                                                    </div>
+                                                </a>
+                                                <a *ngIf="parent.children" (click)="
+                              collapseMenu(i, j); clickParentActiveNode(i, j)
+                            " class="waves-effect {{ activeParentNode[i][j] }}">
+                                                    <div class="center-text">
+                                                        <mat-icon aria-hidden="false">{{
+                                                            parent.icon
+                                                            }}</mat-icon>
+                                                        <span key="t-dashboards">{{ parent.title }}</span>
+                                                    </div>
+                                                    <mat-icon class="expand-icon" *ngIf="
+                                parent.children &&
+                                collapseMenuItems[i][j] !== '' &&
+                                sidebarClass === ''
+                              ">expand_less</mat-icon>
+                                                    <mat-icon class="expand-icon" *ngIf="
+                                parent.children &&
+                                collapseMenuItems[i][j] === '' &&
+                                sidebarClass === ''
+                              ">expand_more</mat-icon>
+                                                </a>
+                                                <ul *ngIf="parent.children" class="sub-menu mm-collapse {{
+                              collapseMenuItems[i][j]
+                            }}" aria-expanded="false">
+                                                    <li class="mm-{{ activeChildrenNode[i][j][k] }}"
+                                                        *ngFor="let child of parent.children; let k = index">
+                                                        <a routerLink="{{ child.link }}"
+                                                            (click)="clickActiveChildrenNode(i, j, k)" key="t-default"
+                                                            class="{{ activeChildrenNode[i][j][k] }}">{{
+                                                            language[child.title]
+                                                            ? language[child.title]
+                                                            : child.title
+                                                            }}</a>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="simplebar-track simplebar-horizontal" style="visibility: hidden">
+                    <div class="simplebar-scrollbar" style="transform: translate3d(0px, 0px, 0px); display: none"></div>
+                </div>
+                <div class="simplebar-track simplebar-vertical" style="visibility: hidden">
+                    <div class="simplebar-scrollbar" style="
+                height: 272px;
+                transform: translate3d(0px, 0px, 0px);
+                display: none;
+              "></div>
+                </div>
+            </div>
+        </div>
+        <!-- Left Sidebar End -->
+
+        <!-- HORIZONTAL MENU -->
+
+        <div *ngIf="layoutOrientation !== 'vertical'" class="topnav">
+            <div class="container-fluid">
+                <nav class="navbar navbar-light navbar-expand-lg topnav-menu">
+                    <div class="navbar-collapse active collapse {{ horizontalSideBar }}" id="topnav-menu-content">
+                        <ul class="metismenu navbar-nav active">
+                            <li class="nav-item dropdown" *ngFor="let item of menu; let i = index">
+                                <a class="nav-link dropdown-toggle arrow-none" id="topnav-dashboard" role="button">
+                                    <i class="bx bx-home-circle me-2"></i><span key="t-dashboards">
+                                        <div class="center-text">
+                                            <mat-icon aria-hidden="false">{{ item.icon }}</mat-icon>
+                                            <span key="t-dashboards">{{
+                                                language[item.title] ? language[item.title] : item.title
+                                                }}</span>
+                                        </div>
+                                    </span>
+                                </a>
+                                <div class="dropdown-menu {{ dropDownNavigationMenu[i] }} {{
+                      activeGroupNode[i]
+                    }}" aria-labelledby="topnav-dashboard">
+                                    <div *ngFor="let parent of item.menu; let j = index">
+                                        <a *ngIf="!parent.children" routerLink="{{ parent.link }}"
+                                            (click)="clickParentActiveNode(i, j)"
+                                            class="dropdown-item {{ activeParentNode[i][j] }}" id="topnav-email">
+                                            <div class="center-text">
+                                                <mat-icon aria-hidden="false">{{
+                                                    parent.icon
+                                                    }}</mat-icon>
+                                                <span key="t-dashboards">{{
+                                                    language[parent.title]
+                                                    ? language[parent.title]
+                                                    : parent.title
+                                                    }}</span>
+                                            </div>
+                                        </a>
+                                        <a *ngIf="parent.children"
+                                            (click)="collapseMenu(i, j); clickParentActiveNode(i, j)"
+                                            class="dropdown-item {{ activeParentNode[i][j] }}">
+                                            <div class="center-text">
+                                                <mat-icon aria-hidden="false">{{
+                                                    parent.icon
+                                                    }}</mat-icon>
+                                                <span key="t-dashboards">{{
+                                                    language[parent.title]
+                                                    ? language[parent.title]
+                                                    : parent.title
+                                                    }}</span>
+                                            </div>
+                                            <mat-icon class="expand-icon" *ngIf="
+                            parent.children &&
+                            collapseMenuItems[i][j] !== '' &&
+                            sidebarClass === ''
+                          ">expand_less</mat-icon>
+                                            <mat-icon class="expand-icon" *ngIf="
+                            parent.children &&
+                            collapseMenuItems[i][j] === '' &&
+                            sidebarClass === ''
+                          ">expand_more</mat-icon>
+                                        </a>
+
+                                        <div class="sub-menu mm-collapse {{ collapseMenuItems[i][j] }}">
+                                            <div class="dropdown-item mm-{{
+                            activeChildrenNode[i][j][k]
+                          }}" *ngFor="let child of parent.children; let k = index"
+                                                (click)="clickActiveChildrenNode(i, j, k)"
+                                                routerLink="{{ child.link }}">
+                                                <a key="t-default" class="{{ activeChildrenNode[i][j][k] }}">{{
+                                                    language[child.title]
+                                                    ? language[child.title]
+                                                    : child.title
+                                                    }}</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+        </div>
+
+        <!-- HORIZONTAL MENU END-->
+
+        <div class="main-content">
+            <div class="page-content">
+                <div class="container-fluid p-0">
+                    <!-- <app-path></app-path> -->
+                    <router-outlet></router-outlet>
+                </div>
+                <!-- container-fluid -->
+            </div>
+            <!-- End Page-content -->
+        </div>
+        <!-- end main content-->
+    </div>
+    <!-- END layout-wrapper -->
+</body>

@@ -1,0 +1,107 @@
+<app-loader *ngIf="!language || !products"></app-loader>
+<div class="main-content" *ngIf="language">
+    <section class="home-section mb-2">
+        <div class="row">
+            <section class="products-container">
+                <div class="heading d-flex align-items-center" data-animation-name="fadeInUpShorter"
+                    data-animation-delay="150">
+                    <h2 class="text-transform-none mb-0">{{category}}: <span *ngIf="products">{{products.length}}
+                            Artikel</span></h2>
+                    <!-- <a class="d-block view-all ml-auto" href="demo40-shop.html">View All<i
+                            class="fas fa-chevron-right"></i></a> -->
+                </div>
+                <div class="products-slider owl-theme row" data-animation-name="fadeInUpShorter"
+                    data-animation-delay="200" data-owl-options="{
+                                'margin': 20,
+                                'dots': false,
+                                'nav': false,
+                                'loop': false,
+                                'responsive': {
+                                    '0': {
+                                        'items': 2
+                                    },
+                                    '576': {
+                                        'items': 3
+                                    },
+                                    '768': {
+                                        'items': 4
+                                    },
+                                    '992': {
+                                        'items': 4
+                                    },
+                                    '1500': {
+                                        'items': 6
+                                    }
+                                }
+                            }">
+
+
+
+                    <div *ngIf="!products || products.length == 0" class="no-product">
+                        <img src="./assets/images/no-product.png">
+                        <h4 class="mt-3">{{language.productNoAvailable}}</h4>
+                    </div>
+
+
+
+                    <div *ngFor="let item of products; let i = index"
+                        class="product-default inner-quickview inner-icon col-md-2">
+                        <figure>
+                            <a>
+                                <img src="./assets/images/products/{{item.image}}"
+                                    (error)="getNoImageAvailablePicture(i)" width="205" height="205"
+                                    alt="product">
+                            </a>
+
+                            <div class="btn-icon-group-left">
+                                <a (click)="addToFavorite(item)"
+                                    class="btn-icon btn-add-cart product-type-simple"><app-mat-icon icon="favorite"
+                                        class="pt-2"></app-mat-icon></a>
+                            </div>
+                            <div class="btn-icon-group">
+                                <a href="#" class="btn-icon btn-add-cart product-type-simple"><app-mat-icon
+                                        icon="shopping_basket" class="pt-2"></app-mat-icon></a>
+                            </div>
+                            <a (click)="quickViewItem(item)" class="btn-quickview"
+                                title="Quick View">{{language.productQuickView}}
+                            </a>
+                        </figure>
+                        <div class="product-details">
+                            <div class="category-wrap">
+                                <div class="category-list">
+                                    <a class="product-category">{{item.name}}</a>
+                                </div>
+                                <!--  -->
+                            </div>
+                            <h3 class="product-title">
+                                <a (click)="quickViewItem(item)">{{item.title}}</a>
+                            </h3>
+                            <p>{{item.product_number}}</p>
+                            <!-- <div class="ratings-container">
+                                <div class="product-ratings">
+                                    <span class="ratings" style="width:100%"></span>
+                                    <span class="tooltiptext tooltip-top"></span>
+                                </div>
+                            </div> -->
+                            <!-- End .product-container -->
+
+                            <div class="price-box">
+                                <!-- <span class="old-price">€ 90.00</span> -->
+                                <span class="product-price">€ {{item.price | number: '.2'}}</span>
+                            </div>
+                            <!-- End .price-box -->
+                        </div>
+                        <!-- End .product-details -->
+                    </div>
+                </div>
+                <!-- End .products-slider -->
+            </section>
+        </div>
+    </section>
+</div>
+
+<ejs-dialog #quickView [showCloseIcon]='true' [visible]='false' width="750px">
+    <ng-template #content>
+        <app-product-item [item]="item"></app-product-item>
+    </ng-template>
+</ejs-dialog>

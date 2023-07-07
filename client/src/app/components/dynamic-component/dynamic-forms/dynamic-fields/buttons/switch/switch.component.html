@@ -1,0 +1,6 @@
+<div *ngIf="language && config && checkRights()" [ngClass]="[config.width]" [formGroup]="group" class="form-group">
+  <label *ngIf="config.title" class="custom-label mr-2">{{ config.title
+    }}</label>
+  <ejs-switch #switch name="{{ config.name }}" [id]="config.name" [formControlName]="config.name"
+    [disabled]="config.disabled!"></ejs-switch>
+</div>

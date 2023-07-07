@@ -1,0 +1,14 @@
+<ejs-dialog
+  id="dialog"
+  #ejDialog
+  isModal="true"
+  showCloseIcon="true"
+  [width]="width ? width : returnWidth()"
+  [visible]="false"
+  (close)="closeModal()"
+  cssClass="e-fixed"
+>
+  <ng-template #content>
+    <ng-content></ng-content>
+  </ng-template>
+</ejs-dialog>

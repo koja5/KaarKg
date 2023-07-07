@@ -1,0 +1,42 @@
+<div *ngIf="
+    config.actionButtons.simpleButtons &&
+    config.actionButtons.simpleButtons.length > 0 &&
+    checkRights()
+  " class="{{ config.actionButtons.class }}">
+  <button *ngFor="let item of config.actionButtons.simpleButtons" (click)="clickAction(item.action)">
+    {{ language[item.title] ? language[item.title] : item.title }}
+  </button>
+</div>
+
+<div *ngIf="
+    config.actionButtons.dropDownButtons &&
+    itemsModelDropDown.length > 0 &&
+    checkRights()
+  " class="{{ config.actionButtons.class }}">
+  <button ejs-dropdownbutton
+    content="{{ language[config.actionButtons.dropDownButtons.content] ? language[config.actionButtons.dropDownButtons.content] : config.actionButtons.dropDownButtons.content }}"
+    [items]="itemsModelDropDown" (select)="clickAction($event)"></button>
+</div>
+<div *ngIf="
+    config.actionButtons.splitButtons &&
+    itemsModelSplit.length > 0 &&
+    checkRights()
+  " class="{{ config.actionButtons.class }}">
+  <ejs-splitbutton
+    content="{{ language[config.actionButtons.dropDownButtons.content] ? language[config.actionButtons.dropDownButtons.content] : config.actionButtons.dropDownButtons.content }}"
+    [items]="itemsModelSplit" (select)="clickAction($event)"></ejs-splitbutton>
+</div>
+
+<app-dialog-modal *ngIf="modal" [show]="modal" (closeEventEmitter)="closeModal()">
+  <div *ngIf="loader" style="height: 60vh">
+    <app-loader></app-loader>
+  </div>
+  <app-dynamic-forms *ngIf="
+      !loader &&
+      config.config &&
+      config.config.length > 0 &&
+      checkComponentType()
+    " [config]="config" [data]="data" [path]="path" [file]="file" [hideActionButtons]="true"
+    (submit)="submitEmitter($event)" #form="dynamicForm">
+  </app-dynamic-forms>
+</app-dialog-modal>

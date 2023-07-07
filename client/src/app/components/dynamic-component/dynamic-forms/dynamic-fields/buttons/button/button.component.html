@@ -1,0 +1,16 @@
+<!-- <div
+  *ngIf="language && config && checkRights()"
+  [ngClass]="[config.positionClass]"
+> -->
+<div *ngIf="config && checkRights()" [ngClass]="[config.positionClass]">
+  <button ejs-button [disabled]="config.disabled" type="submit" [class]="config.class">
+    {{ language[config.field] ? language[config.field] : config.title }}
+  </button>
+</div>
+
+<div *ngIf="title || icon">
+  <button class="e-btn {{ class }}" (click)="clickButton()">
+    <app-dynamic-icon *ngIf="icon" [icon]="icon"></app-dynamic-icon>
+    {{ language[title] ? language[title] : title }}
+  </button>
+</div>

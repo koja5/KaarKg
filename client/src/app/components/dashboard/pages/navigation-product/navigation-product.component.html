@@ -1,0 +1,51 @@
+<div class="pt-4">
+    <div class="actions mb-2">
+        <button ejs-button [isPrimary]="true" style="margin-right: 15px;" (click)="dialogProduct.show()">Create
+            group</button>
+        <button ejs-button cssClass="e-outline" [isPrimary]="true" (click)="dialogSubproduct.show()">Create
+            subgroup</button>
+    </div>
+    <ejs-treeview id="template" [fields]="field">
+        <ng-template #nodeTemplate="" let-data="">
+            <div>
+                <div class="treeviewdiv">
+                    <div class="nodetext">
+                        <span class="treeName">{{data.name}}</span>
+                        <div class="menu-actions">
+                            <mat-icon (click)="editProduct(data)">edit</mat-icon>
+                            <mat-icon (click)="deleteProduct(data)">delete</mat-icon>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </ng-template>
+    </ejs-treeview>
+</div>
+
+<ejs-dialog #dialogProduct [showCloseIcon]='true' [visible]='false' width="350px">
+    <ng-template #content>
+        <app-dynamic-forms [path]="pathProduct" [file]="fileProduct"
+            (submit)="createNavigationProduct($event)"></app-dynamic-forms>
+    </ng-template>
+</ejs-dialog>
+
+<ejs-dialog #dialogProductUpdate [showCloseIcon]='true' [visible]='false' width="350px">
+    <ng-template #content>
+        <app-dynamic-forms *ngIf="data&&config" [data]="data" [config]="config" [path]="pathProduct"
+            [file]="fileProduct" (submit)="updateNavigationProduct($event)"></app-dynamic-forms>
+    </ng-template>
+</ejs-dialog>
+
+<ejs-dialog #dialogSubproduct [showCloseIcon]='true' [visible]='false' width="350px" height="auto">
+    <ng-template #content>
+        <app-dynamic-forms [path]="pathSubproduct" [file]="fileSubproduct"
+            (submit)="createNavigationSubproduct($event)"></app-dynamic-forms>
+    </ng-template>
+</ejs-dialog>
+
+<ejs-dialog #dialogSubproductUpdate [showCloseIcon]='true' [visible]='false' width="350px">
+    <ng-template #content>
+        <app-dynamic-forms *ngIf="data&&config" [data]="data" [config]="config" [path]="pathSubproduct"
+            [file]="fileSubproduct" (submit)="updateNavigationProduct($event)"></app-dynamic-forms>
+    </ng-template>
+</ejs-dialog>

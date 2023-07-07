@@ -1,0 +1,11 @@
+<div class="cookie" *ngIf="language">
+    <div class="cookie-message">
+        <div>
+            {{language.cookieMessage}}
+            <a routerLink="../../document/cookie" target="_blank">{{language.cookieMoreAbout}}</a>
+        </div>
+        <div class="accept">
+            <button class="btn btn-default" (click)="acceptCookie()">{{language.cookieAcceptButton}}</button>
+        </div>
+    </div>
+</div>

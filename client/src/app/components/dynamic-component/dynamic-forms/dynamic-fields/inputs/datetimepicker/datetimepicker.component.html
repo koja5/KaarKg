@@ -1,0 +1,17 @@
+<div *ngIf="config.schedule === undefined" [ngClass]="[config.width]" [formGroup]="group" class="form-group">
+  <label *ngIf="config.title" class="custom-label">{{config?.title
+    }}</label>
+  <ejs-datetimepicker cssClass="{{ config.class }}" [id]="config.name" [formControlName]="config.name"
+    [disabled]="config.disabled!" [readonly]="config.readonly!"></ejs-datetimepicker>
+</div>
+
+<div *ngIf="config?.schedule" class="{{ config?.width }}">
+  <label *ngIf="config?.title" class="custom-label">{{ config?.title
+    }}</label>
+  <div class="e-input-group e-control-wrapper e-outline e-ddl e-valid-input">
+    <ejs-datetimepicker class="{{
+        config?.class
+      }} e-field e-input e-control e-textbox e-lib e-input datetime-full-width" value="{{ config.value }}"
+      [readonly]="config.readonly!"></ejs-datetimepicker>
+  </div>
+</div>

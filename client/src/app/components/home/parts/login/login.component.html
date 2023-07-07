@@ -1,0 +1,108 @@
+<div class="box-root padding-top--24 flex-flex flex-direction--column" style="flex-grow: 1; z-index: 9;">
+    <div class="formbg-outer" *ngIf="type === loginFormType.login">
+        <form id="stripe-login" class="mb-0">
+            <div class="field padding-bottom--24">
+                <label for="email">{{language.loginEmail}}</label>
+                <input type="email" name="email" [(ngModel)]="user.email">
+            </div>
+            <div class="field padding-bottom--24">
+                <div class="grid--50-50">
+                    <label for="password">{{language.loginPassword}}</label>
+                </div>
+                <input type="password" name="password" [(ngModel)]="user.password">
+                <div class="reset-pass">
+                    <a (click)="changeLoginFormType(loginFormType.forgot)">{{language.loginForgotPasswordButton}}</a>
+                </div>
+            </div>
+            <div class="text-center">
+                <button ejs-button [isPrimary]="true" (click)="login()">{{language.loginLoginButton}}</button>
+            </div>
+        </form>
+        <div class="footer-link padding-top--24">
+            <span>{{language.loginNoHaveAccount}} <a
+                    (click)="changeLoginFormType(loginFormType.signup)">{{language.loginSignUp}}</a></span>
+            <div class="listing padding-top--24 padding-bottom--24 flex-flex center-center">
+                <span><a routerLink="../../document/impressum" target="_blank">{{language.loginImpressum}}</a></span>
+                <span><a routerLink="../../document/terms" target="_blank">{{language.loginTerms}}</a></span>
+                <span><a routerLink="../../document/privacy-policy" target="_blank">{{language.loginPrivacy}}</a></span>
+            </div>
+        </div>
+    </div>
+    <div class="formbg-outer" *ngIf="type === loginFormType.signup">
+        <div class="tabs">
+            <label class="tab {{accountType === getUserType().customer}}"
+                (click)="selectUserType(getUserType().customer)">{{language.loginCustomer}}</label>
+            <label class="tab {{accountType === getUserType().dealer}}"
+                (click)="selectUserType(getUserType().dealer)">{{language.loginDealer}}</label>
+            <label class="tab {{accountType === getUserType().kindergarden}}"
+                (click)="selectUserType(getUserType().kindergarden)">{{language.loginKindergarden}}</label>
+        </div>
+        <form id="stripe-login" class="mb-0">
+            <div class="field padding-bottom--24">
+                <label for="text">{{language.loginFirstname}}</label>
+                <input type="firstname" name="firstname" [(ngModel)]="user.firstname">
+            </div>
+            <div class="field padding-bottom--24">
+                <label for="text">{{language.loginLastname}}</label>
+                <input type="lastname" name="lastname" [(ngModel)]="user.lastname">
+            </div>
+            <div class="field padding-bottom--24">
+                <label for="text">{{language.loginTelephone}}</label>
+                <input type="telephone" name="telephone" [(ngModel)]="user.telephone">
+            </div>
+            <div class="field padding-bottom--24">
+                <label for="text">{{language.loginAddress}}</label>
+                <input type="address" name="address" [(ngModel)]="user.address">
+            </div>
+            <div class="field padding-bottom--24">
+                <label for="email">Email</label>
+                <input type="email" name="email" [(ngModel)]="user.email">
+            </div>
+            <div class="field padding-bottom--24">
+                <div class="grid--50-50">
+                    <label for="password">{{language.loginPassword}}</label>
+                </div>
+                <input type="password" name="password" [(ngModel)]="user.password">
+            </div>
+            <div class="field padding-bottom--24">
+                <div class="grid--50-50">
+                    <label for="password">{{language.loginRepeatPassword}}</label>
+                </div>
+                <input type="password" name="password" [(ngModel)]="user.repeatPassword">
+            </div>
+            <div class="text-center">
+                <button ejs-button [isPrimary]="true" (click)="signUp()">{{language.loginSignUp}}</button>
+            </div>
+        </form>
+        <div class="footer-link padding-top--24">
+            <span>{{language.loginAreYouHaveAccount}} <a
+                    (click)="changeLoginFormType(loginFormType.login)">{{language.loginLoginButton}}</a></span>
+            <div class="listing padding-top--24 padding-bottom--24 flex-flex center-center">
+                <span><a routerLink="../../document/impressum" target="_blank">{{language.loginImpressum}}</a></span>
+                <span><a routerLink="../../document/terms" target="_blank">{{language.loginTerms}}</a></span>
+                <span><a routerLink="../../document/privacy-policy" target="_blank">{{language.loginPrivacy}}</a></span>
+            </div>
+        </div>
+    </div>
+    <div class="formbg-outer" *ngIf="type === loginFormType.forgot">
+        <form id="stripe-login" class="mb-0">
+            <div class="field padding-bottom--24">
+                <label for="email">{{language.loginEmail}}</label>
+                <input type="email" name="email">
+            </div>
+            <div class="text-center">
+                <button ejs-button [isPrimary]="true"
+                    (click)="recoveryPassword()">{{language.loginRecoveryPasswordButton}}</button>
+            </div>
+        </form>
+        <div class="footer-link padding-top--24">
+            <span>{{language.loginNoHaveAccount}} <a
+                    (click)="changeLoginFormType(loginFormType.signup)">{{language.loginSignUp}}</a></span>
+            <div class="listing padding-top--24 padding-bottom--24 flex-flex center-center">
+                <span><a routerLink="../../document/impressum" target="_blank">{{language.loginImpressum}}</a></span>
+                <span><a routerLink="../../document/terms" target="_blank">{{language.loginTerms}}</a></span>
+                <span><a routerLink="../../document/privacy-policy" target="_blank">{{language.loginPrivacy}}</a></span>
+            </div>
+        </div>
+    </div>
+</div>
