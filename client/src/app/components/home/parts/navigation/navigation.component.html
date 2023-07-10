@@ -31,8 +31,8 @@
             <ul class="menu menu-vertical sf-arrows d-block no-superfish">
 
                 <li *ngFor="let item of navigations">
-                    <a *ngIf="item.subChildren.length === 0" [routerLink]="['../../', 'category', item.name]"
-                        (click)="selectNavigationItem = item.name"
+                    <a *ngIf="item.subChildren.length === 0" [routerLinkActive]="['active']"
+                        [routerLink]="['/', 'category', item.name]" (click)="selectNavigationItem = item.name"
                         class="{{selectNavigationItem == item.name ? 'select' : ''}}">{{item.name}}
                     </a>
                     <a *ngIf="item.subChildren.length > 0"
@@ -46,9 +46,8 @@
                     </ul> -->
 
                     <ul *ngIf="item.subChildren.length > 0" class="children {{showChildren == item.name}}">
-                        <li *ngFor="let child of item.subChildren"><a
-                                [routerLink]="['../../', 'category', child.name]"
-                                (click)="selectNavigationItem = child.name"
+                        <li *ngFor="let child of item.subChildren"><a [routerLinkActive]="['active']"
+                                [routerLink]="['/', 'category', child.name]" (click)="selectNavigationItem = child.name"
                                 class="{{selectNavigationItem == child.name ? 'select' : ''}}">{{child.name}}</a></li>
                     </ul>
                 </li>
@@ -60,15 +59,16 @@
         <nav class="side-nav">
             <ul class="menu menu-vertical main-vertical sf-arrows d-block pb-0 no-superfish">
                 <li>
-                    <a routerLink="./document/terms" target="_blank">{{language.navigationTerms}}<mat-icon
+                    <a [routerLink]="['/', 'document','terms']" target="_blank">{{language.navigationTerms}}<mat-icon
                             class="menu-btn">chevron_right</mat-icon></a>
                 </li>
                 <li>
-                    <a routerLink="./document/impressum" target="_blank">{{language.navigationImpressum}}<mat-icon
+                    <a [routerLink]="['/', 'document','impressum']" target="_blank">{{language.navigationImpressum}}<mat-icon
                             class="menu-btn">chevron_right</mat-icon></a>
                 </li>
                 <li>
-                    <a routerLink="./document/privacy-policy" target="_blank">{{language.navigationPrivacy}}<mat-icon
+                    <a [routerLink]="['/', 'document','privacy-policy']"
+                        target="_blank">{{language.navigationPrivacy}}<mat-icon
                             class="menu-btn">chevron_right</mat-icon></a>
                 </li>
             </ul>

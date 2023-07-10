@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule, provideClientHydration } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -22,9 +22,9 @@ import { DynamicModule } from './components/dynamic-component/dynamic-module/dyn
     AppRoutingModule,
     HttpClientModule,
     MatIconModule,
-    DynamicModule,
+    DynamicModule
   ],
-  providers: [ToastrComponent],
+  providers: [ToastrComponent, provideClientHydration()],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

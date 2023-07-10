@@ -265,7 +265,6 @@ router.get("/getAllNavigationProducts", async (req, res, next) => {
               logger.log("error", err.sql + ". " + err.sqlMessage);
               res.json(err);
             } else {
-              console.log(rows);
               res.json(rows);
             }
           }
@@ -402,6 +401,7 @@ router.get("/getAllNavigationSubproducts", async (req, res, next) => {
 
 router.get("/getAllProductsForCategory/:category", async (req, res, next) => {
   try {
+    console.log('USAO SAM OVDE!');
     connection.getConnection(function (err, conn) {
       if (err) {
         logger.log("error", err.sql + ". " + err.sqlMessage);

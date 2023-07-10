@@ -66,6 +66,7 @@ export class ProductsComponent implements OnInit {
   initialize() {
     this.category = this.route.snapshot.paramMap.get('category')!;
     if (this.category) {
+      console.log("USAO SAM U KLIJENTA!");
       this.service
         .callGetMethod('/api/getAllProductsForCategory', this.category!)
         .subscribe((products) => {

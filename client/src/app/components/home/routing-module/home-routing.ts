@@ -6,7 +6,8 @@ import { DocumentComponent } from '../pages/documents/document.component';
 const routes: Routes = [
   {
     path: '',
-    component: HomeComponent,
+    pathMatch: 'full',
+    redirectTo: 'category/KAPLA-Bausteine'
   },
   {
     path: 'category/:category',
