@@ -8,8 +8,8 @@ describe('DialogModalComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ DialogModalComponent ]
-    })
+    declarations: [DialogModalComponent]
+})
     .compileComponents();
   });
 

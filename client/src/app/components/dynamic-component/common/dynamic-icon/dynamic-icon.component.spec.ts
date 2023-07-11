@@ -8,8 +8,8 @@ describe('DynamicIconComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ DynamicIconComponent ]
-    })
+    declarations: [DynamicIconComponent]
+})
     .compileComponents();
   });
 

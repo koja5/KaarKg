@@ -3,9 +3,10 @@ import { ToastrService } from 'ngx-toastr';
 import { HelpService } from 'src/app/services/help.service';
 
 @Component({
-  selector: 'app-toastr',
-  templateUrl: './toastr.component.html',
-  styleUrls: ['./toastr.component.scss'],
+    selector: 'app-toastr',
+    templateUrl: './toastr.component.html',
+    styleUrls: ['./toastr.component.scss'],
+    standalone: true,
 })
 export class ToastrComponent implements OnInit {
   private language: any;

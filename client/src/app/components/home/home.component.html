@@ -1,4 +1,6 @@
-<body>
+<app-loader *ngIf="!language"></app-loader>
+
+<body *ngIf="language">
     <div class="page-wrapper">
         <header class="header">
             <app-header-top></app-header-top>

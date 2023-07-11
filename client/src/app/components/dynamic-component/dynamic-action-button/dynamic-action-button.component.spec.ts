@@ -8,8 +8,8 @@ describe('DynamicActionButtonComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ DynamicActionButtonComponent ]
-    })
+    declarations: [DynamicActionButtonComponent]
+})
     .compileComponents();
 
     fixture = TestBed.createComponent(DynamicActionButtonComponent);

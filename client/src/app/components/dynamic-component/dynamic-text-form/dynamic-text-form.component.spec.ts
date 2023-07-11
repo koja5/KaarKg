@@ -8,8 +8,8 @@ describe('DynamicTextFormComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ DynamicTextFormComponent ]
-    })
+    declarations: [DynamicTextFormComponent]
+})
     .compileComponents();
   });
 

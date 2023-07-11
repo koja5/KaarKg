@@ -8,8 +8,8 @@ describe('NumericTextboxComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ NumericTextboxComponent ]
-    })
+    declarations: [NumericTextboxComponent]
+})
     .compileComponents();
   });
 

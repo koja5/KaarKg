@@ -8,8 +8,8 @@ describe('DatetimepickerComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ DatetimepickerComponent ]
-    })
+    declarations: [DatetimepickerComponent]
+})
     .compileComponents();
   });
 

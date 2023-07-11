@@ -8,8 +8,8 @@ describe('DynamicGridComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ DynamicGridComponent ]
-    })
+    declarations: [DynamicGridComponent]
+})
     .compileComponents();
 
     fixture = TestBed.createComponent(DynamicGridComponent);

@@ -8,8 +8,8 @@ describe('MatIconComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ MatIconComponent ]
-    })
+    declarations: [MatIconComponent]
+})
     .compileComponents();
   });
 

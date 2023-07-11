@@ -3,9 +3,10 @@ import 'zone.js/node';
 import { APP_BASE_HREF } from '@angular/common';
 import { ngExpressEngine } from '@nguniversal/express-engine';
 import * as express from 'express';
+import * as request from 'request';
 import { existsSync } from 'node:fs';
 import { join } from 'node:path';
-import { AppServerModule } from './src/main.server';
+import bootstrap from './src/main.server';
 
 //additional modules
 import 'localstorage-polyfill';
@@ -22,6 +23,7 @@ const apiProxy = createProxyMiddleware('/api/**', {
 
 // The Express app is exported so that it can be used by serverless Functions.
 export function app(): express.Express {
+  process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = '0';
   const server = express();
   server.use(apiProxy);
   const distFolder = join(process.cwd(), 'dist/client/browser');
@@ -33,7 +35,7 @@ export function app(): express.Express {
   server.engine(
     'html',
     ngExpressEngine({
-      bootstrap: AppServerModule,
+      bootstrap: bootstrap,
     })
   );
 
@@ -63,9 +65,21 @@ export function app(): express.Express {
   global['window'] = mock.getWindow();
 
   //api implementedget
-  server.get('/api/*', (req, res) => {
-  res.status(404).send('data requests are not supported');
-});
+
+  // server.use('/api/**', function(req, res) {
+  //   req.pipe(request(req.originalUrl)).pipe(res);
+  // });
+
+  server.get('/api/**', (req, res) => {
+    console.log(req.originalUrl);
+    console.log("USAO U DFSAKJJDKASJ!");
+    // const url = `${backendUrl}${req.originalUrl}`;
+    request(req.originalUrl).pipe(res);
+  });
+
+  // server.get('/api/*', (req, res) => {
+  //   res.status(404).send('data requests are not supported');
+  // });
 
   return server;
 }

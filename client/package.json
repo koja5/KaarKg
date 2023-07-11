@@ -76,6 +76,7 @@
     "@types/file-saver": "^2.0.5",
     "@types/jasmine": "~4.3.4",
     "@types/node": "^16.11.7",
+    "@types/request": "^2.48.8",
     "jasmine-core": "~5.0.1",
     "karma": "~6.4.2",
     "karma-chrome-launcher": "~3.2.0",
