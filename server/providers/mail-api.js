@@ -104,7 +104,8 @@ router.post("/approveAccountForKindergarden", function (req, res, next) {
   });
 });
 
-router.post("/approveAccountForDelaer", function (req, res, next) {
+router.post("/approveAccountForDealer", function (req, res, next) {
+  console.log("ISAO DSADASDA");
   var body = JSON.parse(
     fs.readFileSync("./providers/mail_server/config.json", "utf-8")
   );

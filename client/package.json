@@ -26,6 +26,7 @@
     "@angular/platform-browser-dynamic": "~13.3.11",
     "@angular/router": "~13.3.11",
     "@auth0/angular-jwt": "^5.1.2",
+    "@stripe/stripe-js": "^1.54.1",
     "@syncfusion/ej2-angular-buttons": "^19.4.55",
     "@syncfusion/ej2-angular-calendars": "^19.2.60",
     "@syncfusion/ej2-angular-charts": "^19.4.43",

@@ -1,7 +1,7 @@
 <div class="cart-overlay {{rightCard}}"></div>
 
 <div class="right-side-card row {{rightCard}}">
-    <a (click)="rightCard = ''" title="Close (Esc)" class="btn-close"></a>
+    <a (click)="closeCardEmitter.emit()" title="Close (Esc)" class="btn-close"></a>
 
     <div class="dropdownmenu-wrapper custom-scrollbar">
 
@@ -40,9 +40,9 @@
             </div>
 
             <div class="dropdown-cart-action">
-                <a href="cart.html" class="btn btn-gray btn-block view-cart">View
-                    Cart</a>
-                <a href="checkout.html" class="btn btn-dark btn-block">Checkout</a>
+                <!-- <a href="cart.html" class="btn btn-gray btn-block view-cart">View
+                    Cart</a> -->
+                <a (click)="onCheckout()" class="btn btn-dark btn-block">Checkout</a>
             </div>
         </div>
     </div>

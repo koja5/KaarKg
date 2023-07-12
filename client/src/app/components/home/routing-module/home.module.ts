@@ -16,8 +16,10 @@ import { NumericTextBoxAllModule } from '@syncfusion/ej2-angular-inputs';
 import { CookieComponent } from '../common/cookie/cookie.component';
 import { SharingHomeModule } from './share-home.module';
 import { SharingModule } from 'src/app/sharing.module';
+import { PaymentSuccessComponent } from '../../templates/payment-success/payment-success.component';
+import { PaymentErrorComponent } from '../../templates/payment-error/payment-error.component';
 @NgModule({
-  declarations: [HomeComponent, LoginComponent, NavigationComponent, ProductsComponent, ProductItemComponent, CookieComponent],
+  declarations: [HomeComponent, LoginComponent, NavigationComponent, ProductsComponent, ProductItemComponent, CookieComponent, PaymentSuccessComponent, PaymentErrorComponent],
   imports: [
     CommonModule,
     FormsModule,

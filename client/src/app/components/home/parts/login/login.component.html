@@ -85,16 +85,16 @@
                 </span>
                 <div class="required-letter-info">
                     <span class="{{registerFormControl.password.value.length >= 8 ? 'text-success' : ''}}">
-                        <app-mat-icon [icon]="'task_alt'"></app-mat-icon> Password should have minimum 8 characters
+                        <app-mat-icon [icon]="'task_alt'"></app-mat-icon> {{language.loginPasswordRequirementsMinimumCharacters}}
                     </span>
                     <span class="{{containsUppercase(registerFormControl.password.value) ? 'text-success' : ''}}">
-                        <app-mat-icon [icon]="'task_alt'"></app-mat-icon> Least 1 uppercase letter
+                        <app-mat-icon [icon]="'task_alt'"></app-mat-icon> {{language.loginPasswordRequirementsUppercase}}
                     </span>
                     <span class="{{containsLowercase(registerFormControl.password.value) ? 'text-success' : ''}}">
-                        <app-mat-icon [icon]="'task_alt'"></app-mat-icon> Least 1 lowercase letter
+                        <app-mat-icon [icon]="'task_alt'"></app-mat-icon> {{language.loginPasswordRequirementsLowercase}}
                     </span>
                     <span class="{{containsNumber(registerFormControl.password.value) ? 'text-success' : ''}}">
-                        <app-mat-icon [icon]="'task_alt'"></app-mat-icon> Least 1 number letter
+                        <app-mat-icon [icon]="'task_alt'"></app-mat-icon> {{language.loginPasswordRequirementsNumber}}
                     </span>
                 </div>
             </div>

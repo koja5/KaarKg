@@ -9,9 +9,6 @@ const logger = require("./config/logger");
 const request = require("request");
 const fs = require("fs");
 const sha1 = require("sha1");
-const stripe = require("stripe")(
-  "sk_test_51LhYhHL4uVudLiXAsXYCGWFY7RhraCcUwR9wbfV2xoL04pccSeLCLkbZvbPsxhivnRp9RJmu61YGFinNd7lKzOJz00r5f2ldt5"
-);
 
 module.exports = router;
 
@@ -49,6 +46,7 @@ router.post("/signUp", async function (req, res, next) {
         return res.json(err);
       }
       delete req.body.confirmPassword;
+      delete req.body.privacy;
       conn.query(
         "select * from users where email = ?",
         [req.body.email],
@@ -102,13 +100,13 @@ router.post("/signUp", async function (req, res, next) {
                   request(options, function (error, response, body) {});
 
                   if (req.body.type === 1 || req.body.type === 2) {
-                    var options = {
+                    var options_admin = {
                       url: process.env.link_api + mailAdminTemplate,
                       method: "POST",
                       body: req.body,
                       json: true,
                     };
-                    request(options, function (error, response, body) {});
+                    request(options_admin, function (error, response, body) {});
                   }
                 }
 
@@ -481,7 +479,7 @@ router.get("/getAllProductsForCategory/:category", async (req, res, next) => {
         res.json(err);
       } else {
         conn.query(
-          "select p.*, np.name from test p join navigation_products np on p.category_id = np.id where np.name like ?",
+          "select p.*, np.name from products p join navigation_products np on p.category_id = np.id where np.name like ?",
           req.params.category,
           function (err, rows, fields) {
             conn.release();
@@ -509,7 +507,7 @@ router.get("/searchProducts/:category", async (req, res, next) => {
         res.json(err);
       } else {
         conn.query(
-          "select p.*, np.name from test p join navigation_products np on p.category_id = np.id where p.title like '%" +
+          "select p.*, np.name from products p join navigation_products np on p.category_id = np.id where p.title like '%" +
             req.params.category +
             "%'",
           function (err, rows, fields) {
@@ -559,5 +557,85 @@ router.get("/getUsers", async (req, res, next) => {
   } catch (ex) {
     logger.log("error", err.sql + ". " + err.sqlMessage);
     res.json(ex);
+  }
+});
+
+/* STRIPE */
+
+const stripe = require("stripe")(
+  "sk_test_51NSxCnAM4XTLtMHFbYr7Rv051CyPsZzl22mKWy2J3fKOwxqIvfaCXNcgeLzBZWi2LDPbgHxddspzF7tAGPCDDpQM00V6nSv8iJ"
+);
+
+router.post("/checkout", async (req, res, next) => {
+  try {
+    console.log("USAO SAM!");
+    const session = await stripe.checkout.sessions.create({
+      shipping_address_collection: {
+        allowed_countries: ["AT"],
+      },
+      locale: "auto",
+      shipping_options: [
+        {
+          shipping_rate_data: {
+            type: "fixed_amount",
+            fixed_amount: {
+              amount: 0,
+              currency: "usd",
+            },
+            display_name: "Free shipping",
+            // Delivers between 5-7 business days
+            delivery_estimate: {
+              minimum: {
+                unit: "business_day",
+                value: 5,
+              },
+              maximum: {
+                unit: "business_day",
+                value: 7,
+              },
+            },
+          },
+        },
+        {
+          shipping_rate_data: {
+            type: "fixed_amount",
+            fixed_amount: {
+              amount: 1500,
+              currency: "usd",
+            },
+            display_name: "Next day air",
+            // Delivers in exactly 1 business day
+            delivery_estimate: {
+              minimum: {
+                unit: "business_day",
+                value: 1,
+              },
+              maximum: {
+                unit: "business_day",
+                value: 1,
+              },
+            },
+          },
+        },
+      ],
+      line_items: req.body.items.map((item) => ({
+        price_data: {
+          currency: "usd",
+          product_data: {
+            name: item.title,
+            images: [item.image],
+          },
+          unit_amount: item.price * 100,
+        },
+        quantity: 1,
+      })),
+      mode: "payment",
+      success_url:
+        process.env.link_client + "payment-success/{CHECKOUT_SESSION_ID}",
+      cancel_url: process.env.link_client + "payment-error",
+    });
+    res.status(200).json(session);
+  } catch (error) {
+    console.log(error);
   }
 });

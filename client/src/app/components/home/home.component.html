@@ -218,7 +218,8 @@
 
     <div class="cart-overlay {{mobileNavigation}}"></div>
 
-    <app-right-card *ngIf="type != ''" [rightCard]="rightCard" [type]="type"></app-right-card>
+    <app-right-card *ngIf="type != ''" [rightCard]="rightCard" [type]="type" (needToLoginEmitter)="needToLoginEmitter()"
+        (closeCardEmitter)="closeCard()"></app-right-card>
 
     <div class="mobile-navigation row {{mobileNavigation}}">
         <a (click)="mobileNavigation = ''" title="Close (Esc)" class="btn-close"></a>

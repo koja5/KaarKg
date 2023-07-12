@@ -38,7 +38,7 @@
         }
     },
     "approve_account_for_dealer": {
-        "template": "send_request_for_new_created_club_account.hjs",
+        "template": "approve_account_for_dealer.hjs",
         "subject": "Created new dealer account!",
         "email": "clinicnode@gmail.com",
         "fields": {

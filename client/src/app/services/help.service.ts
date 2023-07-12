@@ -5,6 +5,7 @@ import { UserType } from '../enums/user-type';
 import { FileType } from '../enums/file-type';
 import { HttpClient } from '@angular/common/http';
 import { ConfigurationService } from './configuration.service';
+import { ToastrComponent } from '../components/common/toastr/toastr.component';
 
 @Injectable({
   providedIn: 'root',
@@ -15,7 +16,8 @@ export class HelpService {
   constructor(
     private storageService: StorageService,
     private http: HttpClient,
-    private configurationService: ConfigurationService
+    private configurationService: ConfigurationService,
+    private toastr: ToastrComponent
   ) {}
 
   getDecodeToken() {
@@ -32,6 +34,14 @@ export class HelpService {
       }
     }
     return UserType[UserType.customer];
+  }
+
+  getAccountTypeId() {
+    if (this.storageService.getToken()) {
+      const user = this.helper.decodeToken(this.storageService.getToken());
+      return user.user.type;
+    }
+    return false;
   }
 
   checkRights(rights: any) {
@@ -173,5 +183,59 @@ export class HelpService {
       products[i]['subChild'] = items;
     }
     return products;
+  }
+
+  addToFavorite(item: any) {
+    let currentFavorite = this.storageService.getCookieObject('favorite');
+    let ind = 1;
+    if (currentFavorite != '') {
+      for (let i = 0; i < currentFavorite['length']; i++) {
+        if (currentFavorite[i]['title'] === item.title) {
+          (currentFavorite as []).splice(i, 1);
+          ind = 0;
+        }
+      }
+    }
+    if (ind) {
+      if (currentFavorite === '') {
+        currentFavorite = [];
+      }
+      currentFavorite.push(item);
+      this.storageService.setCookie(
+        'favorite',
+        JSON.stringify(currentFavorite)
+      );
+    }
+
+    const language = this.getLanguage();
+
+    this.toastr.showSuccessCustom(
+      '',
+      language.productSuccessfulyAddNewArticleInFavorite
+    );
+  }
+
+  addToCart(item: any) {
+    let currentFavorite = this.storageService.getCookieObject('cart');
+    let ind = 1;
+    if (currentFavorite.length > 0) {
+      for (let i = 0; i < currentFavorite['length']; i++) {
+        if (currentFavorite[i]['title'] === item.title) {
+          (currentFavorite as []).splice(i, 1);
+          ind = 0;
+        }
+      }
+    }
+    if (ind) {
+      currentFavorite.push(item);
+      this.storageService.setCookie('cart', JSON.stringify(currentFavorite));
+    }
+
+    const language = this.getLanguage();
+
+    this.toastr.showSuccessCustom(
+      '',
+      language.productSuccessfulyAddNewArticleInCart
+    );
   }
 }

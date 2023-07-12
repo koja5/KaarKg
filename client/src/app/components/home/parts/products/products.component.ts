@@ -24,6 +24,7 @@ export class ProductsComponent implements OnInit {
   public category!: string;
   public item: any;
   public language: any;
+  public accountType: any;
 
   constructor(
     private service: CallApiService,
@@ -41,6 +42,7 @@ export class ProductsComponent implements OnInit {
 
   ngOnInit(): void {
     this.language = this.helpService.getLanguageAndCheckFile();
+    this.accountType = this.helpService.getAccountTypeId();
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -83,46 +85,18 @@ export class ProductsComponent implements OnInit {
   }
 
   addToFavorite(item: any) {
-    let currentFavorite = this.storageService.getCookieObject('favorite');
-    let ind = 1;
-    if (currentFavorite != '') {
-      for (let i = 0; i < currentFavorite['length']; i++) {
-        if (currentFavorite[i]['title'] === item.title) {
-          (currentFavorite as []).splice(i, 1);
-          ind = 0;
-        }
-      }
-    }
-    if (ind) {
-      if (currentFavorite === '') {
-        currentFavorite = [];
-      }
-      currentFavorite.push(item);
-      this.storageService.setCookie(
-        'favorite',
-        JSON.stringify(currentFavorite)
-      );
-    }
+    this.helpService.addToFavorite(item);
   }
 
   addToCart(item: any) {
-    let currentFavorite = this.storageService.getCookieObject('cart');
-    let ind = 1;
-    if (currentFavorite.length > 0) {
-      for (let i = 0; i < currentFavorite['length']; i++) {
-        if (currentFavorite[i]['title'] === item.title) {
-          (currentFavorite as []).splice(i, 1);
-          ind = 0;
-        }
-      }
-    }
-    if (ind) {
-      currentFavorite.push(item);
-      this.storageService.setCookie('cart', JSON.stringify(currentFavorite));
-    }
+    this.helpService.addToCart(item);
   }
 
   getNoImageAvailablePicture(index: number) {
     this.products[index].image = '../no-image-available.png';
+  }
+
+  hideProductItemDialog() {
+    this.quickView.hide();
   }
 }

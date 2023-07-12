@@ -56,7 +56,12 @@
                 <hr class="short-divider">
 
                 <div class="price-box">
-                    <span class="product-price"> €{{item.price | number: '.2'}}</span>
+                    <span *ngIf="accountType && accountType === 1" class="product-price">€ {{item.price_delaer | number:
+                        '.2'}}</span>
+                    <span *ngIf="accountType && accountType === 2" class="product-price">€ {{item.price_kindergarden |
+                        number: '.2'}}</span>
+                    <span *ngIf="!accountType || accountType === 3" class="product-price">€ {{item.price | number:
+                        '.2'}}</span>
                 </div><!-- End .price-box -->
 
                 <div class="product-desc">
@@ -122,12 +127,12 @@
                                     (click)="addQuantity()"></button></span></div>
                     </div>
 
-                    <a href="javascript:;" class="btn btn-primary add-cart mr-2"
+                    <a (click)="addToCart()" class="btn btn-primary add-cart mr-2"
                         title="{{language.productAddToCart}}"><app-mat-icon icon="shopping_basket"
                             class="pr-2"></app-mat-icon> {{language.productAddToCart}}</a>
-
-                    <a href="https://www.portotheme.com/html/porto_ecommerce/ajax/cart.html"
-                        class="btn view-cart d-none">{{language.productViewCart}}</a>
+                    <div *ngIf="showViewCartOption" class="text-center">
+                        <a (click)="showViewCart()" class="btn view-cart">{{language.productViewCart}}</a>
+                    </div>
                 </div><!-- End .product-action -->
 
                 <hr class="divider mb-0 mt-0">

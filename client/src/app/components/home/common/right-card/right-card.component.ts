@@ -1,4 +1,14 @@
-import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  SimpleChanges,
+} from '@angular/core';
+import { loadStripe } from '@stripe/stripe-js';
+import { ToastrComponent } from 'src/app/components/common/toastr/toastr.component';
+import { CallApiService } from 'src/app/services/call-api.service';
 import { HelpService } from 'src/app/services/help.service';
 import { StorageService } from 'src/app/services/storage.service';
 
@@ -10,13 +20,17 @@ import { StorageService } from 'src/app/services/storage.service';
 export class RightCardComponent implements OnInit {
   @Input() rightCard: any;
   @Input() type: any;
+  @Output() needToLoginEmitter = new EventEmitter();
+  @Output() closeCardEmitter = new EventEmitter();
 
   public products: any;
   public language: any;
 
   constructor(
     private storageService: StorageService,
-    private helpService: HelpService
+    private helpService: HelpService,
+    private service: CallApiService,
+    private toastr: ToastrComponent
   ) {}
 
   ngOnInit(): void {
@@ -24,22 +38,42 @@ export class RightCardComponent implements OnInit {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if (changes['rightCard'].currentValue) {
-      if (this.type === 'favorite') {
-        this.products = this.storageService.getCookieObject('favorite');
-      } else if (this.type === 'cart') {
-        this.products = this.storageService.getCookieObject('cart');
-      }
+    console.log('usao sam!');
+    if (this.type === 'favorite') {
+      this.products = this.storageService.getCookieObject('favorite');
+    } else if (this.type === 'cart') {
+      this.products = this.storageService.getCookieObject('cart');
     }
   }
 
   removeFavorite(index: number) {
     this.products.splice(index, 1);
     this.storageService.setCookieObject('favorite', this.products);
+    this.toastr.showSuccessCustom('', this.language.productSuccessfulyRemoveArticleFromFavorite);
   }
 
   removeCart(index: number) {
     this.products.splice(index, 1);
     this.storageService.setCookieObject('cart', this.products);
+    this.toastr.showSuccessCustom('', this.language.productSuccessfulyRemoveArticleFromCart);
+  }
+
+  onCheckout(): void {
+    if (this.storageService.getToken()) {
+      this.service
+        .callPostMethod('/api/checkout', { items: this.products })
+        .subscribe(async (res: any) => {
+          let stripe = await loadStripe(
+            'pk_test_51NSxCnAM4XTLtMHFvdV00jIFCvdKOwGIgZ42UHsUg6USFdf646wzw0EC93bLkxlXsR5nABX4bNBhflRKHVm4fVvU006rofs2Oe'
+          );
+          stripe?.redirectToCheckout({
+            sessionId: res.id,
+          });
+        });
+    } else {
+      this.rightCard = '';
+      this.toastr.showInfoCustom('', this.language.paymentNeedToLogin);
+      this.needToLoginEmitter.emit();
+    }
   }
 }

@@ -9,6 +9,7 @@ export class MessageService {
   public refreshFormDataAfterUpdate = new Subject<null>();
   public orientation = new Subject<string>();
   public searchProductValue = new Subject<string>();
+  public viewCart = new Subject<null>();
 
   constructor() {}
 
@@ -42,5 +43,13 @@ export class MessageService {
 
   getSearchProductValue(): Observable<string> {
     return this.searchProductValue.asObservable();
+  }
+
+  sentViewCart() {
+    this.viewCart.next(null);
+  }
+
+  getViewCart() {
+    return this.viewCart.asObservable();
   }
 }

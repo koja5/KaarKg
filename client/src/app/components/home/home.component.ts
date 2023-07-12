@@ -6,6 +6,7 @@ import { LoginFormType } from 'src/app/enums/login-form-type';
 import { UserType } from 'src/app/enums/user-type';
 import { ConfigurationService } from 'src/app/services/configuration.service';
 import { HelpService } from 'src/app/services/help.service';
+import { MessageService } from 'src/app/services/message.service';
 import { StorageService } from 'src/app/services/storage.service';
 
 @Component({
@@ -40,12 +41,17 @@ export class HomeComponent implements OnInit {
     private router: Router,
     private helpService: HelpService,
     private storageService: StorageService,
-    private configurationService: ConfigurationService
+    private configurationService: ConfigurationService,
+    private messageService: MessageService
   ) {}
 
   ngOnInit(): void {
     this.getUserInfo();
     this.initalizeConfigData();
+
+    this.messageService.getViewCart().subscribe((message) => {
+      this.showCart();
+    });
   }
 
   login() {
@@ -91,6 +97,7 @@ export class HomeComponent implements OnInit {
     this.storageService.deleteToken();
     this.username = null;
     this.type = null;
+    window.location.reload();
   }
 
   onSearchChange(event: any) {
@@ -125,5 +132,13 @@ export class HomeComponent implements OnInit {
   showCart() {
     this.rightCard === '' ? (this.rightCard = 'opened') : (this.rightCard = '');
     this.type = 'cart';
+  }
+
+  needToLoginEmitter() {
+    this.loginDialog.show();
+  }
+
+  closeCard() {
+    this.rightCard = '';
   }
 }
