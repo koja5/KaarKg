@@ -21,9 +21,9 @@
                         <div class="header-right w-lg-max">
                             <div
                                 class="header-icon header-search header-search-inline header-search-category d-sm-block d-none w-lg-max text-right mt-0">
-                                <a href="#" class="search-toggle" role="button"><app-mat-icon
+                                <a class="search-toggle" role="button"><app-mat-icon
                                         class="home-action-button display-flex" icon="search"></app-mat-icon></a>
-                                <form action="#" method="get">
+                                <form method="get">
                                     <div class="header-search-wrapper mr-1">
                                         <input type="search" class="form-control" name="q" id="q"
                                             placeholder="{{language.homeSearchPlaceholder}}"
@@ -61,13 +61,14 @@
 
                             <div class="separator"></div>
 
-                            <div class="cart-dropdown-wrapper d-flex align-items-center pt-2 ml-lg-3 mr-lg-3">
+                            <div class="cart-dropdown-wrapper d-flex align-items-center pt-2 ml-lg-3 mr-lg-3 pointer"
+                                (click)="showCart()">
                                 <span class="cart-subtotal text-right font2 mr-3">{{language.homeShoppingCart}}
                                     <span class="cart-price d-block font2">$0.00</span>
                                 </span>
 
                                 <div class="header-contact dropdown cart-dropdown">
-                                    <a href="#" title="Cart" class="dropdown-arrow cart-toggle" role="button"
+                                    <a title="Cart" class="dropdown-arrow cart-toggle" role="button"
                                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
                                         data-display="static">
                                         <app-mat-icon class="home-action-button display-flex"
@@ -215,51 +216,9 @@
 
     <!-- END DIALOGS -->
 
-    <div class="cart-overlay {{rightCard}} {{mobileNavigation}}"></div>
+    <div class="cart-overlay {{mobileNavigation}}"></div>
 
-    <div class="right-side-card row {{rightCard}}">
-        <a (click)="rightCard = ''" title="Close (Esc)" class="btn-close"></a>
-
-        <div class="dropdownmenu-wrapper custom-scrollbar">
-
-            <h3>{{language.homeFavoriteCard}}</h3>
-
-            <div class="dropdown-cart-products" *ngFor="let item of listFavorites; let i = index">
-                <div class="product">
-                    <div class="product-details">
-                        <h5 class="product-title">
-                            <a>{{item.title}}</a>
-                        </h5>
-
-                        <span class="cart-product-info">
-                            <span class="cart-product-qty"></span> {{item.product_number}}
-                        </span>
-                    </div>
-
-                    <figure class="product-image-container">
-                        <a class="product-image">
-                            <img src="assets/images/products/{{item.image}}" alt="product" width="80" height="80">
-                        </a>
-                    </figure>
-
-                    <a (click)="removeFavorite(i)" class="btn-remove" title="Remove Product"><span>×</span></a>
-                </div>
-
-            </div>
-
-            <!-- <div class="dropdown-cart-total">
-            <span>SUBTOTAL:</span>
-
-            <span class="cart-total-price float-right">$134.00</span>
-        </div>
-
-        <div class="dropdown-cart-action">
-            <a href="cart.html" class="btn btn-gray btn-block view-cart">View
-                Cart</a>
-            <a href="checkout.html" class="btn btn-dark btn-block">Checkout</a>
-        </div> -->
-        </div>
-    </div>
+    <app-right-card *ngIf="type != ''" [rightCard]="rightCard" [type]="type"></app-right-card>
 
     <div class="mobile-navigation row {{mobileNavigation}}">
         <a (click)="mobileNavigation = ''" title="Close (Esc)" class="btn-close"></a>

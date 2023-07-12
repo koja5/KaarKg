@@ -118,12 +118,12 @@ export class HomeComponent implements OnInit {
   }
 
   showFavorite() {
-    this.listFavorites = this.storageService.getCookieObject('favorite');
     this.rightCard === '' ? (this.rightCard = 'opened') : (this.rightCard = '');
+    this.type = 'favorite';
   }
 
-  removeFavorite(index: number) {
-    this.listFavorites.splice(index, 1);
-    this.storageService.setCookieObject('favorite', this.listFavorites);
+  showCart() {
+    this.rightCard === '' ? (this.rightCard = 'opened') : (this.rightCard = '');
+    this.type = 'cart';
   }
 }

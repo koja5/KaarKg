@@ -49,8 +49,7 @@
                         <figure>
                             <a>
                                 <img src="./assets/images/products/{{item.image}}"
-                                    (error)="getNoImageAvailablePicture(i)" width="205" height="205"
-                                    alt="product">
+                                    (error)="getNoImageAvailablePicture(i)" width="205" height="205" alt="product">
                             </a>
 
                             <div class="btn-icon-group-left">
@@ -59,7 +58,8 @@
                                         class="pt-2"></app-mat-icon></a>
                             </div>
                             <div class="btn-icon-group">
-                                <a href="#" class="btn-icon btn-add-cart product-type-simple"><app-mat-icon
+                                <a (click)="addToCart(item)"
+                                    class="btn-icon btn-add-cart product-type-simple"><app-mat-icon
                                         icon="shopping_basket" class="pt-2"></app-mat-icon></a>
                             </div>
                             <a (click)="quickViewItem(item)" class="btn-quickview"

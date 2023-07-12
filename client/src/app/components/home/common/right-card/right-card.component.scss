@@ -1,0 +1,45 @@
+.right-side-card {
+  padding: 3rem 2rem 2rem 2rem;
+  display: none;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: auto;
+  width: 300px;
+  margin: 0;
+  transform: translate(340px);
+  transition: transform 0.2s ease-in-out 0s;
+  background-color: #fff;
+  z-index: 1050;
+  border: none;
+  border-radius: 0;
+  box-shadow: 0 5px 8px rgba(0, 0, 0, 0.15);
+}
+
+.right-side-card.opened {
+  transform: none;
+  position: fixed;
+  display: block;
+}
+
+.btn-close {
+  position: absolute;
+  top: 7px;
+  right: 7px;
+}
+
+.product {
+  display: flex;
+}
+
+.product-title {
+  margin-right: 5px;
+  margin-top: 5px;
+  margin-bottom: 0px;
+  min-width: 170px;
+  color: #000;
+}
+
+.dropdown-cart-action a {
+    width: 100%;
+}

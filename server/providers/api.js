@@ -48,6 +48,7 @@ router.post("/signUp", async function (req, res, next) {
         logger.log("error", err.sql + ". " + err.sqlMessage);
         return res.json(err);
       }
+      delete req.body.confirmPassword;
       conn.query(
         "select * from users where email = ?",
         [req.body.email],
@@ -60,7 +61,6 @@ router.post("/signUp", async function (req, res, next) {
             res.json(false);
           } else {
             req.body.password = sha1(req.body.password);
-            req.body.type = 2;
             delete req.body.repeatPassword;
             conn.query(
               "insert into users set ?",
@@ -70,15 +70,48 @@ router.post("/signUp", async function (req, res, next) {
                   logger.log("error", err.sql + ". " + err.sqlMessage);
                   return res.json(err);
                 } else {
-                  logger.log("info", "New user create account!");
+                  let mailTemplate = "";
+                  let mailAdminTemplate = "";
+                  if (req.body.type === 3) {
+                    logger.log("info", "New user create account!");
+                    mailTemplate = "verificationMailAddress";
+                  } else if (req.body.type === 2) {
+                    logger.log("info", "New kindergarden create account!");
+                    logger.log(
+                      "info",
+                      "Sent mail for verify mail and active user from superadmin side"
+                    );
+                    mailTemplate = "verificationMailAddressForKindergarden";
+                    mailAdminTemplate = "approveAccountForKindergarden";
+                  } else {
+                    logger.log("info", "New dealer create account!");
+                    logger.log(
+                      "info",
+                      "Sent mail for verify mail and active user from superadmin side"
+                    );
+                    mailTemplate = "verificationMailAddressForDealer";
+                    mailAdminTemplate = "approveAccountForDealer";
+                  }
+
                   var options = {
-                    url: process.env.link_api + "verificationMailAddress",
+                    url: process.env.link_api + mailTemplate,
                     method: "POST",
                     body: { email: req.body.email },
                     json: true,
                   };
+                  request(options, function (error, response, body) {});
+
+                  if (req.body.type === 1 || req.body.type === 2) {
+                    var options = {
+                      url: process.env.link_api + mailAdminTemplate,
+                      method: "POST",
+                      body: req.body,
+                      json: true,
+                    };
+                    request(options, function (error, response, body) {});
+                  }
                 }
-                request(options, function (error, response, body) {});
+
                 res.json(true);
               }
             );
@@ -160,6 +193,48 @@ router.get("/verificationMail/:email", async (req, res, next) => {
           }
         );
       }
+    });
+  } catch (ex) {
+    logger.log("error", err.sql + ". " + err.sqlMessage);
+    res.json(ex);
+  }
+});
+
+router.get("/activeUser/:email", function (req, res, next) {
+  try {
+    connection.getConnection(function (err, conn) {
+      if (err) {
+        logger.log("error", err.sql + ". " + err.sqlMessage);
+        res.json(err);
+      }
+      conn.query(
+        "update users SET active = 1 where sha1(email) = ?",
+        [req.params.email],
+        function (err, rows) {
+          if (!err) {
+            conn.query(
+              "select * from users where sha1(email) = ?",
+              [req.params.email],
+              function (err, rows) {
+                conn.release();
+                console.log(rows[0]);
+                var option_request = {
+                  rejectUnauthorized: false,
+                  url: process.env.link_api + "infoApprovedAccountFromAdmin",
+                  method: "POST",
+                  body: rows[0],
+                  json: true,
+                };
+                request(option_request, function (error, response, body) {});
+                return res.redirect("/");
+              }
+            );
+          } else {
+            conn.release();
+            return res.redirect("/message/error");
+          }
+        }
+      );
     });
   } catch (ex) {
     logger.log("error", err.sql + ". " + err.sqlMessage);
@@ -265,7 +340,6 @@ router.get("/getAllNavigationProducts", async (req, res, next) => {
               logger.log("error", err.sql + ". " + err.sqlMessage);
               res.json(err);
             } else {
-              console.log(rows);
               res.json(rows);
             }
           }
@@ -383,7 +457,6 @@ router.get("/getAllNavigationSubproducts", async (req, res, next) => {
               logger.log("error", err.sql + ". " + err.sqlMessage);
               res.json(err);
             } else {
-              console.log(rows);
               res.json(rows);
             }
           }
@@ -416,7 +489,6 @@ router.get("/getAllProductsForCategory/:category", async (req, res, next) => {
               logger.log("error", err.sql + ". " + err.sqlMessage);
               res.json(err);
             } else {
-              console.log(rows);
               res.json(rows);
             }
           }

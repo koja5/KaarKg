@@ -43,7 +43,7 @@
                 <a href="https://city-info.at" title="logo" target="_blank">
                   <img
                     width="200"
-                    src="http://116-203-109-78.cprapid.com/assets/images/kaarkg.png"
+                    src="http://city-info.at:3005/assets/images/logo-black.png"
                     title="logo"
                     alt="logo"
                   />
@@ -98,6 +98,65 @@
                       </p>
                     </td>
                   </tr>
+
+                  <br />
+
+                  <tr>
+                    <td>
+                      <table
+                        cellpadding="0"
+                        cellspacing="0"
+                        style="width: 100%; border: 1px solid #ededed"
+                      >
+                        <tbody>
+                          <tr>
+                            <td
+                              style="padding: 10px; border-bottom: 1px solid #ededed; border-right: 1px solid #ededed; width: 35%; font-weight:500; color:rgba(0,0,0,.64)"
+                            >
+                              Firstname:</td>
+                            <td
+                              style="padding: 10px; border-bottom: 1px solid #ededed; color: #455056;"
+                            >
+                              {{firstname}}</td>
+                          </tr>
+                          <tr>
+                            <td
+                              style="padding: 10px; border-bottom: 1px solid #ededed; border-right: 1px solid #ededed; width: 35%; font-weight:500; color:rgba(0,0,0,.64)"
+                            >
+                              Lastname:</td>
+                            <td
+                              style="padding: 10px; border-bottom: 1px solid #ededed; color: #455056;"
+                            >
+                              {{lastname}}</td>
+                          </tr>
+                          <tr>
+                            <td
+                              style="padding: 10px; border-bottom: 1px solid #ededed; border-right: 1px solid #ededed; width: 35%; font-weight:500; color:rgba(0,0,0,.64)"
+                            >
+                              Telephone:</td>
+                            <td
+                              style="padding: 10px; border-bottom: 1px solid #ededed; color: #455056;"
+                            >
+                              {{telephone}}</td>
+                          </tr>
+                          <tr>
+                            <td
+                              style="padding: 10px; border-bottom: 1px solid #ededed; border-right: 1px solid #ededed; width: 35%; font-weight:500; color:rgba(0,0,0,.64)"
+                            >
+                              Email:</td>
+                            <td
+                              style="padding: 10px; border-bottom: 1px solid #ededed; color: #455056;"
+                            >
+                              {{email_info}}</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </td>
+                  </tr>
+                  <a
+                    href="{{link}}"
+                    style="background:#0071DC;text-decoration:none !important; font-weight:500; margin-top:35px; color:#fff;text-transform:uppercase; font-size:14px;padding:10px 24px;display:inline-block;border-radius:50px;"
+                  >{{buttonText}}</a>
                   <tr>
                     <td style="height:40px;">&nbsp;</td>
                   </tr>

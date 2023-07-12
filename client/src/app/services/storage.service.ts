@@ -76,6 +76,10 @@ export class StorageService {
   }
 
   getCookieObject(key: string) {
-    return JSON.parse(this.cookieService.get(key));
+    if (this.cookieService.get(key)) {
+      return JSON.parse(this.cookieService.get(key));
+    } else {
+      return [];
+    }
   }
 }

@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HomedRouting } from './home-routing';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { HomeComponent } from '../home.component';
 import { DialogModule } from '@syncfusion/ej2-angular-popups';
 import { LoginComponent } from '../parts/login/login.component';
-import { ButtonModule } from '@syncfusion/ej2-angular-buttons';
+import { ButtonModule, CheckBoxModule } from '@syncfusion/ej2-angular-buttons';
 import { DropDownButtonAllModule } from '@syncfusion/ej2-angular-splitbuttons';
 import { MatIconComponent } from '../../common/mat-icon/mat-icon.component';
 import { NavigationComponent } from '../parts/navigation/navigation.component';
@@ -28,7 +28,10 @@ import { SharingModule } from 'src/app/sharing.module';
     NumericTextBoxAllModule,
     MatIconModule,
     SharingHomeModule,
-    SharingModule
+    SharingModule,
+    ReactiveFormsModule,
+    CheckBoxModule 
+
   ],
   providers: [],
 })

@@ -105,6 +105,23 @@ export class ProductsComponent implements OnInit {
     }
   }
 
+  addToCart(item: any) {
+    let currentFavorite = this.storageService.getCookieObject('cart');
+    let ind = 1;
+    if (currentFavorite.length > 0) {
+      for (let i = 0; i < currentFavorite['length']; i++) {
+        if (currentFavorite[i]['title'] === item.title) {
+          (currentFavorite as []).splice(i, 1);
+          ind = 0;
+        }
+      }
+    }
+    if (ind) {
+      currentFavorite.push(item);
+      this.storageService.setCookie('cart', JSON.stringify(currentFavorite));
+    }
+  }
+
   getNoImageAvailablePicture(index: number) {
     this.products[index].image = '../no-image-available.png';
   }

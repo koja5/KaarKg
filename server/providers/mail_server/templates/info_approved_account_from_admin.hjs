@@ -99,74 +99,10 @@
                     </td>
                   </tr>
 
-                  <br />
-
-                  <tr>
-                    <td>
-                      <table
-                        cellpadding="0"
-                        cellspacing="0"
-                        style="width: 100%; border: 1px solid #ededed"
-                      >
-                        <tbody>
-                          <tr>
-                            <td
-                              style="padding: 10px; border-bottom: 1px solid #ededed; border-right: 1px solid #ededed; width: 35%; font-weight:500; color:rgba(0,0,0,.64)"
-                            >
-                              Ad ID:</td>
-                            <td
-                              style="padding: 10px; border-bottom: 1px solid #ededed; color: #455056;"
-                            >
-                              {{id}}</td>
-                          </tr>
-                          <tr>
-                            <td
-                              style="padding: 10px; border-bottom: 1px solid #ededed; border-right: 1px solid #ededed; width: 35%; font-weight:500; color:rgba(0,0,0,.64)"
-                            >
-                              Start date:</td>
-                            <td
-                              style="padding: 10px; border-bottom: 1px solid #ededed; color: #455056;"
-                            >
-                              {{start_date}}</td>
-                          </tr>
-                          <tr>
-                            <td
-                              style="padding: 10px; border-bottom: 1px solid #ededed; border-right: 1px solid #ededed; width: 35%; font-weight:500; color:rgba(0,0,0,.64)"
-                            >
-                              Ad Name:</td>
-                            <td
-                              style="padding: 10px; border-bottom: 1px solid #ededed; color: #455056;"
-                            >
-                              {{ads_name}}</td>
-                          </tr>
-                          <tr>
-                            <td
-                              style="padding: 10px; border-bottom: 1px solid #ededed; border-right: 1px solid #ededed; width: 35%; font-weight:500; color:rgba(0,0,0,.64)"
-                            >
-                              City name:</td>
-                            <td
-                              style="padding: 10px; border-bottom: 1px solid #ededed; color: #455056;"
-                            >
-                              {{city_name}}</td>
-                          </tr>
-                          <tr>
-                            <td
-                              style="padding: 10px; border-bottom: 1px solid #ededed;border-right: 1px solid #ededed; width: 35%; font-weight:500; color:rgba(0,0,0,.64)"
-                            >
-                              Number of weeks:</td>
-                            <td
-                              style="padding: 10px; border-bottom: 1px solid #ededed; color: #455056;"
-                            >
-                              {{number_of_weeks}}</td>
-                          </tr>
-                          <a
-                            href="{{link}}"
-                            style="background:#0071DC;text-decoration:none !important; font-weight:500; margin-top:35px; color:#fff;text-transform:uppercase; font-size:14px;padding:10px 24px;display:inline-block;border-radius:50px;"
-                          >{{buttonText}}</a>
-                        </tbody>
-                      </table>
-                    </td>
-                  </tr>
+                  <a
+                    href="{{link}}"
+                    style="background:#0071DC;text-decoration:none !important; font-weight:500; margin-top:35px; color:#fff;text-transform:uppercase; font-size:14px;padding:10px 24px;display:inline-block;border-radius:50px;"
+                  >{{buttonText}}</a>
                   <tr>
                     <td style="height:40px;">&nbsp;</td>
                   </tr>
@@ -176,6 +112,7 @@
             <tr>
               <td style="height:20px;">&nbsp;</td>
             </tr>
+
             <tr>
               <td style="text-align:center;">
                 <p

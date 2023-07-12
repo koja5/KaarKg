@@ -140,7 +140,7 @@
                       <a
                         href="{{link}}"
                         style="
-                          background: #20e277;
+                          background: #0071DC;
                           text-decoration: none !important;
                           display: inline-block;
                           font-weight: 500;

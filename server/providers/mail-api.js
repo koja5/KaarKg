@@ -29,21 +29,42 @@ router.post("/verificationMailAddress", function (req, res, next) {
   });
 });
 
-router.post("/sendInfoForNewCreatedClubAccount", function (req, res, next) {
+router.post(
+  "/verificationMailAddressForKindergarden",
+  function (req, res, next) {
+    var body = JSON.parse(
+      fs.readFileSync("./providers/mail_server/config.json", "utf-8")
+    );
+    body.activate_mail_for_kindergarden.fields["email"] = req.body.email;
+    body.activate_mail_for_kindergarden.fields["link"] =
+      process.env.link_api + "/verificationMail/" + sha1(req.body.email);
+    var options = {
+      url: process.env.link_api + "mail-server/sendMail",
+      method: "POST",
+      body: body.activate_mail_for_kindergarden,
+      json: true,
+    };
+    request(options, function (error, response, body) {
+      if (!error) {
+        res.json(true);
+      } else {
+        res.json(false);
+      }
+    });
+  }
+);
+
+router.post("/verificationMailAddressForDealer", function (req, res, next) {
   var body = JSON.parse(
     fs.readFileSync("./providers/mail_server/config.json", "utf-8")
   );
-  body.send_request_for_new_created_club_account.fields["email_info"] =
-    req.body.email;
-  body.send_request_for_new_created_club_account.fields["firstname"] =
-    req.body.firstname;
-
-  body.send_request_for_new_created_club_account.fields["link"] =
-    process.env.link_api + "activeClub/" + sha1(req.body.email);
+  body.activate_mail_for_dealer.fields["email"] = req.body.email;
+  body.activate_mail_for_dealer.fields["link"] =
+    process.env.link_api + "/verificationMail/" + sha1(req.body.email);
   var options = {
     url: process.env.link_api + "mail-server/sendMail",
     method: "POST",
-    body: body.send_request_for_new_created_club_account,
+    body: body.activate_mail_for_dealer,
     json: true,
   };
   request(options, function (error, response, body) {
@@ -55,34 +76,88 @@ router.post("/sendInfoForNewCreatedClubAccount", function (req, res, next) {
   });
 });
 
-router.post(
-  "/info_approved_club_account_from_admin",
-  function (req, res, next) {
-    var body = JSON.parse(
-      fs.readFileSync("./providers/mail_server/config.json", "utf-8")
+router.post("/approveAccountForKindergarden", function (req, res, next) {
+  var body = JSON.parse(
+    fs.readFileSync("./providers/mail_server/config.json", "utf-8")
+  );
+  body.approve_account_for_kindergarden.fields["firstname"] =
+    req.body.firstname;
+  body.approve_account_for_kindergarden.fields["lastname"] = req.body.lastname;
+  body.approve_account_for_kindergarden.fields["telephone"] =
+    req.body.telephone;
+  body.approve_account_for_kindergarden.fields["email_info"] = req.body.email;
+
+  body.approve_account_for_kindergarden.fields["link"] =
+    process.env.link_api + "activeUser/" + sha1(req.body.email);
+  var options = {
+    url: process.env.link_api + "mail-server/sendMail",
+    method: "POST",
+    body: body.approve_account_for_kindergarden,
+    json: true,
+  };
+  request(options, function (error, response, body) {
+    if (!error) {
+      res.json(true);
+    } else {
+      res.json(false);
+    }
+  });
+});
+
+router.post("/approveAccountForDelaer", function (req, res, next) {
+  var body = JSON.parse(
+    fs.readFileSync("./providers/mail_server/config.json", "utf-8")
+  );
+  body.approve_account_for_dealer.fields["firstname"] = req.body.firstname;
+  body.approve_account_for_dealer.fields["lastname"] = req.body.lastname;
+  body.approve_account_for_dealer.fields["telephone"] = req.body.telephone;
+  body.approve_account_for_dealer.fields["email_info"] = req.body.email;
+
+  body.approve_account_for_dealer.fields["link"] =
+    process.env.link_api + "activeUser/" + sha1(req.body.email);
+  var options = {
+    url: process.env.link_api + "mail-server/sendMail",
+    method: "POST",
+    body: body.approve_account_for_dealer,
+    json: true,
+  };
+  request(options, function (error, response, body) {
+    if (!error) {
+      res.json(true);
+    } else {
+      res.json(false);
+    }
+  });
+});
+
+router.post("/infoApprovedAccountFromAdmin", function (req, res, next) {
+  var body = JSON.parse(
+    fs.readFileSync("./providers/mail_server/config.json", "utf-8")
+  );
+  body.info_approved_account_from_admin.fields["email"] = req.body.email;
+  body.info_approved_account_from_admin.fields["link"] =
+    process.env.link_client;
+  body.info_approved_account_from_admin.fields["greeting"] =
+    body.info_approved_account_from_admin.fields["greeting"].replace(
+      "{firstname}",
+      req.body.firstname
     );
-    body.info_approved_club_account_from_admin.fields["email"] = req.body.email;
-    body.info_approved_club_account_from_admin.fields["greeting"] =
-      body.info_approved_club_account_from_admin.fields["greeting"].replace(
-        "{firstname}",
-        req.body.firstname
-      );
-    var options = {
-      url: process.env.link_api + "mail-server/sendMail",
-      method: "POST",
-      body: body.info_approved_club_account_from_admin,
-      json: true,
-    };
-    console.log(options);
-    request(options, function (error, response, body) {
-      if (!error) {
-        res.json(true);
-      } else {
-        res.json(false);
-      }
-    });
-  }
-);
+  var options = {
+    rejectUnauthorized: false,
+    url: process.env.link_api + "mail-server/sendMail",
+    method: "POST",
+    body: body.info_approved_account_from_admin,
+    json: true,
+  };
+  console.log(options);
+  request(options, function (error, response, body) {
+    if (!error) {
+      res.json(true);
+    } else {
+      res.json(false);
+    }
+  });
+});
 
 router.post("/infoForActiveFreeAd", function (req, res, next) {
   var body = JSON.parse(
@@ -147,9 +222,7 @@ router.post("/sendRequestForFreeAd", function (req, res, next) {
   body.send_request_for_free_ad.fields["number_of_weeks"] =
     req.body.number_of_weeks;
   body.send_request_for_free_ad.fields["link"] =
-    process.env.link_client +
-    "dashboard/superadmin/preview-ad/" +
-    req.body.id;
+    process.env.link_client + "dashboard/superadmin/preview-ad/" + req.body.id;
   var options = {
     url: process.env.link_api + "mail-server/sendMail",
     method: "POST",

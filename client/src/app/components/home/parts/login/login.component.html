@@ -37,38 +37,88 @@
             <label class="tab {{accountType === getUserType().kindergarden}}"
                 (click)="selectUserType(getUserType().kindergarden)">{{language.loginKindergarden}}</label>
         </div>
-        <form id="stripe-login" class="mb-0">
+        <form [formGroup]="registerForm" class="mb-0">
             <div class="field padding-bottom--24">
                 <label for="text">{{language.loginFirstname}}</label>
-                <input type="firstname" name="firstname" [(ngModel)]="user.firstname">
+                <input formControlName="firstname">
+                <span class="text-danger"
+                    *ngIf="(registerFormControl.firstname.touched || submitted) && registerFormControl.firstname.errors?.required">
+                    {{language.loginFirstnameRequired}}
+                </span>
             </div>
             <div class="field padding-bottom--24">
                 <label for="text">{{language.loginLastname}}</label>
-                <input type="lastname" name="lastname" [(ngModel)]="user.lastname">
+                <input formControlName="lastname">
+                <span class="text-danger"
+                    *ngIf="(registerFormControl.lastname.touched || submitted) && registerFormControl.lastname.errors?.required">
+                    {{language.loginLastnameRequired}}
+                </span>
             </div>
             <div class="field padding-bottom--24">
                 <label for="text">{{language.loginTelephone}}</label>
-                <input type="telephone" name="telephone" [(ngModel)]="user.telephone">
-            </div>
-            <div class="field padding-bottom--24">
-                <label for="text">{{language.loginAddress}}</label>
-                <input type="address" name="address" [(ngModel)]="user.address">
+                <input formControlName="telephone">
+                <span class="text-danger"
+                    *ngIf="(registerFormControl.telephone.touched || submitted) && registerFormControl.telephone.errors?.required">
+                    {{language.loginTelephoneRequired}}
+                </span>
             </div>
             <div class="field padding-bottom--24">
                 <label for="email">Email</label>
-                <input type="email" name="email" [(ngModel)]="user.email">
+                <input name="email" formControlName="email">
+                <span class="text-danger"
+                    *ngIf="(registerFormControl.email.touched || submitted) && registerFormControl.email.errors?.required">
+                    {{language.loginEmailRequired}}
+                </span>
+                <span class="text-danger"
+                    *ngIf="registerFormControl.email.touched && registerFormControl.email.errors?.email">
+                    {{language.loginEmailNotValid}}
+                </span>
             </div>
             <div class="field padding-bottom--24">
                 <div class="grid--50-50">
                     <label for="password">{{language.loginPassword}}</label>
                 </div>
-                <input type="password" name="password" [(ngModel)]="user.password">
+                <input type="password" formControlName="password">
+                <span class="text-danger"
+                    *ngIf="(registerFormControl.password.touched || submitted) && registerFormControl.password.errors?.required">
+                    {{language.loginPasswordRequired}}
+                </span>
+                <div class="required-letter-info">
+                    <span class="{{registerFormControl.password.value.length >= 8 ? 'text-success' : ''}}">
+                        <app-mat-icon [icon]="'task_alt'"></app-mat-icon> Password should have minimum 8 characters
+                    </span>
+                    <span class="{{containsUppercase(registerFormControl.password.value) ? 'text-success' : ''}}">
+                        <app-mat-icon [icon]="'task_alt'"></app-mat-icon> Least 1 uppercase letter
+                    </span>
+                    <span class="{{containsLowercase(registerFormControl.password.value) ? 'text-success' : ''}}">
+                        <app-mat-icon [icon]="'task_alt'"></app-mat-icon> Least 1 lowercase letter
+                    </span>
+                    <span class="{{containsNumber(registerFormControl.password.value) ? 'text-success' : ''}}">
+                        <app-mat-icon [icon]="'task_alt'"></app-mat-icon> Least 1 number letter
+                    </span>
+                </div>
             </div>
             <div class="field padding-bottom--24">
                 <div class="grid--50-50">
                     <label for="password">{{language.loginRepeatPassword}}</label>
                 </div>
-                <input type="password" name="password" [(ngModel)]="user.repeatPassword">
+                <input type="password" formControlName="confirmPassword">
+                <span class="text-danger"
+                    *ngIf="(registerFormControl.confirmPassword.touched || submitted) && registerFormControl.confirmPassword.errors?.required">
+                    {{language.loginConfirmPasswordRequired}}
+                </span>
+                <span class="text-danger"
+                    *ngIf="registerFormControl.confirmPassword.touched && registerFormControl.confirmPassword.errors?.passwordMismatch">
+                    {{language.loginPasswordNotMatch}}
+                </span>
+            </div>
+            <div class="field padding-bottom--24">
+                <ejs-checkbox label="{{language.loginNeedToAcceptPrivacy}}" formControlName="privacy"></ejs-checkbox>
+                <span class="text-danger"
+                    *ngIf="(registerFormControl.privacy.touched || submitted) && registerFormControl.privacy.errors?.required">
+                    {{language.loginNeedToAcceptPrivacy}}
+                </span>
+                <ejs-checkbox label="{{language.loginQuestionForNewsletter}}" formControlName="newsletter"></ejs-checkbox>
             </div>
             <div class="text-center">
                 <button ejs-button [isPrimary]="true" (click)="signUp()">{{language.loginSignUp}}</button>

@@ -1,10 +1,17 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrComponent } from 'src/app/components/common/toastr/toastr.component';
 import { LoginFormType } from 'src/app/enums/login-form-type';
 import { UserType } from 'src/app/enums/user-type';
 import { UserModel } from 'src/app/models/user-model';
 import { CallApiService } from 'src/app/services/call-api.service';
+import { CustomValidationService } from 'src/app/services/custom-validation.service';
 import { HelpService } from 'src/app/services/help.service';
 import { StorageService } from 'src/app/services/storage.service';
 
@@ -21,17 +28,54 @@ export class LoginComponent implements OnInit {
   public user = new UserModel();
   public accountType: UserType = UserType.customer;
   public language: any;
+  public registerForm!: FormGroup;
+  public submitted = false;
 
   constructor(
     private service: CallApiService,
     private storageService: StorageService,
     private helpService: HelpService,
     private router: Router,
-    private toastr: ToastrComponent
+    private toastr: ToastrComponent,
+    private fb: FormBuilder,
+    private customValidator: CustomValidationService
   ) {}
 
   ngOnInit(): void {
     this.language = this.helpService.getLanguage();
+    this.initializeForm();
+  }
+
+  initializeForm() {
+    this.registerForm = this.fb.group(
+      {
+        firstname: ['', Validators.required],
+        lastname: ['', Validators.required],
+        email: ['', [Validators.required, Validators.email]],
+        telephone: ['', Validators.required],
+        password: [
+          '',
+          Validators.compose([
+            Validators.required,
+            this.customValidator.patternValidator(),
+          ]),
+        ],
+        confirmPassword: ['', [Validators.required]],
+        type: [this.accountType],
+        privacy: [null, Validators.requiredTrue],
+        newsletter: [false],
+      },
+      {
+        validator: this.customValidator.MatchPassword(
+          'password',
+          'confirmPassword'
+        ),
+      }
+    );
+  }
+
+  get registerFormControl() {
+    return this.registerForm.controls;
   }
 
   login() {
@@ -45,11 +89,12 @@ export class LoginComponent implements OnInit {
   }
 
   signUp() {
-    if (this.user.password != this.user.repeatPassword) {
-      this.toastr.showErrorCustom('Password is not equaly!', '');
-    } else {
+    console.log(this.registerForm);
+    this.registerForm.patchValue({ type: this.accountType });
+    this.submitted = true;
+    if (this.registerForm.valid) {
       this.service
-        .callPostMethod('/api/signUp', this.user)
+        .callPostMethod('/api/signUp', this.registerForm.value)
         .subscribe((data) => {
           if (data) {
             this.toastr.showSuccessCustom(
@@ -99,5 +144,17 @@ export class LoginComponent implements OnInit {
   changeLoginFormType(event: LoginFormType) {
     this.type = event;
     this.changeLoginFormTypeEvent.emit(event);
+  }
+
+  containsUppercase(value: string) {
+    return /[A-Z]/.test(value);
+  }
+
+  containsLowercase(value: string) {
+    return /[a-z]/.test(value);
+  }
+
+  containsNumber(value: string) {
+    return /[0-9]/.test(value);
   }
 }
