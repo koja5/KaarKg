@@ -1,0 +1,103 @@
+<app-header-top></app-header-top>
+<div class="container mt-4">
+    <app-back-button></app-back-button>
+
+
+    <section class="payment">
+        <div class="row">
+            <div>
+                <div class="row">
+                    <div class="col-xs-10 col-xs-offset-1" id="container">
+                        <div class="res-steps-container">
+                            <div class="res-steps res-step-one {{currentStep === 0 ? 'active': ''}}"
+                                data-class=".res-form-one">
+                                <div class="res-step-bar">1</div>
+                                <div class="res-progress-bar"></div>
+                                <div class="res-progress-title">{{language.paymentShippingAddressStep}}</div>
+                            </div>
+                            <div class="res-steps res-step-two {{currentStep === 1 ? 'active': ''}}"
+                                data-class=".res-form-two">
+                                <div class="res-step-bar">2</div>
+                                <div class="res-progress-bar"></div>
+                                <div class="res-progress-title">{{language.paymentPaymentOptionStep}}</div>
+                            </div>
+                            <div class="res-steps res-step-three {{currentStep === 2 ? 'active': ''}}"
+                                data-class=".res-form-three">
+                                <div class="res-step-bar">3</div>
+                                <div class="res-progress-bar"></div>
+                                <div class="res-progress-title">{{language.paymentPreviewBeforePaymentStep}}</div>
+                            </div>
+                            <div class="res-steps res-step-four {{currentStep === 3 ? 'active': ''}}"
+                                data-class=".res-form-four">
+                                <div class="res-step-bar">4</div>
+                                <div class="res-progress-bar"></div>
+                                <div class="res-progress-title">{{language.paymentDoneStep}}</div>
+                            </div>
+                        </div>
+                        <div class="clearfix">&nbsp;</div>
+                        <div class="clearfix">&nbsp;</div>
+                        <!-- <app-right-card [rightCard]="'opened'" [type]="'cart'"></app-right-card> -->
+
+                        <div class="res-step-form col-md-12 col-md-offset-2 res-form-one" *ngIf="currentStep === 0">
+                            <ul>
+                                <li *ngIf="user">
+                                    <ejs-radiobutton label="{{generateLabel(user)}}" name="default"
+                                        checked="true"></ejs-radiobutton>
+                                    <div class="shipping-action">
+                                        <a (click)="editShippingAddress()">{{language.paymentEditShippingAddress}}</a> |
+                                        <a (click)="editShippingAddress()">{{language.paymentDeleteShippingAddress}}</a>
+                                    </div>
+                                </li>
+                                <li *ngFor="let item of shippingAddress"></li>
+                            </ul>
+                            <a (click)="createNewShippingAddress()">{{language.paymentCreateNewShippingAddress}}</a>
+                        </div>
+
+                        <div class="res-step-form col-md-12 col-md-offset-2 res-form-one" *ngIf="currentStep === 1">
+                            <ul>
+                                <li class="mb-2">
+                                    <ejs-radiobutton label="{{language.paymentPrepaymentOptions}}"
+                                        name="paymentOption"
+                                        checked="{{paymentOption === 1 ? true : null}}" (click)="paymentOption = getPaymentOption().prepayment"></ejs-radiobutton>
+                                </li>
+                                <li>
+                                    <ejs-radiobutton label="{{language.paymentPayOptions}}"
+                                        name="paymentOption"
+                                        checked="{{paymentOption === 2 ? true : null}}"  (click)="paymentOption = getPaymentOption().pay"></ejs-radiobutton>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="res-step-form col-md-12 col-md-offset-2 res-form-one" *ngIf="currentStep === 2">
+
+                            <div class="text-center">
+                                {{paymentOption}}
+                                <h2>Payment review / Checkout</h2>
+                            </div>
+                        </div>
+
+
+                        <div class="res-step-form col-md-12 col-md-offset-2 res-form-one" *ngIf="currentStep === 3">
+
+                            <div class="text-center">
+                                <h2>Done!</h2>
+                            </div>
+                        </div>
+
+                        <div class="text-end mt-3">
+                            <button *ngIf="currentStep > 0" class="btn btn-default mr-2"
+                                (click)="previousStep()"><app-mat-icon [icon]="'navigate_before'"></app-mat-icon>
+                                {{language.paymentPreviousStep}}</button>
+                            <button *ngIf="currentStep < 3" class="btn btn-default"
+                                (click)="nextStep()">{{language.paymentNextStep}}
+                                <app-mat-icon [icon]="'navigate_next'"></app-mat-icon></button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+</div>

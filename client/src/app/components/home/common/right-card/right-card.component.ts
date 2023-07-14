@@ -78,16 +78,7 @@ export class RightCardComponent implements OnInit {
 
   onCheckout(): void {
     if (this.storageService.getToken()) {
-      this.service
-        .callPostMethod('/api/checkout', { items: this.products })
-        .subscribe(async (res: any) => {
-          let stripe = await loadStripe(
-            'pk_test_51NSxCnAM4XTLtMHFvdV00jIFCvdKOwGIgZ42UHsUg6USFdf646wzw0EC93bLkxlXsR5nABX4bNBhflRKHVm4fVvU006rofs2Oe'
-          );
-          stripe?.redirectToCheckout({
-            sessionId: res.id,
-          });
-        });
+      this.service.checkout(this.products);
     } else {
       this.rightCard = '';
       this.toastr.showInfoCustom('', this.language.paymentNeedToLogin);

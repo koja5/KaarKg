@@ -6,7 +6,11 @@ import { MatIconModule } from '@angular/material/icon';
 import { HomeComponent } from '../home.component';
 import { DialogModule } from '@syncfusion/ej2-angular-popups';
 import { LoginComponent } from '../parts/login/login.component';
-import { ButtonModule, CheckBoxModule } from '@syncfusion/ej2-angular-buttons';
+import {
+  ButtonModule,
+  CheckBoxModule,
+  RadioButtonAllModule,
+} from '@syncfusion/ej2-angular-buttons';
 import { DropDownButtonAllModule } from '@syncfusion/ej2-angular-splitbuttons';
 import { MatIconComponent } from '../../common/mat-icon/mat-icon.component';
 import { NavigationComponent } from '../parts/navigation/navigation.component';
@@ -18,8 +22,21 @@ import { SharingHomeModule } from './share-home.module';
 import { SharingModule } from 'src/app/sharing.module';
 import { PaymentSuccessComponent } from '../../templates/payment-success/payment-success.component';
 import { PaymentErrorComponent } from '../../templates/payment-error/payment-error.component';
+import { PaymentComponent } from '../pages/payment/payment.component';
+import { CheckoutComponent } from '../pages/checkout/checkout.component';
 @NgModule({
-  declarations: [HomeComponent, LoginComponent, NavigationComponent, ProductsComponent, ProductItemComponent, CookieComponent, PaymentSuccessComponent, PaymentErrorComponent],
+  declarations: [
+    HomeComponent,
+    LoginComponent,
+    NavigationComponent,
+    ProductsComponent,
+    ProductItemComponent,
+    CookieComponent,
+    PaymentSuccessComponent,
+    PaymentErrorComponent,
+    PaymentComponent,
+    CheckoutComponent
+  ],
   imports: [
     CommonModule,
     FormsModule,
@@ -32,8 +49,8 @@ import { PaymentErrorComponent } from '../../templates/payment-error/payment-err
     SharingHomeModule,
     SharingModule,
     ReactiveFormsModule,
-    CheckBoxModule 
-
+    CheckBoxModule,
+    RadioButtonAllModule,
   ],
   providers: [],
 })

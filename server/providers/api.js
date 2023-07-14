@@ -170,6 +170,34 @@ router.post("/login", function (req, res, next) {
   });
 });
 
+router.get("/getMe", auth, async (req, res, next) => {
+  try {
+    connection.getConnection(function (err, conn) {
+      if (err) {
+        logger.log("error", err.sql + ". " + err.sqlMessage);
+        res.json(err);
+      } else {
+        conn.query(
+          "select * from users where id = ?",
+          [req.user.user.id],
+          function (err, rows, fields) {
+            conn.release();
+            if (err) {
+              logger.log("error", err.sql + ". " + err.sqlMessage);
+              res.json(err);
+            } else {
+              res.json(rows);
+            }
+          }
+        );
+      }
+    });
+  } catch (ex) {
+    logger.log("error", err.sql + ". " + err.sqlMessage);
+    res.json(ex);
+  }
+});
+
 router.get("/verificationMail/:email", async (req, res, next) => {
   try {
     connection.getConnection(function (err, conn) {
@@ -568,7 +596,6 @@ const stripe = require("stripe")(
 
 router.post("/checkout", async (req, res, next) => {
   try {
-    console.log("USAO SAM!");
     const session = await stripe.checkout.sessions.create({
       shipping_address_collection: {
         allowed_countries: ["AT"],

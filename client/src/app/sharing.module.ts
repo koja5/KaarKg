@@ -7,6 +7,8 @@ import { LoaderContentComponent } from './components/dynamic-component/common/lo
 import { InvoiceComponent } from './components/templates/invoice/invoice.component';
 import { NotFoundComponent } from './components/templates/not-found/not-found.component';
 import { ConfirmDialogComponent } from './components/common/confirm-dialog/confirm-dialog.component';
+import { BackButtonComponent } from './components/common/back-button/back-button.component';
+import { SharingHomeModule } from './components/home/routing-module/share-home.module';
 
 @NgModule({
   declarations: [
@@ -15,16 +17,18 @@ import { ConfirmDialogComponent } from './components/common/confirm-dialog/confi
     LoaderContentComponent,
     NotFoundComponent,
     InvoiceComponent,
-    ConfirmDialogComponent
+    ConfirmDialogComponent,
+    BackButtonComponent
   ],
-  imports: [CommonModule, DialogModule],
+  imports: [CommonModule, DialogModule, SharingHomeModule],
   exports: [
     LoaderComponent,
     LoaderSvgComponent,
     LoaderContentComponent,
     NotFoundComponent,
     InvoiceComponent,
-    ConfirmDialogComponent
+    ConfirmDialogComponent,
+    BackButtonComponent
   ],
   providers: [ConfirmDialogComponent],
   bootstrap: [],

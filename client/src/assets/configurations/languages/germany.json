@@ -83,5 +83,17 @@
     "paymentSuccessPageContinueWithShopping": "Shoppen Sie weiter auf der Startseite",
     "paymentErrorPageTitle": "Die Zahlung wurde nicht erfolgreich ausgeführt!",
     "paymentErrorPageInfoAboutProduct": "Bitte versuchen Sie es erneut oder kontaktieren Sie uns für Hilfe!",
-    "paymentErrorPageContinueWithShopping": "Gehen Sie zurück zur Startseite"
+    "paymentErrorPageContinueWithShopping": "Gehen Sie zurück zur Startseite",
+    "paymentGoBack": "Geh zurück",
+    "paymentCreateNewShippingAddress": "Neue Lieferadresse erstellen",
+    "paymentEditShippingAddress": "Lieferadresse bearbeiten",
+    "paymentDeleteShippingAddress": "Lieferadresse löschen",
+    "paymentPreviousStep": "Vorherige",
+    "paymentNextStep": "Nächster",
+    "paymentShippingAddressStep": "Shipping address",
+    "paymentPaymentOptionStep": "Zahlungsmöglichkeiten",
+    "paymentPreviewBeforePaymentStep": "Kasse",
+    "paymentDoneStep": "Erledigt",
+    "paymentPrepaymentOptions": "Bestellen Sie das Produkt jetzt und zahlen Sie per Nachnahme",
+    "paymentPayOptions": "Zahlen Sie jetzt"
 }

@@ -1,108 +1,79 @@
 {
     "activate_mail": {
         "template": "activate_mail.hjs",
-        "subject": "Activate your account",
+        "subject": "Aktiviere deinen Account",
         "fields": {
-            "title": "Please activate your account!",
-            "text": "You have successfully created an account, please use the link below to confirm your email and after that you can successfully log in!",
-            "buttonText": "Activate your account"
+            "title": "Bitte Aktiviere deinen Account!",
+            "text": "Sie haben erfolgreich ein Konto erstellt. Bitte bestätigen Sie Ihre E-Mail-Adresse über den untenstehenden Link. Anschließend können Sie sich erfolgreich anmelden!",
+            "buttonText": "Aktiviere deinen Account"
         }
     },
     "activate_mail_for_kindergarden": {
         "template": "activate_mail.hjs",
-        "subject": "Activate your account",
+        "subject": "Aktiviere deinen Account",
         "fields": {
-            "title": "Please activate your account!",
-            "text": "You have successfully created an account for kindergarden, please use the link below to confirm your email and after that you can successfully log in!",
-            "buttonText": "Activate your account"
+            "title": "Bitte Aktiviere deinen Account!",
+            "text": "Sie haben erfolgreich ein Konto für den Kindergarten erstellt. Bitte bestätigen Sie Ihre E-Mail-Adresse über den untenstehenden Link. Anschließend können Sie sich erfolgreich anmelden!",
+            "buttonText": "Aktiviere deinen Account"
         }
     },
     "activate_mail_for_dealer": {
         "template": "activate_mail.hjs",
-        "subject": "Activate your account",
+        "subject": "Aktiviere deinen Account",
         "fields": {
-            "title": "Please activate your account!",
-            "text": "You have successfully created an account for dealer, please use the link below to confirm your email and after that you can successfully log in!",
-            "buttonText": "Activate your account"
+            "title": "Bitte Aktiviere deinen Account!",
+            "text": "Sie haben erfolgreich ein Händlerkonto erstellt. Bitte bestätigen Sie Ihre E-Mail-Adresse über den untenstehenden Link. Anschließend können Sie sich erfolgreich anmelden!",
+            "buttonText": "Aktiviere deinen Account"
         }
     },
     "approve_account_for_kindergarden": {
         "template": "approver_account_for_kindergarden.hjs",
-        "subject": "Created new kindergarden account!",
+        "subject": "Neues Kindergartenkonto erstellt!",
         "email": "clinicnode@gmail.com",
         "fields": {
-            "title": "Created new kindergarden account!",
-            "text": "Please check info of new created kindergarden account. Information about club you can see below!",
-            "greeting": "Hi",
+            "title": "Neues Kindergartenkonto erstellt!",
+            "text": "Bitte check info of new created kindergarden account. Information about club you can see below!",
+            "greeting": "Hallo",
             "buttonText": "Activate kindergarden account"
         }
     },
     "approve_account_for_dealer": {
         "template": "approve_account_for_dealer.hjs",
-        "subject": "Created new dealer account!",
+        "subject": "Neues Händlerkonto erstellt!",
         "email": "clinicnode@gmail.com",
         "fields": {
-            "title": "Created new dealer account!",
-            "text": "Please check info of new created dealer account. Information about club you can see below!",
-            "greeting": "Hi",
+            "title": "Neues Händlerkonto erstellt!",
+            "text": "Bitte überprüfen Sie die Informationen zum neu erstellten Händlerkonto. Informationen zum Verein finden Sie unten!",
+            "greeting": "Hallo",
             "buttonText": "Activate dealer account"
         }
     },
     "info_approved_account_from_admin": {
         "template": "info_approved_account_from_admin.hjs",
-        "subject": "Your account is activated!",
+        "subject": "Ihr Konto ist aktiviert!",
         "fields": {
-            "title": "Your account is activated!",
-            "text": "We would like to inform you that your account is activated now, so you can login now and order products!",
-            "buttonText": "Login to shop",
-            "greeting": "Hi {firstname}"
+            "title": "Ihr Konto ist aktiviert!",
+            "text": "Wir möchten Sie darüber informieren, dass Ihr Konto jetzt aktiviert ist, sodass Sie sich jetzt anmelden und Produkte bestellen können!",
+            "buttonText": "Zum Einkaufen anmelden",
+            "greeting": "Hallo {firstname}"
         }
     },
     "info_about_changed_user_data": {
         "template": "info_about_changed_user_data.hjs",
-        "subject": "Your information has been changed!",
+        "subject": "Ihre Angaben wurden geändert!",
         "fields": {
-            "title": "Your information has been changed!",
-            "text": "We would like to inform you that the information on your account has been changed. This may mean that your access to the platform or some of the other data has been changed.",
-            "greeting": "Hi {firstname}"
+            "title": "Ihre Angaben wurden geändert!",
+            "text": "Wir möchten Sie darüber informieren, dass sich die Informationen in Ihrem Konto geändert haben. Dies kann bedeuten, dass sich Ihr Zugang zur Plattform oder einige andere Daten geändert haben.",
+            "greeting": "Hallo {firstname}"
         }
     },
     "reset_password": {
         "template": "reset_password.hjs",
-        "subject": "Password recovery request",
+        "subject": "Anfrage zur Passwortwiederherstellung",
         "fields": {
-            "title": "Password recovery request",
-            "text": "You have requested a password reset. By clicking on the link below, you will receive a form for entering a new password for your profile!",
+            "title": "Anfrage zur Passwortwiederherstellung",
+            "text": "Sie haben eine Passwortzurücksetzung beantragt. Wenn Sie auf den untenstehenden Link klicken, erhalten Sie ein Formular zur Eingabe eines neuen Passworts für Ihr Profil!",
             "buttonText": "Reset password"
-        }
-    },
-    "send_request_for_free_ad": {
-        "template": "send_request_for_free_ad.hjs",
-        "subject": "Received new request for free ad",
-        "email": "clinicnode@gmail.com",
-        "fields": {
-            "title": "New request for free ad",
-            "text": "You received a new request for free ad. Information about ad you can see below.",
-            "greeting": "Hi",
-            "buttonText": "Preview requested ad"
-        }
-    },
-    "info_for_active_free_ad": {
-        "template": "info_for_active_free_ad.hjs",
-        "subject": "Free relationship request",
-        "fields": {
-            "title": "Free relationship request",
-            "text": "Your request for a free ad on the www.kaarkg.at portal has been approved and is valid for the next 2 weeks.",
-            "greeting": "Hi {firstname}"
-        }
-    },
-    "info_for_deny_free_ad": {
-        "template": "info_for_deny_free_ad.hjs",
-        "subject": "Deny request for your ad",
-        "fields": {
-            "title": "Deny request for your ad",
-            "text": "Your request for a free ad on the www.kaarkg.at portal has been deny. We can't approve this type of ad. You have not met the requirements for approval of a free ad.",
-            "greeting": "Hi {firstname}"
         }
     }
 }

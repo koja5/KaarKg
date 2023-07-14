@@ -682,6 +682,11 @@
     width: 100% !important;
   }
 }
+
+app-mat-icon {
+  display: flex;
+  align-items: center;
+}
 a {
   cursor: pointer;
 }
@@ -16343,4 +16348,9 @@ aside .widget-info i {
   position: absolute;
   top: 7px;
   right: 7px;
+}
+
+.center {
+  display: flex;
+  align-items: center;
 }
