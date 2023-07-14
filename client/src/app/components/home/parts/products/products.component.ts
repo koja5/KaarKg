@@ -54,7 +54,7 @@ export class ProductsComponent implements OnInit {
         )
         .subscribe((data) => {
           this.products = data;
-          this.category = 'Result for ' + changes['searchProduct'].currentValue;
+          this.category = this.language.productResultFor + changes['searchProduct'].currentValue;
         });
     } else {
       this.initialize();

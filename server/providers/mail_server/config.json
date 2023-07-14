@@ -92,7 +92,7 @@
         "subject": "Free relationship request",
         "fields": {
             "title": "Free relationship request",
-            "text": "Your request for a free ad on the www.city-info.at portal has been approved and is valid for the next 2 weeks.",
+            "text": "Your request for a free ad on the www.kaarkg.at portal has been approved and is valid for the next 2 weeks.",
             "greeting": "Hi {firstname}"
         }
     },
@@ -101,7 +101,7 @@
         "subject": "Deny request for your ad",
         "fields": {
             "title": "Deny request for your ad",
-            "text": "Your request for a free ad on the www.city-info.at portal has been deny. We can't approve this type of ad. You have not met the requirements for approval of a free ad.",
+            "text": "Your request for a free ad on the www.kaarkg.at portal has been deny. We can't approve this type of ad. You have not met the requirements for approval of a free ad.",
             "greeting": "Hi {firstname}"
         }
     }

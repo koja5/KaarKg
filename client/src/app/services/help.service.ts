@@ -6,6 +6,7 @@ import { FileType } from '../enums/file-type';
 import { HttpClient } from '@angular/common/http';
 import { ConfigurationService } from './configuration.service';
 import { ToastrComponent } from '../components/common/toastr/toastr.component';
+import { MessageService } from './message.service';
 
 @Injectable({
   providedIn: 'root',
@@ -17,7 +18,8 @@ export class HelpService {
     private storageService: StorageService,
     private http: HttpClient,
     private configurationService: ConfigurationService,
-    private toastr: ToastrComponent
+    private toastr: ToastrComponent,
+    private messageService: MessageService
   ) {}
 
   getDecodeToken() {
@@ -237,5 +239,6 @@ export class HelpService {
       '',
       language.productSuccessfulyAddNewArticleInCart
     );
+    this.messageService.sentRefreshCartInformation();
   }
 }

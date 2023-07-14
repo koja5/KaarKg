@@ -10299,12 +10299,6 @@ header .separator {
     min-width: 17rem;
   }
 }
-@media (max-width: 575px) {
-  .header-search-wrapper {
-    left: 15px;
-    right: 15px;
-  }
-}
 .menu,
 .menu li,
 .menu ol,
@@ -11490,7 +11484,7 @@ span.toggle {
   width: 24px;
   height: 24px;
   line-height: 23px;
-  font-family: "Porto";
+  font-family: "KaarKg";
   font-weight: 900;
   color: #222529;
 }
@@ -12058,6 +12052,10 @@ span.toggle:before {
   .sidebar-toggle {
     display: none;
   }
+
+  .header-contact {
+    padding-left: 1.5rem;
+  }
 }
 @media (max-width: 991px) {
   .sort-menu-trigger {
@@ -12100,6 +12098,7 @@ span.toggle:before {
     padding: 10px;
     background-color: #f4f4f4;
   }
+
 }
 @media (max-width: 767px) {
   .category-content {
@@ -14814,7 +14813,6 @@ aside .widget-info i {
   margin-right: 8px;
 }
 .header-contact .header-icon {
-  display: inline-block;
   transition: transform 0.3s;
 }
 .header-contact:hover .header-icon {
@@ -16253,7 +16251,6 @@ aside .widget-info i {
 }
 
 .home-action-button {
-  margin-right: 12px;
   width: 45px;
   height: 38px;
   font-size: 42px;
@@ -16340,4 +16337,10 @@ aside .widget-info i {
   left: 0;
   background: rgba(0, 0, 0, 0.4);
   z-index: 1050;
+}
+
+.btn-close {
+  position: absolute;
+  top: 7px;
+  right: 7px;
 }

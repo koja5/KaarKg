@@ -36,6 +36,9 @@ export class HomeComponent implements OnInit {
   public language: any;
   public loginFormTitle!: string;
   public listFavorites: any;
+  public numberOfProductInChart = 0;
+  public subOfProductInCart = 0;
+  public searchInput = '';
 
   constructor(
     private router: Router,
@@ -48,9 +51,17 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     this.getUserInfo();
     this.initalizeConfigData();
+    this.checkCart();
+    this.checkMessageService();
+  }
 
+  checkMessageService() {
     this.messageService.getViewCart().subscribe((message) => {
       this.showCart();
+    });
+
+    this.messageService.getRefreshCartInformation().subscribe((message) => {
+      this.checkCart();
     });
   }
 
@@ -70,6 +81,15 @@ export class HomeComponent implements OnInit {
   closeLoginDialog() {
     this.loginDialog.hide();
     this.getUserInfo();
+  }
+
+  checkCart() {
+    const products = this.storageService.getCookieObject('cart');
+    this.subOfProductInCart = 0;
+    this.numberOfProductInChart = products.length;
+    for (let i = 0; i < products.length; i++) {
+      this.subOfProductInCart += products[i].price;
+    }
   }
 
   getUserInfo() {

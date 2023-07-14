@@ -10,6 +10,7 @@ import { loadStripe } from '@stripe/stripe-js';
 import { ToastrComponent } from 'src/app/components/common/toastr/toastr.component';
 import { CallApiService } from 'src/app/services/call-api.service';
 import { HelpService } from 'src/app/services/help.service';
+import { MessageService } from 'src/app/services/message.service';
 import { StorageService } from 'src/app/services/storage.service';
 
 @Component({
@@ -25,12 +26,14 @@ export class RightCardComponent implements OnInit {
 
   public products: any;
   public language: any;
+  public subOfProductInCart = 0;
 
   constructor(
     private storageService: StorageService,
     private helpService: HelpService,
     private service: CallApiService,
-    private toastr: ToastrComponent
+    private toastr: ToastrComponent,
+    private messageService: MessageService
   ) {}
 
   ngOnInit(): void {
@@ -38,24 +41,39 @@ export class RightCardComponent implements OnInit {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    console.log('usao sam!');
     if (this.type === 'favorite') {
       this.products = this.storageService.getCookieObject('favorite');
     } else if (this.type === 'cart') {
       this.products = this.storageService.getCookieObject('cart');
+      this.checkSubtotal();
+    }
+  }
+
+  checkSubtotal() {
+    this.subOfProductInCart = 0;
+    for (let i = 0; i < this.products.length; i++) {
+      this.subOfProductInCart += this.products[i].price;
     }
   }
 
   removeFavorite(index: number) {
     this.products.splice(index, 1);
     this.storageService.setCookieObject('favorite', this.products);
-    this.toastr.showSuccessCustom('', this.language.productSuccessfulyRemoveArticleFromFavorite);
+    this.toastr.showSuccessCustom(
+      '',
+      this.language.productSuccessfulyRemoveArticleFromFavorite
+    );
   }
 
   removeCart(index: number) {
     this.products.splice(index, 1);
     this.storageService.setCookieObject('cart', this.products);
-    this.toastr.showSuccessCustom('', this.language.productSuccessfulyRemoveArticleFromCart);
+    this.toastr.showSuccessCustom(
+      '',
+      this.language.productSuccessfulyRemoveArticleFromCart
+    );
+    this.checkSubtotal();
+    this.messageService.sentRefreshCartInformation();
   }
 
   onCheckout(): void {

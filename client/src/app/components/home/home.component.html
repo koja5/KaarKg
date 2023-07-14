@@ -11,20 +11,21 @@
                                 (click)="mobileNavigation = 'opened'">
                                 <i class="fas fa-bars"></i>
                             </button>
-                            <a href="demo40.html" class="logo">
+                            <a class="logo">
                                 <img src="assets/images/logo-black.png" class="w-100" width="111" height="44"
-                                    alt="Porto Logo">
+                                    alt="KaarKg Logo">
                             </a>
                         </div>
                         <!-- End .header-left -->
 
                         <div class="header-right w-lg-max">
                             <div
-                                class="header-icon header-search header-search-inline header-search-category d-sm-block d-none w-lg-max text-right mt-0">
-                                <a class="search-toggle" role="button"><app-mat-icon
+                                class="header-icon header-search header-search-inline header-search-category w-lg-max text-right mt-0 {{searchInput}}">
+                                <a (click)="searchInput === '' ? searchInput = 'show' : searchInput = ''"
+                                    class="search-toggle" role="button"><app-mat-icon
                                         class="home-action-button display-flex" icon="search"></app-mat-icon></a>
                                 <form method="get">
-                                    <div class="header-search-wrapper mr-1">
+                                    <div class="header-search-wrapper mr-1 {{searchInput}}">
                                         <input type="search" class="form-control" name="q" id="q"
                                             placeholder="{{language.homeSearchPlaceholder}}"
                                             (input)="onSearchChange($event)">
@@ -38,7 +39,7 @@
                             <!-- End .header-search -->
 
                             <div (click)="showFavorite()"
-                                class="header-contact header-wishlist d-lg-flex pl-4 pr-sm-4 pr-2 ml-2">
+                                class="header-contact header-wishlist d-lg-flex pr-sm-4 pr-2 ml-2">
                                 <a class="header-icon mr-0" title="wishlist">
                                     <app-mat-icon class="home-action-button display-flex"
                                         icon="favorite"></app-mat-icon>
@@ -64,7 +65,7 @@
                             <div class="cart-dropdown-wrapper d-flex align-items-center pt-2 ml-lg-3 mr-lg-3 pointer"
                                 (click)="showCart()">
                                 <span class="cart-subtotal text-right font2 mr-3">{{language.homeShoppingCart}}
-                                    <span class="cart-price d-block font2">$0.00</span>
+                                    <span class="cart-price d-block font2">€{{subOfProductInCart | number: '.2'}}</span>
                                 </span>
 
                                 <div class="header-contact dropdown cart-dropdown">
@@ -73,7 +74,7 @@
                                         data-display="static">
                                         <app-mat-icon class="home-action-button display-flex"
                                             icon="shopping_bag"></app-mat-icon>
-                                        <span class=" cart-count badge-circle">3</span>
+                                        <span class=" cart-count badge-circle">{{numberOfProductInChart}}</span>
                                     </a>
 
 
@@ -168,7 +169,7 @@
             <h2>Subscribe to newsletter</h2>
 
             <p>
-                Subscribe to the Porto mailing list to receive updates on new arrivals, special offers and our
+                Subscribe to the KaarKg mailing list to receive updates on new arrivals, special offers and our
                 promotions.
             </p>
 

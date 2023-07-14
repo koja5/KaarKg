@@ -625,7 +625,7 @@ router.post("/checkout", async (req, res, next) => {
             name: item.title,
             images: [item.image],
           },
-          unit_amount: item.price * 100,
+          unit_amount: (item.price * 100).toFixed(0),
         },
         quantity: 1,
       })),

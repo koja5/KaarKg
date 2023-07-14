@@ -34,15 +34,15 @@
 
         <div *ngIf="type === 'cart'">
             <div class="dropdown-cart-total">
-                <span>SUBTOTAL:</span>
+                <span>{{language.productSubtotal}}</span>
 
-                <span class="cart-total-price float-right">$134.00</span>
+                <span class="cart-total-price float-right">€{{subOfProductInCart | number: '.2'}}</span>
             </div>
 
             <div class="dropdown-cart-action">
                 <!-- <a href="cart.html" class="btn btn-gray btn-block view-cart">View
                     Cart</a> -->
-                <a (click)="onCheckout()" class="btn btn-dark btn-block">Checkout</a>
+                <a (click)="onCheckout()" class="btn btn-dark btn-block">{{language.productCheckout}}</a>
             </div>
         </div>
     </div>
