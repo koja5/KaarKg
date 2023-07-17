@@ -1,19 +1,69 @@
-<div class="payment-content">
-    <div class="product">
+<div class="payment-content row">
+    <div class="product col-md-6">
         <div header><app-back-button></app-back-button></div>
 
         <div class="product-details">
             <div class="product-summary">
-                <span class="title">KAPLA-Bausteine mit 280 Stück</span>
-                <span class="price">$93.20</span>
+                <span *ngIf="products.length === 1" class="title">{{products[0].title}}</span>
+                <span *ngIf="products.length > 1" class="title">
+                    {{products[0].title}} {{language.checkoutAnd}} {{products.length - 1}} {{language.checkoutMore}}
+                </span>
+                <span class="price">€{{total | number: '.2'}}</span>
             </div>
         </div>
 
         <div class="order-datails">
-            
+            <ul>
+                <li class="item mb-2" *ngFor="let item of products">
+                    <span class="item-title">{{item.title}}</span>
+                    <span class="item-price">€{{item.price | number: '.2'}}</span>
+                </li>
+            </ul>
+        </div>
+
+        <div class="order-footer">
+            <ul class="subtotal">
+                <li class="item">
+                    <span class="item-title">{{language.checkoutSubtotal}}</span>
+                    <span class="item-price">€{{subtotal | number: '.2'}}</span>
+                </li>
+            </ul>
+
+            <ul class="shipping">
+                <li class="item">
+                    <span class="item-title">{{language.checkoutShipping}}</span>
+                    <span class="item-price">{{language.checkoutShippingFree}}</span>
+                </li>
+            </ul>
+
+            <ul class="Total">
+                <li class="item">
+                    <span class="item-title">{{language.checkoutTotal}}</span>
+                    <span class="item-price">€{{total | number: '.2'}}</span>
+                </li>
+            </ul>
         </div>
     </div>
-    <div class="payment">
-        Test
+    <div class="payment col-md-6">
+        <h4>{{language.checkoutPrepayment}}</h4>
+        <h5>{{language.checkoutShippingInformation}}</h5>
+        <div class="field mb-3">
+            <label for="email">{{language.checkoutEmail}}</label>
+            <input name="email" [(ngModel)]="shippingAddress.email">
+        </div>
+
+        <div class="field">
+            <label>{{language.checkoutShippingInformation}}</label>
+            <input name="firstname" placeholder="{{language.checkoutFirstname}}"
+                [(ngModel)]="shippingAddress.firstname">
+            <input name="lastname" placeholder="{{language.checkoutLastname}}" [(ngModel)]="shippingAddress.lastname">
+            <input name="address" placeholder="{{language.checkoutAddress}}" [(ngModel)]="shippingAddress.address">
+            <input name="telephone" placeholder="{{language.checkoutTelephone}}"
+                [(ngModel)]="shippingAddress.telephone">
+        </div>
+
+        <div class="pay mt-3">
+            <button class="btn btn-primary" (click)="pay()">{{language.checkoutPay}}</button>
+        </div>
     </div>
 </div>

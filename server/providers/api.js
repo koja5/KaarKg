@@ -170,6 +170,34 @@ router.post("/login", function (req, res, next) {
   });
 });
 
+router.get("/getMyShippingAddress", auth, async (req, res, next) => {
+  try {
+    connection.getConnection(function (err, conn) {
+      if (err) {
+        logger.log("error", err.sql + ". " + err.sqlMessage);
+        res.json(err);
+      } else {
+        conn.query(
+          "select id, firstname, lastname, telephone, email, address from users where id = ?",
+          [req.user.user.id],
+          function (err, rows, fields) {
+            conn.release();
+            if (err) {
+              logger.log("error", err.sql + ". " + err.sqlMessage);
+              res.json(err);
+            } else {
+              res.json(rows);
+            }
+          }
+        );
+      }
+    });
+  } catch (ex) {
+    logger.log("error", err.sql + ". " + err.sqlMessage);
+    res.json(ex);
+  }
+});
+
 router.get("/getMe", auth, async (req, res, next) => {
   try {
     connection.getConnection(function (err, conn) {
@@ -587,6 +615,118 @@ router.get("/getUsers", async (req, res, next) => {
     res.json(ex);
   }
 });
+
+/* SHIPPING ADDRESS */
+
+router.post("/createShippingAddress", auth, async function (req, res, next) {
+  try {
+    connection.getConnection(async function (err, conn) {
+      if (err) {
+        logger.log("error", err.sql + ". " + err.sqlMessage);
+        return res.json(err);
+      }
+      req.body.id_user = req.user.user.id;
+      conn.query(
+        "insert into shipping_address set ?",
+        req.body,
+        async function (err) {
+          if (err) {
+            logger.log("error", err.sql + ". " + err.sqlMessage);
+            return res.json(err);
+          } else {
+            logger.log("info", "Create new navigation subproduct");
+            res.json(true);
+          }
+        }
+      );
+    });
+  } catch (err) {
+    logger.log("error", err);
+  }
+});
+
+router.post("/updateShippingAddress", auth, async function (req, res, next) {
+  try {
+    connection.getConnection(async function (err, conn) {
+      if (err) {
+        logger.log("error", err.sql + ". " + err.sqlMessage);
+        return res.json(err);
+      }
+      conn.query(
+        "update shipping_address set ? where id = ?",
+        [req.body, req.body.id],
+        async function (err) {
+          if (err) {
+            logger.log("error", err.sql + ". " + err.sqlMessage);
+            return res.json(err);
+          } else {
+            logger.log("info", "Create new navigation product");
+            res.json(true);
+          }
+        }
+      );
+    });
+  } catch (err) {
+    logger.log("error", err);
+  }
+});
+
+router.post("/deleteShippingAddress", auth, function (req, res, next) {
+  try {
+    connection.getConnection(function (err, conn) {
+      if (err) {
+        logger.log("error", err.sql + ". " + err.sqlMessage);
+        res.json(err);
+      }
+      conn.query(
+        "delete from shipping_address where id = ?",
+        [req.body.id],
+        function (err, rows) {
+          conn.release();
+          if (!err) {
+            res.json(true);
+          } else {
+            logger.log("error", `${err.sql}. ${err.sqlMessage}`);
+            res.json(false);
+          }
+        }
+      );
+    });
+  } catch (ex) {
+    logger.log("error", err.sql + ". " + err.sqlMessage);
+    res.json(ex);
+  }
+});
+
+router.get("/getAllShippingAddressForUser", auth, async (req, res, next) => {
+  try {
+    connection.getConnection(function (err, conn) {
+      if (err) {
+        logger.log("error", err.sql + ". " + err.sqlMessage);
+        res.json(err);
+      } else {
+        conn.query(
+          "select * from shipping_address where id_user = ?",
+          req.user.user.id,
+          function (err, rows, fields) {
+            conn.release();
+            if (err) {
+              logger.log("error", err.sql + ". " + err.sqlMessage);
+              res.json(err);
+            } else {
+              res.json(rows);
+            }
+          }
+        );
+      }
+    });
+  } catch (ex) {
+    logger.log("error", err.sql + ". " + err.sqlMessage);
+    res.json(ex);
+  }
+});
+
+/* END SHIPPING ADDRESS */
 
 /* STRIPE */
 

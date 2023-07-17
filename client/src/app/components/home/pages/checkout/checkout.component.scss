@@ -8,13 +8,11 @@
 
 .product {
   justify-content: space-between;
-  max-width: 380px;
 }
 
 .product-details {
-  max-width: 380px;
   margin-top: 32px;
-  margin-bottom: 16px;
+  margin-bottom: 32px;
 }
 
 .title {
@@ -32,6 +30,47 @@
   display: block;
 }
 
-.payment {
-  width: 380px;
+.order-datails {
+  margin-bottom: 38px;
+}
+
+.item {
+  display: flex;
+  font-size: 14px;
+  font-weight: 500;
+  color: black;
+}
+
+.item-title {
+  width: 90%;
+  display: inline-block;
+}
+
+.subtotal {
+  padding-bottom: 16px;
+  border-bottom: 1px solid #c3c3c3;
+}
+
+.shipping {
+  padding-bottom: 16px;
+  border-bottom: 1px solid #c3c3c3;
+}
+
+.shipping li {
+  color: #c3c3c3;
+}
+
+.pay button {
+  width: 100%;
+  border-radius: 6px;
+}
+
+@media (min-width: 769px) {
+  .product {
+    padding-right: 3rem;
+  }
+
+  .payment {
+    padding-left: 3rem;
+  }
 }

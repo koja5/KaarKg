@@ -75,5 +75,22 @@
             "text": "Sie haben eine Passwortzurücksetzung beantragt. Wenn Sie auf den untenstehenden Link klicken, erhalten Sie ein Formular zur Eingabe eines neuen Passworts für Ihr Profil!",
             "buttonText": "Reset password"
         }
+    },
+    "invoiceToCustomer": {
+        "template": "invoice.hjs",
+        "subject": "Bestellen Sie auf der KaarKg-Website",
+        "fields": {
+            "text": "Sie haben Produkte auf der Website kaarkg.at bestellt. Die bestellten Produkte können Sie unten sehen!",
+            "greeting": "Hallo {firstname}"
+        }
+    },
+    "invoiceToSuperadmin": {
+        "template": "invoice.hjs",
+        "subject": "Sie haben eine neue Bestellung",
+        "email": "clinicnode@gmail.com",
+        "fields": {
+            "text": "Sie haben eine neue Bestellung auf Ihrer Website kaarkg.at. Die Bestelldetails finden Sie weiter unten!",
+            "greeting": "Hallo"
+        }
     }
 }

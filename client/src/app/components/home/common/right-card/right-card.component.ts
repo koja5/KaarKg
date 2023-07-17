@@ -6,6 +6,7 @@ import {
   Output,
   SimpleChanges,
 } from '@angular/core';
+import { Router } from '@angular/router';
 import { loadStripe } from '@stripe/stripe-js';
 import { ToastrComponent } from 'src/app/components/common/toastr/toastr.component';
 import { CallApiService } from 'src/app/services/call-api.service';
@@ -33,7 +34,8 @@ export class RightCardComponent implements OnInit {
     private helpService: HelpService,
     private service: CallApiService,
     private toastr: ToastrComponent,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -78,7 +80,7 @@ export class RightCardComponent implements OnInit {
 
   onCheckout(): void {
     if (this.storageService.getToken()) {
-      this.service.checkout(this.products);
+      this.router.navigate(['payment']);
     } else {
       this.rightCard = '';
       this.toastr.showInfoCustom('', this.language.paymentNeedToLogin);

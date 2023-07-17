@@ -14,7 +14,7 @@
 @import "~bootstrap/scss/bootstrap";
 
 :root {
-  --primary: #0071DC;
+  --primary: #0071dc;
   --white: #ffffff;
 }
 
@@ -683,10 +683,10 @@
   }
 }
 
-app-mat-icon {
-  display: flex;
-  align-items: center;
-}
+// app-mat-icon {
+//   display: flex;
+//   align-items: center;
+// }
 a {
   cursor: pointer;
 }
@@ -6628,11 +6628,7 @@ figure .porto-loading-icon {
   color: #fff;
 }
 .full-width {
-  padding-left: 10px;
-  padding-right: 10px;
-  margin: 0;
-  display: flex;
-  flex-wrap: wrap;
+  width: 100%;
 }
 .full-width [class*="col-"] {
   padding-right: 10px;
@@ -12103,7 +12099,6 @@ span.toggle:before {
     padding: 10px;
     background-color: #f4f4f4;
   }
-
 }
 @media (max-width: 767px) {
   .category-content {
@@ -16353,4 +16348,20 @@ aside .widget-info i {
 .center {
   display: flex;
   align-items: center;
+}
+
+.field input {
+  font-size: 16px;
+  line-height: 28px;
+  padding: 8px 16px;
+  width: 100%;
+  min-height: 44px;
+  border: unset;
+  border-radius: 4px;
+  outline-color: rgb(84 105 212 / 0.5);
+  background-color: rgb(255, 255, 255);
+  box-shadow: rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px,
+    rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(60, 66, 87, 0.16) 0px 0px 0px 1px,
+    rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px,
+    rgba(0, 0, 0, 0) 0px 0px 0px 0px;
 }

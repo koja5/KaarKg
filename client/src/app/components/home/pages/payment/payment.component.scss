@@ -13,7 +13,7 @@ body {
   -moz-border-radius: 50% !important;
   -ms-border-radius: 50% !important;
   border-radius: 50% !important;
-  background: #0aa7e1;
+  background: #0071DC;
   display: inline-block;
   height: 40px;
   width: 40px;
@@ -33,7 +33,7 @@ body {
 
 .payment .res-steps-container .res-steps .res-progress-bar {
   height: 5px;
-  background: #0aa7e1;
+  background: #0071DC;
   width: 50%;
   margin: -22px 0 0 50%;
   float: left;
@@ -64,7 +64,7 @@ body {
 
 .payment .res-step-form h3 {
   margin: 10px 0;
-  color: #0aa7e1;
+  color: #0071DC;
   font-size: 18px;
 }
 
@@ -83,7 +83,7 @@ body {
 }
 
 .payment .active .res-progress-title {
-  color: #0aa7e1;
+  color: #0071DC;
 }
 
 .payment-method {
@@ -136,7 +136,15 @@ input[type="radio"] {
   margin-left: 11px;
 }
 
-button {
-  display: inline-flex !important;
-  align-items: center;
+// button {
+//   display: inline-flex !important;
+//   align-items: center;
+// }
+
+.field input {
+  margin-bottom: 15px;
+}
+
+li {
+  margin-bottom: 10px;
 }

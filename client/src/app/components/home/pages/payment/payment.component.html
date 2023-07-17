@@ -2,8 +2,9 @@
 <div class="container mt-4">
     <app-back-button></app-back-button>
 
+    <app-loader *ngIf="loader"></app-loader>
 
-    <section class="payment">
+    <section class="payment" *ngIf="!loader">
         <div class="row">
             <div>
                 <div class="row">
@@ -41,29 +42,36 @@
                         <div class="res-step-form col-md-12 col-md-offset-2 res-form-one" *ngIf="currentStep === 0">
                             <ul>
                                 <li *ngIf="user">
-                                    <ejs-radiobutton label="{{generateLabel(user)}}" name="default"
-                                        checked="true"></ejs-radiobutton>
+                                    <ejs-radiobutton label="{{generateLabel(user)}}" name="default" checked="true"
+                                        (click)="selectShippingAddress(user)"></ejs-radiobutton>
+                                </li>
+                                <li *ngFor="let item of shippingAddresses" (click)="selectShippingAddress(item)">
+                                    <ejs-radiobutton label="{{generateLabel(item)}}" name="default" checked="true"
+                                        (click)="selectShippingAddress(user)"></ejs-radiobutton>
                                     <div class="shipping-action">
-                                        <a (click)="editShippingAddress()">{{language.paymentEditShippingAddress}}</a> |
-                                        <a (click)="editShippingAddress()">{{language.paymentDeleteShippingAddress}}</a>
+                                        <a
+                                            (click)="editDialogShippingAddress(item)">{{language.paymentEditShippingAddress}}</a>
+                                        |
+                                        <a
+                                            (click)="deleteShippingAddress(item)">{{language.paymentDeleteShippingAddress}}</a>
                                     </div>
                                 </li>
-                                <li *ngFor="let item of shippingAddress"></li>
                             </ul>
-                            <a (click)="createNewShippingAddress()">{{language.paymentCreateNewShippingAddress}}</a>
+                            <a
+                                (click)="createDialogNewShippingAddress()">{{language.paymentCreateNewShippingAddress}}</a>
                         </div>
 
                         <div class="res-step-form col-md-12 col-md-offset-2 res-form-one" *ngIf="currentStep === 1">
                             <ul>
                                 <li class="mb-2">
-                                    <ejs-radiobutton label="{{language.paymentPrepaymentOptions}}"
-                                        name="paymentOption"
-                                        checked="{{paymentOption === 1 ? true : null}}" (click)="paymentOption = getPaymentOption().prepayment"></ejs-radiobutton>
+                                    <ejs-radiobutton label="{{language.paymentPrepaymentOptions}}" name="paymentOption"
+                                        checked="{{paymentOption === 1 ? true : null}}"
+                                        (click)="paymentOption = getPaymentOption().prepayment"></ejs-radiobutton>
                                 </li>
                                 <li>
-                                    <ejs-radiobutton label="{{language.paymentPayOptions}}"
-                                        name="paymentOption"
-                                        checked="{{paymentOption === 2 ? true : null}}"  (click)="paymentOption = getPaymentOption().pay"></ejs-radiobutton>
+                                    <ejs-radiobutton label="{{language.paymentPayOptions}}" name="paymentOption"
+                                        checked="{{paymentOption === 2 ? true : null}}"
+                                        (click)="paymentOption = getPaymentOption().pay"></ejs-radiobutton>
                                 </li>
                             </ul>
                         </div>
@@ -101,3 +109,26 @@
 
 
 </div>
+
+<ejs-dialog #shippingAddressDialog [showCloseIcon]='true' header="{{language.checkoutShippingInformation}}"
+    [position]="{Y: 100}" [visible]='false' width="450px">
+    <ng-template #content>
+        <form #myForm="ngForm">
+            <div class="field">
+                <label>{{language.checkoutShippingInformation}}</label>
+                <input name="firstname" placeholder="{{language.checkoutFirstname}}"
+                    [(ngModel)]="shippingAddress.firstname" required>
+                <input name="lastname" placeholder="{{language.checkoutLastname}}"
+                    [(ngModel)]="shippingAddress.lastname" required>
+                <input name="telephone" placeholder="{{language.checkoutTelephone}}"
+                    [(ngModel)]="shippingAddress.telephone" required>
+                <input name="email" placeholder="{{language.checkoutEmail}}" [(ngModel)]="shippingAddress.email"
+                    required>
+                <input name="address" placeholder="{{language.checkoutAddress}}" [(ngModel)]="shippingAddress.address"
+                    required>
+            </div>
+            <button class="btn btn-primary full-width mt-2" [disabled]="!myForm.valid"
+                (click)="shippingActionType === 'edit' ? editShippingAddress(shippingAddress) : createNewShippingAddress()">{{language.checkoutSaveShippingInformation}}</button>
+        </form>
+    </ng-template>
+</ejs-dialog>

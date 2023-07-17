@@ -24,6 +24,7 @@ import { PaymentSuccessComponent } from '../../templates/payment-success/payment
 import { PaymentErrorComponent } from '../../templates/payment-error/payment-error.component';
 import { PaymentComponent } from '../pages/payment/payment.component';
 import { CheckoutComponent } from '../pages/checkout/checkout.component';
+import { RouterModule } from '@angular/router';
 @NgModule({
   declarations: [
     HomeComponent,
@@ -50,7 +51,7 @@ import { CheckoutComponent } from '../pages/checkout/checkout.component';
     SharingModule,
     ReactiveFormsModule,
     CheckBoxModule,
-    RadioButtonAllModule,
+    RadioButtonAllModule
   ],
   providers: [],
 })

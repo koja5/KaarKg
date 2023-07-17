@@ -290,3 +290,116 @@ router.post("/infoForDenyFreeAd", function (req, res, next) {
     }
   });
 });
+
+router.post("/sendInvoiceToCustomer", function (req, res, next) {
+  var body = JSON.parse(
+    fs.readFileSync("./providers/mail_server/config.json", "utf-8")
+  );
+  body.invoiceToCustomer.fields["greeting"] = body.invoiceToCustomer.fields[
+    "greeting"
+  ].replace("{firstname}", req.body.mainAddress.firstname);
+  body.invoiceToCustomer.fields["email"] = req.body.mainAddress.email;
+
+  body.invoiceToCustomer.fields["mainFirstname"] =
+    req.body.mainAddress.firstname;
+  body.invoiceToCustomer.fields["mainLastname"] = req.body.mainAddress.lastname;
+  body.invoiceToCustomer.fields["mainTelephone"] =
+    req.body.mainAddress.telephone;
+  body.invoiceToCustomer.fields["mainAddress"] = req.body.mainAddress.address;
+  body.invoiceToCustomer.fields["mainEmail"] = req.body.mainAddress.email;
+
+  body.invoiceToCustomer.fields["shippingFirstname"] =
+    req.body.shippingAddress.firstname;
+  body.invoiceToCustomer.fields["shippingLastname"] =
+    req.body.shippingAddress.lastname;
+  body.invoiceToCustomer.fields["shippingTelephone"] =
+    req.body.shippingAddress.telephone;
+  body.invoiceToCustomer.fields["shippingEmail"] =
+    req.body.shippingAddress.email;
+  body.invoiceToCustomer.fields["shippingAddress"] =
+    req.body.shippingAddress.address;
+
+  body.invoiceToCustomer.fields["invoiceTitle"] =
+    req.body.language.invoiceTitle;
+  body.invoiceToCustomer.fields["invoiceQuantity"] =
+    req.body.language.invoiceQuantity;
+  body.invoiceToCustomer.fields["invoicePrice"] =
+    req.body.language.invoicePrice;
+  body.invoiceToCustomer.fields["invoiceTotal"] =
+    req.body.language.invoiceTotal;
+  body.invoiceToCustomer.fields["invoiceMainAddress"] =
+    req.body.language.invoiceMainAddress;
+  body.invoiceToCustomer.fields["invoiceShippingAddress"] =
+    req.body.language.invoiceShippingAddress;
+  body.invoiceToCustomer.fields["products"] = req.body.products;
+  body.invoiceToCustomer.fields["total"] = req.body.total;
+
+  var options = {
+    url: process.env.link_api + "mail-server/sendMail",
+    method: "POST",
+    body: body.invoiceToCustomer,
+    json: true,
+  };
+  request(options, function (error, response, body) {
+    if (!error) {
+      res.json(true);
+    } else {
+      res.json(false);
+    }
+  });
+});
+
+router.post("/sendInvoiceToSuperadmin", function (req, res, next) {
+  var body = JSON.parse(
+    fs.readFileSync("./providers/mail_server/config.json", "utf-8")
+  );
+
+  body.invoiceToSuperadmin.fields["mainFirstname"] =
+    req.body.mainAddress.firstname;
+  body.invoiceToSuperadmin.fields["mainLastname"] =
+    req.body.mainAddress.lastname;
+  body.invoiceToSuperadmin.fields["mainTelephone"] =
+    req.body.mainAddress.telephone;
+  body.invoiceToSuperadmin.fields["mainAddress"] = req.body.mainAddress.address;
+  body.invoiceToSuperadmin.fields["mainEmail"] = req.body.mainAddress.email;
+
+  body.invoiceToSuperadmin.fields["shippingFirstname"] =
+    req.body.shippingAddress.firstname;
+  body.invoiceToSuperadmin.fields["shippingLastname"] =
+    req.body.shippingAddress.lastname;
+  body.invoiceToSuperadmin.fields["shippingTelephone"] =
+    req.body.shippingAddress.telephone;
+  body.invoiceToSuperadmin.fields["shippingEmail"] =
+    req.body.shippingAddress.email;
+  body.invoiceToSuperadmin.fields["shippingAddress"] =
+    req.body.shippingAddress.address;
+
+  body.invoiceToSuperadmin.fields["invoiceTitle"] =
+    req.body.language.invoiceTitle;
+  body.invoiceToSuperadmin.fields["invoiceQuantity"] =
+    req.body.language.invoiceQuantity;
+  body.invoiceToSuperadmin.fields["invoicePrice"] =
+    req.body.language.invoicePrice;
+  body.invoiceToSuperadmin.fields["invoiceTotal"] =
+    req.body.language.invoiceTotal;
+  body.invoiceToSuperadmin.fields["invoiceMainAddress"] =
+    req.body.language.invoiceMainAddress;
+  body.invoiceToSuperadmin.fields["invoiceShippingAddress"] =
+    req.body.language.invoiceShippingAddress;
+  body.invoiceToSuperadmin.fields["products"] = req.body.products;
+  body.invoiceToSuperadmin.fields["total"] = req.body.total;
+
+  var options = {
+    url: process.env.link_api + "mail-server/sendMail",
+    method: "POST",
+    body: body.invoiceToSuperadmin,
+    json: true,
+  };
+  request(options, function (error, response, body) {
+    if (!error) {
+      res.json(true);
+    } else {
+      res.json(false);
+    }
+  });
+});

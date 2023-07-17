@@ -36,7 +36,7 @@ export class StorageService {
   }
 
   getLocalStorageObject(key: string) {
-    return JSON.parse(JSON.stringify(localStorage.getItem(key)));
+    return JSON.parse(JSON.parse(JSON.stringify(localStorage.getItem(key))));
   }
 
   removeAllLocalStorage() {

@@ -33,6 +33,7 @@ router.post("/sendMail", function (req, res) {
     "utf-8"
   );
   var compiledTemplate = hogan.compile(confirmTemplate);
+
   var mailOptions = {
     from: '"KaarKg"' + process.env.smtp_user,
     to: req.body.fields["email"] ? req.body.fields["email"] : req.body.email,
