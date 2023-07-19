@@ -6,6 +6,7 @@ import { PaymentSuccessComponent } from '../../templates/payment-success/payment
 import { PaymentErrorComponent } from '../../templates/payment-error/payment-error.component';
 import { PaymentComponent } from '../pages/payment/payment.component';
 import { CheckoutComponent } from '../pages/checkout/checkout.component';
+import { AboutUsComponent } from '../pages/about-us/about-us.component';
 
 const routes: Routes = [
   {
@@ -40,6 +41,10 @@ const routes: Routes = [
   {
     path: 'payment-error',
     component: PaymentErrorComponent,
+  },
+  {
+    path: 'about-us',
+    component: AboutUsComponent,
   },
 ];
 

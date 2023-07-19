@@ -98,7 +98,7 @@ export class LoginComponent implements OnInit {
         .subscribe((data) => {
           if (data) {
             this.toastr.showSuccessCustom(
-              'You successfuly created account! Please check your mail to verify!'
+              this.language.loginNeedToVerifyAccount
             );
             this.type = LoginFormType.login;
           } else {

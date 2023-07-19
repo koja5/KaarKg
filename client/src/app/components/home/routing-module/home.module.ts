@@ -25,6 +25,8 @@ import { PaymentErrorComponent } from '../../templates/payment-error/payment-err
 import { PaymentComponent } from '../pages/payment/payment.component';
 import { CheckoutComponent } from '../pages/checkout/checkout.component';
 import { RouterModule } from '@angular/router';
+import { AboutUsComponent } from '../pages/about-us/about-us.component';
+import { DynamicModule } from '../../dynamic-component/dynamic-module/dynamic/dynamic.module';
 @NgModule({
   declarations: [
     HomeComponent,
@@ -36,7 +38,8 @@ import { RouterModule } from '@angular/router';
     PaymentSuccessComponent,
     PaymentErrorComponent,
     PaymentComponent,
-    CheckoutComponent
+    CheckoutComponent,
+    AboutUsComponent
   ],
   imports: [
     CommonModule,
@@ -51,7 +54,8 @@ import { RouterModule } from '@angular/router';
     SharingModule,
     ReactiveFormsModule,
     CheckBoxModule,
-    RadioButtonAllModule
+    RadioButtonAllModule,
+    DynamicModule
   ],
   providers: [],
 })

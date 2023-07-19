@@ -45,7 +45,7 @@ router.post("/sendMail", function (req, res) {
     console.log(error);
     if (error) {
       logger.log("error", `${req.body.email}: ${error}`);
-      res.end(false);
+      res.send(false);
     } else {
       logger.log(
         "info",
@@ -53,7 +53,7 @@ router.post("/sendMail", function (req, res) {
           req.body.fields["email"] ? req.body.fields["email"] : req.body.email
         }`
       );
-      res.end(true);
+      res.send(true);
     }
   });
 });

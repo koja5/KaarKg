@@ -14,7 +14,10 @@ export class LoginGuardService {
   ) {}
 
   canActivate() {
-    if (this.storageService.getToken()) {
+    if (
+      this.storageService.getToken() &&
+      this.helpService.getAccountTypeId() === 0
+    ) {
       return true;
     } else {
       console.log(window.location);

@@ -42,7 +42,8 @@ export class ToastrComponent implements OnInit {
   }
 
   showSuccess() {
-    this.toastr.success('Your action executed successfuly!', '', {
+    const language = JSON.parse(localStorage.getItem('language') ?? '{}');
+    this.toastr.success(language.generalSuccessfulyExecuteAction, '', {
       timeOut: 7000,
       positionClass: 'toast-bottom-right',
     });
@@ -56,23 +57,17 @@ export class ToastrComponent implements OnInit {
   }
 
   showError() {
-    this.toastr.error(
-      'Your action not executed successfuly! Please try again!',
-      '',
-      {
-        timeOut: 7000,
-        positionClass: 'toast-bottom-right',
-      }
-    );
+    const language = JSON.parse(localStorage.getItem('language') ?? '{}');
+    this.toastr.error(language.generalErrorExecuteAction, '', {
+      timeOut: 7000,
+      positionClass: 'toast-bottom-right',
+    });
   }
   showWarning() {
-    this.toastr.warning(
-      'Your action not executed successfuly! Please try again!',
-      '',
-      {
-        timeOut: 7000,
-        positionClass: 'toast-bottom-right',
-      }
-    );
+    const language = JSON.parse(localStorage.getItem('language') ?? '{}');
+    this.toastr.warning(language.generalErrorExecuteAction, '', {
+      timeOut: 7000,
+      positionClass: 'toast-bottom-right',
+    });
   }
 }

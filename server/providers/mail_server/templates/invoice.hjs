@@ -115,6 +115,14 @@
             margin: auto;
             width: 180px;
         }
+
+        .contact p {
+            margin: 0px;
+        }
+
+        .contact {
+            margin-top: 20px;
+        }
     </style>
 </head>
 
@@ -152,11 +160,14 @@
                         <td style="width:50%;">
                             {{invoiceTitle}}
                         </td>
-                        <td style="width:15%; text-align:center;">
+                        <td style="width:10%; text-align:center;">
                             {{invoiceQuantity}}
                         </td>
-                        <td style="width:15%; text-align:right;">
+                        <td style="width:10%; text-align:right;">
                             {{invoicePrice}}
+                        </td>
+                        <td style="width:10%; text-align:right;">
+                            {{invoiceTotal}}
                         </td>
                         <td style="width:20%; text-align:right;">
                             {{invoiceTotal}}
@@ -167,14 +178,17 @@
                         <td style="width:50%;">
                             {{title}}
                         </td>
-                        <td style="width:15%; text-align:center;">
+                        <td style="width:10%; text-align:center;">
                             1
                         </td>
-                        <td style="width:15%; text-align:right;">
-                            €{{price}}
+                        <td style="width:10%; text-align:right;">
+                            €{{neto}}
+                        </td>
+                        <td style="width:10%; text-align:right;">
+                            {{vat}}
                         </td>
                         <td style="width:20%; text-align:right;">
-                            €{{price}}
+                            €{{bruto}}
                         </td>
                     </tr>
                     {{/products}}
@@ -192,7 +206,16 @@
                         </td>
                     </tr> --}}
             </td>
-        </table>
+            
+        <tr class="total">
+            <td colspan="3" align="right"> Subtotal : <b> €{{subtotalNeto}} </b> </td>
+        </tr>
+        <tr class="total">
+            <td colspan="3" align="right"> VAT : <b> {{vat}} </b> </td>
+        </tr>
+        <tr class="shipping">
+            <td colspan="3" align="right"> Shipping : <b> €{{shipping}} </b> </td>
+        </tr>
         <tr class="total">
             <td colspan="3" align="right"> Total : <b> €{{total}} </b> </td>
         </tr>
@@ -222,33 +245,26 @@
                 <table cellspacing="0px" cellpadding="2px">
                     <tr>
                         <td width="50%">
-                            <b> Declaration: </b> <br>
-                            We declare that this invoice shows the actual price of the goods
-                            described above and that all particulars are true and correct. The
-                            goods sold are intended for end user consumption and not for resale.
-                        </td>
-                        <td>
-                            * This is a computer generated invoice and does not
-                            require a physical signature
+                            <b> {{invoiceOrderDate}}: </b> {{orderDate}}<br>                            
                         </td>
                     </tr>
                     <tr>
                         <td width="50%">
-                        </td>
-                        <td>
-                            <b> Authorized Signature </b>
-                            <br>
-                            <br>
-                            ...................................
-                            <br>
-                            <br>
-                            <br>
+                            <b> {{invoicePaymentType}}: </b> {{invoicePrepayment}}<br>                            
                         </td>
                     </tr>
                 </table>
             </td>
         </tr>
         </table>
+
+        <div class="contact">
+            <p>{{signatureGreeting}}</p>
+            <p>{{signatureTelephone}}</p>
+            <p>{{signatureEmail}}</p>
+            <p>{{signatureAddress}}</p>
+            <p style="text-align: center; margin-top: 10px">{{signatureFreeText}}</p>
+        </div>
     </div>
     <!-- partial -->
 

@@ -16,7 +16,22 @@
             <ul>
                 <li class="item mb-2" *ngFor="let item of products">
                     <span class="item-title">{{item.title}}</span>
-                    <span class="item-price">€{{item.price | number: '.2'}}</span>
+                    <span class="item-price" *ngIf="type  === 3">€{{item.price | number: '.2'}}</span>
+                    <span class="item-price" *ngIf="type  < 3">€{{item.neto | number: '.2'}}</span>
+                </li>
+            </ul>
+
+            <ul class="subtotal" *ngIf="type < 3">
+                <li class="item">
+                    <span class="item-title">{{language.invoiceVat}}</span>
+                    <span class="item-price">{{vat}}</span>
+                </li>
+            </ul>
+
+            <ul class="subtotal" *ngIf="type === 3">
+                <li class="item">
+                    <span class="item-title">{{language.invoiceVat}}</span>
+                    <span class="item-price">{{language.invoiceIncludeVat}}</span>
                 </li>
             </ul>
         </div>
@@ -25,14 +40,15 @@
             <ul class="subtotal">
                 <li class="item">
                     <span class="item-title">{{language.checkoutSubtotal}}</span>
-                    <span class="item-price">€{{subtotal | number: '.2'}}</span>
+                    <span class="item-price">€{{subtotalBruto | number: '.2'}}</span>
                 </li>
             </ul>
 
             <ul class="shipping">
                 <li class="item">
                     <span class="item-title">{{language.checkoutShipping}}</span>
-                    <span class="item-price">{{language.checkoutShippingFree}}</span>
+                    <span class="item-price" *ngIf="shipping > 0">€{{shipping | number: '.2'}}</span>
+                    <span class="item-price" *ngIf="shipping === 0">{{language.checkoutShippingFree}}</span>
                 </li>
             </ul>
 

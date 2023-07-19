@@ -1,61 +1,61 @@
 {
     "activate_mail": {
         "template": "activate_mail.hjs",
-        "subject": "Aktiviere deinen Account",
+        "subject": "Aktiviere dein Konto",
         "fields": {
-            "title": "Bitte Aktiviere deinen Account!",
-            "text": "Sie haben erfolgreich ein Konto erstellt. Bitte bestätigen Sie Ihre E-Mail-Adresse über den untenstehenden Link. Anschließend können Sie sich erfolgreich anmelden!",
-            "buttonText": "Aktiviere deinen Account"
+            "title": "Bitte Aktiviere dein Konto",
+            "text": "Sie haben erfolgreich ein Konto erstellt. Bitte bestätigen Sie Ihre E-Mail-Adresse über den untenstehenden Link. Anschließend können Sie sich anmelden!",
+            "buttonText": "E-Mail bestätigen und Konto aktivieren"
         }
     },
     "activate_mail_for_kindergarden": {
         "template": "activate_mail.hjs",
-        "subject": "Aktiviere deinen Account",
+        "subject": "Bitte E-Mail bestätigen",
         "fields": {
-            "title": "Bitte Aktiviere deinen Account!",
-            "text": "Sie haben erfolgreich ein Konto für den Kindergarten erstellt. Bitte bestätigen Sie Ihre E-Mail-Adresse über den untenstehenden Link. Anschließend können Sie sich erfolgreich anmelden!",
-            "buttonText": "Aktiviere deinen Account"
+            "title": "Bitte E-Mail bestätigen und Konto-Aktivierungsprozess starten",
+            "text": "Sie haben erfolgreich ein Konto als Kindergarten erstellt. Bitte bestätigen Sie Ihre E-Mail-Adresse über den untenstehenden Link. Anschließend wird Ihr Konto vom Administrator freigegeben. Sobald das erfolgt ist, erhalten Sie ein E-Mail und können sich anmelden!",
+            "buttonText": "E-Mail bestätigen"
         }
     },
     "activate_mail_for_dealer": {
         "template": "activate_mail.hjs",
-        "subject": "Aktiviere deinen Account",
+        "subject": "Bitte E-Mail bestätigen",
         "fields": {
-            "title": "Bitte Aktiviere deinen Account!",
-            "text": "Sie haben erfolgreich ein Händlerkonto erstellt. Bitte bestätigen Sie Ihre E-Mail-Adresse über den untenstehenden Link. Anschließend können Sie sich erfolgreich anmelden!",
-            "buttonText": "Aktiviere deinen Account"
+            "title": "Bitte E-Mail bestätigen und Konto-Aktivierungsprozess starten",
+            "text": "Sie haben erfolgreich ein Konto als Händler erstellt. Bitte bestätigen Sie Ihre E-Mail-Adresse über den untenstehenden Link. Anschließend wird Ihr Konto vom Administrator freigegeben. Sobald das erfolgt ist, erhalten Sie ein E-Mail und können sich anmelden!",
+            "buttonText": "E-Mail bestätigen"
         }
     },
     "approve_account_for_kindergarden": {
         "template": "approver_account_for_kindergarden.hjs",
-        "subject": "Neues Kindergartenkonto erstellt!",
-        "email": "clinicnode@gmail.com",
+        "subject": "Neues Kindergartenkonto wurde erstellt!",
+        "email": "albert.sprung@gmail.com",
         "fields": {
-            "title": "Neues Kindergartenkonto erstellt!",
-            "text": "Bitte check info of new created kindergarden account. Information about club you can see below!",
-            "greeting": "Hallo",
-            "buttonText": "Activate kindergarden account"
+            "title": "Neues Kindergartenkonto wurde erstellt!",
+            "text": "Bitte Kindergarten-Konto prüfen und freigeben!",
+            "greeting": "Liebe/r",
+            "buttonText": "Kindergarten-Konto aktivieren"
         }
     },
     "approve_account_for_dealer": {
         "template": "approve_account_for_dealer.hjs",
-        "subject": "Neues Händlerkonto erstellt!",
-        "email": "clinicnode@gmail.com",
+        "subject": "Neues Händlerkonto wurde erstellt!",
+        "email": "albert.sprung@gmail.com",
         "fields": {
-            "title": "Neues Händlerkonto erstellt!",
-            "text": "Bitte überprüfen Sie die Informationen zum neu erstellten Händlerkonto. Informationen zum Verein finden Sie unten!",
-            "greeting": "Hallo",
-            "buttonText": "Activate dealer account"
+            "title": "Neues Händlerkonto wurde erstellt!",
+            "text": "Bitte Händler-Konto prüfen und freigeben!",
+            "greeting": "Liebe/r",
+            "buttonText": "Händler-Konto aktivieren"
         }
     },
     "info_approved_account_from_admin": {
         "template": "info_approved_account_from_admin.hjs",
-        "subject": "Ihr Konto ist aktiviert!",
+        "subject": "Ihr Konto wurde aktiviert!",
         "fields": {
-            "title": "Ihr Konto ist aktiviert!",
-            "text": "Wir möchten Sie darüber informieren, dass Ihr Konto jetzt aktiviert ist, sodass Sie sich jetzt anmelden und Produkte bestellen können!",
-            "buttonText": "Zum Einkaufen anmelden",
-            "greeting": "Hallo {firstname}"
+            "title": "Ihr Konto wurde aktiviert!",
+            "text": "Wir möchten Sie darüber informieren, dass Ihr Konto jetzt aktiviert wurde. Sie können sich jetzt anmelden und Produkte bestellen!",
+            "buttonText": "Beim Konto anmelden",
+            "greeting": "Liebe/r {firstname}"
         }
     },
     "info_about_changed_user_data": {
@@ -73,7 +73,7 @@
         "fields": {
             "title": "Anfrage zur Passwortwiederherstellung",
             "text": "Sie haben eine Passwortzurücksetzung beantragt. Wenn Sie auf den untenstehenden Link klicken, erhalten Sie ein Formular zur Eingabe eines neuen Passworts für Ihr Profil!",
-            "buttonText": "Reset password"
+            "buttonText": "Passwort zurücksetzen"
         }
     },
     "invoiceToCustomer": {
@@ -81,7 +81,12 @@
         "subject": "Bestellen Sie auf der KaarKg-Website",
         "fields": {
             "text": "Sie haben Produkte auf der Website kaarkg.at bestellt. Die bestellten Produkte können Sie unten sehen!",
-            "greeting": "Hallo {firstname}"
+            "greeting": "Hallo {firstname}",
+            "signatureGreeting": "Bye,",
+            "signatureTelephone": "0732 / 94 68 15",
+            "signatureEmail": "office@kaarkg.at",
+            "signatureAddress": "Haselgrabenweg 3, 4040 Linz",
+            "signatureFreeText": "www.verspielt.at - für unsere Privatkunden und Endverbraucher haben wir die Internetseite"
         }
     },
     "invoiceToSuperadmin": {
@@ -90,7 +95,12 @@
         "email": "clinicnode@gmail.com",
         "fields": {
             "text": "Sie haben eine neue Bestellung auf Ihrer Website kaarkg.at. Die Bestelldetails finden Sie weiter unten!",
-            "greeting": "Hallo"
+            "greeting": "Hallo",
+            "signatureGreeting": "Bye,",
+            "signatureTelephone": "0732 / 94 68 15",
+            "signatureEmail": "office@kaarkg.at",
+            "signatureAddress": "Haselgrabenweg 3, 4040 Linz",
+            "signatureFreeText": "www.verspielt.at - für unsere Privatkunden und Endverbraucher haben wir die Internetseite"
         }
     }
 }

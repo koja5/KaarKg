@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { HelpService } from 'src/app/services/help.service';
 
 @Component({
@@ -10,10 +11,18 @@ export class HeaderTopComponent implements OnInit {
 
   public language: any;
 
-  constructor(private helpService: HelpService) { }
+  constructor(private helpService: HelpService, private router: Router) { }
 
   ngOnInit(): void {
     this.language = this.helpService.getLanguage();
+  }
+
+  routerToHome() {
+    this.router.navigate(['./']);
+  }
+
+  routerToAboutUs() {
+    this.router.navigate(['about-us']);
   }
 
 }

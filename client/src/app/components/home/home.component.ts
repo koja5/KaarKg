@@ -17,16 +17,7 @@ import { StorageService } from 'src/app/services/storage.service';
 export class HomeComponent implements OnInit {
   @ViewChild('loginDialog')
   public loginDialog!: DialogComponent;
-  public items: ItemModel[] = [
-    {
-      text: 'My dashboard',
-      id: 'dashboard',
-    },
-    {
-      text: 'Logout',
-      id: 'logout',
-    },
-  ];
+  public items: ItemModel[] = [];
   public username!: any;
   public type!: any;
   public rightCard: string = '';
@@ -74,6 +65,7 @@ export class HomeComponent implements OnInit {
       this.language = data;
       this.helpService.setLanguage(data);
       this.loginFormTitle = this.language.loginTitleLogin;
+      this.setDashboardProfile();
     });
     this.cookieMessage = this.storageService.getCookie('cookie');
   }
@@ -89,6 +81,32 @@ export class HomeComponent implements OnInit {
     this.numberOfProductInChart = products.length;
     for (let i = 0; i < products.length; i++) {
       this.subOfProductInCart += products[i].price;
+    }
+  }
+
+  setDashboardProfile() {
+    if (this.type === 0) {
+      this.items = [
+        {
+          text: this.language.homeMyDashboard,
+          id: 'dashboard',
+        },
+        {
+          text: this.language.homeLogout,
+          id: 'logout',
+        },
+      ];
+    } else {
+      this.items = [
+        {
+          text: this.language.homeMyProfile,
+          id: 'profile',
+        },
+        {
+          text: this.language.homeLogout,
+          id: 'logout',
+        },
+      ];
     }
   }
 
