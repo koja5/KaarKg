@@ -27,6 +27,8 @@ import { CheckoutComponent } from '../pages/checkout/checkout.component';
 import { RouterModule } from '@angular/router';
 import { AboutUsComponent } from '../pages/about-us/about-us.component';
 import { DynamicModule } from '../../dynamic-component/dynamic-module/dynamic/dynamic.module';
+import { FooterComponent } from '../common/footer/footer.component';
+import { ArticleDetailsComponent } from '../pages/article-details/article-details.component';
 @NgModule({
   declarations: [
     HomeComponent,
@@ -39,7 +41,9 @@ import { DynamicModule } from '../../dynamic-component/dynamic-module/dynamic/dy
     PaymentErrorComponent,
     PaymentComponent,
     CheckoutComponent,
-    AboutUsComponent
+    AboutUsComponent,
+    FooterComponent,
+    ArticleDetailsComponent
   ],
   imports: [
     CommonModule,

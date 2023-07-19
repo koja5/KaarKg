@@ -65,6 +65,10 @@
     "productResultFor": "Ergebnis für",
     "productIncludeVat": "inkl. MwSt. (20%)",
     "productExcludeVat": "exklusive Mehrwertsteuer (20%)",
+    "productArtical": "Artikel",
+    "productCopyLinkToProduct": "Link zum Artikel kopieren",
+    "productSuccessfulyCopyLinkToClipboard": "Link erfolgreich in die Zwischenablage kopiert",
+    "productErrorCopyLinkToClipboard": "Der Link wurde nicht erfolgreich in die Zwischenablage kopiert",
     "homeSearchPlaceholder": "Suchen…",
     "homeFavorites": "Favoriten",
     "homeWishlist": "Wunschliste",
@@ -132,5 +136,7 @@
     "invoiceShippingAddress": "Versandinformationen",
     "invoiceOrderDate": "Bestelldatum der Rechnung",
     "invoicePaymentType": "Rechnungszahlungsart",
-    "invoicePrepayment": "Rechnung vorauszahlung"
+    "invoicePrepayment": "Rechnung vorauszahlung",
+    "footerAllRightsReserved": "Alle Rechte vorbehalten",
+    "footerPoweredBy": "Unterstützt durch"
 }

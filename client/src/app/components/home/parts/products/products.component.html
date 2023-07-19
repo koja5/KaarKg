@@ -1,12 +1,12 @@
 <app-loader *ngIf="!language || !products"></app-loader>
-<div class="main-content" *ngIf="language">
+<div class="main-content mb-4" *ngIf="language">
     <section class="home-section mb-2">
         <div class="row">
             <section class="products-container">
                 <div class="heading d-flex align-items-center" data-animation-name="fadeInUpShorter"
                     data-animation-delay="150">
                     <h2 class="text-transform-none mb-0">{{category}}: <span *ngIf="products">{{products.length}}
-                            Artikel</span></h2>
+                            {{language.productArtical}}</span></h2>
                     <!-- <a class="d-block view-all ml-auto" href="demo40-shop.html">View All<i
                             class="fas fa-chevron-right"></i></a> -->
                 </div>

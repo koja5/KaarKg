@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Router } from '@angular/router';
 import { ToastrComponent } from 'src/app/components/common/toastr/toastr.component';
 import { HelpService } from 'src/app/services/help.service';
 import { MessageService } from 'src/app/services/message.service';
@@ -17,10 +18,7 @@ export class ProductItemComponent implements OnInit {
   public showHideDescriptionText = '';
   public showViewCartOption = false;
 
-  constructor(
-    private helpService: HelpService,
-    private messageService: MessageService
-  ) {}
+  constructor(private helpService: HelpService, private router: Router, private toastr: ToastrComponent) {}
 
   ngOnInit(): void {
     this.language = this.helpService.getLanguage();
@@ -42,7 +40,20 @@ export class ProductItemComponent implements OnInit {
   }
 
   showViewCart() {
-    this.messageService.sentViewCart();
-    this.hideProductItemDialogEvent.emit();
+    // this.messageService.sentViewCart();
+    // this.hideProductItemDialogEvent.emit();
+    this.router.navigate(['./payment']);
+  }
+
+  copyToClipboard() {
+    const link = window.location.origin + '/article/' + this.item.id;
+    navigator.clipboard.writeText(link).then(
+      () => {
+        this.toastr.showSuccessCustom('', this.language.productSuccessfulyCopyLinkToClipboard);
+      },
+      () => {
+        this.toastr.showErrorCustom('', this.language.productErrorCopyLinkToClipboard);
+      }
+    );
   }
 }

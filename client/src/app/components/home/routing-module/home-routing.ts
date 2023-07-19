@@ -7,6 +7,7 @@ import { PaymentErrorComponent } from '../../templates/payment-error/payment-err
 import { PaymentComponent } from '../pages/payment/payment.component';
 import { CheckoutComponent } from '../pages/checkout/checkout.component';
 import { AboutUsComponent } from '../pages/about-us/about-us.component';
+import { ArticleDetailsComponent } from '../pages/article-details/article-details.component';
 
 const routes: Routes = [
   {
@@ -25,6 +26,10 @@ const routes: Routes = [
       import('../pages/documents/routing-module/document.module').then(
         (m) => m.DocumentModule
       ),
+  },
+  {
+    path: 'article/:id',
+    component: ArticleDetailsComponent,
   },
   {
     path: 'payment',

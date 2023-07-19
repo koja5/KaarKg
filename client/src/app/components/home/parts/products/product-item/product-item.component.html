@@ -42,7 +42,7 @@
 
         <div class="col-md-6">
             <div class="product-single-details mb-0 ml-md-4">
-                <h1 class="product-title">{{item.title}}</h1>
+                <h1 class="product-title">{{item.title}} <span class="pointer" [title]="language.productCopyLinkToProduct" (click)="copyToClipboard()"><app-mat-icon [icon]="'content_copy'"></app-mat-icon></span></h1>
 
                 <!-- <div class="ratings-container">
                     <div class="product-ratings">

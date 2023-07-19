@@ -1,0 +1,179 @@
+.footer-bottom {
+  justify-content: space-between;
+}
+
+footer {
+  font-size: 1.3rem;
+  color: #777;
+  line-height: 24px;
+  position: absolute;
+  bottom: 0px;
+}
+
+@media (min-width: 769px) {
+  footer {
+    width: calc(100% - 300px);
+  }
+}
+
+@media (max-width: 768px) {
+  .footer {
+    width: 100%;
+    margin: 0px;
+    text-align: center;
+  }
+}
+
+footer .container {
+  position: relative;
+}
+footer p {
+  color: inherit;
+}
+footer a {
+  color: inherit;
+}
+.footer-top {
+  padding-top: 5.1rem;
+  padding-bottom: 5rem;
+}
+.footer-middle {
+  border-top: 1px solid #e7e7e7;
+  padding-top: 6.3rem;
+  padding-bottom: 3.3rem;
+}
+.footer-bottom {
+  color: #777;
+  background: #fff;
+  border-top: 1px solid #e7e7e7;
+  padding-bottom: 1.4rem;
+  padding-top: 1.4rem;
+}
+footer .social-icon {
+  border-radius: 50%;
+  width: 38px;
+  height: 38px;
+  border: 1px solid #e7e7e7;
+  color: #222529;
+  font-size: 1.4rem;
+  line-height: 38px;
+}
+footer .social-icon:not(:hover):not(:active):not(:focus) {
+  background: transparent;
+}
+footer .social-icon + .social-icon {
+  margin-left: 7px;
+}
+footer .payment-icons {
+  margin-right: 2px;
+}
+footer .payment-icons .payment-icon {
+  display: inline-block;
+  vertical-align: middle;
+  margin: 1px;
+  width: 56px;
+  height: 32px;
+  background-color: #d6d3cc;
+  background-size: 80% auto;
+  background-repeat: no-repeat;
+  background-position: center;
+  transition: opacity 0.25s;
+  filter: invert(1);
+  border-radius: 4px;
+}
+footer .payment-icons .payment-icon:hover {
+  opacity: 0.7;
+}
+footer .payment-icons .payment-icon.paypal {
+  background-size: 85% auto;
+  background-position: 50% 48%;
+}
+footer .payment-icons .payment-icon.stripe {
+  background-size: 60% auto;
+}
+footer .widget {
+  margin-bottom: 3rem;
+}
+footer .widget-title {
+  color: #222529;
+  font-size: 1.5rem;
+  font-weight: 800;
+  text-transform: capitalize;
+  margin: 0 0 1.7rem;
+}
+footer .links li {
+  margin-bottom: 1rem;
+}
+footer .tagcloud a {
+  padding: 0.6em;
+  margin: 0 0.8rem 0.8rem 0;
+  border: 1px solid #313438;
+  color: inherit;
+  font-size: 11px;
+  background: transparent;
+}
+footer .tagcloud a:hover {
+  border-color: #fff;
+  background: transparent;
+}
+footer .contact-info {
+  margin: 0;
+  padding: 0;
+}
+footer .contact-info li {
+  position: relative;
+  margin-bottom: 1rem;
+  line-height: 1.4;
+}
+footer .contact-info-label {
+  display: block;
+  color: #222529;
+  font-weight: 400;
+  text-transform: uppercase;
+  margin-bottom: 1px;
+}
+.footer-ribbon {
+  position: absolute;
+  top: 0;
+  margin: -16px 0 0;
+  padding: 10px 20px 6px;
+  color: #fff;
+  font-size: 1.6em;
+  z-index: 101;
+  background-color: #0088cc;
+  font-family: "Shadows Into Light", sans-serif;
+  font-weight: 400;
+}
+.footer-ribbon:before {
+  content: "";
+  display: block;
+  height: 0;
+  position: absolute;
+  top: 0;
+  width: 7px;
+  right: 100%;
+  border-right: 10px solid #005580;
+  border-top: 16px solid transparent;
+}
+
+.footer .widget-title {
+  letter-spacing: -0.02em;
+}
+.footer .widget-content li {
+  margin-bottom: 1.1rem;
+}
+.footer .social-icons {
+  margin: 2.5rem 0 3.3rem;
+}
+.footer .widget-payment .widget-title {
+  margin-bottom: 1.2rem;
+}
+.footer .payment-icons {
+  margin-left: -5px;
+}
+.footer .payment-icons .payment-icon {
+  margin: 1px;
+  filter: none;
+  border: 1px solid #e7e7e7;
+  background-color: #fff;
+}

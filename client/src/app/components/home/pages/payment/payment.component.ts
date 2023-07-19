@@ -42,9 +42,15 @@ export class PaymentComponent implements OnInit {
   initialize() {
     this.getShippingAddresses();
 
-    this.service.callGetMethod('/api/getMyShippingAddress', '').subscribe((data: any) => {
-      this.user = data[0];
-    });
+    this.service.callGetMethod('/api/getMyShippingAddress', '').subscribe(
+      (data: any) => {
+        this.user = data[0];
+      },
+      (error) => {
+        this.router.navigate(['./']);
+        this.toastr.showInfoCustom('', this.language.paymentNeedToLogin);
+      }
+    );
   }
 
   getShippingAddresses() {
