@@ -42,10 +42,14 @@
 }
 
 .item-title {
-  width: 90%;
+  width: 80%;
   display: inline-block;
 }
 
+.item-price {
+  width: 20%;
+  text-align: end;
+}
 .subtotal {
   padding-bottom: 16px;
   border-bottom: 1px solid #c3c3c3;

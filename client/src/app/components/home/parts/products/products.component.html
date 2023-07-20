@@ -86,14 +86,14 @@
                             <!-- End .product-container -->
 
                             <div class="price-box">
-                                <!-- <span class="old-price">€ 90.00</span> -->
-                                <span *ngIf="accountType && accountType === 1" class="product-price">€
+                                <!-- <span class="old-price">€  90.00</span> -->
+                                <span *ngIf="accountType && accountType === 1" class="product-price">€ 
                                     {{item.price_dealer | number: '.2'}} <span
                                         class="vat">{{language.productExcludeVat}}</span></span>
-                                <span *ngIf="accountType && accountType === 2" class="product-price">€
+                                <span *ngIf="accountType && accountType === 2" class="product-price">€ 
                                     {{item.price_kindergarden | number: '.2'}} <span
                                         class="vat">{{language.productExcludeVat}}</span></span>
-                                <span *ngIf="!accountType || accountType === 3" class="product-price">€ {{item.price |
+                                <span *ngIf="!accountType || accountType === 3" class="product-price">€  {{item.price |
                                     number: '.2'}} <span class="vat">{{language.productIncludeVat}}</span></span>
                             </div>
                             <!-- End .price-box -->

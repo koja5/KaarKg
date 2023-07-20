@@ -5,13 +5,12 @@ import { HelpService } from 'src/app/services/help.service';
 @Component({
   selector: 'app-header-top',
   templateUrl: './header-top.component.html',
-  styleUrls: ['./header-top.component.scss']
+  styleUrls: ['./header-top.component.scss'],
 })
 export class HeaderTopComponent implements OnInit {
-
   public language: any;
 
-  constructor(private helpService: HelpService, private router: Router) { }
+  constructor(private helpService: HelpService, private router: Router) {}
 
   ngOnInit(): void {
     this.language = this.helpService.getLanguage();
@@ -25,4 +24,7 @@ export class HeaderTopComponent implements OnInit {
     this.router.navigate(['about-us']);
   }
 
+  routerToHelp() {
+    this.router.navigate(['help']);
+  }
 }

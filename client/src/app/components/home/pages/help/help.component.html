@@ -1,0 +1,21 @@
+<app-header-top></app-header-top>
+<div class="container mt-4" *ngIf="title">
+    <h2 class="text-center">{{title}}</h2>
+
+    <div class="field padding-bottom--24 col-md-4 mb-2 mt-4">
+        <input [(ngModel)]="search" [placeholder]="language.helpSearchFAQ" (input)="searchFAQ()">
+    </div>
+    <ejs-accordion *ngIf="allQuestions.length">
+        <e-accordionitems>
+            <e-accordionitem *ngFor="let item of allQuestions">
+                <ng-template #header>
+                    <div>{{item.question}}</div>
+                </ng-template>
+                <ng-template #content>
+                    <div>{{item.answer}}</div>
+                </ng-template>
+            </e-accordionitem>
+        </e-accordionitems>
+    </ejs-accordion>
+</div>
+<app-footer [class]="'full-width pl-4 pr-4'"></app-footer>

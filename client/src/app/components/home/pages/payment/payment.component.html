@@ -80,7 +80,7 @@
 
                             <div class="text-center">
                                 {{paymentOption}}
-                                <h2>Payment review / Checkout</h2>
+                                <app-checkout></app-checkout>
                             </div>
                         </div>
 
@@ -115,17 +115,27 @@
     <ng-template #content>
         <form #myForm="ngForm">
             <div class="field">
-                <label>{{language.checkoutShippingInformation}}</label>
-                <input name="firstname" placeholder="{{language.checkoutFirstname}}"
-                    [(ngModel)]="shippingAddress.firstname" required>
-                <input name="lastname" placeholder="{{language.checkoutLastname}}"
-                    [(ngModel)]="shippingAddress.lastname" required>
-                <input name="telephone" placeholder="{{language.checkoutTelephone}}"
-                    [(ngModel)]="shippingAddress.telephone" required>
-                <input name="email" placeholder="{{language.checkoutEmail}}" [(ngModel)]="shippingAddress.email"
-                    required>
-                <input name="address" placeholder="{{language.checkoutAddress}}" [(ngModel)]="shippingAddress.address"
-                    required>
+                <label>{{language.checkoutFirstname}}</label>
+                <input name="firstname" [(ngModel)]="shippingAddress.firstname" required>
+                <label>{{language.checkoutLastname}}</label>
+                <input name="lastname" [(ngModel)]="shippingAddress.lastname" required>
+                <label>{{language.checkoutTelephone}}</label>
+                <input name="telephone" [(ngModel)]="shippingAddress.telephone" required>
+                <label>{{language.checkoutEmail}}</label>
+                <input name="email" [(ngModel)]="shippingAddress.email" required>
+                <label>{{language.checkoutAddress}}</label>
+                <input name="address" [(ngModel)]="shippingAddress.address" required>
+                <input name="company" [(ngModel)]="shippingAddress.company" [placeholder]="language.checkoutAddressTwo">
+                <div class="row">
+                    <div class="col-md-6">
+                        <label>{{language.checkoutZip}}</label>
+                        <input name="zip" [(ngModel)]="shippingAddress.zip" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label>{{language.checkoutCity}}</label>
+                        <input name="city" [(ngModel)]="shippingAddress.city" required>
+                    </div>
+                </div>
             </div>
             <button class="btn btn-primary full-width mt-2" [disabled]="!myForm.valid"
                 (click)="shippingActionType === 'edit' ? editShippingAddress(shippingAddress) : createNewShippingAddress()">{{language.checkoutSaveShippingInformation}}</button>

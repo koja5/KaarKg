@@ -8,6 +8,7 @@ import { PaymentComponent } from '../pages/payment/payment.component';
 import { CheckoutComponent } from '../pages/checkout/checkout.component';
 import { AboutUsComponent } from '../pages/about-us/about-us.component';
 import { ArticleDetailsComponent } from '../pages/article-details/article-details.component';
+import { HelpComponent } from '../pages/help/help.component';
 
 const routes: Routes = [
   {
@@ -50,6 +51,10 @@ const routes: Routes = [
   {
     path: 'about-us',
     component: AboutUsComponent,
+  },
+  {
+    path: 'help',
+    component: HelpComponent,
   },
 ];
 

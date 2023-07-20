@@ -45,6 +45,7 @@ export class PaymentComponent implements OnInit {
     this.service.callGetMethod('/api/getMyShippingAddress', '').subscribe(
       (data: any) => {
         this.user = data[0];
+        this.storageService.setLocalStorage('shipping', this.user);
       },
       (error) => {
         this.router.navigate(['./']);
@@ -70,9 +71,10 @@ export class PaymentComponent implements OnInit {
       value.lastname +
       ' ' +
       value.address +
-      ', Telephone: ' +
+      (value.zip ? value.zip + ', ' : '') +
+      (value.city ? value.city + ', ' : '') +
       value.telephone +
-      ', Email: ' +
+      ', ' +
       value.email
     );
   }
@@ -138,17 +140,9 @@ export class PaymentComponent implements OnInit {
   }
 
   nextStep() {
-    if (this.currentStep === 1) {
-      if (this.paymentOption === PaymentOption.pay) {
-        const products = this.storageService.getCookieObject('cart');
-        this.service.checkout(products);
-      } else if (this.paymentOption === PaymentOption.prepayment) {
-        this.loader = true;
-        setTimeout(() => {
-          this.loader = false;
-          this.router.navigate(['/checkout']);
-        }, 350);
-      }
+    if (this.currentStep === 1 && this.paymentOption === PaymentOption.pay) {
+      const products = this.storageService.getCookieObject('cart');
+      this.service.checkout(products);
     } else {
       this.currentStep++;
     }

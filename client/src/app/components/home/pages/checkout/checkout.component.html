@@ -1,6 +1,5 @@
 <div class="payment-content row">
     <div class="product col-md-6">
-        <div header><app-back-button></app-back-button></div>
 
         <div class="product-details">
             <div class="product-summary">
@@ -8,7 +7,7 @@
                 <span *ngIf="products.length > 1" class="title">
                     {{products[0].title}} {{language.checkoutAnd}} {{products.length - 1}} {{language.checkoutMore}}
                 </span>
-                <span class="price">€{{total | number: '.2'}}</span>
+                <span class="price">€ {{total | number: '.2'}}</span>
             </div>
         </div>
 
@@ -16,8 +15,8 @@
             <ul>
                 <li class="item mb-2" *ngFor="let item of products">
                     <span class="item-title">{{item.title}}</span>
-                    <span class="item-price" *ngIf="type  === 3">€{{item.price | number: '.2'}}</span>
-                    <span class="item-price" *ngIf="type  < 3">€{{item.neto | number: '.2'}}</span>
+                    <span class="item-price" *ngIf="type  === 3">€ {{item.price | number: '.2'}}</span>
+                    <span class="item-price" *ngIf="type  < 3">€ {{item.neto | number: '.2'}}</span>
                 </li>
             </ul>
 
@@ -40,14 +39,14 @@
             <ul class="subtotal">
                 <li class="item">
                     <span class="item-title">{{language.checkoutSubtotal}}</span>
-                    <span class="item-price">€{{subtotalBruto | number: '.2'}}</span>
+                    <span class="item-price">€ {{subtotalBruto | number: '.2'}}</span>
                 </li>
             </ul>
 
             <ul class="shipping">
                 <li class="item">
                     <span class="item-title">{{language.checkoutShipping}}</span>
-                    <span class="item-price" *ngIf="shipping > 0">€{{shipping | number: '.2'}}</span>
+                    <span class="item-price" *ngIf="shipping > 0">€ {{shipping | number: '.2'}}</span>
                     <span class="item-price" *ngIf="shipping === 0">{{language.checkoutShippingFree}}</span>
                 </li>
             </ul>
@@ -55,7 +54,7 @@
             <ul class="Total">
                 <li class="item">
                     <span class="item-title">{{language.checkoutTotal}}</span>
-                    <span class="item-price">€{{total | number: '.2'}}</span>
+                    <span class="item-price">€ {{total | number: '.2'}}</span>
                 </li>
             </ul>
         </div>

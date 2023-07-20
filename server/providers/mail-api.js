@@ -348,8 +348,6 @@ router.post("/sendInvoiceToCustomer", function (req, res, next) {
     .replace(/T/, " ")
     .replace(/\..+/, "");
 
-  console.log(body.invoiceToCustomer);
-
   var options = {
     url: process.env.link_api + "mail-server/sendMail",
     method: "POST",

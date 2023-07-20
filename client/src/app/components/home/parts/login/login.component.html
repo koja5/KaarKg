@@ -38,6 +38,11 @@
                 (click)="selectUserType(getUserType().kindergarden)">{{language.loginKindergarden}}</label>
         </div>
         <form [formGroup]="registerForm" class="mb-0">
+            <div class="field padding-bottom--24"
+                *ngIf="accountType === getUserType().dealer || accountType === getUserType().kindergarden">
+                <label for="text">{{language.loginCompany}}</label>
+                <input formControlName="company">
+            </div>
             <div class="field padding-bottom--24">
                 <label for="text">{{language.loginFirstname}}</label>
                 <input formControlName="firstname">
@@ -85,13 +90,16 @@
                 </span>
                 <div class="required-letter-info">
                     <span class="{{registerFormControl.password.value.length >= 8 ? 'text-success' : ''}}">
-                        <app-mat-icon [icon]="'task_alt'"></app-mat-icon> {{language.loginPasswordRequirementsMinimumCharacters}}
+                        <app-mat-icon [icon]="'task_alt'"></app-mat-icon>
+                        {{language.loginPasswordRequirementsMinimumCharacters}}
                     </span>
                     <span class="{{containsUppercase(registerFormControl.password.value) ? 'text-success' : ''}}">
-                        <app-mat-icon [icon]="'task_alt'"></app-mat-icon> {{language.loginPasswordRequirementsUppercase}}
+                        <app-mat-icon [icon]="'task_alt'"></app-mat-icon>
+                        {{language.loginPasswordRequirementsUppercase}}
                     </span>
                     <span class="{{containsLowercase(registerFormControl.password.value) ? 'text-success' : ''}}">
-                        <app-mat-icon [icon]="'task_alt'"></app-mat-icon> {{language.loginPasswordRequirementsLowercase}}
+                        <app-mat-icon [icon]="'task_alt'"></app-mat-icon>
+                        {{language.loginPasswordRequirementsLowercase}}
                     </span>
                     <span class="{{containsNumber(registerFormControl.password.value) ? 'text-success' : ''}}">
                         <app-mat-icon [icon]="'task_alt'"></app-mat-icon> {{language.loginPasswordRequirementsNumber}}
@@ -118,7 +126,8 @@
                     *ngIf="(registerFormControl.privacy.touched || submitted) && registerFormControl.privacy.errors?.required">
                     {{language.loginNeedToAcceptPrivacy}}
                 </span>
-                <ejs-checkbox label="{{language.loginQuestionForNewsletter}}" formControlName="newsletter"></ejs-checkbox>
+                <ejs-checkbox label="{{language.loginQuestionForNewsletter}}"
+                    formControlName="newsletter"></ejs-checkbox>
             </div>
             <div class="text-center">
                 <button ejs-button [isPrimary]="true" (click)="signUp()">{{language.loginSignUp}}</button>

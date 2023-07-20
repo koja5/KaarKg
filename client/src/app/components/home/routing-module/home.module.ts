@@ -29,6 +29,8 @@ import { AboutUsComponent } from '../pages/about-us/about-us.component';
 import { DynamicModule } from '../../dynamic-component/dynamic-module/dynamic/dynamic.module';
 import { FooterComponent } from '../common/footer/footer.component';
 import { ArticleDetailsComponent } from '../pages/article-details/article-details.component';
+import { HelpComponent } from '../pages/help/help.component';
+import { AccordionModule } from '@syncfusion/ej2-angular-navigations';
 @NgModule({
   declarations: [
     HomeComponent,
@@ -43,7 +45,8 @@ import { ArticleDetailsComponent } from '../pages/article-details/article-detail
     CheckoutComponent,
     AboutUsComponent,
     FooterComponent,
-    ArticleDetailsComponent
+    ArticleDetailsComponent,
+    HelpComponent
   ],
   imports: [
     CommonModule,
@@ -59,7 +62,8 @@ import { ArticleDetailsComponent } from '../pages/article-details/article-detail
     ReactiveFormsModule,
     CheckBoxModule,
     RadioButtonAllModule,
-    DynamicModule
+    DynamicModule,
+    AccordionModule
   ],
   providers: [],
 })
