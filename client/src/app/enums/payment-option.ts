@@ -1,4 +1,5 @@
 export enum PaymentOption {
-    prepayment = 1,
-    pay = 2
+    invoice = 1,
+    pay = 2,
+    prepayment = 3
 }

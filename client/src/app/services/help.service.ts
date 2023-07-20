@@ -58,13 +58,6 @@ export class HelpService {
     } else return true;
   }
 
-  setLocalStorage(key: string, value: any) {
-    localStorage.setItem(
-      key,
-      typeof value === 'string' ? value : JSON.stringify(value)
-    );
-  }
-
   public checkMobileDevice() {
     if (window.innerWidth < 992) {
       return true;
@@ -73,8 +66,34 @@ export class HelpService {
     }
   }
 
+  setLocalStorage(key: string, value: any) {
+    localStorage.setItem(
+      key,
+      typeof value === 'string' ? value : JSON.stringify(value)
+    );
+  }
+
   getLocalStorageStringValue(key: string) {
     return localStorage.getItem(key);
+  }
+
+  removeLocalStorage(key: string) {
+    localStorage.removeItem(key);
+  }
+
+  setSessionStorage(key: string, value: any) {
+    sessionStorage.setItem(
+      key,
+      typeof value === 'string' ? value : JSON.stringify(value)
+    );
+  }
+
+  removeSessionStorage(key: string) {
+    sessionStorage.removeItem(key);
+  }
+
+  getSessionStorageStringValue(key: string) {
+    return sessionStorage.getItem(key);
   }
 
   getUserType() {
@@ -202,6 +221,7 @@ export class HelpService {
       if (currentFavorite === '') {
         currentFavorite = [];
       }
+      item.description = '';
       currentFavorite.push(item);
       this.storageService.setCookie(
         'favorite',
@@ -229,6 +249,7 @@ export class HelpService {
       }
     }
     if (ind) {
+      item.description = '';
       currentFavorite.push(item);
       this.storageService.setCookie('cart', JSON.stringify(currentFavorite));
     }

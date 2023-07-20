@@ -4,6 +4,7 @@ import { DialogComponent } from '@syncfusion/ej2-angular-popups';
 import { ConfirmDialogComponent } from 'src/app/components/common/confirm-dialog/confirm-dialog.component';
 import { ToastrComponent } from 'src/app/components/common/toastr/toastr.component';
 import { PaymentOption } from 'src/app/enums/payment-option';
+import { UserType } from 'src/app/enums/user-type';
 import { ShippingAddress } from 'src/app/models/shipping-address-model';
 import { CallApiService } from 'src/app/services/call-api.service';
 import { HelpService } from 'src/app/services/help.service';
@@ -20,11 +21,14 @@ export class PaymentComponent implements OnInit {
   public shippingAddresses: any;
   public language: any;
   currentStep = 0;
-  public paymentOption: PaymentOption = PaymentOption.prepayment;
+  public paymentOption: PaymentOption = PaymentOption.invoice;
+  public paymentOptionSelect: string | undefined;
+  public userType!: UserType;
   public loader = false;
   public shippingAddress = new ShippingAddress();
   public shippingActionType = '';
   public confirmDialogComponent = new ConfirmDialogComponent();
+  public type: number | undefined;
 
   constructor(
     private service: CallApiService,
@@ -41,11 +45,23 @@ export class PaymentComponent implements OnInit {
 
   initialize() {
     this.getShippingAddresses();
+    this.type = this.helpService.getAccountTypeId();
+
+    if (this.type === 3) {
+      this.paymentOption = PaymentOption.prepayment;
+      this.paymentOptionSelect = this.language.paymentPrepaymentOptions;
+      this.helpService.setSessionStorage('payment', this.paymentOptionSelect);
+    } else {
+      this.paymentOption = PaymentOption.invoice;
+      this.paymentOptionSelect = this.language.paymentPerInvoiceOptions;
+      this.helpService.setSessionStorage('payment', this.paymentOptionSelect);
+    }
 
     this.service.callGetMethod('/api/getMyShippingAddress', '').subscribe(
       (data: any) => {
         this.user = data[0];
         this.storageService.setLocalStorage('shipping', this.user);
+        this.shippingAddress = this.user;
       },
       (error) => {
         this.router.navigate(['./']);
@@ -158,7 +174,22 @@ export class PaymentComponent implements OnInit {
     return PaymentOption;
   }
 
+  getUserType() {
+    return UserType;
+  }
+
   selectShippingAddress(address: any) {
     this.storageService.setLocalStorage('shipping', address);
+    this.shippingAddress = address;
+  }
+
+  successEmitter(event: any) {
+    this.currentStep++;
+  }
+
+  setPaymentOption(option: string, payment: PaymentOption) {
+    this.paymentOption = payment;
+    this.paymentOptionSelect = option;
+    this.helpService.setSessionStorage('payment', option);
   }
 }

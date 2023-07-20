@@ -42,12 +42,14 @@
                         <div class="res-step-form col-md-12 col-md-offset-2 res-form-one" *ngIf="currentStep === 0">
                             <ul>
                                 <li *ngIf="user">
-                                    <ejs-radiobutton label="{{generateLabel(user)}}" name="default" checked="true"
+                                    <ejs-radiobutton label="{{generateLabel(user)}}" name="default"
+                                        checked="{{shippingAddress.address === user.address ? true : null}}"
                                         (click)="selectShippingAddress(user)"></ejs-radiobutton>
                                 </li>
                                 <li *ngFor="let item of shippingAddresses" (click)="selectShippingAddress(item)">
-                                    <ejs-radiobutton label="{{generateLabel(item)}}" name="default" checked="true"
-                                        (click)="selectShippingAddress(user)"></ejs-radiobutton>
+                                    <ejs-radiobutton label="{{generateLabel(item)}}" name="default"
+                                        checked="{{shippingAddress.address === item.address ? true : null}}"
+                                        (click)="selectShippingAddress(item)"></ejs-radiobutton>
                                     <div class="shipping-action">
                                         <a
                                             (click)="editDialogShippingAddress(item)">{{language.paymentEditShippingAddress}}</a>
@@ -63,15 +65,21 @@
 
                         <div class="res-step-form col-md-12 col-md-offset-2 res-form-one" *ngIf="currentStep === 1">
                             <ul>
-                                <li class="mb-2">
+                                <li class="mb-2"
+                                    *ngIf="type === getUserType().dealer || type === getUserType().kindergarden">
+                                    <ejs-radiobutton label="{{language.paymentPerInvoiceOptions}}" name="paymentOption"
+                                        checked="{{paymentOption === getPaymentOption().invoice ? true : null}}"
+                                        (click)="setPaymentOption(language.paymentPerInvoiceOptions, getPaymentOption().invoice)"></ejs-radiobutton>
+                                </li>
+                                <li class="mb-2" *ngIf="type === getUserType().customer">
                                     <ejs-radiobutton label="{{language.paymentPrepaymentOptions}}" name="paymentOption"
-                                        checked="{{paymentOption === 1 ? true : null}}"
-                                        (click)="paymentOption = getPaymentOption().prepayment"></ejs-radiobutton>
+                                        checked="{{paymentOption === getPaymentOption().prepayment ? true : null}}"
+                                        (click)="setPaymentOption(language.paymentPrepaymentOptions, getPaymentOption().prepayment)"></ejs-radiobutton>
                                 </li>
                                 <li>
                                     <ejs-radiobutton label="{{language.paymentPayOptions}}" name="paymentOption"
-                                        checked="{{paymentOption === 2 ? true : null}}"
-                                        (click)="paymentOption = getPaymentOption().pay"></ejs-radiobutton>
+                                        checked="{{paymentOption === getPaymentOption().pay ? true : null}}"
+                                        (click)="setPaymentOption(language.paymentPayOptions, getPaymentOption().pay)"></ejs-radiobutton>
                                 </li>
                             </ul>
                         </div>
@@ -79,8 +87,7 @@
                         <div class="res-step-form col-md-12 col-md-offset-2 res-form-one" *ngIf="currentStep === 2">
 
                             <div class="text-center">
-                                {{paymentOption}}
-                                <app-checkout></app-checkout>
+                                <app-checkout (successEmitter)="successEmitter($event)"></app-checkout>
                             </div>
                         </div>
 
@@ -88,15 +95,15 @@
                         <div class="res-step-form col-md-12 col-md-offset-2 res-form-one" *ngIf="currentStep === 3">
 
                             <div class="text-center">
-                                <h2>Done!</h2>
+                                <app-payment-success></app-payment-success>
                             </div>
                         </div>
 
                         <div class="text-end mt-3">
-                            <button *ngIf="currentStep > 0" class="btn btn-default mr-2"
+                            <button *ngIf="currentStep > 0 && currentStep < 3" class="btn btn-default mr-2"
                                 (click)="previousStep()"><app-mat-icon [icon]="'navigate_before'"></app-mat-icon>
                                 {{language.paymentPreviousStep}}</button>
-                            <button *ngIf="currentStep < 3" class="btn btn-default"
+                            <button *ngIf="currentStep < 2" class="btn btn-default"
                                 (click)="nextStep()">{{language.paymentNextStep}}
                                 <app-mat-icon [icon]="'navigate_next'"></app-mat-icon></button>
                         </div>

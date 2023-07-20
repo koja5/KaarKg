@@ -535,7 +535,7 @@ router.get("/getAllProductsForCategory/:category", async (req, res, next) => {
         res.json(err);
       } else {
         conn.query(
-          "select p.*, np.name from products p join navigation_products np on p.category_id = np.id where np.name like ?",
+          "select p.id, p.category_id, p.product_number, p.title, p.description, p.price, p.image, np.name from products p join navigation_products np on p.category_id = np.id where np.name like ?",
           req.params.category,
           function (err, rows, fields) {
             conn.release();
@@ -554,6 +554,47 @@ router.get("/getAllProductsForCategory/:category", async (req, res, next) => {
     res.json(ex);
   }
 });
+
+router.get(
+  "/getAllProductsForCategoryForLoginUser/:category",
+  auth,
+  async (req, res, next) => {
+    try {
+      connection.getConnection(function (err, conn) {
+        if (err) {
+          logger.log("error", err.sql + ". " + err.sqlMessage);
+          res.json(err);
+        } else {
+          const userType = req.user.user.type;
+          let query = "";
+          if (userType === 0 || userType === 1) {
+            query =
+              "select p.id, p.category_id, p.product_number, p.title, p.description, p.price_dealer as 'price', p.image, np.name from products p join navigation_products np on p.category_id = np.id where np.name like ?";
+          } else if (userType === 2) {
+            query =
+              "select p.id, p.category_id, p.product_number, p.title, p.description, p.price_kindergarden as 'price', p.image, np.name from products p join navigation_products np on p.category_id = np.id where np.name like ?";
+          } else if (userType === 3) {
+            query =
+              "select p.id, p.category_id, p.product_number, p.title, p.description, p.price, p.image, np.name from products p join navigation_products np on p.category_id = np.id where np.name like ?";
+          } else {
+          }
+          conn.query(query, req.params.category, function (err, rows, fields) {
+            conn.release();
+            if (err) {
+              logger.log("error", err.sql + ". " + err.sqlMessage);
+              res.json(err);
+            } else {
+              res.json(rows);
+            }
+          });
+        }
+      });
+    } catch (ex) {
+      logger.log("error", err.sql + ". " + err.sqlMessage);
+      res.json(ex);
+    }
+  }
+);
 
 router.get("/getProductById/:id", async (req, res, next) => {
   try {

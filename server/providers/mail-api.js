@@ -306,6 +306,9 @@ router.post("/sendInvoiceToCustomer", function (req, res, next) {
   body.invoiceToCustomer.fields["mainTelephone"] =
     req.body.mainAddress.telephone;
   body.invoiceToCustomer.fields["mainAddress"] = req.body.mainAddress.address;
+  body.invoiceToCustomer.fields["mainCompany"] = req.body.mainAddress.company;
+  body.invoiceToCustomer.fields["mainZip"] = req.body.mainAddress.zip;
+  body.invoiceToCustomer.fields["mainCity"] = req.body.mainAddress.city;
   body.invoiceToCustomer.fields["mainEmail"] = req.body.mainAddress.email;
 
   body.invoiceToCustomer.fields["shippingFirstname"] =
@@ -318,6 +321,10 @@ router.post("/sendInvoiceToCustomer", function (req, res, next) {
     req.body.shippingAddress.email;
   body.invoiceToCustomer.fields["shippingAddress"] =
     req.body.shippingAddress.address;
+  body.invoiceToCustomer.fields["shippingCompany"] =
+    req.body.shippingAddress.company;
+  body.invoiceToCustomer.fields["shippingZip"] = req.body.shippingAddress.zip;
+  body.invoiceToCustomer.fields["shippingCity"] = req.body.shippingAddress.city;
 
   body.invoiceToCustomer.fields["invoiceTitle"] =
     req.body.language.invoiceTitle;
@@ -335,10 +342,15 @@ router.post("/sendInvoiceToCustomer", function (req, res, next) {
     req.body.language.invoiceOrderDate;
   body.invoiceToCustomer.fields["invoicePaymentType"] =
     req.body.language.invoicePaymentType;
-  body.invoiceToCustomer.fields["invoicePrepayment"] =
-    req.body.language.invoicePrepayment;
+  body.invoiceToCustomer.fields["invoiceShipping"] =
+    req.body.language.invoiceShipping;
+  body.invoiceToCustomer.fields["invoiceSubtotal"] =
+    req.body.language.invoiceSubtotal;
+  body.invoiceToCustomer.fields["invoiceVat"] = req.body.language.invoiceVat;
   body.invoiceToCustomer.fields["products"] = req.body.products;
-  body.invoiceToCustomer.fields["subtotalNeto"] = req.body.subtotalNeto;
+  body.invoiceToCustomer.fields["subtotalNeto"] = Number(
+    req.body.subtotalNeto
+  ).toFixed(2);
   body.invoiceToCustomer.fields["shipping"] = req.body.shipping;
   body.invoiceToCustomer.fields["vat"] = req.body.vat;
   body.invoiceToCustomer.fields["total"] = req.body.total;
@@ -347,6 +359,8 @@ router.post("/sendInvoiceToCustomer", function (req, res, next) {
     .toISOString()
     .replace(/T/, " ")
     .replace(/\..+/, "");
+
+  body.invoiceToCustomer.fields["paymentOption"] = req.body.paymentOption;
 
   var options = {
     url: process.env.link_api + "mail-server/sendMail",
@@ -375,6 +389,9 @@ router.post("/sendInvoiceToSuperadmin", function (req, res, next) {
   body.invoiceToSuperadmin.fields["mainTelephone"] =
     req.body.mainAddress.telephone;
   body.invoiceToSuperadmin.fields["mainAddress"] = req.body.mainAddress.address;
+  body.invoiceToSuperadmin.fields["mainCompany"] = req.body.mainAddress.company;
+  body.invoiceToSuperadmin.fields["mainZip"] = req.body.mainAddress.zip;
+  body.invoiceToSuperadmin.fields["mainCity"] = req.body.mainAddress.city;
   body.invoiceToSuperadmin.fields["mainEmail"] = req.body.mainAddress.email;
 
   body.invoiceToSuperadmin.fields["shippingFirstname"] =
@@ -387,6 +404,11 @@ router.post("/sendInvoiceToSuperadmin", function (req, res, next) {
     req.body.shippingAddress.email;
   body.invoiceToSuperadmin.fields["shippingAddress"] =
     req.body.shippingAddress.address;
+  body.invoiceToSuperadmin.fields["shippingCompany"] =
+    req.body.shippingAddress.company;
+  body.invoiceToSuperadmin.fields["shippingZip"] = req.body.shippingAddress.zip;
+  body.invoiceToSuperadmin.fields["shippingCity"] =
+    req.body.shippingAddress.city;
 
   body.invoiceToSuperadmin.fields["invoiceTitle"] =
     req.body.language.invoiceTitle;
@@ -404,10 +426,17 @@ router.post("/sendInvoiceToSuperadmin", function (req, res, next) {
     req.body.language.invoiceOrderDate;
   body.invoiceToSuperadmin.fields["invoicePaymentType"] =
     req.body.language.invoicePaymentType;
-  body.invoiceToSuperadmin.fields["invoicePrepayment"] =
-    req.body.language.invoicePrepayment;
+  body.invoiceToSuperadmin.fields["invoiceShipping"] =
+    req.body.language.invoiceShipping;
+  body.invoiceToSuperadmin.fields["invoiceSubtotal"] =
+    req.body.language.invoiceSubtotal;
+  body.invoiceToSuperadmin.fields["invoiceVat"] = req.body.language.invoiceVat;
+  body.invoiceToSuperadmin.fields["invoiceTotal"] =
+    req.body.language.invoiceTotal;
   body.invoiceToSuperadmin.fields["products"] = req.body.products;
-  body.invoiceToSuperadmin.fields["subtotalNeto"] = req.body.subtotalNeto;
+  body.invoiceToSuperadmin.fields["subtotalNeto"] = Number(
+    req.body.subtotalNeto
+  ).toFixed(2);
   body.invoiceToSuperadmin.fields["shipping"] = req.body.shipping;
   body.invoiceToSuperadmin.fields["vat"] = req.body.vat;
   body.invoiceToSuperadmin.fields["total"] = req.body.total;
@@ -416,6 +445,7 @@ router.post("/sendInvoiceToSuperadmin", function (req, res, next) {
     .toISOString()
     .replace(/T/, " ")
     .replace(/\..+/, "");
+  body.invoiceToSuperadmin.fields["paymentOption"] = req.body.paymentOption;
 
   var options = {
     url: process.env.link_api + "mail-server/sendMail",

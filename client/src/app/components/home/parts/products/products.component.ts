@@ -54,7 +54,9 @@ export class ProductsComponent implements OnInit {
         )
         .subscribe((data) => {
           this.products = data;
-          this.category = this.language.productResultFor + changes['searchProduct'].currentValue;
+          this.category =
+            this.language.productResultFor +
+            changes['searchProduct'].currentValue;
         });
     } else {
       this.initialize();
@@ -68,11 +70,22 @@ export class ProductsComponent implements OnInit {
   initialize() {
     this.category = this.route.snapshot.paramMap.get('category')!;
     if (this.category) {
-      this.service
-        .callGetMethod('/api/getAllProductsForCategory', this.category!)
-        .subscribe((products) => {
-          this.products = products;
-        });
+      if (this.storageService.getToken()) {
+        this.service
+          .callGetMethod(
+            '/api/getAllProductsForCategoryForLoginUser/',
+            this.category!
+          )
+          .subscribe((products) => {
+            this.products = products;
+          });
+      } else {
+        this.service
+          .callGetMethod('/api/getAllProductsForCategory', this.category!)
+          .subscribe((products) => {
+            this.products = products;
+          });
+      }
     } else {
       console.log('Akcije!');
     }

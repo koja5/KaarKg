@@ -16213,3 +16213,12 @@ aside .widget-info i {
   font-size: 11px;
   color: #737373;
 }
+
+.e-accordion .e-acrdn-item.e-select.e-selected.e-expand-state > .e-acrdn-header, .e-accordion .e-acrdn-item.e-select.e-expand-state > .e-acrdn-header {
+  background: #0071DC !important;
+  color: #fff !important;
+}
+
+.e-accordion .e-acrdn-item.e-select.e-selected.e-expand-state > .e-acrdn-header .e-acrdn-header-icon, .e-accordion .e-acrdn-item.e-select.e-selected.e-expand-state > .e-acrdn-header .e-acrdn-header-content, .e-accordion .e-acrdn-item.e-select.e-expand-state > .e-acrdn-header .e-acrdn-header-icon, .e-accordion .e-acrdn-item.e-select.e-expand-state > .e-acrdn-header .e-acrdn-header-content {
+  color: #fff !important;
+}

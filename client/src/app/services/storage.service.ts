@@ -71,6 +71,10 @@ export class StorageService {
     return this.cookieService.get(key);
   }
 
+  removeCookie(key: string) {
+    this.cookieService.delete(key, '/');
+  }
+
   setCookieObject(key: string, value: any) {
     this.cookieService.set(key, JSON.stringify(value));
   }

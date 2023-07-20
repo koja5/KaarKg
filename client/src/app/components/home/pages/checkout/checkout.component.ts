@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { ShippingAddress } from '@stripe/stripe-js';
 import { CallApiService } from 'src/app/services/call-api.service';
@@ -11,22 +11,23 @@ import { StorageService } from 'src/app/services/storage.service';
   styleUrls: ['./checkout.component.scss'],
 })
 export class CheckoutComponent implements OnInit {
+  @Output() successEmitter = new EventEmitter<null>();
   public language: any;
   public products: any;
   public subtotalNeto = 0;
   public subtotalBruto = 0;
   public shipping = 10;
   public total: string | undefined;
-  public vat = '20%';
+  public vat: string | undefined;
   public shippingAddress: any;
   public mainAddress: any;
   public type: any;
+  public loader = false;
 
   constructor(
     private helpService: HelpService,
     private storageService: StorageService,
-    private service: CallApiService,
-    private router: Router
+    private service: CallApiService
   ) {}
 
   ngOnInit(): void {
@@ -52,14 +53,16 @@ export class CheckoutComponent implements OnInit {
 
     if (this.type === 3) {
       for (let i = 0; i < products.length; i++) {
-        products[i].neto = products[i].price;
-        products[i].bruto = Number(products[i].price * 1.2).toFixed(2);
+        products[i].bruto = products[i].price;
+        products[i].neto = Number(products[i].price / 1.2).toFixed(2);
+        // products[i].bruto = products[i].price;
         products[i].vat = '20%';
       }
     } else {
       for (let i = 0; i < products.length; i++) {
-        products[i].bruto = products[i].price;
-        products[i].neto = Number(products[i].price / 1.2).toFixed(2);
+        products[i].neto = products[i].price;
+        products[i].bruto = Number(products[i].price * 1.2).toFixed(2);
+        // products[i].neto = products[i].price;
         products[i].vat = '20%';
       }
     }
@@ -75,10 +78,17 @@ export class CheckoutComponent implements OnInit {
       this.subtotalNeto += Number(this.products[i].neto);
       this.subtotalBruto += Number(this.products[i].bruto);
     }
+    this.subtotalNeto += this.shipping;
+    this.subtotalBruto += this.shipping;
+    this.vat = Number(this.subtotalNeto * 0.2).toFixed(2);
   }
 
   getTotal() {
-    this.total = Number(this.subtotalBruto + this.shipping).toFixed(2);
+    if (this.type === 3) {
+      this.total = Number(this.subtotalBruto * 1.2).toFixed(2);
+    } else {
+      this.total = Number(this.subtotalNeto * 1.2).toFixed(2);
+    }
   }
 
   pay() {
@@ -91,7 +101,9 @@ export class CheckoutComponent implements OnInit {
       total: this.total,
       vat: this.vat,
       shipping: this.shipping,
+      paymentOption: this.helpService.getSessionStorageStringValue('payment'),
     };
+    this.loader = true;
     this.service
       .callPostMethod('/api/sendInvoiceToCustomer', data)
       .subscribe((data) => {
@@ -102,8 +114,11 @@ export class CheckoutComponent implements OnInit {
       .callPostMethod('/api/sendInvoiceToSuperadmin', data)
       .subscribe((data) => {
         console.log(data);
-        if(data) {
-          this.router.navigate(['payment-success/prepayment']);
+        if (data) {
+          this.storageService.removeCookie('cart');
+          this.helpService.removeSessionStorage('payment');
+          this.loader = true;
+          this.successEmitter.emit();
         }
       });
   }
