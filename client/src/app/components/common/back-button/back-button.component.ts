@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { HelpService } from 'src/app/services/help.service';
 
@@ -8,6 +8,8 @@ import { HelpService } from 'src/app/services/help.service';
   styleUrls: ['./back-button.component.scss'],
 })
 export class BackButtonComponent implements OnInit {
+  @Input() title!: string;
+  @Input() icon!: string;
   public language: any;
 
   constructor(private helpService: HelpService, private router: Router) {}

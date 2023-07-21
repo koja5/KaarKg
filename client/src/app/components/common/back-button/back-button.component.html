@@ -1,2 +1,2 @@
-<button (click)="goBack()" class="btn btn-default"><app-mat-icon [icon]="'arrow_back'"></app-mat-icon>
-    {{language.paymentGoBack}}</button>
+<button (click)="goBack()" class="btn btn-default"><app-mat-icon [icon]="icon ? icon : 'arrow_back'"></app-mat-icon>
+    {{title || title == '' ? title : language.paymentGoBack}}</button>

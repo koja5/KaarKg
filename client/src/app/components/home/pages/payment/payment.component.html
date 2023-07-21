@@ -1,6 +1,9 @@
 <app-header-top></app-header-top>
 <div class="container mt-4">
-    <app-back-button></app-back-button>
+    <app-back-button [icon]="'home'" [title]="''"></app-back-button>
+    <button *ngIf="currentStep > 0 && currentStep < 3" (click)="previousStep()" class="btn btn-default"><app-mat-icon
+            [icon]="'arrow_back'"></app-mat-icon>
+        {{language.paymentGoBack}}</button>
 
     <app-loader *ngIf="loader"></app-loader>
 

@@ -151,6 +151,7 @@ export class PaymentComponent implements OnInit {
             this.language.generalSuccessfulyExecuteAction
           );
           this.getShippingAddresses();
+          this.storageService.setLocalStorage('shipping', this.shippingAddress);
         }
       });
   }

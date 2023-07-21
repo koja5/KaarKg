@@ -224,21 +224,21 @@
                             <td colspan="2">
                                 <b> {{invoiceMainAddress}} </b> <br>
                                 {{mainFirstname}} {{mainLastname}} <br>
-                                {{mainTelephone}}<br>
-                                {{mainEmail}}<br>
                                 {{mainAddress}}<br>
+                                {{mainZip}}  {{mainCity}}<br>
+                                Tel: {{mainTelephone}}<br>
+                                E-Mail: {{mainEmail}}<br>
                                 {{mainCompany}}<br>
-                                {{mainZip}}<br>
-                                {{mainCity}}
+                               
                             </td>
                             <td> <b> {{invoiceShippingAddress}} </b><br>
                                 {{shippingFirstname}} {{shippingLastname}} <br>
-                                {{shippingTelephone}}<br>
-                                {{shippingEmail}}<br>
                                 {{shippingAddress}}<br>
+                                {{shippingZip}} {{shippingCity}}<br>
+                                Tel: {{shippingTelephone}}<br>
+                                E-Mail: {{shippingEmail}}<br>
                                 {{shippingCompany}}<br>
-                                {{shippingZip}}<br>
-                                {{shippingCity}}
+                                
                             </td>
                         </tr>
                     </table>
