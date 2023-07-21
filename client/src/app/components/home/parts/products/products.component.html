@@ -1,4 +1,4 @@
-<app-loader *ngIf="!language || !products"></app-loader>
+<app-loader *ngIf="!products"></app-loader>
 <div class="main-content">
     <section class="home-section mb-2">
         <div class="row">
@@ -100,7 +100,7 @@
     </section>
 </div>
 
-<ejs-dialog #quickView [showCloseIcon]='true' [visible]='false' width="750px">
+<ejs-dialog *ngIf="item" #quickView [showCloseIcon]='true' [visible]='false' width="750px">
     <ng-template #content>
         <app-product-item [item]="item"></app-product-item>
     </ng-template>

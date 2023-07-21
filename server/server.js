@@ -8,11 +8,12 @@ const api = require("./providers/api");
 const mailApi = require("./providers/mail-api");
 const mailServer = require("./providers/mail_server/mail-server");
 const upload = require("./providers/upload");
-const sqlDatabase = require('./providers/config/sql-database');
+const sqlDatabase = require("./providers/config/sql-database");
 sqlDatabase.connect();
 
 const express = require("express");
 const router = express.Router();
+var cors = require("cors");
 // const express = require("express");
 
 const app = express();
@@ -21,13 +22,15 @@ app.use(express.json());
 
 module.exports = app;
 
+app.use(cors());
+
 app.use(function (req, res, next) {
   //allow cross origin requests
   res.setHeader(
     "Access-Control-Allow-Methods",
     "POST, PUT, OPTIONS, DELETE, GET"
   );
-  res.header("Access-Control-Allow-Origin", "http://localhost:4201");
+  res.header("Access-Control-Allow-Origin", "http://localhost:4200");
   res.header(
     "Access-Control-Allow-Headers",
     "Origin, X-Requested-With, Content-Type, Accept"
@@ -68,4 +71,3 @@ server.listen(port, () => console.log(`API running on localhost:${port}`));
 //chat END
 
 // AUTOMATE WORK
-

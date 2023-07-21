@@ -66,7 +66,10 @@ export class CallApiService {
     if (data === undefined) {
       data = '';
     }
-    const url = api.endsWith('/') ? api + data : api + '/' + data;
+    let url = api.endsWith('/') ? api + data : api + '/' + data;
+    console.log(url);
+    url = 'http://localhost:3001' + url;
+    console.log(url);
     return this.http.get(url, { headers: this.headers });
   }
 

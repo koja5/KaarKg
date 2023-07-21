@@ -1,5 +1,8 @@
 <app-loader *ngIf="!language"></app-loader>
 
+
+<app-products [searchProduct]="searchProduct"></app-products>
+
 <body *ngIf="language">
     <div class="page-wrapper">
         <header class="header">
