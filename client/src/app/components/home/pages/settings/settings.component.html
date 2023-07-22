@@ -1,0 +1,17 @@
+<app-header-top></app-header-top>
+
+<main class="container main">
+    <app-back-button [icon]="'home'" [title]="''"></app-back-button>
+    <div class="horizontal-tabs">
+        <a (click)="clickToTab('/settings/change-personal-info')"
+            class="{{currentLink === '/settings/change-personal-info' ? 'active' : ''}}">{{language.settingMyDetails}}</a>
+        <a (click)="clickToTab('/settings/change-password')"
+            class="{{currentLink === '/settings/change-password' ? 'active' : ''}}">{{language.settingChangePassword}}</a>
+    </div>
+    <div class="responsive-wrapper">
+        <div class="content">
+            <router-outlet></router-outlet>
+        </div>
+    </div>
+</main>
+<app-footer [class]="'full-width'"></app-footer>

@@ -31,6 +31,7 @@ import { FooterComponent } from '../common/footer/footer.component';
 import { ArticleDetailsComponent } from '../pages/article-details/article-details.component';
 import { HelpComponent } from '../pages/help/help.component';
 import { AccordionModule } from '@syncfusion/ej2-angular-navigations';
+import { SettingsComponent } from '../pages/settings/settings.component';
 @NgModule({
   declarations: [
     HomeComponent,
@@ -46,7 +47,8 @@ import { AccordionModule } from '@syncfusion/ej2-angular-navigations';
     AboutUsComponent,
     FooterComponent,
     ArticleDetailsComponent,
-    HelpComponent
+    HelpComponent,
+    SettingsComponent
   ],
   imports: [
     CommonModule,

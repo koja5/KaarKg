@@ -1,0 +1,122 @@
+{
+    "class": "margin-auto width-60",
+    "actionButtons": {
+        "class": "text-right p-3",
+        "simpleButtons": [],
+        "dropDownButtons": {
+            "content": "options",
+            "items": [
+                {
+                    "text": "edit",
+                    "id": "edit",
+                    "iconCss": "ddb-icons e-edit"
+                }
+            ]
+        },
+        "splitButtons": {
+            "content": "",
+            "items": []
+        }
+    },
+    "request": {
+        "type": "GET",
+        "api": "/api/getMe/",
+        "url": [],
+        "parameters": [],
+        "fields": "",
+        "root": ""
+    },
+    "editSettingsRequest": {
+        "edit": {
+            "type": "POST",
+            "api": "/api/changePersonalInfo",
+            "parameters": [],
+            "fields": "",
+            "root": ""
+        }
+    },
+    "config": [
+        {
+            "type": "textbox",
+            "width": "col-md-12 hide",
+            "class": "e-outline",
+            "name": "id",
+            "title": "id",
+            "field": "id",
+            "readonly": true
+        },
+        {
+            "type": "textbox",
+            "width": "col-md-6",
+            "class": "e-outline",
+            "name": "firstname",
+            "title": "firstnameForSettings",
+            "field": "firstname"
+        },
+        {
+            "type": "textbox",
+            "width": "col-md-6",
+            "class": "e-outline",
+            "name": "lastname",
+            "title": "lastnameForSettings",
+            "field": "lastname"
+        },
+        {
+            "type": "textbox",
+            "width": "col-md-6",
+            "class": "e-outline",
+            "name": "email",
+            "title": "emailForSettings",
+            "field": "email"
+        },
+        {
+            "type": "textbox",
+            "width": "col-md-6",
+            "class": "e-outline",
+            "name": "telephone",
+            "title": "phoneForSettings",
+            "field": "telephone"
+        },
+        {
+            "type": "textbox",
+            "width": "col-md-12",
+            "class": "e-outline",
+            "name": "address",
+            "title": "addressForSettings",
+            "field": "address"
+        },
+        {
+            "type": "textbox",
+            "width": "col-md-12",
+            "class": "e-outline",
+            "name": "company",
+            "title": "nameOfCompanyForSettings",
+            "field": "company"
+        },
+        {
+            "type": "textbox",
+            "width": "col-md-6",
+            "class": "e-outline",
+            "name": "zip",
+            "title": "zipCodeForSettings",
+            "field": "zip"
+        },
+        {
+            "type": "textbox",
+            "width": "col-md-6",
+            "class": "e-outline",
+            "name": "city",
+            "title": "cityForSettings",
+            "field": "city"
+        },
+        {
+            "type": "button",
+            "width": "col-md-12",
+            "class": "e-info  button-action",
+            "name": "submit",
+            "title": "saveForSettings",
+            "field": "submit",
+            "positionClass": "text-end mt-3 col-md-12"
+        }
+    ]
+}

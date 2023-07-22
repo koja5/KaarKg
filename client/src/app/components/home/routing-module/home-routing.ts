@@ -9,6 +9,7 @@ import { CheckoutComponent } from '../pages/checkout/checkout.component';
 import { AboutUsComponent } from '../pages/about-us/about-us.component';
 import { ArticleDetailsComponent } from '../pages/article-details/article-details.component';
 import { HelpComponent } from '../pages/help/help.component';
+import { SettingsComponent } from '../pages/settings/settings.component';
 
 const routes: Routes = [
   {
@@ -55,6 +56,15 @@ const routes: Routes = [
   {
     path: 'help',
     component: HelpComponent,
+  },
+
+  {
+    path: 'settings',
+    component: SettingsComponent,
+    loadChildren: () =>
+      import('../pages/settings/routing-module/settings.module').then(
+        (m) => m.SettingsdModule
+      ),
   },
 ];
 

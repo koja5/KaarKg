@@ -685,6 +685,59 @@ router.get("/getUsers", async (req, res, next) => {
   }
 });
 
+router.post("/changePersonalInfo", auth, function (req, res, next) {
+  connection.getConnection(function (err, conn) {
+    if (err) {
+      logger.log("error", err.sql + ". " + err.sqlMessage);
+      res.json(err);
+    }
+
+    conn.query(
+      "update users SET ? where id = ?",
+      [req.body, req.user.user.id],
+      function (err, rows) {
+        conn.release();
+        if (!err) {
+          res.json(true);
+        } else {
+          logger.log("error", err.sql + ". " + err.sqlMessage);
+          res.json(false);
+        }
+      }
+    );
+  });
+});
+
+router.post("/changePassword", auth, function (req, res, next) {
+  connection.getConnection(function (err, conn) {
+    if (err) {
+      logger.log("error", err.sql + ". " + err.sqlMessage);
+      res.json(err);
+    }
+
+    if (
+      req.body.current_password == req.body.new_password ||
+      req.body.new_password != req.body.repet_new_password
+    ) {
+      res.json(false);
+    } else {
+      conn.query(
+        "update users SET password = ? where id = ?",
+        [sha1(req.body.new_password), req.user.user.id],
+        function (err, rows) {
+          conn.release();
+          if (!err) {
+            res.json(true);
+          } else {
+            logger.log("error", err.sql + ". " + err.sqlMessage);
+            res.json(false);
+          }
+        }
+      );
+    }
+  });
+});
+
 /* SHIPPING ADDRESS */
 
 router.post("/createShippingAddress", auth, async function (req, res, next) {
@@ -875,3 +928,121 @@ router.post("/checkout", async (req, res, next) => {
     console.log(error);
   }
 });
+
+/* COUNTRIES */
+router.get("/getCountries", async (req, res, next) => {
+  try {
+    connection.getConnection(function (err, conn) {
+      if (err) {
+        logger.log("error", err.sql + ". " + err.sqlMessage);
+        res.json(err);
+      } else {
+        conn.query(
+          "select * from countries",
+          req.params.category,
+          function (err, rows, fields) {
+            conn.release();
+            if (err) {
+              logger.log("error", err.sql + ". " + err.sqlMessage);
+              res.json(err);
+            } else {
+              console.log(rows);
+              res.json(rows);
+            }
+          }
+        );
+      }
+    });
+  } catch (ex) {
+    logger.log("error", err.sql + ". " + err.sqlMessage);
+    res.json(ex);
+  }
+});
+
+
+router.post("/createCountry", auth, async function (req, res, next) {
+  try {
+    connection.getConnection(async function (err, conn) {
+      if (err) {
+        logger.log("error", err.sql + ". " + err.sqlMessage);
+        return res.json(false);
+      }
+      conn.query("insert into countries set ?", req.body, async function (err) {
+        if (err) {
+          logger.log("error", err.sql + ". " + err.sqlMessage);
+          return res.json(false);
+        } else {
+          logger.log("info", "Create new city");
+          res.json(true);
+        }
+      });
+    });
+  } catch (err) {
+    logger.log("error", err);
+  }
+});
+
+router.post("/updateCountry", auth, function (req, res, next) {
+  try {
+    connection.getConnection(function (err, conn) {
+      if (err) {
+        logger.log("error", err.sql + ". " + err.sqlMessage);
+        res.json(err);
+      }
+      conn.query(
+        "update countries SET ? where id = ?",
+        [req.body, req.body.id],
+        function (err, rows) {
+          conn.release();
+          if (!err) {
+            var option_request = {
+              rejectUnauthorized: false,
+              url: process.env.link_api + "infoForActiveFreeAd",
+              method: "POST",
+              body: req.body,
+              json: true,
+            };
+            request(option_request, function (error, response, body) {});
+
+            res.json(true);
+          } else {
+            logger.log("error", `${err.sql}. ${err.sqlMessage}`);
+            res.json(false);
+          }
+        }
+      );
+    });
+  } catch (ex) {
+    logger.log("error", err.sql + ". " + err.sqlMessage);
+    res.json(ex);
+  }
+});
+
+router.post("/deleteCountry", auth, function (req, res, next) {
+  try {
+    connection.getConnection(function (err, conn) {
+      if (err) {
+        logger.log("error", err.sql + ". " + err.sqlMessage);
+        res.json(err);
+      }
+      conn.query(
+        "delete from countries where id = ?",
+        [req.body.id],
+        function (err, rows) {
+          conn.release();
+          if (!err) {
+            res.json(true);
+          } else {
+            logger.log("error", `${err.sql}. ${err.sqlMessage}`);
+            res.json(false);
+          }
+        }
+      );
+    });
+  } catch (ex) {
+    logger.log("error", err.sql + ". " + err.sqlMessage);
+    res.json(ex);
+  }
+});
+
+/* END COUNTRIES */

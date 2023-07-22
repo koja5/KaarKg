@@ -16,9 +16,16 @@ import { ConfirmDialogComponent } from '../../common/confirm-dialog/confirm-dial
 import { AllUsersComponent } from '../pages/all-users/all-users.component';
 import { AllProductsComponent } from '../pages/all-products/all-products.component';
 import { UploaderAllModule } from '@syncfusion/ej2-angular-inputs';
+import { CountriesComponent } from '../pages/countries/countries.component';
 
 @NgModule({
-  declarations: [DashboardComponent, NavigationProductComponent, AllUsersComponent, AllProductsComponent],
+  declarations: [
+    DashboardComponent,
+    NavigationProductComponent,
+    AllUsersComponent,
+    AllProductsComponent,
+    CountriesComponent,
+  ],
   imports: [
     CommonModule,
     DashboardRouting,
@@ -31,7 +38,7 @@ import { UploaderAllModule } from '@syncfusion/ej2-angular-inputs';
     DropDownButtonModule,
     ComboBoxModule,
     DynamicModule,
-    UploaderAllModule
+    UploaderAllModule,
   ],
   providers: [],
 })

@@ -1,8 +1,7 @@
 [
   {
     "title": "Configurations",
-    "rights": [
-    ],
+    "rights": [],
     "menu": [
       {
         "icon": "admin_panel_settings",
@@ -13,6 +12,11 @@
         "icon": "group",
         "title": "All users",
         "link": "/dashboard/all-users"
+      },
+      {
+        "icon": "group",
+        "title": "Countries",
+        "link": "/dashboard/countries"
       },
       {
         "icon": "inventory_2",

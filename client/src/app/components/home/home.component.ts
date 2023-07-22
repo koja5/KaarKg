@@ -100,7 +100,7 @@ export class HomeComponent implements OnInit {
       this.items = [
         {
           text: this.language.homeMyProfile,
-          id: 'profile',
+          id: 'settings',
         },
         {
           text: this.language.homeLogout,
@@ -122,6 +122,9 @@ export class HomeComponent implements OnInit {
     switch (event.item.id) {
       case 'dashboard':
         this.router.navigate(['dashboard']);
+        break;
+      case 'settings':
+        this.router.navigate(['settings']);
         break;
       case 'logout':
         this.logout();
