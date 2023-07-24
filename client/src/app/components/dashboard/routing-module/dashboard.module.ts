@@ -17,6 +17,7 @@ import { AllUsersComponent } from '../pages/all-users/all-users.component';
 import { AllProductsComponent } from '../pages/all-products/all-products.component';
 import { UploaderAllModule } from '@syncfusion/ej2-angular-inputs';
 import { CountriesComponent } from '../pages/countries/countries.component';
+import { ShippingPricesComponent } from '../pages/shipping-prices/shipping-prices.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { CountriesComponent } from '../pages/countries/countries.component';
     AllUsersComponent,
     AllProductsComponent,
     CountriesComponent,
+    ShippingPricesComponent
   ],
   imports: [
     CommonModule,

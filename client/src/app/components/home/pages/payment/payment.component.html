@@ -72,17 +72,17 @@
                                     *ngIf="type === getUserType().dealer || type === getUserType().kindergarden">
                                     <ejs-radiobutton label="{{language.paymentPerInvoiceOptions}}" name="paymentOption"
                                         checked="{{paymentOption === getPaymentOption().invoice ? true : null}}"
-                                        (click)="setPaymentOption(language.paymentPerInvoiceOptions, getPaymentOption().invoice)"></ejs-radiobutton>
+                                        (click)="setPaymentOption(language.paymentPerInvoiceOptionsForMail, getPaymentOption().invoice)"></ejs-radiobutton>
                                 </li>
                                 <li class="mb-2" *ngIf="type === getUserType().customer">
                                     <ejs-radiobutton label="{{language.paymentPrepaymentOptions}}" name="paymentOption"
                                         checked="{{paymentOption === getPaymentOption().prepayment ? true : null}}"
-                                        (click)="setPaymentOption(language.paymentPrepaymentOptions, getPaymentOption().prepayment)"></ejs-radiobutton>
+                                        (click)="setPaymentOption(language.paymentPrepaymentOptionsForMail, getPaymentOption().prepayment)"></ejs-radiobutton>
                                 </li>
                                 <li>
                                     <ejs-radiobutton label="{{language.paymentPayOptions}}" name="paymentOption"
                                         checked="{{paymentOption === getPaymentOption().pay ? true : null}}"
-                                        (click)="setPaymentOption(language.paymentPayOptions, getPaymentOption().pay)"></ejs-radiobutton>
+                                        (click)="setPaymentOption(language.paymentPayOptionsForMail, getPaymentOption().pay)"></ejs-radiobutton>
                                 </li>
                             </ul>
                         </div>
@@ -106,8 +106,8 @@
                             <button *ngIf="currentStep > 0 && currentStep < 3" class="btn btn-default mr-2"
                                 (click)="previousStep()"><app-mat-icon [icon]="'navigate_before'"></app-mat-icon>
                                 {{language.paymentPreviousStep}}</button>
-                            <button *ngIf="currentStep < 2" class="btn btn-default"
-                                (click)="nextStep()">{{language.paymentNextStep}}
+                            <button *ngIf="currentStep < 2" class="btn btn-default" (click)="nextStep()"
+                                [disabled]="!shippingAddress.address || !paymentOption">{{language.paymentNextStep}}
                                 <app-mat-icon [icon]="'navigate_next'"></app-mat-icon></button>
                         </div>
 
@@ -133,6 +133,12 @@
                 <input name="telephone" [(ngModel)]="shippingAddress.telephone" required>
                 <label>{{language.checkoutEmail}}</label>
                 <input name="email" [(ngModel)]="shippingAddress.email" required>
+                <label>{{language.checkoutCountry}}</label>
+                <ejs-combobox *ngIf="countries" [id]="'country'" name="country" [dataSource]="countries" [fields]="{
+                        text: 'name' , 'value' : 'id' }" [allowFiltering]="true"
+                    [(ngModel)]="shippingAddress.country_id" [placeholder]="language.checkoutCountryPlaceholder"
+                    required>
+                </ejs-combobox>
                 <label>{{language.checkoutAddress}}</label>
                 <input name="address" [(ngModel)]="shippingAddress.address" required>
                 <input name="company" [(ngModel)]="shippingAddress.company" [placeholder]="language.checkoutAddressTwo">

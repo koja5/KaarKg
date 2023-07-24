@@ -268,6 +268,10 @@
             <p>{{signatureEmail}}</p>
             <p>{{signatureAddress}}</p>
             <p style="text-align: center; margin-top: 10px">{{signatureFreeText}}</p>
+            <div style="text-align: center; margin-top: 10px;">
+                <a href="http://localhost:4201/document/terms" target="_blank">AGB</a>  |  
+                <a href="http://localhost:4201/document/privacy-policy" target="_blank">Datenschutz</a>
+            </div>
         </div>
     </div>
     <!-- partial -->

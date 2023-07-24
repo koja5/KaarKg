@@ -14,7 +14,10 @@
                 <li class="item">
                     <span class="item-title">{{language.checkoutShipping}}</span>
                     <span class="item-price" *ngIf="shipping > 0">€ {{shipping | number: '.2'}}</span>
-                    <span class="item-price" *ngIf="shipping === 0">{{language.checkoutShippingFree}}</span>
+                    <span class="item-price"
+                        *ngIf="shipping === 0 && !shippingNotAvailable">{{language.checkoutShippingFree}}</span>
+                    <span class="item-price"
+                        *ngIf="shipping === 0 && shippingNotAvailable">{{language.checkoutShippingNotAvailable}}</span>
                 </li>
             </ul>
 
@@ -65,6 +68,11 @@
             <input name="firstname" placeholder="{{language.checkoutFirstname}}"
                 [(ngModel)]="shippingAddress.firstname">
             <input name="lastname" placeholder="{{language.checkoutLastname}}" [(ngModel)]="shippingAddress.lastname">
+            <ejs-combobox class="mb-1" *ngIf="countries" [id]="'country'" name="country" [dataSource]="countries"
+                [fields]="{
+                        text: 'name' , 'value' : 'id' }" [allowFiltering]="true"
+                [(ngModel)]="shippingAddress.country_id" [placeholder]="language.checkoutCountryPlaceholder" required>
+            </ejs-combobox>
             <input name="address" placeholder="{{language.checkoutAddress}}" [(ngModel)]="shippingAddress.address">
             <input name="company" placeholder="{{language.checkoutAddressTwo}}" [(ngModel)]="shippingAddress.company">
             <div class="row">

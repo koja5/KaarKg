@@ -92,6 +92,10 @@ export class HomeComponent implements OnInit {
           id: 'dashboard',
         },
         {
+          text: this.language.homeMyProfile,
+          id: 'settings',
+        },
+        {
           text: this.language.homeLogout,
           id: 'logout',
         },
@@ -114,7 +118,7 @@ export class HomeComponent implements OnInit {
     const token = this.helpService.getDecodeToken();
     if (token) {
       this.username = token.firstname ? token.firstname : token.lastname;
-      this.type = this.helpService.getTypeOfName(token.type);
+      this.type = token.type;
     }
   }
 

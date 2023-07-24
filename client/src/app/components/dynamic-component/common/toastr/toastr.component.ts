@@ -46,8 +46,8 @@ export class ToastrComponent implements OnInit {
 
   showSuccess() {
     this.toastr.success(
-      this.helpService.getLanguage().toastrSuccessExecutedActionText,
-      this.helpService.getLanguage().toastrSuccessExecutedActionTitle,
+      this.helpService.getLanguage().generalSuccessExecutedActionText,
+      this.helpService.getLanguage().generalSuccessExecutedActionTitle,
       {
         timeOut: 7000,
         positionClass: 'toast-bottom-right',
@@ -57,8 +57,8 @@ export class ToastrComponent implements OnInit {
 
   showInfo() {
     this.toastr.info(
-      this.helpService.getLanguage().toastrInfoExecutedActionText,
-      this.helpService.getLanguage().toastrInfoExecutedActionTitle,
+      this.helpService.getLanguage().generalInfoExecutedActionText,
+      this.helpService.getLanguage().generalInfoExecutedActionTitle,
       {
         timeOut: 7000,
         positionClass: 'toast-bottom-right',
@@ -68,8 +68,8 @@ export class ToastrComponent implements OnInit {
 
   showError() {
     this.toastr.error(
-      this.helpService.getLanguage().toastrErrorExecutedActionText,
-      this.helpService.getLanguage().toastrErrorExecutedActionTitle,
+      this.helpService.getLanguage().generalErrorExecutedActionText,
+      this.helpService.getLanguage().generalErrorExecutedActionTitle,
       {
         timeOut: 7000,
         positionClass: 'toast-bottom-right',
@@ -78,8 +78,8 @@ export class ToastrComponent implements OnInit {
   }
   showWarning() {
     this.toastr.warning(
-      this.helpService.getLanguage().toastrWarningExecutedActionTitle,
-      this.helpService.getLanguage().toastrWarningExecutedActionText,
+      this.helpService.getLanguage().generalWarningExecutedActionTitle,
+      this.helpService.getLanguage().generalWarningExecutedActionText,
       {
         timeOut: 7000,
         positionClass: 'toast-bottom-right',

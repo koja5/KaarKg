@@ -1,0 +1,271 @@
+{
+    "pageSize": 10,
+    "request": {
+        "type": "GET",
+        "api": "/api/getShippingPrices",
+        "parameters": [],
+        "fields": "",
+        "root": ""
+    },
+    "paging": {
+        "enable": true,
+        "settings": {
+            "pageSize": 10
+        }
+    },
+    "sorting": {
+        "enable": true
+    },
+    "grouping": {
+        "enable": true,
+        "group": []
+    },
+    "filtering": {
+        "enable": false
+    },
+    "customGrouping": false,
+    "allowResizing": true,
+    "reorderable": true,
+    "selectable": true,
+    "scrollable": false,
+    "hideable": true,
+    "refresh": false,
+    "reset": true,
+    "contextMenuItems": [
+        "AutoFit",
+        "AutoFitAll",
+        "SortAscending",
+        "SortDescending",
+        "Copy",
+        "Edit",
+        "Delete",
+        "Save",
+        "Cancel",
+        "FirstPage",
+        "PrevPage",
+        "LastPage",
+        "NextPage",
+        "Group",
+        "Ungroup"
+    ],
+    "toolbar": [
+        "Add",
+        "Edit",
+        "Delete",
+        "Print",
+        "Search"
+    ],
+    "editSettings": {
+        "allowEditing": true,
+        "allowAdding": true,
+        "allowDeleting": true,
+        "showDeleteConfirmDialog": true,
+        "mode": "Dialog"
+    },
+    "editSettingsRequest": {
+        "add": {
+            "type": "POST",
+            "api": "/api/createShippingPrice",
+            "parameters": [],
+            "fields": "",
+            "root": ""
+        },
+        "edit": {
+            "type": "POST",
+            "api": "/api/updateShippingPrice",
+            "parameters": [],
+            "fields": "",
+            "root": ""
+        },
+        "delete": {
+            "type": "POST",
+            "api": "/api/deleteShippingPrice",
+            "parameters": [],
+            "fields": "",
+            "root": ""
+        }
+    },
+    "columns": [
+        {
+            "title": "ID",
+            "width": 10,
+            "filterable": true,
+            "hideable": true,
+            "filter": "date",
+            "type": "number",
+            "class": "text-align-right",
+            "field": "id",
+            "isPrimaryKey": true,
+            "allowEditing": false
+        },
+        {
+            "title": "Country",
+            "filterable": true,
+            "hideable": true,
+            "type": "string",
+            "class": "text-align-right",
+            "field": "name",
+            "validation": {
+                "required": true
+            }
+        },
+        {
+            "title": "Dealer shipping limit",
+            "filterable": true,
+            "hideable": true,
+            "type": "string",
+            "class": "text-align-right",
+            "field": "dealer_limit",
+            "validation": {
+                "required": true
+            }
+        },
+        {
+            "title": "Dealer shipping price",
+            "filterable": true,
+            "hideable": true,
+            "type": "string",
+            "class": "text-align-right",
+            "field": "dealer_price",
+            "validation": {
+                "required": true
+            }
+        },
+        {
+            "title": "Kindergarden shipping limit",
+            "filterable": true,
+            "hideable": true,
+            "type": "string",
+            "class": "text-align-right",
+            "field": "kindergarden_limit",
+            "validation": {
+                "required": true
+            }
+        },
+        {
+            "title": "Kindergarden shipping price",
+            "filterable": true,
+            "hideable": true,
+            "type": "string",
+            "class": "text-align-right",
+            "field": "kindergarden_price",
+            "validation": {
+                "required": true
+            }
+        },
+        {
+            "title": "Customer shipping limit",
+            "filterable": true,
+            "hideable": true,
+            "type": "string",
+            "class": "text-align-right",
+            "field": "customer_limit",
+            "validation": {
+                "required": true
+            }
+        },
+        {
+            "title": "Customer shipping price",
+            "filterable": true,
+            "hideable": true,
+            "type": "string",
+            "class": "text-align-right",
+            "field": "customer_price",
+            "validation": {
+                "required": true
+            }
+        }
+    ],
+    "config": [
+        {
+            "type": "textbox",
+            "width": "col-md-12 hide",
+            "class": "e-outline",
+            "name": "id",
+            "title": "ID",
+            "field": "id",
+            "readonly": true
+        },
+        {
+            "type": "combobox",
+            "width": "col-md-12",
+            "class": "e-outline",
+            "name": "country_id",
+            "title": "Country",
+            "field": {
+                "text": "name",
+                "value": "id"
+            },
+            "request": {
+                "type": "GET",
+                "api": "/api/getCountries",
+                "parameters": [],
+                "fields": "",
+                "root": ""
+            },
+            "placeholder": "selectPositionForAd",
+            "fieldConfig": {
+                "ignoreAccent": false,
+                "filter": true
+            },
+            "required": true
+        },
+        {
+            "type": "numeric",
+            "width": "col-md-6",
+            "class": "e-outline",
+            "name": "dealer_limit",
+            "title": "Dealer shipping limit",
+            "field": "dealer_limit"
+        },
+        {
+            "type": "numeric",
+            "width": "col-md-6",
+            "class": "e-outline",
+            "name": "dealer_price",
+            "title": "Dealer shipping price",
+            "field": "dealer_price"
+        },
+        {
+            "type": "numeric",
+            "width": "col-md-6",
+            "class": "e-outline",
+            "name": "kindergarden_limit",
+            "title": "Kindergarden shipping limit",
+            "field": "kindergarden_limit"
+        },
+        {
+            "type": "numeric",
+            "width": "col-md-6",
+            "class": "e-outline",
+            "name": "kindergarden_price",
+            "title": "Kindergarden shipping price",
+            "field": "kindergarden_price"
+        },
+        {
+            "type": "numeric",
+            "width": "col-md-6",
+            "class": "e-outline",
+            "name": "customer_limit",
+            "title": "Customer shipping limit",
+            "field": "customer_limit"
+        },
+        {
+            "type": "numeric",
+            "width": "col-md-6",
+            "class": "e-outline",
+            "name": "customer_price",
+            "title": "Customer shipping price",
+            "field": "customer_price"
+        },
+        {
+            "type": "button",
+            "width": "col-md-12",
+            "class": "e-info button-action",
+            "name": "submit",
+            "title": "Save",
+            "field": "submit",
+            "positionClass": "position-end mt-3 col-md-12"
+        }
+    ]
+}

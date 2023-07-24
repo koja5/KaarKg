@@ -26,13 +26,35 @@ export class TextBoxComponent implements OnInit {
     this.initializeRows();
   }
 
+  ngAfterViewInit() {}
+
   initializeRows() {
     if (this.config.rows) {
       setTimeout(() => {
-        this.textareaObj.addAttributes({
+        this.textareaObj!.addAttributes({
           rows: this.config.rows ? this.config.rows : '2',
         });
       }, 50);
-    }
+    } 
+    // else if (this.config.type === 'password') {
+    //   setTimeout(() => {
+    //   (this.textareaObj as SyncfusionTextBoxComponent).addIcon(
+    //     'append',
+    //     'fa fa-eye'
+    //   );
+    //   document
+    //     .getElementsByClassName('fa-eye')[0]
+    //     .addEventListener('click', function (e) {
+    //       let textObj: any = (document.getElementById('password') as any)
+    //         .ej2_instances[0];
+    //       console.log(textObj);
+    //       if (textObj.element.type === 'password') {
+    //         textObj.element.type = 'text';
+    //       } else {
+    //         textObj.element.type = 'text';
+    //       }
+    //     });
+    //   }, 50);
+    // }
   }
 }

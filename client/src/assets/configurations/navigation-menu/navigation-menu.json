@@ -14,9 +14,14 @@
         "link": "/dashboard/all-users"
       },
       {
-        "icon": "group",
+        "icon": "public",
         "title": "Countries",
         "link": "/dashboard/countries"
+      },
+      {
+        "icon": "local_shipping",
+        "title": "Shipping prices",
+        "link": "/dashboard/shipping-prices"
       },
       {
         "icon": "inventory_2",

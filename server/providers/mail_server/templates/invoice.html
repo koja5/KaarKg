@@ -209,13 +209,13 @@
             </td>
 
             <tr class="total">
-                <td colspan="5" align="right"> {{invoiceSubtotal}} : <b> € {{subtotalNeto}} </b> </td>
+                <td colspan="5" align="right"> {{invoiceSubtotal}}  <b> € {{subtotalNeto}} </b> </td>
             </tr>
             <tr class="total">
-                <td colspan="5" align="right"> {{invoiceVat}} : <b> {{vat}} </b> </td>
+                <td colspan="5" align="right"> {{invoiceVat}}  <b> € {{vat}} </b> </td>
             </tr>
             <tr class="total">
-                <td colspan="5" align="right"> {{invoiceTotal}} : <b> € {{total}} </b> </td>
+                <td colspan="5" align="right"> {{invoiceTotal}}  <b> € {{total}} </b> </td>
             </tr>
             <tr class="information">
                 <td colspan="3">
@@ -224,15 +224,21 @@
                             <td colspan="2">
                                 <b> {{invoiceMainAddress}} </b> <br>
                                 {{mainFirstname}} {{mainLastname}} <br>
-                                {{mainTelephone}}<br>
-                                {{mainEmail}}<br>
-                                {{mainAddress}}
+                                {{mainAddress}}<br>
+                                {{mainZip}}  {{mainCity}}<br>
+                                Tel: {{mainTelephone}}<br>
+                                E-Mail: {{mainEmail}}<br>
+                                {{mainCompany}}<br>
+                               
                             </td>
                             <td> <b> {{invoiceShippingAddress}} </b><br>
                                 {{shippingFirstname}} {{shippingLastname}} <br>
-                                {{shippingTelephone}}<br>
-                                {{shippingEmail}}<br>
-                                {{shippingAddress}}
+                                {{shippingAddress}}<br>
+                                {{shippingZip}} {{shippingCity}}<br>
+                                Tel: {{shippingTelephone}}<br>
+                                E-Mail: {{shippingEmail}}<br>
+                                {{shippingCompany}}<br>
+                                
                             </td>
                         </tr>
                     </table>
@@ -248,7 +254,7 @@
                         </tr>
                         <tr>
                             <td width="50%">
-                                <b> {{invoicePaymentType}}: </b> {{invoicePrepayment}}<br>
+                                <b> {{invoicePaymentType}}: </b> {{paymentOption}}<br>
                             </td>
                         </tr>
                     </table>
@@ -262,6 +268,10 @@
             <p>{{signatureEmail}}</p>
             <p>{{signatureAddress}}</p>
             <p style="text-align: center; margin-top: 10px">{{signatureFreeText}}</p>
+            <div style="text-align: center; margin-top: 10px;">
+                <a href="http://localhost:4201/document/terms" target="_blank">AGB</a> &nbsp | &nbsp
+                <a href="http://localhost:4201/document/privacy-policy" target="_blank">Datenschutz</a>
+            </div>
         </div>
     </div>
     <!-- partial -->

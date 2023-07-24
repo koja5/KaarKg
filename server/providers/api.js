@@ -712,10 +712,17 @@ router.post("/changePassword", auth, function (req, res, next) {
   connection.getConnection(function (err, conn) {
     if (err) {
       logger.log("error", err.sql + ". " + err.sqlMessage);
-      res.json(err);
+      res.json(false);
     }
 
+    console.log(req.body.password);
+    console.log(sha1(req.body.current_password));
+
     if (
+      !req.body.current_password ||
+      !req.body.new_password ||
+      !req.body.repet_new_password ||
+      req.body.password != sha1(req.body.current_password) ||
       req.body.current_password == req.body.new_password ||
       req.body.new_password != req.body.repet_new_password
     ) {
@@ -946,7 +953,6 @@ router.get("/getCountries", async (req, res, next) => {
               logger.log("error", err.sql + ". " + err.sqlMessage);
               res.json(err);
             } else {
-              console.log(rows);
               res.json(rows);
             }
           }
@@ -958,7 +964,6 @@ router.get("/getCountries", async (req, res, next) => {
     res.json(ex);
   }
 });
-
 
 router.post("/createCountry", auth, async function (req, res, next) {
   try {
@@ -1046,3 +1051,124 @@ router.post("/deleteCountry", auth, function (req, res, next) {
 });
 
 /* END COUNTRIES */
+
+/* SHIPPING PRICES */
+
+router.get("/getShippingPrices", async (req, res, next) => {
+  try {
+    connection.getConnection(function (err, conn) {
+      if (err) {
+        logger.log("error", err.sql + ". " + err.sqlMessage);
+        res.json(err);
+      } else {
+        conn.query(
+          "select sp.*, c.name from shipping_prices sp join countries c on sp.country_id = c.id",
+          req.params.category,
+          function (err, rows, fields) {
+            conn.release();
+            if (err) {
+              logger.log("error", err.sql + ". " + err.sqlMessage);
+              res.json(err);
+            } else {
+              res.json(rows);
+            }
+          }
+        );
+      }
+    });
+  } catch (ex) {
+    logger.log("error", err.sql + ". " + err.sqlMessage);
+    res.json(ex);
+  }
+});
+
+router.post("/createShippingPrice", auth, async function (req, res, next) {
+  try {
+    connection.getConnection(async function (err, conn) {
+      if (err) {
+        logger.log("error", err.sql + ". " + err.sqlMessage);
+        return res.json(false);
+      }
+      conn.query(
+        "insert into shipping_prices set ?",
+        req.body,
+        async function (err) {
+          if (err) {
+            logger.log("error", err.sql + ". " + err.sqlMessage);
+            return res.json(false);
+          } else {
+            logger.log("info", "Create new city");
+            res.json(true);
+          }
+        }
+      );
+    });
+  } catch (err) {
+    logger.log("error", err);
+  }
+});
+
+router.post("/updateShippingPrice", auth, function (req, res, next) {
+  try {
+    connection.getConnection(function (err, conn) {
+      if (err) {
+        logger.log("error", err.sql + ". " + err.sqlMessage);
+        res.json(err);
+      }
+      conn.query(
+        "update shipping_prices SET ? where id = ?",
+        [req.body, req.body.id],
+        function (err, rows) {
+          conn.release();
+          if (!err) {
+            var option_request = {
+              rejectUnauthorized: false,
+              url: process.env.link_api + "infoForActiveFreeAd",
+              method: "POST",
+              body: req.body,
+              json: true,
+            };
+            request(option_request, function (error, response, body) {});
+
+            res.json(true);
+          } else {
+            logger.log("error", `${err.sql}. ${err.sqlMessage}`);
+            res.json(false);
+          }
+        }
+      );
+    });
+  } catch (ex) {
+    logger.log("error", err.sql + ". " + err.sqlMessage);
+    res.json(ex);
+  }
+});
+
+router.post("/deleteShippingPrice", auth, function (req, res, next) {
+  try {
+    connection.getConnection(function (err, conn) {
+      if (err) {
+        logger.log("error", err.sql + ". " + err.sqlMessage);
+        res.json(err);
+      }
+      conn.query(
+        "delete from shipping_prices where id = ?",
+        [req.body.id],
+        function (err, rows) {
+          conn.release();
+          if (!err) {
+            res.json(true);
+          } else {
+            logger.log("error", `${err.sql}. ${err.sqlMessage}`);
+            res.json(false);
+          }
+        }
+      );
+    });
+  } catch (ex) {
+    logger.log("error", err.sql + ". " + err.sqlMessage);
+    res.json(ex);
+  }
+});
+
+/* END SHIPPING PRICES */

@@ -32,6 +32,7 @@ import { ArticleDetailsComponent } from '../pages/article-details/article-detail
 import { HelpComponent } from '../pages/help/help.component';
 import { AccordionModule } from '@syncfusion/ej2-angular-navigations';
 import { SettingsComponent } from '../pages/settings/settings.component';
+import { ComboBoxAllModule } from '@syncfusion/ej2-angular-dropdowns';
 @NgModule({
   declarations: [
     HomeComponent,
@@ -57,6 +58,7 @@ import { SettingsComponent } from '../pages/settings/settings.component';
     DialogModule,
     ButtonModule,
     DropDownButtonAllModule,
+    ComboBoxAllModule,
     NumericTextBoxAllModule,
     MatIconModule,
     SharingHomeModule,

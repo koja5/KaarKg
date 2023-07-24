@@ -29,6 +29,7 @@ export class PaymentComponent implements OnInit {
   public shippingActionType = '';
   public confirmDialogComponent = new ConfirmDialogComponent();
   public type: number | undefined;
+  public countries: any;
 
   constructor(
     private service: CallApiService,
@@ -49,11 +50,11 @@ export class PaymentComponent implements OnInit {
 
     if (this.type === 3) {
       this.paymentOption = PaymentOption.prepayment;
-      this.paymentOptionSelect = this.language.paymentPrepaymentOptions;
+      this.paymentOptionSelect = this.language.paymentPrepaymentOptionsForMail;
       this.helpService.setSessionStorage('payment', this.paymentOptionSelect);
     } else {
       this.paymentOption = PaymentOption.invoice;
-      this.paymentOptionSelect = this.language.paymentPerInvoiceOptions;
+      this.paymentOptionSelect = this.language.paymentPerInvoiceOptionsForMail;
       this.helpService.setSessionStorage('payment', this.paymentOptionSelect);
     }
 
@@ -85,9 +86,10 @@ export class PaymentComponent implements OnInit {
       value.firstname +
       ' ' +
       value.lastname +
-      ' ' +
+      ', ' +
       value.address +
-      (value.zip ? value.zip + ', ' : '') +
+      ', ' +
+      (value.zip ? value.zip + ' ' : '') +
       (value.city ? value.city + ', ' : '') +
       value.telephone +
       ', ' +
@@ -98,6 +100,7 @@ export class PaymentComponent implements OnInit {
   editDialogShippingAddress(address: any) {
     this.shippingAddress = address;
     this.shippingActionType = 'edit';
+    this.getCountries();
     this.shippingAddressDialog.show();
   }
 
@@ -107,7 +110,9 @@ export class PaymentComponent implements OnInit {
 
   createDialogNewShippingAddress() {
     this.shippingAddress = new ShippingAddress();
+    this.shippingAddress.country_id = 14;
     this.shippingActionType = 'create';
+    this.getCountries();
     this.shippingAddressDialog.show();
   }
 
@@ -192,5 +197,13 @@ export class PaymentComponent implements OnInit {
     this.paymentOption = payment;
     this.paymentOptionSelect = option;
     this.helpService.setSessionStorage('payment', option);
+  }
+
+  getCountries() {
+    if (!this.countries) {
+      this.service.callGetMethod('/api/getCountries', '').subscribe((data) => {
+        this.countries = data;
+      });
+    }
   }
 }

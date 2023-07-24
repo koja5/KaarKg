@@ -351,7 +351,9 @@ router.post("/sendInvoiceToCustomer", function (req, res, next) {
   body.invoiceToCustomer.fields["subtotalNeto"] = Number(
     req.body.subtotalNeto
   ).toFixed(2);
-  body.invoiceToCustomer.fields["shipping"] = req.body.shipping;
+  body.invoiceToCustomer.fields["shipping"] = req.body.shippingNotAvailable
+    ? req.body.language.checkoutShippingNotAvailable
+    : req.body.shipping;
   body.invoiceToCustomer.fields["vat"] = req.body.vat;
   body.invoiceToCustomer.fields["total"] = req.body.total;
 
@@ -437,7 +439,9 @@ router.post("/sendInvoiceToSuperadmin", function (req, res, next) {
   body.invoiceToSuperadmin.fields["subtotalNeto"] = Number(
     req.body.subtotalNeto
   ).toFixed(2);
-  body.invoiceToSuperadmin.fields["shipping"] = req.body.shipping;
+  body.invoiceToSuperadmin.fields["shipping"] = req.body.shippingNotAvailable
+    ? req.body.language.checkoutShippingNotAvailable
+    : req.body.shipping;
   body.invoiceToSuperadmin.fields["vat"] = req.body.vat;
   body.invoiceToSuperadmin.fields["total"] = req.body.total;
 

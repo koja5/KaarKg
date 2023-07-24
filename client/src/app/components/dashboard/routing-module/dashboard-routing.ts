@@ -4,6 +4,7 @@ import { NavigationProductComponent } from '../pages/navigation-product/navigati
 import { AllUsersComponent } from '../pages/all-users/all-users.component';
 import { AllProductsComponent } from '../pages/all-products/all-products.component';
 import { CountriesComponent } from '../pages/countries/countries.component';
+import { ShippingPricesComponent } from '../pages/shipping-prices/shipping-prices.component';
 
 const routes: Routes = [
   {
@@ -22,6 +23,10 @@ const routes: Routes = [
   {
     path: 'all-products',
     component: AllProductsComponent,
+  },
+  {
+    path: 'shipping-prices',
+    component: ShippingPricesComponent,
   },
   {
     path: 'countries',
