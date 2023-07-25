@@ -262,4 +262,8 @@ export class HelpService {
     );
     this.messageService.sentRefreshCartInformation();
   }
+
+  getCurrentDatetime() {
+    return new Date().toLocaleString().replace(/T/, ' ').replace(/\..+/, '');
+  }
 }

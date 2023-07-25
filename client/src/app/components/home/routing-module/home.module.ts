@@ -12,7 +12,6 @@ import {
   RadioButtonAllModule,
 } from '@syncfusion/ej2-angular-buttons';
 import { DropDownButtonAllModule } from '@syncfusion/ej2-angular-splitbuttons';
-import { MatIconComponent } from '../../common/mat-icon/mat-icon.component';
 import { NavigationComponent } from '../parts/navigation/navigation.component';
 import { ProductsComponent } from '../parts/products/products.component';
 import { ProductItemComponent } from '../parts/products/product-item/product-item.component';
@@ -24,7 +23,6 @@ import { PaymentSuccessComponent } from '../../templates/payment-success/payment
 import { PaymentErrorComponent } from '../../templates/payment-error/payment-error.component';
 import { PaymentComponent } from '../pages/payment/payment.component';
 import { CheckoutComponent } from '../pages/checkout/checkout.component';
-import { RouterModule } from '@angular/router';
 import { AboutUsComponent } from '../pages/about-us/about-us.component';
 import { DynamicModule } from '../../dynamic-component/dynamic-module/dynamic/dynamic.module';
 import { FooterComponent } from '../common/footer/footer.component';
@@ -33,6 +31,8 @@ import { HelpComponent } from '../pages/help/help.component';
 import { AccordionModule } from '@syncfusion/ej2-angular-navigations';
 import { SettingsComponent } from '../pages/settings/settings.component';
 import { ComboBoxAllModule } from '@syncfusion/ej2-angular-dropdowns';
+import { StripeModule } from 'stripe-angular';
+
 @NgModule({
   declarations: [
     HomeComponent,
@@ -49,7 +49,7 @@ import { ComboBoxAllModule } from '@syncfusion/ej2-angular-dropdowns';
     FooterComponent,
     ArticleDetailsComponent,
     HelpComponent,
-    SettingsComponent
+    SettingsComponent,
   ],
   imports: [
     CommonModule,
@@ -67,7 +67,10 @@ import { ComboBoxAllModule } from '@syncfusion/ej2-angular-dropdowns';
     CheckBoxModule,
     RadioButtonAllModule,
     DynamicModule,
-    AccordionModule
+    AccordionModule,
+    StripeModule.forRoot(
+      'pk_test_51NSxCnAM4XTLtMHFvdV00jIFCvdKOwGIgZ42UHsUg6USFdf646wzw0EC93bLkxlXsR5nABX4bNBhflRKHVm4fVvU006rofs2Oe'
+    ),
   ],
   providers: [],
 })

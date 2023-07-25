@@ -1,10 +1,17 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  OnInit,
+  Output,
+  ViewChild,
+} from '@angular/core';
 import { Router } from '@angular/router';
 import { ShippingAddress } from '@stripe/stripe-js';
 import { UserType } from 'src/app/enums/user-type';
 import { CallApiService } from 'src/app/services/call-api.service';
 import { HelpService } from 'src/app/services/help.service';
 import { StorageService } from 'src/app/services/storage.service';
+import { Stripe, StripeCard } from 'stripe-angular';
 
 @Component({
   selector: 'app-checkout',
@@ -12,6 +19,7 @@ import { StorageService } from 'src/app/services/storage.service';
   styleUrls: ['./checkout.component.scss'],
 })
 export class CheckoutComponent implements OnInit {
+  @ViewChild('stripeCard') stripeCard!: StripeCard;
   @Output() successEmitter = new EventEmitter<null>();
   public language: any;
   public products: any;
@@ -28,6 +36,7 @@ export class CheckoutComponent implements OnInit {
   public loader = false;
   public countries: any;
   public shippingPrices: any;
+  public paymentOption: any;
 
   constructor(
     private helpService: HelpService,
@@ -43,6 +52,8 @@ export class CheckoutComponent implements OnInit {
     this.getShippingPrices();
     this.shippingAddress =
       this.storageService.getLocalStorageObject('shipping');
+    this.paymentOption =
+      this.helpService.getSessionStorageStringValue('payment');
     this.getMainAddress();
   }
 
@@ -104,7 +115,10 @@ export class CheckoutComponent implements OnInit {
     }
   }
 
-  pay() {
+  pay(orderDate: any) {
+    if (!orderDate) {
+      orderDate = this.helpService.getCurrentDatetime();
+    }
     let data = {
       shippingAddress: this.shippingAddress,
       mainAddress: this.mainAddress,
@@ -115,7 +129,8 @@ export class CheckoutComponent implements OnInit {
       vat: this.vat,
       shipping: this.shipping,
       shippingNotAvailable: this.shippingNotAvailable,
-      paymentOption: this.helpService.getSessionStorageStringValue('payment'),
+      paymentOption: this.paymentOption,
+      orderDate: orderDate,
     };
     this.loader = true;
     this.service
@@ -205,5 +220,45 @@ export class CheckoutComponent implements OnInit {
       default:
         return Number(data.customer_limit);
     }
+  }
+
+  setStripeToken(token: stripe.Token) {
+    if (token) {
+      const orderDate = this.helpService.getCurrentDatetime();
+      const data = {
+        token: token,
+        price: this.total,
+        description: this.getDescriptionInformation(orderDate),
+      };
+
+      this.loader = true;
+      this.service
+        .callPostMethod('/api/createAdPayment', data)
+        .subscribe((data) => {
+          if (data) {
+            this.pay(orderDate);
+          }
+        });
+    }
+  }
+
+  getDescriptionInformation(orderDate: string) {
+    return (
+      orderDate +
+      ': ' +
+      this.shippingAddress.firstname +
+      ' ' +
+      this.shippingAddress.lastname +
+      ', ' +
+      this.shippingAddress.address +
+      ', ' +
+      this.shippingAddress.zip +
+      ' ' +
+      this.shippingAddress.city +
+      ', ' +
+      this.shippingAddress.telephone +
+      ', ' +
+      this.shippingAddress.email
+    );
   }
 }

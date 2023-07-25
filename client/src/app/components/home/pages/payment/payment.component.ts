@@ -162,12 +162,16 @@ export class PaymentComponent implements OnInit {
   }
 
   nextStep() {
-    if (this.currentStep === 1 && this.paymentOption === PaymentOption.pay) {
-      const products = this.storageService.getCookieObject('cart');
-      this.service.checkout(products);
-    } else {
+    if (this.currentStep < 3) {
       this.currentStep++;
     }
+    // this.currentStep++;
+    // if (this.currentStep === 1 && this.paymentOption === PaymentOption.pay) {
+    //   const products = this.storageService.getCookieObject('cart');
+    //   this.service.checkout(products);
+    // } else {
+    //   this.currentStep++;
+    // }
   }
 
   previousStep() {

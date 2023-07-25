@@ -357,10 +357,7 @@ router.post("/sendInvoiceToCustomer", function (req, res, next) {
   body.invoiceToCustomer.fields["vat"] = req.body.vat;
   body.invoiceToCustomer.fields["total"] = req.body.total;
 
-  body.invoiceToCustomer.fields["orderDate"] = new Date()
-    .toISOString()
-    .replace(/T/, " ")
-    .replace(/\..+/, "");
+  body.invoiceToCustomer.fields["orderDate"] = req.body.orderDate;
 
   body.invoiceToCustomer.fields["paymentOption"] = req.body.paymentOption;
 
@@ -445,10 +442,7 @@ router.post("/sendInvoiceToSuperadmin", function (req, res, next) {
   body.invoiceToSuperadmin.fields["vat"] = req.body.vat;
   body.invoiceToSuperadmin.fields["total"] = req.body.total;
 
-  body.invoiceToSuperadmin.fields["orderDate"] = new Date()
-    .toISOString()
-    .replace(/T/, " ")
-    .replace(/\..+/, "");
+  body.invoiceToSuperadmin.fields["orderDate"] = req.body.orderDate;
   body.invoiceToSuperadmin.fields["paymentOption"] = req.body.paymentOption;
 
   var options = {

@@ -78,6 +78,30 @@
             "field": "telephone"
         },
         {
+            "type": "combobox",
+            "width": "col-md-12",
+            "class": "e-outline",
+            "name": "country_id",
+            "title": "countryForSettings",
+            "field": {
+                "text": "name",
+                "value": "id"
+            },
+            "request": {
+                "type": "GET",
+                "api": "/api/getCountries",
+                "parameters": [],
+                "fields": "",
+                "root": ""
+            },
+            "placeholder": "countryPlaceholderForSettings",
+            "fieldConfig": {
+                "ignoreAccent": false,
+                "filter": true
+            },
+            "required": true
+        },
+        {
             "type": "textbox",
             "width": "col-md-12",
             "class": "e-outline",

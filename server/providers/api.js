@@ -9,6 +9,9 @@ const logger = require("./config/logger");
 const request = require("request");
 const fs = require("fs");
 const sha1 = require("sha1");
+const stripe = require("stripe")(
+  "sk_test_51NSxCnAM4XTLtMHFbYr7Rv051CyPsZzl22mKWy2J3fKOwxqIvfaCXNcgeLzBZWi2LDPbgHxddspzF7tAGPCDDpQM00V6nSv8iJ"
+);
 
 module.exports = router;
 
@@ -178,7 +181,7 @@ router.get("/getMyShippingAddress", auth, async (req, res, next) => {
         res.json(err);
       } else {
         conn.query(
-          "select id, firstname, lastname, telephone, email, address from users where id = ?",
+          "select id, firstname, lastname, telephone, email, address, zip, city, company from users where id = ?",
           [req.user.user.id],
           function (err, rows, fields) {
             conn.release();
@@ -859,10 +862,6 @@ router.get("/getAllShippingAddressForUser", auth, async (req, res, next) => {
 
 /* STRIPE */
 
-const stripe = require("stripe")(
-  "sk_test_51NSxCnAM4XTLtMHFbYr7Rv051CyPsZzl22mKWy2J3fKOwxqIvfaCXNcgeLzBZWi2LDPbgHxddspzF7tAGPCDDpQM00V6nSv8iJ"
-);
-
 router.post("/checkout", async (req, res, next) => {
   try {
     const session = await stripe.checkout.sessions.create({
@@ -934,6 +933,24 @@ router.post("/checkout", async (req, res, next) => {
   } catch (error) {
     console.log(error);
   }
+});
+
+router.post("/createAdPayment", (req, res, next) => {
+  stripe.charges.create(
+    {
+      amount: req.body.price * 100,
+      currency: "EUR",
+      description: req.body.description,
+      source: req.body.token.id,
+    },
+    (err, charge) => {
+      if (err) {
+        next(err);
+      }
+
+      res.json(true);
+    }
+  );
 });
 
 /* COUNTRIES */
