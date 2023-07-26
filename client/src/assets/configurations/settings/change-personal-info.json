@@ -63,6 +63,14 @@
         },
         {
             "type": "textbox",
+            "width": "col-md-12",
+            "class": "e-outline",
+            "name": "company",
+            "title": "nameOfCompanyForSettings",
+            "field": "company"
+        },
+        {
+            "type": "textbox",
             "width": "col-md-6",
             "class": "e-outline",
             "name": "email",
@@ -108,14 +116,6 @@
             "name": "address",
             "title": "addressForSettings",
             "field": "address"
-        },
-        {
-            "type": "textbox",
-            "width": "col-md-12",
-            "class": "e-outline",
-            "name": "company",
-            "title": "nameOfCompanyForSettings",
-            "field": "company"
         },
         {
             "type": "textbox",

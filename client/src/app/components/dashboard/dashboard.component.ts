@@ -55,12 +55,7 @@ export class DashboardComponent implements OnInit {
   public elem: any;
   public isFullScreen = false;
   private socket: any;
-  public items: ItemModel[] = [
-    {
-      text: 'Logout',
-      id: 'logout',
-    },
-  ];
+  public items: ItemModel[] = [];
 
   constructor(
     private configurationService: ConfigurationService,
@@ -72,6 +67,17 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.elem = document.documentElement;
+    this.language = this.helpService.getLanguage();
+    this.items = [
+      {
+        text: this.language.dashboardSettings,
+        id: 'settings',
+      },
+      {
+        text: this.language.dashboardLogout,
+        id: 'logout',
+      },
+    ];
     this.getUserInfo();
     this.initializeConfigurations();
   }
@@ -208,7 +214,7 @@ export class DashboardComponent implements OnInit {
   }
 
   openHomePage() {
-    window.open('/', '_blank');
+    this.router.navigate(['./']);
   }
 
   getUserInfo() {
@@ -220,7 +226,7 @@ export class DashboardComponent implements OnInit {
   profileIconSelectEvent(event: MenuEventArgs) {
     switch (event.item.id) {
       case 'settings':
-        this.router.navigate(['dashboard/settings']);
+        this.router.navigate(['./settings/change-personal-info']);
         break;
       case 'logout':
         this.logout();

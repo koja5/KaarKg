@@ -61,8 +61,7 @@ export class PaymentComponent implements OnInit {
     this.service.callGetMethod('/api/getMyShippingAddress', '').subscribe(
       (data: any) => {
         this.user = data[0];
-        this.storageService.setLocalStorage('shipping', this.user);
-        this.shippingAddress = this.user;
+        this.selectShippingAddress(this.user);
       },
       (error) => {
         this.router.navigate(['./']);
@@ -91,6 +90,8 @@ export class PaymentComponent implements OnInit {
       ', ' +
       (value.zip ? value.zip + ' ' : '') +
       (value.city ? value.city + ', ' : '') +
+      value.name +
+      ', ' +
       value.telephone +
       ', ' +
       value.email
@@ -126,6 +127,7 @@ export class PaymentComponent implements OnInit {
             '',
             this.language.generalSuccessfulyExecuteAction
           );
+          this.selectShippingAddress(this.shippingAddress);
           this.getShippingAddresses();
         }
       });
@@ -156,7 +158,7 @@ export class PaymentComponent implements OnInit {
             this.language.generalSuccessfulyExecuteAction
           );
           this.getShippingAddresses();
-          this.storageService.setLocalStorage('shipping', this.shippingAddress);
+          this.selectShippingAddress(this.shippingAddress);
         }
       });
   }

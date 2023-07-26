@@ -14,6 +14,7 @@ import {
   GridComponent,
   PdfExportProperties,
 } from '@syncfusion/ej2-angular-grids';
+import { L10n, setCulture } from '@syncfusion/ej2-base';
 import { DialogComponent } from '@syncfusion/ej2-angular-popups';
 import { Subject, Subscription } from 'rxjs';
 import { CallApiService } from 'src/app/services/call-api.service';
@@ -25,6 +26,43 @@ import { DynamicFormsComponent } from '../dynamic-forms/dynamic-forms.component'
 // import { saveAs } from 'file-saver';
 import { FilterSettingsModel } from '@syncfusion/ej2-angular-grids';
 import { ClickEventArgs } from '@syncfusion/ej2-angular-navigations';
+
+setCulture('de-DE');
+
+L10n.load({
+  'de-DE': {
+    grid: {
+      EmptyRecord: 'Keine Aufzeichnungen angezeigt',
+      GroupDropArea:
+        'Ziehen Sie einen Spaltenkopf hier, um die Gruppe ihre Spalte',
+      UnGroup: 'Klicken Sie hier, um die Gruppierung aufheben',
+      EmptyDataSourceError:
+        'DataSource darf bei der Erstauslastung nicht leer sein, da Spalten aus der dataSource im AutoGenerate Spaltenraster',
+      Item: 'Artikel',
+      Items: 'Artikel',
+      Edit: 'Eearbeiten',
+      EditRecord: 'Eearbeiten',
+      Add: 'Hinzufügen',
+      AddRecord: 'Hinzufügen',
+      Delete: 'Löschen',
+      DeleteRecord: 'Löschen',
+      Copy: 'Kopieren',
+      Print: 'Drucken',
+      Close: 'Schließen',
+      Search: 'Suchen'
+    },
+    pager: {
+      currentPageInfo: '{0} von {1} Seiten',
+      totalItemsInfo: '({0} Beiträge)',
+      firstPageTooltip: 'Zur ersten Seite',
+      lastPageTooltip: 'Zur letzten Seite',
+      nextPageTooltip: 'Zur nächsten Seite',
+      previousPageTooltip: 'Zurück zur letzten Seit',
+      nextPagerTooltip: 'Gehen Sie zu den nächsten Pager-Elementen',
+      previousPagerTooltip: 'Gehen Sie zu vorherigen Pager-Elementen',
+    },
+  },
+});
 
 @Component({
   selector: 'app-dynamic-grid',

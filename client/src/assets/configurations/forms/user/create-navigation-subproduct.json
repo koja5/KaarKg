@@ -15,7 +15,7 @@
             "width": "col-md-12",
             "class": "e-outline",
             "name": "category_id",
-            "title": "Name of product group",
+            "title": "navigationNameOfGroup",
             "field": {
                 "text": "name",
                 "value": "id"
@@ -27,7 +27,7 @@
                 "fields": "",
                 "root": ""
             },
-            "placeholder": "Please select name of group",
+            "placeholder": "navigationNameOfGroupPlaceholder",
             "fieldConfig": {
                 "ignoreAccent": false,
                 "filter": true
@@ -39,7 +39,7 @@
             "width": "col-md-12",
             "class": "e-outline",
             "name": "name",
-            "title": "Name",
+            "title": "navigationNameOfSubgroup",
             "field": "name"
         },
         {
@@ -47,7 +47,7 @@
             "width": "col-md-12",
             "class": "e-info button-action",
             "name": "submit",
-            "title": "Create",
+            "title": "navigationCreate",
             "field": "submitAndPay",
             "positionClass": "text-right mt-3 col-md-12"
         }

@@ -15,7 +15,7 @@
             "width": "col-md-12",
             "class": "e-outline",
             "name": "name",
-            "title": "Name",
+            "title": "navigationNameOfGroup",
             "field": "name"
         },
         {
@@ -23,7 +23,7 @@
             "width": "col-md-12",
             "class": "e-info button-action",
             "name": "submit",
-            "title": "Create",
+            "title": "navigationCreate",
             "field": "submitAndPay",
             "positionClass": "text-right mt-3 col-md-12"
         }

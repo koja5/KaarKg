@@ -181,7 +181,7 @@ router.get("/getMyShippingAddress", auth, async (req, res, next) => {
         res.json(err);
       } else {
         conn.query(
-          "select id, firstname, lastname, telephone, email, address, zip, city, company from users where id = ?",
+          "select u.id, u.firstname, u.lastname, u.telephone, u.email, u.country_id, u.address, u.zip, u.city, u.company, c.name from users u join countries c on u.country_id = c.id where u.id = ?",
           [req.user.user.id],
           function (err, rows, fields) {
             conn.release();
@@ -659,6 +659,8 @@ router.get("/searchProducts/:category", async (req, res, next) => {
 
 /* END PRODUCTS */
 
+/* USERS */
+
 router.get("/getUsers", async (req, res, next) => {
   try {
     connection.getConnection(function (err, conn) {
@@ -667,7 +669,7 @@ router.get("/getUsers", async (req, res, next) => {
         res.json(err);
       } else {
         conn.query(
-          "select * from users",
+          "select u.*, c.name from users u join countries c on u.country_id = c.id",
           req.params.category,
           function (err, rows, fields) {
             conn.release();
@@ -681,6 +683,91 @@ router.get("/getUsers", async (req, res, next) => {
           }
         );
       }
+    });
+  } catch (ex) {
+    logger.log("error", err.sql + ". " + err.sqlMessage);
+    res.json(ex);
+  }
+});
+
+router.post("/createUser", auth, async function (req, res, next) {
+  try {
+    connection.getConnection(async function (err, conn) {
+      if (err) {
+        logger.log("error", err.sql + ". " + err.sqlMessage);
+        return res.json(false);
+      }
+      conn.query("insert into users set ?", req.body, async function (err) {
+        if (err) {
+          logger.log("error", err.sql + ". " + err.sqlMessage);
+          return res.json(false);
+        } else {
+          logger.log("info", "Create new city");
+          res.json(true);
+        }
+      });
+    });
+  } catch (err) {
+    logger.log("error", err);
+  }
+});
+
+router.post("/updateUser", auth, function (req, res, next) {
+  try {
+    connection.getConnection(function (err, conn) {
+      if (err) {
+        logger.log("error", err.sql + ". " + err.sqlMessage);
+        res.json(err);
+      }
+      conn.query(
+        "update users SET ? where id = ?",
+        [req.body, req.body.id],
+        function (err, rows) {
+          conn.release();
+          if (!err) {
+            var option_request = {
+              rejectUnauthorized: false,
+              url: process.env.link_api + "infoForActiveFreeAd",
+              method: "POST",
+              body: req.body,
+              json: true,
+            };
+            request(option_request, function (error, response, body) {});
+
+            res.json(true);
+          } else {
+            logger.log("error", `${err.sql}. ${err.sqlMessage}`);
+            res.json(false);
+          }
+        }
+      );
+    });
+  } catch (ex) {
+    logger.log("error", err.sql + ". " + err.sqlMessage);
+    res.json(ex);
+  }
+});
+
+router.post("/deleteUser", auth, function (req, res, next) {
+  try {
+    connection.getConnection(function (err, conn) {
+      if (err) {
+        logger.log("error", err.sql + ". " + err.sqlMessage);
+        res.json(err);
+      }
+      conn.query(
+        "delete from users where id = ?",
+        [req.body.id],
+        function (err, rows) {
+          conn.release();
+          if (!err) {
+            res.json(true);
+          } else {
+            logger.log("error", `${err.sql}. ${err.sqlMessage}`);
+            res.json(false);
+          }
+        }
+      );
     });
   } catch (ex) {
     logger.log("error", err.sql + ". " + err.sqlMessage);
@@ -718,9 +805,6 @@ router.post("/changePassword", auth, function (req, res, next) {
       res.json(false);
     }
 
-    console.log(req.body.password);
-    console.log(sha1(req.body.current_password));
-
     if (
       !req.body.current_password ||
       !req.body.new_password ||
@@ -747,6 +831,8 @@ router.post("/changePassword", auth, function (req, res, next) {
     }
   });
 });
+
+/* END USERS */
 
 /* SHIPPING ADDRESS */
 
@@ -784,6 +870,7 @@ router.post("/updateShippingAddress", auth, async function (req, res, next) {
         logger.log("error", err.sql + ". " + err.sqlMessage);
         return res.json(err);
       }
+      delete req.body.name;
       conn.query(
         "update shipping_address set ? where id = ?",
         [req.body, req.body.id],
@@ -838,7 +925,7 @@ router.get("/getAllShippingAddressForUser", auth, async (req, res, next) => {
         res.json(err);
       } else {
         conn.query(
-          "select * from shipping_address where id_user = ?",
+          "select s.*, c.name from shipping_address s join countries c on s.country_id = c.id where s.id_user = ?",
           req.user.user.id,
           function (err, rows, fields) {
             conn.release();

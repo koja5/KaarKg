@@ -8,7 +8,7 @@
                 <div class="d-flex">
                     <!-- LOGO -->
                     <div class="navbar-brand-box">
-                        <a routerLink="control-panel" class="logo logo-dashboard logo-dark">
+                        <a routerLink="./" class="logo logo-dashboard logo-dark">
                             <span class="logo-sm">
                                 <img src="./assets/images/logo-sm.png" alt="" height="45" />
                             </span>
@@ -17,7 +17,7 @@
                             </span>
                         </a>
 
-                        <a routerLink="control-panel" class="logo logo-dashboard logo-light">
+                        <a routerLink="./" class="logo logo-dashboard logo-light">
                             <span class="logo-sm">
                                 <img src="./assets/images/logo-sm.png" alt="" height="45" />
                             </span>
@@ -80,7 +80,8 @@
                     </div>
 
                     <div class="center-text pr-4 pointer" (click)="openHomePage()">
-                        <mat-icon class="screen">tab_move</mat-icon> <span class="pl-2">Open home page</span>
+                        <mat-icon class="screen">tab_move</mat-icon> <span
+                            class="pl-2">{{language.dashboardOpenHomePage}}</span>
                     </div>
 
                     <div class="button-options center-text width-auto mr-3">

@@ -99,7 +99,7 @@
             "allowEditing": false
         },
         {
-            "title": "Firstname",
+            "title": "userFirstname",
             "filterable": true,
             "hideable": true,
             "type": "string",
@@ -110,7 +110,7 @@
             }
         },
         {
-            "title": "Lastname",
+            "title": "userLastname",
             "filterable": true,
             "hideable": true,
             "type": "string",
@@ -121,29 +121,18 @@
             }
         },
         {
-            "title": "Telephone",
+            "title": "userCompany",
             "filterable": true,
             "hideable": true,
             "type": "string",
             "class": "text-align-right",
-            "field": "telephone",
+            "field": "company",
             "validation": {
                 "required": true
             }
         },
         {
-            "title": "Address",
-            "filterable": true,
-            "hideable": true,
-            "type": "string",
-            "class": "text-align-right",
-            "field": "address",
-            "validation": {
-                "required": true
-            }
-        },
-        {
-            "title": "Email",
+            "title": "userEmail",
             "filterable": true,
             "hideable": true,
             "type": "string",
@@ -154,32 +143,87 @@
             }
         },
         {
-            "title": "Active",
+            "title": "userTelephone",
+            "filterable": true,
+            "hideable": true,
+            "type": "string",
+            "class": "text-align-right",
+            "field": "telephone",
+            "validation": {
+                "required": true
+            }
+        },
+        {
+            "title": "userCountry",
+            "filterable": true,
+            "hideable": true,
+            "type": "string",
+            "class": "text-align-right",
+            "field": "name",
+            "validation": {
+                "required": true
+            }
+        },
+        {
+            "title": "userAddress",
+            "filterable": true,
+            "hideable": true,
+            "type": "string",
+            "class": "text-align-right",
+            "field": "address",
+            "validation": {
+                "required": true
+            }
+        },
+        {
+            "title": "userZip",
+            "filterable": true,
+            "hideable": true,
+            "type": "string",
+            "class": "text-align-right",
+            "field": "zip",
+            "validation": {
+                "required": true
+            }
+        },
+        {
+            "title": "userCity",
+            "filterable": true,
+            "hideable": true,
+            "type": "string",
+            "class": "text-align-right",
+            "field": "city",
+            "validation": {
+                "required": true
+            }
+        },
+        {
+            "title": "userActive",
             "template": {
                 "choices": [
                     {
                         "field": "active",
                         "value": -1,
                         "operator": "==",
-                        "html": "<span class='e-badge e-badge-warning'>Not verified mail</span>"
+                        "html": "<span class='e-badge e-badge-warning'>Nicht bestätigte E-Mail</span>"
                     },
                     {
                         "field": "active",
                         "value": 0,
                         "operator": "==",
-                        "html": "<span class='e-badge e-badge-danger'>Inactive</span>"
+                        "html": "<span class='e-badge e-badge-danger'>Inaktiv</span>"
                     },
                     {
                         "field": "active",
                         "value": 1,
                         "operator": "==",
-                        "html": "<span class='e-badge e-badge-success'>Active</span>"
+                        "html": "<span class='e-badge e-badge-success'>Aktiv</span>"
                     },
                     {
                         "field": "active",
                         "value": 2,
                         "operator": "==",
-                        "html": "<span class='e-badge e-badge-info'>Verified mail</span>"
+                        "html": "<span class='e-badge e-badge-info'>Verifizierte E-Mail</span>"
                     }
                 ]
             },
@@ -198,59 +242,98 @@
         },
         {
             "type": "textbox",
-            "width": "col-md-12",
+            "width": "col-md-6",
             "class": "e-outline",
             "name": "firstname",
-            "title": "Firstname",
+            "title": "userFirstname",
             "field": "firstname"
+        },
+        {
+            "type": "textbox",
+            "width": "col-md-6",
+            "class": "e-outline",
+            "name": "lastname",
+            "title": "userLastname",
+            "field": "lastname"
         },
         {
             "type": "textbox",
             "width": "col-md-12",
             "class": "e-outline",
-            "name": "lastname",
-            "title": "Lastname",
-            "field": "lastname"
+            "name": "company",
+            "title": "userCompany",
+            "field": "company"
         },
         {
             "type": "textbox",
             "width": "col-md-6",
             "class": "e-outline",
             "name": "email",
-            "title": "Email",
+            "title": "userEmail",
             "field": "email"
-        },
-        {
-            "type": "password",
-            "width": "col-md-6",
-            "class": "e-outline",
-            "name": "password",
-            "title": "Password",
-            "field": "password",
-            "readonly": true
         },
         {
             "type": "textbox",
             "width": "col-md-6",
             "class": "e-outline",
             "name": "telephone",
-            "title": "Telephone",
+            "title": "userTelephone",
             "field": "telephone"
+        },
+        {
+            "type": "combobox",
+            "width": "col-md-12",
+            "class": "e-outline",
+            "name": "country_id",
+            "title": "userCountry",
+            "field": {
+                "text": "name",
+                "value": "id"
+            },
+            "request": {
+                "type": "GET",
+                "api": "/api/getCountries",
+                "parameters": [],
+                "fields": "",
+                "root": ""
+            },
+            "placeholder": "userCountryForPlaceholder",
+            "fieldConfig": {
+                "ignoreAccent": false,
+                "filter": true
+            },
+            "required": true
         },
         {
             "type": "textbox",
             "width": "col-md-6",
             "class": "e-outline",
             "name": "address",
-            "title": "Address",
+            "title": "userAddress",
             "field": "address"
+        },
+        {
+            "type": "textbox",
+            "width": "col-md-3",
+            "class": "e-outline",
+            "name": "zip",
+            "title": "userZip",
+            "field": "zip"
+        },
+        {
+            "type": "textbox",
+            "width": "col-md-3",
+            "class": "e-outline",
+            "name": "city",
+            "title": "userCity",
+            "field": "city"
         },
         {
             "type": "switch",
             "width": "col-md-12 pt-2",
             "class": "e-outline",
             "name": "active",
-            "title": "Active",
+            "title": "userActive",
             "field": "active"
         },
         {
@@ -258,7 +341,7 @@
             "width": "col-md-12",
             "class": "e-info button-action",
             "name": "submit",
-            "title": "Save",
+            "title": "userSave",
             "field": "submit",
             "positionClass": "position-end mt-3 col-md-12"
         }

@@ -29,6 +29,7 @@ export class NavigationProductComponent implements OnInit {
   public field: any;
   public data: any;
   public config: any;
+  public language: any;
 
   constructor(
     private service: CallApiService,
@@ -39,6 +40,7 @@ export class NavigationProductComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.language = this.helpService.getLanguage();
     this.initialize();
   }
 
@@ -46,20 +48,14 @@ export class NavigationProductComponent implements OnInit {
     this.service
       .callGetMethod('api/getAllNavigationProducts', '')
       .subscribe((products) => {
-        this.service
-          .callGetMethod('api/getAllNavigationSubproducts', '')
-          .subscribe((subproducts) => {
-            this.hierarchicalData = this.helpService.packageNavigations(
-              products,
-              subproducts
-            );
-            this.field = {
-              dataSource: this.hierarchicalData,
-              id: 'id',
-              text: 'name',
-              child: 'subChild',
-            };
-          });
+        this.hierarchicalData = this.helpService.packageNavigations(products);
+        this.field = {
+          dataSource: this.hierarchicalData,
+          id: 'id',
+          text: 'name',
+          child: 'subChild',
+        };
+        console.log(this.field);
       });
   }
 

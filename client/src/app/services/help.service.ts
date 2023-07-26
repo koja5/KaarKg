@@ -193,17 +193,44 @@ export class HelpService {
     );
   }
 
-  packageNavigations(products: any, subproducts: any) {
+  packageNavigations(products: any) {
+    let array = [];
+    let subproducts = this.copyObject(products);
     for (let i = 0; i < products.length; i++) {
       let items = [];
+      let indexForSplice = [];
       for (let j = 0; j < subproducts.length; j++) {
-        if (products[i].id == subproducts[j].navigation_product_id) {
+        if (
+          products[i].id == subproducts[j].category_id &&
+          subproducts[j].id != subproducts[j].category_id
+        ) {
           items.push(subproducts[j]);
+          indexForSplice.push(j);
+          // subproducts.splice(j, 1);
         }
       }
-      products[i]['subChild'] = items;
+      subproducts = this.spliceArraies(subproducts, indexForSplice);
+      if (products[i].id == products[i].category_id) {
+        products[i]['subChild'] = items;
+        array.push({
+          id: products[i].id,
+          name: products[i].name,
+          subChild: items,
+        });
+      }
     }
-    return products;
+    return array;
+  }
+
+  spliceArraies(array: any, indexes: any) {
+    for (let i = 0; i < indexes.length; i++) {
+      array.splice(indexes[i], 1);
+    }
+    return array;
+  }
+
+  copyObject(data: any) {
+    return JSON.parse(JSON.stringify(data));
   }
 
   addToFavorite(item: any) {

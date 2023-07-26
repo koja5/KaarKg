@@ -85,7 +85,8 @@
             "signatureGreeting": "Bye,",
             "signatureTelephone": "0732 / 94 68 15",
             "signatureEmail": "office@kaarkg.at",
-            "signatureAddress": "Haselgrabenweg 3, 4040 Linz",
+            "signatureAddress": "Haselgrabenweg 3",
+            "signatureZipAndCity": "4040 Linz",
             "signatureFreeText": "www.verspielt.at - für unsere Privatkunden und Endverbraucher haben wir die Internetseite"
         }
     },
@@ -99,7 +100,8 @@
             "signatureGreeting": "Bye,",
             "signatureTelephone": "0732 / 94 68 15",
             "signatureEmail": "office@kaarkg.at",
-            "signatureAddress": "Haselgrabenweg 3, 4040 Linz",
+            "signatureAddress": "Haselgrabenweg 3",
+            "signatureZipAndCity": "4040 Linz",
             "signatureFreeText": "www.verspielt.at - für unsere Privatkunden und Endverbraucher haben wir die Internetseite"
         }
     }

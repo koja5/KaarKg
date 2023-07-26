@@ -60,31 +60,36 @@
         <h4>{{language.checkoutPrepayment}}</h4>
         <div class="field mb-3 text-left">
             <label for="email">{{language.checkoutEmail}}</label>
-            <input name="email" [(ngModel)]="shippingAddress.email">
+            <input name="email" [(ngModel)]="shippingAddress.email" readonly>
         </div>
 
         <div class="field text-left">
             <label>{{language.checkoutShippingInformation}}</label>
-            <input name="firstname" placeholder="{{language.checkoutFirstname}}"
-                [(ngModel)]="shippingAddress.firstname">
-            <input name="lastname" placeholder="{{language.checkoutLastname}}" [(ngModel)]="shippingAddress.lastname">
+            <input name="firstname" placeholder="{{language.checkoutFirstname}}" [(ngModel)]="shippingAddress.firstname"
+                readonly>
+            <input name="lastname" placeholder="{{language.checkoutLastname}}" [(ngModel)]="shippingAddress.lastname"
+                readonly>
             <ejs-combobox class="mb-1" *ngIf="countries" [id]="'country'" name="country" [dataSource]="countries"
                 [fields]="{
                         text: 'name' , 'value' : 'id' }" [allowFiltering]="true"
-                [(ngModel)]="shippingAddress.country_id" [placeholder]="language.checkoutCountryPlaceholder" required>
+                [(ngModel)]="shippingAddress.country_id" [placeholder]="language.checkoutCountryPlaceholder" readonly>
             </ejs-combobox>
-            <input name="address" placeholder="{{language.checkoutAddress}}" [(ngModel)]="shippingAddress.address">
-            <input name="company" placeholder="{{language.checkoutAddressTwo}}" [(ngModel)]="shippingAddress.company">
+            <input name="address" placeholder="{{language.checkoutAddress}}" [(ngModel)]="shippingAddress.address"
+                readonly>
+            <input name="company" placeholder="{{language.checkoutAddressTwo}}" [(ngModel)]="shippingAddress.company"
+                readonly>
             <div class="row">
                 <div class="col-md-6">
-                    <input name="address" placeholder="{{language.checkoutZip}}" [(ngModel)]="shippingAddress.zip">
+                    <input name="address" placeholder="{{language.checkoutZip}}" [(ngModel)]="shippingAddress.zip"
+                        readonly>
                 </div>
                 <div class="col-md-6">
-                    <input name="address" placeholder="{{language.checkoutCity}}" [(ngModel)]="shippingAddress.city">
+                    <input name="address" placeholder="{{language.checkoutCity}}" [(ngModel)]="shippingAddress.city"
+                        readonly>
                 </div>
             </div>
-            <input name="telephone" placeholder="{{language.checkoutTelephone}}"
-                [(ngModel)]="shippingAddress.telephone">
+            <input name="telephone" placeholder="{{language.checkoutTelephone}}" [(ngModel)]="shippingAddress.telephone"
+                readonly>
         </div>
 
         <div class="field text-left mt-2 mb-4" *ngIf="paymentOption === language.paymentPayOptionsForMail">

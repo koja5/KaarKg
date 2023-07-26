@@ -88,7 +88,7 @@
     "columns": [
         {
             "title": "ID",
-            "width": 10,
+            "width": 50,
             "filterable": true,
             "hideable": true,
             "filter": "date",
@@ -99,7 +99,7 @@
             "allowEditing": false
         },
         {
-            "title": "Country",
+            "title": "shippingCountry",
             "filterable": true,
             "hideable": true,
             "type": "string",
@@ -110,7 +110,7 @@
             }
         },
         {
-            "title": "Dealer shipping limit",
+            "title": "shippingDealerShippingLimit",
             "filterable": true,
             "hideable": true,
             "type": "string",
@@ -121,7 +121,7 @@
             }
         },
         {
-            "title": "Dealer shipping price",
+            "title": "shippingDealerShippingPrice",
             "filterable": true,
             "hideable": true,
             "type": "string",
@@ -132,7 +132,7 @@
             }
         },
         {
-            "title": "Kindergarden shipping limit",
+            "title": "shippingKindergardenShippingLimit",
             "filterable": true,
             "hideable": true,
             "type": "string",
@@ -143,7 +143,7 @@
             }
         },
         {
-            "title": "Kindergarden shipping price",
+            "title": "shippingKindergardenShippingPrice",
             "filterable": true,
             "hideable": true,
             "type": "string",
@@ -154,7 +154,7 @@
             }
         },
         {
-            "title": "Customer shipping limit",
+            "title": "shippingCustomerShippingLimit",
             "filterable": true,
             "hideable": true,
             "type": "string",
@@ -165,7 +165,7 @@
             }
         },
         {
-            "title": "Customer shipping price",
+            "title": "shippingCustomerShippingPrice",
             "filterable": true,
             "hideable": true,
             "type": "string",
@@ -191,7 +191,7 @@
             "width": "col-md-12",
             "class": "e-outline",
             "name": "country_id",
-            "title": "Country",
+            "title": "shippingCountry",
             "field": {
                 "text": "name",
                 "value": "id"
@@ -215,7 +215,7 @@
             "width": "col-md-6",
             "class": "e-outline",
             "name": "dealer_limit",
-            "title": "Dealer shipping limit",
+            "title": "shippingDealerShippingLimit",
             "field": "dealer_limit"
         },
         {
@@ -223,7 +223,7 @@
             "width": "col-md-6",
             "class": "e-outline",
             "name": "dealer_price",
-            "title": "Dealer shipping price",
+            "title": "shippingDealerShippingPrice",
             "field": "dealer_price"
         },
         {
@@ -231,7 +231,7 @@
             "width": "col-md-6",
             "class": "e-outline",
             "name": "kindergarden_limit",
-            "title": "Kindergarden shipping limit",
+            "title": "shippingKindergardenShippingLimit",
             "field": "kindergarden_limit"
         },
         {
@@ -239,7 +239,7 @@
             "width": "col-md-6",
             "class": "e-outline",
             "name": "kindergarden_price",
-            "title": "Kindergarden shipping price",
+            "title": "shippingKindergardenShippingPrice",
             "field": "kindergarden_price"
         },
         {
@@ -247,7 +247,7 @@
             "width": "col-md-6",
             "class": "e-outline",
             "name": "customer_limit",
-            "title": "Customer shipping limit",
+            "title": "shippingCustomerShippingLimit",
             "field": "customer_limit"
         },
         {
@@ -255,7 +255,7 @@
             "width": "col-md-6",
             "class": "e-outline",
             "name": "customer_price",
-            "title": "Customer shipping price",
+            "title": "shippingCustomerShippingPrice",
             "field": "customer_price"
         },
         {
@@ -263,7 +263,7 @@
             "width": "col-md-12",
             "class": "e-info button-action",
             "name": "submit",
-            "title": "Save",
+            "title": "shippingSave",
             "field": "submit",
             "positionClass": "position-end mt-3 col-md-12"
         }

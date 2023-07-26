@@ -99,7 +99,7 @@
             "allowEditing": false
         },
         {
-            "title": "Country",
+            "title": "countrieCountry",
             "filterable": true,
             "hideable": true,
             "type": "string",
@@ -125,7 +125,7 @@
             "width": "col-md-12",
             "class": "e-outline",
             "name": "name",
-            "title": "Country",
+            "title": "countrieCountry",
             "field": "name"
         },
         {
@@ -133,7 +133,7 @@
             "width": "col-md-12",
             "class": "e-info button-action",
             "name": "submit",
-            "title": "Save",
+            "title": "countrieSave",
             "field": "submit",
             "positionClass": "position-end mt-3 col-md-12"
         }
