@@ -3,7 +3,7 @@ import { Request } from './complex-properties/request';
 import { DropDown } from './specific-property/dropdown';
 
 export class FieldConfig {
-  title?: string;
+  title!: string;
   text?: string;
   class?: string;
   fieldClass?: string;

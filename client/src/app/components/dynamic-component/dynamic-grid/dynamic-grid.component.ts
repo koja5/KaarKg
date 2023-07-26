@@ -49,7 +49,11 @@ L10n.load({
       Copy: 'Kopieren',
       Print: 'Drucken',
       Close: 'Schließen',
-      Search: 'Suchen'
+      Search: 'Suchen',
+      EditOperationAlert:
+        'Es sind keine Datensätze für den Bearbeitungsvorgang ausgewählt',
+      DeleteOperationAlert:
+        'Es wurden keine Datensätze für den Löschvorgang ausgewählt',
     },
     pager: {
       currentPageInfo: '{0} von {1} Seiten',

@@ -4,7 +4,7 @@
 > -->
 <div *ngIf="config && checkRights()" [ngClass]="[config.positionClass]">
   <button ejs-button [disabled]="config.disabled" type="submit" [class]="config.class">
-    {{ language[config.field] ? language[config.field] : config.title }}
+    {{ language[config.title] ? language[config.title] : config.title }}
   </button>
 </div>
 

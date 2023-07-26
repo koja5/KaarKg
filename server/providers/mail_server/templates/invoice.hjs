@@ -227,7 +227,7 @@
                                 {{mainAddress}}<br>
                                 {{mainZip}}  {{mainCity}}<br>
                                 Tel: {{mainTelephone}}<br>
-                                E-Mail: {{mainEmail}}<br>
+                                E-mail: {{mainEmail}}<br>
                                 {{mainCompany}}<br>
                                
                             </td>
@@ -236,7 +236,7 @@
                                 {{shippingAddress}}<br>
                                 {{shippingZip}} {{shippingCity}}<br>
                                 Tel: {{shippingTelephone}}<br>
-                                E-Mail: {{shippingEmail}}<br>
+                                E-mail: {{shippingEmail}}<br>
                                 {{shippingCompany}}<br>
                                 
                             </td>
@@ -267,11 +267,11 @@
             <p>{{signatureAddress}}</p>
             <p>{{signatureZipAndCity}}</p>
             <p>{{signatureEmail}}</p>
-            <p>Tel: {{signatureTelephone}}</p>
+            <p>{{signatureTelephone}}</p>
             <p style="text-align: center; margin-top: 10px">{{signatureFreeText}}</p>
             <div style="text-align: center; margin-top: 10px;">
-                <a href="http://localhost:4201/document/terms" target="_blank">AGB</a>  |  
-                <a href="http://localhost:4201/document/privacy-policy" target="_blank">Datenschutz</a>
+                <a href="http://city-info.at:3005/document/terms" target="_blank">AGB</a>  |  
+                <a href="http://city-info.at:3005/document/privacy-policy" target="_blank">Datenschutz</a>
             </div>
         </div>
     </div>
