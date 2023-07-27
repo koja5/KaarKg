@@ -83,6 +83,7 @@ router.post("/approveAccountForKindergarden", function (req, res, next) {
   body.approve_account_for_kindergarden.fields["firstname"] =
     req.body.firstname;
   body.approve_account_for_kindergarden.fields["lastname"] = req.body.lastname;
+  body.approve_account_for_kindergarden.fields["company"] = req.body.company;
   body.approve_account_for_kindergarden.fields["telephone"] =
     req.body.telephone;
   body.approve_account_for_kindergarden.fields["email_info"] = req.body.email;
@@ -110,6 +111,7 @@ router.post("/approveAccountForDealer", function (req, res, next) {
   );
   body.approve_account_for_dealer.fields["firstname"] = req.body.firstname;
   body.approve_account_for_dealer.fields["lastname"] = req.body.lastname;
+  body.approve_account_for_dealer.fields["company"] = req.body.company;
   body.approve_account_for_dealer.fields["telephone"] = req.body.telephone;
   body.approve_account_for_dealer.fields["email_info"] = req.body.email;
 
@@ -188,7 +190,10 @@ router.post("/sendInvoiceToCustomer", function (req, res, next) {
   );
   body.invoiceToCustomer.fields["greeting"] = body.invoiceToCustomer.fields[
     "greeting"
-  ].replace("{firstname}", req.body.mainAddress.lastname + req.body.mainAddress.firstname);
+  ].replace(
+    "{firstname}",
+    req.body.mainAddress.lastname + req.body.mainAddress.firstname
+  );
   body.invoiceToCustomer.fields["email"] = req.body.shippingAddress.email;
 
   body.invoiceToCustomer.fields["mainFirstname"] =
