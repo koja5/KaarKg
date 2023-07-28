@@ -110,7 +110,9 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  recoveryPassword() {}
+  recoveryPassword() {
+    
+  }
 
   setUserInfoAndRoute(data: any) {
     this.storageService.setToken(data.token);
