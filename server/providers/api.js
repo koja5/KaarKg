@@ -690,6 +690,36 @@ router.get("/getUsers", async (req, res, next) => {
   }
 });
 
+
+router.get("/getAccountTypes", async (req, res, next) => {
+  try {
+    connection.getConnection(function (err, conn) {
+      if (err) {
+        logger.log("error", err.sql + ". " + err.sqlMessage);
+        res.json(err);
+      } else {
+        conn.query(
+          "select * from account_types",
+          req.params.category,
+          function (err, rows, fields) {
+            conn.release();
+            if (err) {
+              logger.log("error", err.sql + ". " + err.sqlMessage);
+              res.json(err);
+            } else {
+              console.log(rows);
+              res.json(rows);
+            }
+          }
+        );
+      }
+    });
+  } catch (ex) {
+    logger.log("error", err.sql + ". " + err.sqlMessage);
+    res.json(ex);
+  }
+});
+
 router.post("/createUser", auth, async function (req, res, next) {
   try {
     connection.getConnection(async function (err, conn) {
@@ -831,6 +861,8 @@ router.post("/changePassword", auth, function (req, res, next) {
     }
   });
 });
+
+
 
 /* END USERS */
 

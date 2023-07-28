@@ -134,6 +134,22 @@
             "field": "city"
         },
         {
+            "type": "textbox",
+            "width": "col-md-12",
+            "class": "e-outline",
+            "name": "vat",
+            "title": "vatForSettings",
+            "field": "vat"
+        },
+        {
+            "type": "switch",
+            "width": "col-md-12",
+            "class": "e-outline",
+            "name": "newsletter",
+            "title": "newsletterForSettings",
+            "field": "newsletter"
+        },
+        {
             "type": "button",
             "width": "col-md-12",
             "class": "e-info  button-action",

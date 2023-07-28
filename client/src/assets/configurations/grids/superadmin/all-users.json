@@ -121,6 +121,38 @@
             }
         },
         {
+            "title": "userType",
+            "template": {
+                "choices": [
+                    {
+                        "field": "type",
+                        "value": 0,
+                        "operator": "==",
+                        "html": "<span class='e-badge e-badge-dark'>höchster Vorgesetzter</span>"
+                    },
+                    {
+                        "field": "type",
+                        "value": 1,
+                        "operator": "==",
+                        "html": "<span class='e-badge e-badge-success'>Händler</span>"
+                    },
+                    {
+                        "field": "type",
+                        "value": 2,
+                        "operator": "==",
+                        "html": "<span class='e-badge e-badge-warning'>Kindergarten</span>"
+                    },
+                    {
+                        "field": "type",
+                        "value": 3,
+                        "operator": "==",
+                        "html": "<span class='e-badge e-badge-info'>Kunde</span>"
+                    }
+                ]
+            },
+            "field": "active"
+        },
+        {
             "title": "userCompany",
             "filterable": true,
             "hideable": true,
@@ -196,6 +228,37 @@
             "validation": {
                 "required": true
             }
+        },
+        {
+            "title": "userVat",
+            "filterable": true,
+            "hideable": true,
+            "type": "string",
+            "class": "text-align-right",
+            "field": "vat",
+            "validation": {
+                "required": true
+            }
+        },
+        {
+            "title": "userNewsletter",
+            "template": {
+                "choices": [
+                    {
+                        "field": "newsletter",
+                        "value": 0,
+                        "operator": "==",
+                        "html": "<span class='e-badge e-badge-danger'>Nicht zulassen</span>"
+                    },
+                    {
+                        "field": "newsletter",
+                        "value": 1,
+                        "operator": "==",
+                        "html": "<span class='e-badge e-badge-success'>Erlauben</span>"
+                    }
+                ]
+            },
+            "field": "active"
         },
         {
             "title": "userActive",
@@ -306,7 +369,7 @@
         },
         {
             "type": "textbox",
-            "width": "col-md-6",
+            "width": "col-md-12",
             "class": "e-outline",
             "name": "address",
             "title": "userAddress",
@@ -314,7 +377,7 @@
         },
         {
             "type": "textbox",
-            "width": "col-md-3",
+            "width": "col-md-6",
             "class": "e-outline",
             "name": "zip",
             "title": "userZip",
@@ -322,11 +385,51 @@
         },
         {
             "type": "textbox",
-            "width": "col-md-3",
+            "width": "col-md-6",
             "class": "e-outline",
             "name": "city",
             "title": "userCity",
             "field": "city"
+        },
+        {
+            "type": "textbox",
+            "width": "col-md-12",
+            "class": "e-outline",
+            "name": "vat",
+            "title": "userVat",
+            "field": "vat"
+        },
+        {
+            "type": "combobox",
+            "width": "col-md-12",
+            "class": "e-outline",
+            "name": "type",
+            "title": "userAccountType",
+            "field": {
+                "text": "name",
+                "value": "id"
+            },
+            "request": {
+                "type": "GET",
+                "api": "/api/getAccountTypes",
+                "parameters": [],
+                "fields": "",
+                "root": ""
+            },
+            "placeholder": "userCountryForPlaceholder",
+            "fieldConfig": {
+                "ignoreAccent": false,
+                "filter": true
+            },
+            "required": true
+        },
+        {
+            "type": "switch",
+            "width": "col-md-12 pt-2",
+            "class": "e-outline",
+            "name": "newsletter",
+            "title": "userNewsletter",
+            "field": "newsletter"
         },
         {
             "type": "switch",
