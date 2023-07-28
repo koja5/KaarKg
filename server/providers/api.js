@@ -46,6 +46,7 @@ router.post("/signUp", async function (req, res, next) {
     connection.getConnection(async function (err, conn) {
       if (err) {
         logger.log("error", err.sql + ". " + err.sqlMessage);
+        conn.release();
         return res.json(err);
       }
       delete req.body.confirmPassword;
@@ -56,9 +57,11 @@ router.post("/signUp", async function (req, res, next) {
         async function (err, rows, fields) {
           if (err) {
             logger.log("error", err.sql + ". " + err.sqlMessage);
+            conn.release();
             return res.json(err);
           }
           if (rows.length > 0) {
+            conn.release();
             res.json(false);
           } else {
             req.body.password = sha1(req.body.password);
@@ -67,6 +70,7 @@ router.post("/signUp", async function (req, res, next) {
               "insert into users set ?",
               req.body,
               async function (err) {
+                conn.release();
                 if (err) {
                   logger.log("error", err.sql + ". " + err.sqlMessage);
                   return res.json(err);
@@ -129,18 +133,18 @@ router.post("/login", function (req, res, next) {
   connection.getConnection(function (err, conn) {
     if (err) {
       logger.log("error", err.sql + ". " + err.sqlMessage);
+      conn.release();
       return res.json(err);
     }
-    console.log(sha1(req.body.password));
     conn.query(
       "select * from users WHERE email=? AND password=? AND active = 1",
       [req.body.email, sha1(req.body.password)],
       function (err, rows, fields) {
+        conn.release();
         if (err) {
           logger.log("error", err.sql + ". " + err.sqlMessage);
           res.json(err);
         }
-        console.log(rows);
         if (rows.length > 0) {
           conn.end();
           const token = jwt.sign(
@@ -178,6 +182,7 @@ router.get("/getMyShippingAddress", auth, async (req, res, next) => {
     connection.getConnection(function (err, conn) {
       if (err) {
         logger.log("error", err.sql + ". " + err.sqlMessage);
+        conn.release();
         res.json(err);
       } else {
         conn.query(
@@ -206,6 +211,7 @@ router.get("/getMe", auth, async (req, res, next) => {
     connection.getConnection(function (err, conn) {
       if (err) {
         logger.log("error", err.sql + ". " + err.sqlMessage);
+        conn.release();
         res.json(err);
       } else {
         conn.query(
@@ -225,6 +231,7 @@ router.get("/getMe", auth, async (req, res, next) => {
     });
   } catch (ex) {
     logger.log("error", err.sql + ". " + err.sqlMessage);
+    conn.release();
     res.json(ex);
   }
 });
@@ -234,6 +241,7 @@ router.get("/verificationMail/:email", async (req, res, next) => {
     connection.getConnection(function (err, conn) {
       if (err) {
         logger.log("error", err.sql + ". " + err.sqlMessage);
+        conn.release();
         res.json(err);
       } else {
         conn.query(
@@ -262,6 +270,7 @@ router.get("/activeUser/:email", function (req, res, next) {
     connection.getConnection(function (err, conn) {
       if (err) {
         logger.log("error", err.sql + ". " + err.sqlMessage);
+        conn.release();
         res.json(err);
       }
       conn.query(
@@ -274,7 +283,6 @@ router.get("/activeUser/:email", function (req, res, next) {
               [req.params.email],
               function (err, rows) {
                 conn.release();
-                console.log(rows[0]);
                 var option_request = {
                   rejectUnauthorized: false,
                   url: process.env.link_api + "infoApprovedAccountFromAdmin",
@@ -295,6 +303,7 @@ router.get("/activeUser/:email", function (req, res, next) {
     });
   } catch (ex) {
     logger.log("error", err.sql + ". " + err.sqlMessage);
+    conn.release();
     res.json(ex);
   }
 });
@@ -308,12 +317,14 @@ router.post("/createNavigationProduct", auth, async function (req, res, next) {
     connection.getConnection(async function (err, conn) {
       if (err) {
         logger.log("error", err.sql + ". " + err.sqlMessage);
+        conn.release();
         return res.json(err);
       }
       conn.query(
         "insert into navigation_products set ?",
         req.body,
         async function (err) {
+          conn.release();
           if (err) {
             logger.log("error", err.sql + ". " + err.sqlMessage);
             return res.json(err);
@@ -334,12 +345,14 @@ router.post("/updateNavigationProduct", auth, async function (req, res, next) {
     connection.getConnection(async function (err, conn) {
       if (err) {
         logger.log("error", err.sql + ". " + err.sqlMessage);
+        conn.release();
         return res.json(err);
       }
       conn.query(
         "update navigation_products set ? where id = ?",
         [req.body, req.body.id],
         async function (err) {
+          conn.release();
           if (err) {
             logger.log("error", err.sql + ". " + err.sqlMessage);
             return res.json(err);
@@ -360,6 +373,7 @@ router.post("/deleteNavigationProduct", auth, function (req, res, next) {
     connection.getConnection(function (err, conn) {
       if (err) {
         logger.log("error", err.sql + ". " + err.sqlMessage);
+        conn.release();
         res.json(err);
       }
       conn.query(
@@ -387,6 +401,7 @@ router.get("/getAllNavigationProducts", async (req, res, next) => {
     connection.getConnection(function (err, conn) {
       if (err) {
         logger.log("error", err.sql + ". " + err.sqlMessage);
+        conn.release();
         res.json(err);
       } else {
         conn.query(
@@ -405,6 +420,7 @@ router.get("/getAllNavigationProducts", async (req, res, next) => {
     });
   } catch (ex) {
     logger.log("error", err.sql + ". " + err.sqlMessage);
+    conn.release();
     res.json(ex);
   }
 });
@@ -420,12 +436,14 @@ router.post(
       connection.getConnection(async function (err, conn) {
         if (err) {
           logger.log("error", err.sql + ". " + err.sqlMessage);
+          conn.release();
           return res.json(err);
         }
         conn.query(
           "insert into navigation_subproducts set ?",
           req.body,
           async function (err) {
+            conn.release();
             if (err) {
               logger.log("error", err.sql + ". " + err.sqlMessage);
               return res.json(err);
@@ -450,12 +468,14 @@ router.post(
       connection.getConnection(async function (err, conn) {
         if (err) {
           logger.log("error", err.sql + ". " + err.sqlMessage);
+          conn.release();
           return res.json(err);
         }
         conn.query(
           "update navigation_subproducts set ? where id = ?",
           [req.body, req.body.id],
           async function (err) {
+            conn.release();
             if (err) {
               logger.log("error", err.sql + ". " + err.sqlMessage);
               return res.json(err);
@@ -468,6 +488,8 @@ router.post(
       });
     } catch (err) {
       logger.log("error", err);
+      conn.release();
+      res.json(false);
     }
   }
 );
@@ -477,6 +499,7 @@ router.post("/deleteNavigationSubproduct", auth, function (req, res, next) {
     connection.getConnection(function (err, conn) {
       if (err) {
         logger.log("error", err.sql + ". " + err.sqlMessage);
+        conn.release();
         res.json(err);
       }
       conn.query(
@@ -495,6 +518,7 @@ router.post("/deleteNavigationSubproduct", auth, function (req, res, next) {
     });
   } catch (ex) {
     logger.log("error", err.sql + ". " + err.sqlMessage);
+    conn.release();
     res.json(ex);
   }
 });
@@ -504,6 +528,7 @@ router.get("/getAllNavigationSubproducts", async (req, res, next) => {
     connection.getConnection(function (err, conn) {
       if (err) {
         logger.log("error", err.sql + ". " + err.sqlMessage);
+        conn.release();
         res.json(err);
       } else {
         conn.query(
@@ -522,6 +547,7 @@ router.get("/getAllNavigationSubproducts", async (req, res, next) => {
     });
   } catch (ex) {
     logger.log("error", err.sql + ". " + err.sqlMessage);
+    conn.release();
     res.json(ex);
   }
 });
@@ -535,6 +561,7 @@ router.get("/getAllProductsForCategory/:category", async (req, res, next) => {
     connection.getConnection(function (err, conn) {
       if (err) {
         logger.log("error", err.sql + ". " + err.sqlMessage);
+        conn.release();
         res.json(err);
       } else {
         conn.query(
@@ -554,6 +581,7 @@ router.get("/getAllProductsForCategory/:category", async (req, res, next) => {
     });
   } catch (ex) {
     logger.log("error", err.sql + ". " + err.sqlMessage);
+    conn.release();
     res.json(ex);
   }
 });
@@ -566,6 +594,7 @@ router.get(
       connection.getConnection(function (err, conn) {
         if (err) {
           logger.log("error", err.sql + ". " + err.sqlMessage);
+          conn.release();
           res.json(err);
         } else {
           const userType = req.user.user.type;
@@ -594,6 +623,7 @@ router.get(
       });
     } catch (ex) {
       logger.log("error", err.sql + ". " + err.sqlMessage);
+      conn.release();
       res.json(ex);
     }
   }
@@ -604,6 +634,7 @@ router.get("/getProductById/:id", async (req, res, next) => {
     connection.getConnection(function (err, conn) {
       if (err) {
         logger.log("error", err.sql + ". " + err.sqlMessage);
+        conn.release();
         res.json(err);
       } else {
         conn.query(
@@ -623,6 +654,7 @@ router.get("/getProductById/:id", async (req, res, next) => {
     });
   } catch (ex) {
     logger.log("error", err.sql + ". " + err.sqlMessage);
+    conn.release();
     res.json(ex);
   }
 });
@@ -632,6 +664,7 @@ router.get("/searchProducts/:category", async (req, res, next) => {
     connection.getConnection(function (err, conn) {
       if (err) {
         logger.log("error", err.sql + ". " + err.sqlMessage);
+        conn.release();
         res.json(err);
       } else {
         conn.query(
@@ -653,6 +686,7 @@ router.get("/searchProducts/:category", async (req, res, next) => {
     });
   } catch (ex) {
     logger.log("error", err.sql + ". " + err.sqlMessage);
+    conn.release();
     res.json(ex);
   }
 });
@@ -666,6 +700,7 @@ router.get("/getUsers", async (req, res, next) => {
     connection.getConnection(function (err, conn) {
       if (err) {
         logger.log("error", err.sql + ". " + err.sqlMessage);
+        conn.release();
         res.json(err);
       } else {
         conn.query(
@@ -686,16 +721,17 @@ router.get("/getUsers", async (req, res, next) => {
     });
   } catch (ex) {
     logger.log("error", err.sql + ". " + err.sqlMessage);
+    conn.release();
     res.json(ex);
   }
 });
-
 
 router.get("/getAccountTypes", async (req, res, next) => {
   try {
     connection.getConnection(function (err, conn) {
       if (err) {
         logger.log("error", err.sql + ". " + err.sqlMessage);
+        conn.release();
         res.json(err);
       } else {
         conn.query(
@@ -716,6 +752,7 @@ router.get("/getAccountTypes", async (req, res, next) => {
     });
   } catch (ex) {
     logger.log("error", err.sql + ". " + err.sqlMessage);
+    conn.release();
     res.json(ex);
   }
 });
@@ -725,9 +762,11 @@ router.post("/createUser", auth, async function (req, res, next) {
     connection.getConnection(async function (err, conn) {
       if (err) {
         logger.log("error", err.sql + ". " + err.sqlMessage);
+        conn.release();
         return res.json(false);
       }
       conn.query("insert into users set ?", req.body, async function (err) {
+        conn.release();
         if (err) {
           logger.log("error", err.sql + ". " + err.sqlMessage);
           return res.json(false);
@@ -739,6 +778,8 @@ router.post("/createUser", auth, async function (req, res, next) {
     });
   } catch (err) {
     logger.log("error", err);
+    conn.release();
+    res.json(false);
   }
 });
 
@@ -747,6 +788,7 @@ router.post("/updateUser", auth, function (req, res, next) {
     connection.getConnection(function (err, conn) {
       if (err) {
         logger.log("error", err.sql + ". " + err.sqlMessage);
+        conn.release();
         res.json(err);
       }
       conn.query(
@@ -774,6 +816,7 @@ router.post("/updateUser", auth, function (req, res, next) {
     });
   } catch (ex) {
     logger.log("error", err.sql + ". " + err.sqlMessage);
+    conn.release();
     res.json(ex);
   }
 });
@@ -783,6 +826,7 @@ router.post("/deleteUser", auth, function (req, res, next) {
     connection.getConnection(function (err, conn) {
       if (err) {
         logger.log("error", err.sql + ". " + err.sqlMessage);
+        conn.release();
         res.json(err);
       }
       conn.query(
@@ -801,6 +845,7 @@ router.post("/deleteUser", auth, function (req, res, next) {
     });
   } catch (ex) {
     logger.log("error", err.sql + ". " + err.sqlMessage);
+    conn.release();
     res.json(ex);
   }
 });
@@ -809,6 +854,7 @@ router.post("/changePersonalInfo", auth, function (req, res, next) {
   connection.getConnection(function (err, conn) {
     if (err) {
       logger.log("error", err.sql + ". " + err.sqlMessage);
+      conn.release();
       res.json(err);
     }
 
@@ -832,6 +878,7 @@ router.post("/changePassword", auth, function (req, res, next) {
   connection.getConnection(function (err, conn) {
     if (err) {
       logger.log("error", err.sql + ". " + err.sqlMessage);
+      conn.release();
       res.json(false);
     }
 
@@ -843,6 +890,7 @@ router.post("/changePassword", auth, function (req, res, next) {
       req.body.current_password == req.body.new_password ||
       req.body.new_password != req.body.repet_new_password
     ) {
+      conn.release();
       res.json(false);
     } else {
       conn.query(
@@ -862,8 +910,6 @@ router.post("/changePassword", auth, function (req, res, next) {
   });
 });
 
-
-
 /* END USERS */
 
 /* SHIPPING ADDRESS */
@@ -873,6 +919,7 @@ router.post("/createShippingAddress", auth, async function (req, res, next) {
     connection.getConnection(async function (err, conn) {
       if (err) {
         logger.log("error", err.sql + ". " + err.sqlMessage);
+        conn.release();
         return res.json(err);
       }
       req.body.id_user = req.user.user.id;
@@ -880,6 +927,7 @@ router.post("/createShippingAddress", auth, async function (req, res, next) {
         "insert into shipping_address set ?",
         req.body,
         async function (err) {
+          conn.release();
           if (err) {
             logger.log("error", err.sql + ". " + err.sqlMessage);
             return res.json(err);
@@ -892,6 +940,8 @@ router.post("/createShippingAddress", auth, async function (req, res, next) {
     });
   } catch (err) {
     logger.log("error", err);
+    conn.release();
+    res.json(false);
   }
 });
 
@@ -900,6 +950,7 @@ router.post("/updateShippingAddress", auth, async function (req, res, next) {
     connection.getConnection(async function (err, conn) {
       if (err) {
         logger.log("error", err.sql + ". " + err.sqlMessage);
+        conn.release();
         return res.json(err);
       }
       delete req.body.name;
@@ -907,6 +958,7 @@ router.post("/updateShippingAddress", auth, async function (req, res, next) {
         "update shipping_address set ? where id = ?",
         [req.body, req.body.id],
         async function (err) {
+          conn.release();
           if (err) {
             logger.log("error", err.sql + ". " + err.sqlMessage);
             return res.json(err);
@@ -919,6 +971,8 @@ router.post("/updateShippingAddress", auth, async function (req, res, next) {
     });
   } catch (err) {
     logger.log("error", err);
+    conn.release();
+    req.json(false);
   }
 });
 
@@ -927,6 +981,7 @@ router.post("/deleteShippingAddress", auth, function (req, res, next) {
     connection.getConnection(function (err, conn) {
       if (err) {
         logger.log("error", err.sql + ". " + err.sqlMessage);
+        conn.release();
         res.json(err);
       }
       conn.query(
@@ -945,6 +1000,7 @@ router.post("/deleteShippingAddress", auth, function (req, res, next) {
     });
   } catch (ex) {
     logger.log("error", err.sql + ". " + err.sqlMessage);
+    conn.release();
     res.json(ex);
   }
 });
@@ -954,12 +1010,14 @@ router.get("/getAllShippingAddressForUser", auth, async (req, res, next) => {
     connection.getConnection(function (err, conn) {
       if (err) {
         logger.log("error", err.sql + ". " + err.sqlMessage);
+        conn.release();
         res.json(err);
       } else {
         conn.query(
           "select s.*, c.name from shipping_address s join countries c on s.country_id = c.id where s.id_user = ?",
           req.user.user.id,
           function (err, rows, fields) {
+            conn.release();
             conn.release();
             if (err) {
               logger.log("error", err.sql + ". " + err.sqlMessage);
@@ -973,6 +1031,7 @@ router.get("/getAllShippingAddressForUser", auth, async (req, res, next) => {
     });
   } catch (ex) {
     logger.log("error", err.sql + ". " + err.sqlMessage);
+    conn.release();
     res.json(ex);
   }
 });
@@ -1078,6 +1137,7 @@ router.get("/getCountries", async (req, res, next) => {
     connection.getConnection(function (err, conn) {
       if (err) {
         logger.log("error", err.sql + ". " + err.sqlMessage);
+        conn.release();
         res.json(err);
       } else {
         conn.query(
@@ -1097,6 +1157,7 @@ router.get("/getCountries", async (req, res, next) => {
     });
   } catch (ex) {
     logger.log("error", err.sql + ". " + err.sqlMessage);
+    conn.release();
     res.json(ex);
   }
 });
@@ -1106,9 +1167,11 @@ router.post("/createCountry", auth, async function (req, res, next) {
     connection.getConnection(async function (err, conn) {
       if (err) {
         logger.log("error", err.sql + ". " + err.sqlMessage);
+        conn.release();
         return res.json(false);
       }
       conn.query("insert into countries set ?", req.body, async function (err) {
+        conn.release();
         if (err) {
           logger.log("error", err.sql + ". " + err.sqlMessage);
           return res.json(false);
@@ -1120,6 +1183,8 @@ router.post("/createCountry", auth, async function (req, res, next) {
     });
   } catch (err) {
     logger.log("error", err);
+    conn.release();
+    res.json(false);
   }
 });
 
@@ -1128,6 +1193,7 @@ router.post("/updateCountry", auth, function (req, res, next) {
     connection.getConnection(function (err, conn) {
       if (err) {
         logger.log("error", err.sql + ". " + err.sqlMessage);
+        conn.release();
         res.json(err);
       }
       conn.query(
@@ -1155,6 +1221,7 @@ router.post("/updateCountry", auth, function (req, res, next) {
     });
   } catch (ex) {
     logger.log("error", err.sql + ". " + err.sqlMessage);
+    conn.release();
     res.json(ex);
   }
 });
@@ -1164,6 +1231,7 @@ router.post("/deleteCountry", auth, function (req, res, next) {
     connection.getConnection(function (err, conn) {
       if (err) {
         logger.log("error", err.sql + ". " + err.sqlMessage);
+        conn.release();
         res.json(err);
       }
       conn.query(
@@ -1182,6 +1250,7 @@ router.post("/deleteCountry", auth, function (req, res, next) {
     });
   } catch (ex) {
     logger.log("error", err.sql + ". " + err.sqlMessage);
+    conn.release();
     res.json(ex);
   }
 });
@@ -1195,6 +1264,7 @@ router.get("/getShippingPrices", async (req, res, next) => {
     connection.getConnection(function (err, conn) {
       if (err) {
         logger.log("error", err.sql + ". " + err.sqlMessage);
+        conn.release();
         res.json(err);
       } else {
         conn.query(
@@ -1214,6 +1284,7 @@ router.get("/getShippingPrices", async (req, res, next) => {
     });
   } catch (ex) {
     logger.log("error", err.sql + ". " + err.sqlMessage);
+    conn.release();
     res.json(ex);
   }
 });
@@ -1223,12 +1294,14 @@ router.post("/createShippingPrice", auth, async function (req, res, next) {
     connection.getConnection(async function (err, conn) {
       if (err) {
         logger.log("error", err.sql + ". " + err.sqlMessage);
+        conn.release();
         return res.json(false);
       }
       conn.query(
         "insert into shipping_prices set ?",
         req.body,
         async function (err) {
+          conn.release();
           if (err) {
             logger.log("error", err.sql + ". " + err.sqlMessage);
             return res.json(false);
@@ -1241,6 +1314,8 @@ router.post("/createShippingPrice", auth, async function (req, res, next) {
     });
   } catch (err) {
     logger.log("error", err);
+    conn.release();
+    res.json(false);
   }
 });
 
@@ -1249,6 +1324,7 @@ router.post("/updateShippingPrice", auth, function (req, res, next) {
     connection.getConnection(function (err, conn) {
       if (err) {
         logger.log("error", err.sql + ". " + err.sqlMessage);
+        conn.release();
         res.json(err);
       }
       conn.query(
@@ -1276,6 +1352,7 @@ router.post("/updateShippingPrice", auth, function (req, res, next) {
     });
   } catch (ex) {
     logger.log("error", err.sql + ". " + err.sqlMessage);
+    conn.release();
     res.json(ex);
   }
 });
@@ -1285,6 +1362,7 @@ router.post("/deleteShippingPrice", auth, function (req, res, next) {
     connection.getConnection(function (err, conn) {
       if (err) {
         logger.log("error", err.sql + ". " + err.sqlMessage);
+        conn.release();
         res.json(err);
       }
       conn.query(
@@ -1303,6 +1381,7 @@ router.post("/deleteShippingPrice", auth, function (req, res, next) {
     });
   } catch (ex) {
     logger.log("error", err.sql + ". " + err.sqlMessage);
+    conn.release();
     res.json(ex);
   }
 });

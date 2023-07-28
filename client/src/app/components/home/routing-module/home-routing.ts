@@ -57,7 +57,10 @@ const routes: Routes = [
     path: 'help',
     component: HelpComponent,
   },
-
+  {
+    path: 'recovery-password/:email',
+    component: HelpComponent,
+  },
   {
     path: 'settings',
     component: SettingsComponent,

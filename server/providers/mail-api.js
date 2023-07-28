@@ -161,14 +161,15 @@ router.post("/infoApprovedAccountFromAdmin", function (req, res, next) {
   });
 });
 
-router.post("/sentLinkToEmailForReset", function (req, res, next) {
+router.post("/sentLinkToEmailForRecoveryPassword", function (req, res, next) {
   var body = JSON.parse(
     fs.readFileSync("./providers/mail_server/config.json", "utf-8")
   );
   body.reset_password.fields["email"] = req.body.email;
   body.reset_password.fields["link"] =
-    process.env.link_client + "forgot-password/" + sha1(req.body.email);
+    process.env.link_client + "recovery-password/" + sha1(req.body.email);
   var options = {
+    rejectUnauthorized: false,
     url: process.env.link_api + "mail-server/sendMail",
     method: "POST",
     body: body.reset_password,
