@@ -7,7 +7,7 @@ import {
   Output,
   ViewChild,
 } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { FieldType } from 'src/app/enums/field-type';
 import { CallApiService } from 'src/app/services/call-api.service';
@@ -40,7 +40,7 @@ export class DynamicFormsComponent implements OnInit {
   @Output()
   submit: EventEmitter<any> = new EventEmitter<any>();
 
-  form!: FormGroup;
+  form!: UntypedFormGroup;
   public loader: boolean = true;
   public modalShow: boolean = false;
 
@@ -58,7 +58,7 @@ export class DynamicFormsComponent implements OnInit {
   }
 
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private configurationService: ConfigurationService,
     private apiService: CallApiService,
     private router: ActivatedRoute,

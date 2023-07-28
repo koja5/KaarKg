@@ -24,58 +24,46 @@ import { SwitchComponent } from '../dynamic-fields/buttons/switch/switch.compone
 import { DatetimepickerComponent } from '../dynamic-fields/inputs/datetimepicker/datetimepicker.component';
 
 @NgModule({
-  declarations: [
-    DynamicFieldsDirective,
-    TextBoxComponent,
-    LabelComponent,
-    ButtonComponent,
-    DynamicIconComponent,
-    ComboboxComponent,
-    DatepickerComponent,
-    DatetimepickerComponent,
-    NumericTextboxComponent,
-    SwitchComponent
-  ],
-  exports: [
-    DynamicFieldsDirective,
-    TextBoxComponent,
-    LabelComponent,
-    ButtonComponent,
-    DynamicIconComponent,
-    ComboboxComponent,
-    DatepickerComponent,
-    DatetimepickerComponent,
-    NumericTextboxComponent,
-    SwitchComponent
-  ],
-  imports: [
-    CommonModule,
-    FormsModule,
-    ReactiveFormsModule,
-    TextBoxModule,
-    ButtonModule,
-    CheckBoxModule,
-    RadioButtonModule,
-    SwitchModule,
-    MatIconModule,
-    SharingModule,
-    ComboBoxModule,
-    DatePickerModule,
-    DateTimePickerAllModule,
-    NumericTextBoxModule,
-    SwitchModule
-  ],
-  entryComponents: [
-    DynamicFieldsDirective,
-    TextBoxComponent,
-    LabelComponent,
-    ButtonComponent,
-    DynamicIconComponent,
-    ComboboxComponent,
-    DatepickerComponent,
-    DatetimepickerComponent,
-    NumericTextboxComponent,
-    SwitchComponent
-  ],
+    declarations: [
+        DynamicFieldsDirective,
+        TextBoxComponent,
+        LabelComponent,
+        ButtonComponent,
+        DynamicIconComponent,
+        ComboboxComponent,
+        DatepickerComponent,
+        DatetimepickerComponent,
+        NumericTextboxComponent,
+        SwitchComponent
+    ],
+    exports: [
+        DynamicFieldsDirective,
+        TextBoxComponent,
+        LabelComponent,
+        ButtonComponent,
+        DynamicIconComponent,
+        ComboboxComponent,
+        DatepickerComponent,
+        DatetimepickerComponent,
+        NumericTextboxComponent,
+        SwitchComponent
+    ],
+    imports: [
+        CommonModule,
+        FormsModule,
+        ReactiveFormsModule,
+        TextBoxModule,
+        ButtonModule,
+        CheckBoxModule,
+        RadioButtonModule,
+        SwitchModule,
+        MatIconModule,
+        SharingModule,
+        ComboBoxModule,
+        DatePickerModule,
+        DateTimePickerAllModule,
+        NumericTextBoxModule,
+        SwitchModule
+    ]
 })
 export class DynamicFormsModule {}

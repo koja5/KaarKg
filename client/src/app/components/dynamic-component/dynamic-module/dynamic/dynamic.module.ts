@@ -38,52 +38,51 @@ import { DynamicGridComponent } from '../../dynamic-grid/dynamic-grid.component'
 import { DynamicTextFormComponent } from '../../dynamic-text-form/dynamic-text-form.component';
 
 @NgModule({
-  declarations: [
-    DynamicGridComponent,
-    DynamicFormsComponent,
-    DynamicActionButtonComponent,
-    DialogModalComponent,
-    ToastrComponent,
-    DynamicTextFormComponent
-  ],
-  exports: [
-    DynamicGridComponent,
-    DynamicFormsComponent,
-    DynamicActionButtonComponent,
-    DialogModalComponent,
-    ToastrComponent,
-    DynamicTextFormComponent
-  ],
-  imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    DynamicFormsModule,
-    SharingModule,
-    DialogAllModule,
-    SplitButtonModule,
-    DropDownButtonModule,
-    ToastrModule.forRoot(),
-    GridModule,
-    MatIconModule,
-  ],
-  providers: [
-    EditService,
-    PdfExportService,
-    ExcelExportService,
-    ToolbarService,
-    SortService,
-    FilterService,
-    ContextMenuService,
-    PageService,
-    GroupService,
-    ResizeService,
-    ToastrComponent,
-    DayService,
-    WeekService,
-    WorkWeekService,
-    MonthService,
-    AgendaService,
-  ],
-  entryComponents: [DynamicFormsComponent],
+    declarations: [
+        DynamicGridComponent,
+        DynamicFormsComponent,
+        DynamicActionButtonComponent,
+        DialogModalComponent,
+        ToastrComponent,
+        DynamicTextFormComponent
+    ],
+    exports: [
+        DynamicGridComponent,
+        DynamicFormsComponent,
+        DynamicActionButtonComponent,
+        DialogModalComponent,
+        ToastrComponent,
+        DynamicTextFormComponent
+    ],
+    imports: [
+        CommonModule,
+        ReactiveFormsModule,
+        DynamicFormsModule,
+        SharingModule,
+        DialogAllModule,
+        SplitButtonModule,
+        DropDownButtonModule,
+        ToastrModule.forRoot(),
+        GridModule,
+        MatIconModule,
+    ],
+    providers: [
+        EditService,
+        PdfExportService,
+        ExcelExportService,
+        ToolbarService,
+        SortService,
+        FilterService,
+        ContextMenuService,
+        PageService,
+        GroupService,
+        ResizeService,
+        ToastrComponent,
+        DayService,
+        WeekService,
+        WorkWeekService,
+        MonthService,
+        AgendaService,
+    ]
 })
 export class DynamicModule {}

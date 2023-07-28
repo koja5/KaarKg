@@ -1,8 +1,8 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import {
-  FormBuilder,
+  UntypedFormBuilder,
   FormControl,
-  FormGroup,
+  UntypedFormGroup,
   Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -28,7 +28,7 @@ export class LoginComponent implements OnInit {
   public user = new UserModel();
   public accountType: UserType = UserType.customer;
   public language: any;
-  public registerForm!: FormGroup;
+  public registerForm!: UntypedFormGroup;
   public submitted = false;
 
   constructor(
@@ -37,7 +37,7 @@ export class LoginComponent implements OnInit {
     private helpService: HelpService,
     private router: Router,
     private toastr: ToastrComponent,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private customValidator: CustomValidationService
   ) {}
 
