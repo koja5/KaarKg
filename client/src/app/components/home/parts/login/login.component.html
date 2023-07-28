@@ -147,7 +147,7 @@
         <form id="stripe-login" class="mb-0">
             <div class="field padding-bottom--24">
                 <label for="email">{{language.loginEmail}}</label>
-                <input type="email" name="email">
+                <input type="email" name="email" [(ngModel)]="user.email">
             </div>
             <div class="text-center">
                 <button ejs-button [isPrimary]="true"

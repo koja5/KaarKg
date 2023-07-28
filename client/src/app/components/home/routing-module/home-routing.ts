@@ -10,6 +10,7 @@ import { AboutUsComponent } from '../pages/about-us/about-us.component';
 import { ArticleDetailsComponent } from '../pages/article-details/article-details.component';
 import { HelpComponent } from '../pages/help/help.component';
 import { SettingsComponent } from '../pages/settings/settings.component';
+import { RecoveryPasswordComponent } from '../parts/login/recovery-password/recovery-password.component';
 
 const routes: Routes = [
   {
@@ -59,7 +60,7 @@ const routes: Routes = [
   },
   {
     path: 'recovery-password/:email',
-    component: HelpComponent,
+    component: RecoveryPasswordComponent,
   },
   {
     path: 'settings',

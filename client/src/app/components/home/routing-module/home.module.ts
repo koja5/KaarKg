@@ -32,6 +32,7 @@ import { AccordionModule } from '@syncfusion/ej2-angular-navigations';
 import { SettingsComponent } from '../pages/settings/settings.component';
 import { ComboBoxAllModule } from '@syncfusion/ej2-angular-dropdowns';
 import { StripeModule } from 'stripe-angular';
+import { RecoveryPasswordComponent } from '../parts/login/recovery-password/recovery-password.component';
 
 @NgModule({
   declarations: [
@@ -50,6 +51,7 @@ import { StripeModule } from 'stripe-angular';
     ArticleDetailsComponent,
     HelpComponent,
     SettingsComponent,
+    RecoveryPasswordComponent,
   ],
   imports: [
     CommonModule,

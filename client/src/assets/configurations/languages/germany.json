@@ -49,6 +49,9 @@
     "loginPasswordRequirementsLowercase": "Mindestens 1 Kleinbuchstabe",
     "loginPasswordRequirementsNumber": "Mindestens 1 Zahl",
     "loginNeedToVerifyAccount": "Ihr Konto wurde erfolgreich erstellt! Bitte überprüfen Sie Ihre E-Mails zur Bestätigung!",
+    "loginSendRecoveryPasswordSuccess": "Eine E-Mail zum Zurücksetzen des Passworts wurde erfolgreich gesendet.",
+    "loginMailNotExist": "Die von Ihnen eingegebene E-Mail existiert nicht",
+    "loginNeedToFillRequiredData": "Sie müssen die entsprechenden Daten eingeben.",
     "navigationProdukte": "Produkte",
     "navigationActions": "Aktionen",
     "navigationNew": "Neuheiten",
@@ -221,5 +224,12 @@
     "shippingKindergardenShippingPrice": "Preis für den Kindergartenversand",
     "shippingCustomerShippingLimit": "Versandlimit des Kunden",
     "shippingCustomerShippingPrice": "Versandpreis des Kunden",
-    "shippingSave": "Speichern"
+    "shippingSave": "Speichern",
+    "recoveryTitle": "Passwort zurücksetzen",
+    "recoveryText": "Zurücksetzen Ihres Passworts",
+    "recoveryPassword": "Neues Passwort eingeben",
+    "recoveryRepeatPassword": "Passwort wiederholen",
+    "recoveryRecoveryPassword": "Passwort zurücksetzen",
+    "passwordIsNotSame": "Passwörter sind nicht gleich!",
+    "passwordIsChanged": "Passwort wurde geändert!"
 }

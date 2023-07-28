@@ -111,7 +111,23 @@ export class LoginComponent implements OnInit {
   }
 
   recoveryPassword() {
-    
+    if (this.user.email) {
+      this.service
+        .callGetMethod('api/recoveryMail', this.user.email)
+        .subscribe((data) => {
+          if (data) {
+            this.toastr.showSuccessCustom(
+              this.language.loginSendRecoveryPasswordSuccess
+            );
+          } else {
+            this.toastr.showErrorCustom(
+              this.language.loginNeedToFillRequiredData
+            );
+          }
+        });
+    } else {
+      this.toastr.showErrorCustom(this.language.loginNeedToFillRequiredData);
+    }
   }
 
   setUserInfoAndRoute(data: any) {

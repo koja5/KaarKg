@@ -140,7 +140,6 @@ router.post("/login", function (req, res, next) {
       "select * from users WHERE email=? AND password=? AND active = 1",
       [req.body.email, sha1(req.body.password)],
       function (err, rows, fields) {
-        conn.release();
         if (err) {
           logger.log("error", err.sql + ". " + err.sqlMessage);
           res.json(err);
@@ -263,6 +262,71 @@ router.get("/verificationMail/:email", async (req, res, next) => {
     logger.log("error", err.sql + ". " + err.sqlMessage);
     res.json(ex);
   }
+});
+
+router.get("/recoveryMail/:email", async (req, res, next) => {
+  try {
+    connection.getConnection(function (err, conn) {
+      if (err) {
+        logger.log("error", err.sql + ". " + err.sqlMessage);
+        conn.release();
+        res.json(err);
+      } else {
+        conn.query(
+          "select * from users where email = ?",
+          [req.params.email],
+          function (err, rows, fields) {
+            conn.release();
+            if (err) {
+              logger.log("error", err.sql + ". " + err.sqlMessage);
+              res.json(err);
+            } else {
+              if (rows.length > 0) {
+                var option_request = {
+                  rejectUnauthorized: false,
+                  url:
+                    process.env.link_api + "sentLinkToEmailForRecoveryPassword",
+                  method: "POST",
+                  body: rows[0],
+                  json: true,
+                };
+                request(option_request, function (error, response, body) {});
+                res.json(true);
+              } else {
+                res.json(false);
+              }
+            }
+          }
+        );
+      }
+    });
+  } catch (ex) {
+    logger.log("error", err.sql + ". " + err.sqlMessage);
+    res.json(ex);
+  }
+});
+
+router.post("/changePassword", function (req, res, next) {
+  connection.getConnection(function (err, conn) {
+    if (err) {
+      logger.log("error", err.sql + ". " + err.sqlMessage);
+      res.json(err);
+    }
+
+    conn.query(
+      "update users SET password = ? where email = ?",
+      [sha1(req.body.password), sha1(req.user.user.id)],
+      function (err, rows) {
+        conn.release();
+        if (!err) {
+          res.json(true);
+        } else {
+          logger.log("error", err.sql + ". " + err.sqlMessage);
+          res.json(false);
+        }
+      }
+    );
+  });
 });
 
 router.get("/activeUser/:email", function (req, res, next) {
@@ -1017,7 +1081,6 @@ router.get("/getAllShippingAddressForUser", auth, async (req, res, next) => {
           "select s.*, c.name from shipping_address s join countries c on s.country_id = c.id where s.id_user = ?",
           req.user.user.id,
           function (err, rows, fields) {
-            conn.release();
             conn.release();
             if (err) {
               logger.log("error", err.sql + ". " + err.sqlMessage);

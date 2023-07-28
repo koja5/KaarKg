@@ -151,7 +151,6 @@ router.post("/infoApprovedAccountFromAdmin", function (req, res, next) {
     body: body.info_approved_account_from_admin,
     json: true,
   };
-  console.log(options);
   request(options, function (error, response, body) {
     if (!error) {
       res.json(true);
