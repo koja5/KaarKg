@@ -41,10 +41,14 @@
   color: black;
 }
 
-.item-title {
+.item-title, .item-quantity {
   width: 80%;
   display: inline-block;
   text-align: initial;
+}
+
+.item-quantity {
+  padding-left: 22px;
 }
 
 .item-price {

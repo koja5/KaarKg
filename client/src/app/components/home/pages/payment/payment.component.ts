@@ -8,6 +8,7 @@ import { UserType } from 'src/app/enums/user-type';
 import { ShippingAddress } from 'src/app/models/shipping-address-model';
 import { CallApiService } from 'src/app/services/call-api.service';
 import { HelpService } from 'src/app/services/help.service';
+import { MessageService } from 'src/app/services/message.service';
 import { StorageService } from 'src/app/services/storage.service';
 
 @Component({
@@ -20,7 +21,7 @@ export class PaymentComponent implements OnInit {
   public user: any;
   public shippingAddresses: any;
   public language: any;
-  currentStep = 0;
+  public currentStep = 0;
   public paymentOption: PaymentOption = PaymentOption.invoice;
   public paymentOptionSelect: string | undefined;
   public userType!: UserType;
@@ -30,22 +31,30 @@ export class PaymentComponent implements OnInit {
   public confirmDialogComponent = new ConfirmDialogComponent();
   public type: number | undefined;
   public countries: any;
+  public products: any;
+  public subOfProductInCart = 0;
 
   constructor(
     private service: CallApiService,
     private helpService: HelpService,
     private storageService: StorageService,
     private router: Router,
-    private toastr: ToastrComponent
+    private toastr: ToastrComponent,
+    private messageService: MessageService
   ) {}
 
   ngOnInit(): void {
     this.language = this.helpService.getLanguage();
+    this.currentStep = Number(
+      this.helpService.getSessionStorageStringValue('step')
+    );
     this.initialize();
   }
 
   initialize() {
     this.getShippingAddresses();
+    this.products = this.storageService.getCookieObject('cart');
+    this.checkSubtotal();
     this.type = this.helpService.getAccountTypeId();
 
     if (this.type === 3) {
@@ -90,7 +99,7 @@ export class PaymentComponent implements OnInit {
       ', ' +
       (value.zip ? value.zip + ' ' : '') +
       (value.city ? value.city + ', ' : '') +
-      value.name +
+      value.country_name +
       ', ' +
       value.telephone +
       ', ' +
@@ -112,6 +121,7 @@ export class PaymentComponent implements OnInit {
   createDialogNewShippingAddress() {
     this.shippingAddress = new ShippingAddress();
     this.shippingAddress.country_id = 14;
+    this.shippingAddress.country_name = "Österreich";
     this.shippingActionType = 'create';
     this.getCountries();
     this.shippingAddressDialog.show();
@@ -164,22 +174,18 @@ export class PaymentComponent implements OnInit {
   }
 
   nextStep() {
-    if (this.currentStep < 3) {
+    if (this.currentStep < 4) {
       this.currentStep++;
     }
-    // this.currentStep++;
-    // if (this.currentStep === 1 && this.paymentOption === PaymentOption.pay) {
-    //   const products = this.storageService.getCookieObject('cart');
-    //   this.service.checkout(products);
-    // } else {
-    //   this.currentStep++;
-    // }
+
+    this.helpService.setSessionStorage('step', this.currentStep);
   }
 
   previousStep() {
     if (this.currentStep > 0) {
       this.currentStep--;
     }
+    this.helpService.setSessionStorage('step', this.currentStep);
   }
 
   getPaymentOption() {
@@ -211,5 +217,49 @@ export class PaymentComponent implements OnInit {
         this.countries = data;
       });
     }
+  }
+
+  removeCart(index: number) {
+    this.products.splice(index, 1);
+    this.storageService.setCookieObject('cart', this.products);
+    this.toastr.showSuccessCustom(
+      '',
+      this.language.productSuccessfulyRemoveArticleFromCart
+    );
+    this.checkSubtotal();
+    this.messageService.sentRefreshCartInformation();
+  }
+
+  checkSubtotal() {
+    this.subOfProductInCart = 0;
+    for (let i = 0; i < this.products.length; i++) {
+      this.subOfProductInCart +=
+        this.products[i].price * this.products[i].quantity;
+    }
+  }
+
+  addQuantity(index: number) {
+    this.products[index].quantity += 1;
+    this.checkSubtotal();
+    this.helpService.addNewQuantityToCart(
+      this.products[index],
+      this.products[index].quantity
+    );
+  }
+
+  removeQuantity(index: number) {
+    if (this.products[index].quantity > 1) {
+      this.products[index].quantity -= 1;
+      this.checkSubtotal();
+      this.helpService.addNewQuantityToCart(
+        this.products[index],
+        this.products[index].quantity
+      );
+    }
+  }
+
+  changeCountry(event: any) {
+    console.log(event);
+    this.shippingAddress.country_name = event.itemData.name;
   }
 }

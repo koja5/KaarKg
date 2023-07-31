@@ -333,7 +333,8 @@
             "class": "e-outline",
             "name": "email",
             "title": "userEmail",
-            "field": "email"
+            "field": "email",
+            "readonly": true
         },
         {
             "type": "textbox",

@@ -264,6 +264,18 @@ export class HelpService {
     );
   }
 
+  addNewQuantityToCart(item: any, quantity: number) {
+    let current = this.storageService.getCookieObject('cart');
+    for (let i = 0; i < current['length']; i++) {
+      if (current[i]['title'] === item.title) {
+        current[i].quantity = quantity;
+        break;
+      }
+    }
+
+    this.storageService.setCookie('cart', JSON.stringify(current));
+  }
+
   addToCart(item: any) {
     let currentFavorite = this.storageService.getCookieObject('cart');
     let ind = 1;
@@ -292,6 +304,8 @@ export class HelpService {
 
   getCurrentDatetime() {
     const date = new Date();
-    return `${date.getDate()}.${date.getMonth() + 1}.${date.getFullYear()}. ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
+    return `${date.getDate()}.${
+      date.getMonth() + 1
+    }.${date.getFullYear()}. ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
   }
 }

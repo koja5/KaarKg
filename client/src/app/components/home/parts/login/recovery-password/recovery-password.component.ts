@@ -35,11 +35,11 @@ export class RecoveryPasswordComponent implements OnInit {
     } else {
       this.data.email = this.router.snapshot.params['email'];
       this.service
-        .callPostMethod('api/changePassword', this.data)
+        .callPostMethod('api/changePasswordRecovery', this.data)
         .subscribe((data) => {
           if (data) {
             this.toastr.showSuccessCustom(this.language.passwordIsChanged, '');
-            this.redirect.navigate(['/login']);
+            this.redirect.navigate(['/']);
           }
         });
     }

@@ -179,7 +179,7 @@
                             {{title}}
                         </td>
                         <td style="width:10%; text-align:center;">
-                            1
+                            {{quantity}}
                         </td>
                         <td style="width:10%; text-align:right;">
                             € {{neto}}
@@ -227,6 +227,7 @@
                                 {{mainCompany}}<br>
                                 {{mainAddress}}<br>
                                 {{mainZip}}  {{mainCity}}<br>
+                                {{mainCountry}}<br>
                                 Tel: {{mainTelephone}}<br>
                                 E-mail: {{mainEmail}}<br>
                                
@@ -236,6 +237,7 @@
                                 {{shippingCompany}}<br>
                                 {{shippingAddress}}<br>
                                 {{shippingZip}} {{shippingCity}}<br>
+                                {{shippingCountry}}<br>
                                 Tel: {{shippingTelephone}}<br>
                                 E-mail: {{shippingEmail}}<br>
                                 

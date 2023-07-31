@@ -42,7 +42,9 @@
 
         <div class="col-md-6">
             <div class="product-single-details mb-0 ml-md-4">
-                <h1 class="product-title">{{item.title}} <span class="pointer" [title]="language.productCopyLinkToProduct" (click)="copyToClipboard()"><app-mat-icon [icon]="'content_copy'"></app-mat-icon></span></h1>
+                <h1 class="product-title">{{item.title}} <span class="pointer"
+                        [title]="language.productCopyLinkToProduct" (click)="copyToClipboard()"><app-mat-icon
+                            [icon]="'content_copy'"></app-mat-icon></span></h1>
 
                 <!-- <div class="ratings-container">
                     <div class="product-ratings">
@@ -56,11 +58,11 @@
                 <hr class="short-divider">
 
                 <div class="price-box">
-                    <span *ngIf="accountType && accountType === 1" class="product-price">€  {{item.price | number:
+                    <span *ngIf="accountType && accountType === 1" class="product-price">€ {{item.price | number:
                         '.2'}} <span class="vat">{{language.productExcludeVat}}</span></span>
-                    <span *ngIf="accountType && accountType === 2" class="product-price">€  {{item.price |
+                    <span *ngIf="accountType && accountType === 2" class="product-price">€ {{item.price |
                         number: '.2'}} <span class="vat">{{language.productExcludeVat}}</span></span>
-                    <span *ngIf="!accountType || accountType === 3" class="product-price">€  {{item.price | number:
+                    <span *ngIf="!accountType || accountType === 3" class="product-price">€ {{item.price | number:
                         '.2'}} <span class="vat">{{language.productIncludeVat}}</span></span>
                 </div><!-- End .price-box -->
 
@@ -122,7 +124,8 @@
                                     class="btn btn-outline btn-down-icon bootstrap-touchspin-down" type="button"
                                     (click)="removeQuantity()"></button></span><input
                                 class="horizontal-quantity form-control" type="number" id="quantity" name="quantity"
-                                [(ngModel)]="quantity" min="1"><span class="input-group-btn input-group-append"><button
+                                [(ngModel)]="item.quantity" min="1"><span
+                                class="input-group-btn input-group-append"><button
                                     class="btn btn-outline btn-up-icon bootstrap-touchspin-up" type="button"
                                     (click)="addQuantity()"></button></span></div>
                     </div>

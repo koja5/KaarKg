@@ -95,9 +95,15 @@ export class CheckoutComponent implements OnInit {
     this.subtotalBruto = 0;
     this.subtotalNetoForProduct = 0;
     for (let i = 0; i < this.products.length; i++) {
-      this.subtotalNeto += Number(this.products[i].neto);
-      this.subtotalBruto += Number(this.products[i].bruto);
-      this.subtotalNetoForProduct += Number(this.products[i].neto);
+      this.subtotalNeto += Number(
+        this.products[i].neto * this.products[i].quantity
+      );
+      this.subtotalBruto += Number(
+        this.products[i].bruto * this.products[i].quantity
+      );
+      this.subtotalNetoForProduct += Number(
+        this.products[i].neto * this.products[i].quantity
+      );
     }
   }
 
@@ -147,6 +153,7 @@ export class CheckoutComponent implements OnInit {
           this.storageService.removeCookie('cart');
           this.helpService.removeSessionStorage('payment');
           this.loader = true;
+          this.helpService.removeSessionStorage('step');
           this.successEmitter.emit();
         }
       });

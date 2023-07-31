@@ -142,7 +142,7 @@ router.post("/infoApprovedAccountFromAdmin", function (req, res, next) {
   body.info_approved_account_from_admin.fields["greeting"] =
     body.info_approved_account_from_admin.fields["greeting"].replace(
       "{firstname}",
-      req.body.firstname
+      req.body.lastname + " " + req.body.firstname
     );
   var options = {
     rejectUnauthorized: false,
@@ -192,7 +192,7 @@ router.post("/sendInvoiceToCustomer", function (req, res, next) {
     "greeting"
   ].replace(
     "{firstname}",
-    req.body.mainAddress.lastname + req.body.mainAddress.firstname
+    req.body.mainAddress.lastname + " " + req.body.mainAddress.firstname
   );
   body.invoiceToCustomer.fields["email"] = req.body.shippingAddress.email;
 
@@ -202,6 +202,7 @@ router.post("/sendInvoiceToCustomer", function (req, res, next) {
   body.invoiceToCustomer.fields["mainTelephone"] =
     req.body.mainAddress.telephone;
   body.invoiceToCustomer.fields["mainAddress"] = req.body.mainAddress.address;
+  body.invoiceToCustomer.fields["mainCountry"] = req.body.mainAddress.country_name;
   body.invoiceToCustomer.fields["mainCompany"] = req.body.mainAddress.company;
   body.invoiceToCustomer.fields["mainZip"] = req.body.mainAddress.zip;
   body.invoiceToCustomer.fields["mainCity"] = req.body.mainAddress.city;
@@ -217,6 +218,8 @@ router.post("/sendInvoiceToCustomer", function (req, res, next) {
     req.body.shippingAddress.email;
   body.invoiceToCustomer.fields["shippingAddress"] =
     req.body.shippingAddress.address;
+  body.invoiceToCustomer.fields["shippingCountry"] =
+    req.body.shippingAddress.country_name;
   body.invoiceToCustomer.fields["shippingCompany"] =
     req.body.shippingAddress.company;
   body.invoiceToCustomer.fields["shippingZip"] = req.body.shippingAddress.zip;

@@ -109,7 +109,7 @@
 
 <ejs-dialog #quickView [showCloseIcon]='true' [visible]='false' width="750px">
     <ng-template #content>
-        <app-product-item [item]="item" [accountType]="accountType"
+        <app-product-item *ngIf="item" [item]="item" [accountType]="accountType"
             (hideProductItemDialogEvent)="hideProductItemDialog()"></app-product-item>
     </ng-template>
 </ejs-dialog>

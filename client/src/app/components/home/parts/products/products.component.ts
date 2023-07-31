@@ -93,6 +93,7 @@ export class ProductsComponent implements OnInit {
 
   quickViewItem(item: any) {
     this.item = item;
+    this.item.quantity = 1;
     this.quickView.cssClass = 'e-fixed';
     this.quickView.show();
   }
@@ -102,6 +103,7 @@ export class ProductsComponent implements OnInit {
   }
 
   addToCart(item: any) {
+    item.quantity = 1;
     this.helpService.addToCart(item);
   }
 

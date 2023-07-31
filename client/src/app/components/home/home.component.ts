@@ -80,7 +80,7 @@ export class HomeComponent implements OnInit {
     this.subOfProductInCart = 0;
     this.numberOfProductInChart = products.length;
     for (let i = 0; i < products.length; i++) {
-      this.subOfProductInCart += products[i].price;
+      this.subOfProductInCart += (products[i].price * products[i].quantity);
     }
   }
 
