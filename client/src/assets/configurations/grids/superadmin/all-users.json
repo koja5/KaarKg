@@ -128,7 +128,7 @@
                         "field": "type",
                         "value": 0,
                         "operator": "==",
-                        "html": "<span class='e-badge e-badge-dark'>höchster Vorgesetzter</span>"
+                        "html": "<span class='e-badge e-badge-dark'>Admin</span>"
                     },
                     {
                         "field": "type",

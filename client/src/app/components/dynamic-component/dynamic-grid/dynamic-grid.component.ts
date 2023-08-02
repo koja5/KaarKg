@@ -27,8 +27,6 @@ import { DynamicFormsComponent } from '../dynamic-forms/dynamic-forms.component'
 import { FilterSettingsModel } from '@syncfusion/ej2-angular-grids';
 import { ClickEventArgs } from '@syncfusion/ej2-angular-navigations';
 
-setCulture('de-DE');
-
 L10n.load({
   'de-DE': {
     grid: {

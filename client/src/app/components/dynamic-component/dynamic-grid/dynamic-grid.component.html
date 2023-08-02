@@ -71,6 +71,10 @@
               getFileTypeIcon(data, item.template.field) }}</mat-icon>
           </div>
 
+          <div *ngIf="item.template.type === 'image'" [style]="item.template.style">
+            <img src="{{item.template.root}}{{data[item.field]}}">
+          </div>
+
           <div *ngIf="item.template.choices">
             <div *ngFor="let item of item.template.choices">
               <div *ngIf="

@@ -146,7 +146,8 @@ export class LoginComponent implements OnInit {
           : '',
       ]);
     } else if (token.type === UserType.superadmin) {
-      this.router.navigate(['/dashboard']);
+      // this.router.navigate(['/dashboard']);
+      window.location.reload();
     } else {
       window.location.reload();
     }

@@ -47,6 +47,8 @@
                     <div *ngFor="let item of products; let i = index"
                         class="product-default inner-quickview inner-icon col-lg-2 col-md-3 col-sm-6 col-xs-12">
                         <figure>
+                            <span class='e-badge e-badge-danger not-available'
+                                *ngIf="!item.available">{{language.productNotAvailable}}</span>
                             <a>
                                 <img src="./assets/images/products/{{item.image}}"
                                     (error)="getNoImageAvailablePicture(i)" width="205" height="205" alt="product">
@@ -58,7 +60,7 @@
                                         class="pt-2"></app-mat-icon></a>
                             </div>
                             <div class="btn-icon-group">
-                                <a (click)="addToCart(item)"
+                                <a *ngIf="item.available" (click)="addToCart(item)"
                                     class="btn-icon btn-add-cart product-type-simple"><app-mat-icon
                                         icon="shopping_basket" class="pt-2"></app-mat-icon></a>
                             </div>
@@ -69,7 +71,9 @@
                         <div class="product-details">
                             <div class="category-wrap">
                                 <div class="category-list">
-                                    <a class="product-category">{{item.name}}</a>
+                                    <a class="product-category">{{item.name}}</a> <span *ngIf="item.new"
+                                        class='e-badge e-badge-success new-product'
+                                        title="{{language.productNew}}">{{language.productNew}}</span>
                                 </div>
                                 <!--  -->
                             </div>
@@ -85,8 +89,20 @@
                             </div> -->
                             <!-- End .product-container -->
 
-                            <div class="price-box">
-                                <!-- <span class="old-price">€  90.00</span> -->
+                            <div class="price-box" *ngIf="item.discount_price">
+                                <span class="old-price">€ {{item.price | number: '.2'}}</span>
+                                <span *ngIf="accountType && accountType === 1" class="product-price">€
+                                    {{item.discount_price | number: '.2'}} <span
+                                        class="vat">{{language.productExcludeVat}}</span></span>
+                                <span *ngIf="accountType && accountType === 2" class="product-price">€
+                                    {{item.discount_price | number: '.2'}} <span
+                                        class="vat">{{language.productExcludeVat}}</span></span>
+                                <span *ngIf="!accountType || accountType === 3" class="product-price">€
+                                    {{item.discount_price |
+                                    number: '.2'}} <span class="vat">{{language.productIncludeVat}}</span></span>
+                            </div>
+
+                            <div class="price-box" *ngIf="!item.discount_price">
                                 <span *ngIf="accountType && accountType === 1" class="product-price">€
                                     {{item.price | number: '.2'}} <span
                                         class="vat">{{language.productExcludeVat}}</span></span>

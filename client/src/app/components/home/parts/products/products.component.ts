@@ -47,11 +47,12 @@ export class ProductsComponent implements OnInit {
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['searchProduct'].currentValue) {
+      let search = 'searchProducts';
+      if (this.helpService.getDecodeToken()) {
+        search = 'searchProductsForLoginUser';
+      }
       this.service
-        .callGetMethod(
-          '/api/searchProducts',
-          changes['searchProduct'].currentValue
-        )
+        .callGetMethod('/api/' + search, changes['searchProduct'].currentValue)
         .subscribe((data) => {
           this.products = data;
           this.category =
@@ -69,13 +70,42 @@ export class ProductsComponent implements OnInit {
 
   initialize() {
     this.category = this.route.snapshot.paramMap.get('category')!;
-    if (this.category) {
-      if (this.storageService.getToken()) {
+    if (!this.language) {
+      this.language = this.helpService.getLanguageAndCheckFile();
+    }
+    if (this.storageService.getToken()) {
+      if (this.category === this.language.navigationNew) {
+        this.service
+          .callGetMethod('/api/getAllNewProductsForLoginUser/', '')
+          .subscribe((products) => {
+            this.products = products;
+          });
+      } else if (this.category === this.language.navigationActions) {
+        this.service
+          .callGetMethod('/api/getAllActionsProductsForLoginUser/', '')
+          .subscribe((products) => {
+            this.products = products;
+          });
+      } else {
         this.service
           .callGetMethod(
             '/api/getAllProductsForCategoryForLoginUser/',
             this.category!
           )
+          .subscribe((products) => {
+            this.products = products;
+          });
+      }
+    } else {
+      if (this.category === this.language.navigationNew) {
+        this.service
+          .callGetMethod('/api/getAllNewProducts/', '')
+          .subscribe((products) => {
+            this.products = products;
+          });
+      } else if (this.category === this.language.navigationActions) {
+        this.service
+          .callGetMethod('/api/getAllActionsProducts/', '')
           .subscribe((products) => {
             this.products = products;
           });
@@ -86,8 +116,6 @@ export class ProductsComponent implements OnInit {
             this.products = products;
           });
       }
-    } else {
-      console.log('Akcije!');
     }
   }
 

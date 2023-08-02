@@ -7,9 +7,17 @@
 }
 
 .product-desc p.show {
-    display: block;
+  display: block;
 }
 
 .more-text {
-    color: var(--primary) !important;
+  color: var(--primary) !important;
+}
+
+.not-available {
+  position: absolute;
+  z-index: 1;
+  font-size: 14px;
+  // top: 16vh;
+  // left: 15vh;
 }

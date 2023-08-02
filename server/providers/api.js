@@ -598,7 +598,7 @@ router.get("/getAllNavigationSubproducts", async (req, res, next) => {
 
 /* PRODUCTS */
 
-router.get("/getAllProductsForCategory/:category", async (req, res, next) => {
+router.get("/getAllProducts", async (req, res, next) => {
   try {
     connection.getConnection(function (err, conn) {
       if (err) {
@@ -606,8 +606,7 @@ router.get("/getAllProductsForCategory/:category", async (req, res, next) => {
         res.json(err);
       } else {
         conn.query(
-          "select p.id, p.category_id, p.product_number, p.title, p.description, p.price, p.image, np.name from products p join navigation_products np on p.category_id = np.id where np.name like ?",
-          req.params.category,
+          "select p.*, np.id as 'category_id', np.name as 'category_name' from products p join navigation_products np on p.category_id = np.id",
           function (err, rows, fields) {
             conn.release();
             if (err) {
@@ -618,6 +617,87 @@ router.get("/getAllProductsForCategory/:category", async (req, res, next) => {
             }
           }
         );
+      }
+    });
+  } catch (ex) {
+    logger.log("error", err.sql + ". " + err.sqlMessage);
+    res.json(ex);
+  }
+});
+
+router.get("/getAllProductsForCategory/:category", async (req, res, next) => {
+  try {
+    connection.getConnection(function (err, conn) {
+      if (err) {
+        logger.log("error", err.sql + ". " + err.sqlMessage);
+        res.json(err);
+      } else {
+        let query = getProductsByAccountTypeForDifferentCategory(null);
+        conn.query(query, req.params.category, function (err, rows, fields) {
+          conn.release();
+          if (err) {
+            logger.log("error", err.sql + ". " + err.sqlMessage);
+            res.json(err);
+          } else {
+            res.json(rows);
+          }
+        });
+      }
+    });
+  } catch (ex) {
+    logger.log("error", err.sql + ". " + err.sqlMessage);
+    res.json(ex);
+  }
+});
+
+router.get("/getAllNewProducts", async (req, res, next) => {
+  try {
+    connection.getConnection(function (err, conn) {
+      if (err) {
+        logger.log("error", err.sql + ". " + err.sqlMessage);
+        res.json(err);
+      } else {
+        let query = getProductsByAccountType(userType);
+        query +=
+          " where p.new_product_until_date >= CAST(CURRENT_TIMESTAMP AS DATE)";
+
+        conn.query(query, function (err, rows, fields) {
+          conn.release();
+          if (err) {
+            logger.log("error", err.sql + ". " + err.sqlMessage);
+            res.json(err);
+          } else {
+            res.json(rows);
+          }
+        });
+      }
+    });
+  } catch (ex) {
+    logger.log("error", err.sql + ". " + err.sqlMessage);
+    res.json(ex);
+  }
+});
+
+router.get("/getAllActionsProducts", async (req, res, next) => {
+  try {
+    connection.getConnection(function (err, conn) {
+      if (err) {
+        logger.log("error", err.sql + ". " + err.sqlMessage);
+        res.json(err);
+      } else {
+        let query = getProductsByAccountType(null);
+
+        query +=
+          " where p.discount_date_from <= CAST(CURRENT_TIMESTAMP AS DATE) and p.discount_date_to >= CAST(CURRENT_TIMESTAMP AS DATE)";
+        conn.query(query, function (err, rows, fields) {
+          conn.release();
+          if (err) {
+            logger.log("error", err.sql + ". " + err.sqlMessage);
+            res.json(err);
+          } else {
+            res.json(rows);
+          }
+        });
       }
     });
   } catch (ex) {
@@ -637,19 +717,73 @@ router.get(
           res.json(err);
         } else {
           const userType = req.user.user.type;
-          let query = "";
-          if (userType === 0 || userType === 1) {
-            query =
-              "select p.id, p.category_id, p.product_number, p.title, p.description, p.price_dealer as 'price', p.image, np.name from products p join navigation_products np on p.category_id = np.id where np.name like ?";
-          } else if (userType === 2) {
-            query =
-              "select p.id, p.category_id, p.product_number, p.title, p.description, p.price_kindergarden as 'price', p.image, np.name from products p join navigation_products np on p.category_id = np.id where np.name like ?";
-          } else if (userType === 3) {
-            query =
-              "select p.id, p.category_id, p.product_number, p.title, p.description, p.price, p.image, np.name from products p join navigation_products np on p.category_id = np.id where np.name like ?";
-          } else {
-          }
+          let query = getProductsByAccountTypeForDifferentCategory(userType);
+
           conn.query(query, req.params.category, function (err, rows, fields) {
+            conn.release();
+            if (err) {
+              logger.log("error", err.sql + ". " + err.sqlMessage);
+              res.json(err);
+            } else {
+              res.json(rows);
+            }
+          });
+        }
+      });
+    } catch (ex) {
+      logger.log("error", err.sql + ". " + err.sqlMessage);
+      res.json(ex);
+    }
+  }
+);
+
+router.get("/getAllNewProductsForLoginUser", auth, async (req, res, next) => {
+  try {
+    connection.getConnection(function (err, conn) {
+      if (err) {
+        logger.log("error", err.sql + ". " + err.sqlMessage);
+        res.json(err);
+      } else {
+        const userType = req.user.user.type;
+        let query = getProductsByAccountType(userType);
+
+        query +=
+          " where p.new_product_until_date >= CAST(CURRENT_TIMESTAMP AS DATE)";
+
+        conn.query(query, function (err, rows, fields) {
+          conn.release();
+          if (err) {
+            logger.log("error", err.sql + ". " + err.sqlMessage);
+            res.json(err);
+          } else {
+            res.json(rows);
+          }
+        });
+      }
+    });
+  } catch (ex) {
+    logger.log("error", err.sql + ". " + err.sqlMessage);
+    res.json(ex);
+  }
+});
+
+router.get(
+  "/getAllActionsProductsForLoginUser",
+  auth,
+  async (req, res, next) => {
+    try {
+      connection.getConnection(function (err, conn) {
+        if (err) {
+          logger.log("error", err.sql + ". " + err.sqlMessage);
+          res.json(err);
+        } else {
+          const userType = req.user.user.type;
+          let query = getProductsByAccountType(userType);
+
+          query +=
+            " where p.discount_date_from <= CAST(CURRENT_TIMESTAMP AS DATE) and p.discount_date_to >= CAST(CURRENT_TIMESTAMP AS DATE)";
+
+          conn.query(query, function (err, rows, fields) {
             conn.release();
             if (err) {
               logger.log("error", err.sql + ". " + err.sqlMessage);
@@ -702,11 +836,40 @@ router.get("/searchProducts/:category", async (req, res, next) => {
         logger.log("error", err.sql + ". " + err.sqlMessage);
         res.json(err);
       } else {
-        conn.query(
-          "select p.*, np.name from products p join navigation_products np on p.category_id = np.id where p.title like '%" +
-            req.params.category +
-            "%'",
-          function (err, rows, fields) {
+        let query = searchProductByAccountType(null, req.params.category);
+        conn.query(query, function (err, rows, fields) {
+          conn.release();
+          if (err) {
+            logger.log("error", err.sql + ". " + err.sqlMessage);
+            res.json(err);
+          } else {
+            console.log(rows);
+            res.json(rows);
+          }
+        });
+      }
+    });
+  } catch (ex) {
+    logger.log("error", err.sql + ". " + err.sqlMessage);
+    res.json(ex);
+  }
+});
+
+router.get(
+  "/searchProductsForLoginUser/:category",
+  auth,
+  async (req, res, next) => {
+    try {
+      connection.getConnection(function (err, conn) {
+        if (err) {
+          logger.log("error", err.sql + ". " + err.sqlMessage);
+          res.json(err);
+        } else {
+          let query = searchProductByAccountType(
+            req.user.user.type,
+            req.params.category
+          );
+          conn.query(query, function (err, rows, fields) {
             conn.release();
             if (err) {
               logger.log("error", err.sql + ". " + err.sqlMessage);
@@ -715,9 +878,104 @@ router.get("/searchProducts/:category", async (req, res, next) => {
               console.log(rows);
               res.json(rows);
             }
-          }
+          });
+        }
+      });
+    } catch (ex) {
+      logger.log("error", err.sql + ". " + err.sqlMessage);
+      res.json(ex);
+    }
+  }
+);
+
+router.post("/createProduct", auth, async function (req, res, next) {
+  try {
+    connection.getConnection(async function (err, conn) {
+      if (err) {
+        logger.log("error", err.sql + ". " + err.sqlMessage);
+        return res.json(false);
+      }
+      conn.query("insert into products set ?", req.body, async function (err) {
+        conn.release();
+        if (err) {
+          logger.log("error", err.sql + ". " + err.sqlMessage);
+          return res.json(false);
+        } else {
+          logger.log("info", "Create new city");
+          res.json(true);
+        }
+      });
+    });
+  } catch (err) {
+    logger.log("error", err);
+    res.json(false);
+  }
+});
+
+router.post("/updateProduct", auth, function (req, res, next) {
+  try {
+    connection.getConnection(function (err, conn) {
+      if (err) {
+        logger.log("error", err.sql + ". " + err.sqlMessage);
+        res.json(err);
+      }
+
+      if (req.body.discount_date_from) {
+        req.body.discount_date_from = convertToDate(
+          req.body.discount_date_from
         );
       }
+
+      if (req.body.discount_date_to) {
+        req.body.discount_date_to = convertToDate(req.body.discount_date_to);
+      }
+
+      if (req.body.new_product_until_date) {
+        req.body.new_product_until_date = convertToDate(
+          req.body.new_product_until_date
+        );
+      }
+
+      conn.query(
+        "update products SET ? where id = ?",
+        [req.body, req.body.id],
+        function (err, rows) {
+          conn.release();
+          if (!err) {
+            res.json(true);
+          } else {
+            logger.log("error", `${err.sql}. ${err.sqlMessage}`);
+            res.json(false);
+          }
+        }
+      );
+    });
+  } catch (ex) {
+    logger.log("error", err.sql + ". " + err.sqlMessage);
+    res.json(ex);
+  }
+});
+
+router.post("/deleteProduct", auth, function (req, res, next) {
+  try {
+    connection.getConnection(function (err, conn) {
+      if (err) {
+        logger.log("error", err.sql + ". " + err.sqlMessage);
+        res.json(err);
+      }
+      conn.query(
+        "delete from products where id = ?",
+        [req.body.id],
+        function (err, rows) {
+          conn.release();
+          if (!err) {
+            res.json(true);
+          } else {
+            logger.log("error", `${err.sql}. ${err.sqlMessage}`);
+            res.json(false);
+          }
+        }
+      );
     });
   } catch (ex) {
     logger.log("error", err.sql + ". " + err.sqlMessage);
@@ -1385,3 +1643,58 @@ router.post("/deleteShippingPrice", auth, function (req, res, next) {
 });
 
 /* END SHIPPING PRICES */
+
+function convertToDate(date) {
+  return new Date(date);
+}
+
+function searchProductByAccountType(userType, category) {
+  let query = "";
+  if (userType === 0 || userType === 1) {
+    query =
+      "select p.id, p.category_id, p.product_number, p.title, p.description, p.price_dealer as 'price', p.image, p.available, np.name, case when new_product_until_date > CAST(CURRENT_TIMESTAMP AS DATE) then 1 else 0 end as 'new', case when discount_date_from <= CAST(CURRENT_TIMESTAMP AS DATE) and discount_date_to >= CAST(CURRENT_TIMESTAMP AS DATE) then discount_price_dealer else 0 end as 'discount_price' from products p join navigation_products np on p.category_id = np.id where p.title like '%" +
+      category +
+      "%'";
+  } else if (userType === 2) {
+    query =
+      "select p.id, p.category_id, p.product_number, p.title, p.description, p.price_kindergarden as 'price', p.image, p.available, np.name, case when new_product_until_date > CAST(CURRENT_TIMESTAMP AS DATE) then 1 else 0 end as 'new', case when discount_date_from <= CAST(CURRENT_TIMESTAMP AS DATE) and discount_date_to >= CAST(CURRENT_TIMESTAMP AS DATE) then discount_price_kindergarden else 0 end as 'discount_price'  from products p join navigation_products np on p.category_id = np.id where p.title like '%" +
+      category +
+      "%'";
+  } else if (userType === 3 || !userType) {
+    query =
+      "select p.id, p.category_id, p.product_number, p.title, p.description, p.price, p.image, p.available, np.name, case when new_product_until_date > CAST(CURRENT_TIMESTAMP AS DATE) then 1 else 0 end as 'new', case when discount_date_from <= CAST(CURRENT_TIMESTAMP AS DATE) and discount_date_to >= CAST(CURRENT_TIMESTAMP AS DATE) then discount_price else 0 end as 'discount_price' from products p join navigation_products np on p.category_id = np.id where p.title like '%" +
+      category +
+      "%'";
+  }
+  return query;
+}
+
+function getProductsByAccountType(userType) {
+  let query = "";
+  if (userType === 0 || userType === 1) {
+    query =
+      "select p.id, p.category_id, p.product_number, p.title, p.description, p.price_dealer as 'price', p.image, p.available, np.name, case when new_product_until_date > CAST(CURRENT_TIMESTAMP AS DATE) then 1 else 0 end as 'new', case when discount_date_from <= CAST(CURRENT_TIMESTAMP AS DATE) and discount_date_to >= CAST(CURRENT_TIMESTAMP AS DATE) then discount_price_dealer else 0 end as 'discount_price' from products p join navigation_products np on p.category_id = np.id";
+  } else if (userType === 2) {
+    query =
+      "select p.id, p.category_id, p.product_number, p.title, p.description, p.price_kindergarden as 'price', p.image, p.available, np.name, case when new_product_until_date > CAST(CURRENT_TIMESTAMP AS DATE) then 1 else 0 end as 'new', case when discount_date_from <= CAST(CURRENT_TIMESTAMP AS DATE) and discount_date_to >= CAST(CURRENT_TIMESTAMP AS DATE) then discount_price_kindergarden else 0 end as 'discount_price'  from products p join navigation_products np on p.category_id = np.id";
+  } else if (userType === 3 || !userType) {
+    query =
+      "select p.id, p.category_id, p.product_number, p.title, p.description, p.price, p.image, p.available, np.name, case when new_product_until_date > CAST(CURRENT_TIMESTAMP AS DATE) then 1 else 0 end as 'new', case when discount_date_from <= CAST(CURRENT_TIMESTAMP AS DATE) and discount_date_to >= CAST(CURRENT_TIMESTAMP AS DATE) then discount_price else 0 end as 'discount_price' from products p join navigation_products np on p.category_id = np.id";
+  }
+  return query;
+}
+
+function getProductsByAccountTypeForDifferentCategory(userType) {
+  let query = "";
+  if (userType === 0 || userType === 1) {
+    query =
+      "select p.id, p.category_id, p.product_number, p.title, p.description, p.price_dealer as 'price', p.image, p.available, np.name, case when new_product_until_date > CAST(CURRENT_TIMESTAMP AS DATE) then 1 else 0 end as 'new', case when discount_date_from <= CAST(CURRENT_TIMESTAMP AS DATE) and discount_date_to >= CAST(CURRENT_TIMESTAMP AS DATE) then discount_price_dealer else 0 end as 'discount_price' from products p join navigation_products np on p.category_id = np.id where np.name like ?";
+  } else if (userType === 2) {
+    query =
+      "select p.id, p.category_id, p.product_number, p.title, p.description, p.price_kindergarden as 'price', p.image, p.available, np.name, case when new_product_until_date > CAST(CURRENT_TIMESTAMP AS DATE) then 1 else 0 end as 'new', case when discount_date_from <= CAST(CURRENT_TIMESTAMP AS DATE) and discount_date_to >= CAST(CURRENT_TIMESTAMP AS DATE) then discount_price_kindergarden else 0 end as 'discount_price'  from products p join navigation_products np on p.category_id = np.id where np.name like ?";
+  } else if (userType === 3 || !userType) {
+    query =
+      "select p.id, p.category_id, p.product_number, p.title, p.description, p.price, p.image, p.available, np.name, case when new_product_until_date > CAST(CURRENT_TIMESTAMP AS DATE) then 1 else 0 end as 'new', case when discount_date_from <= CAST(CURRENT_TIMESTAMP AS DATE) and discount_date_to >= CAST(CURRENT_TIMESTAMP AS DATE) then discount_price else 0 end as 'discount_price' from products p join navigation_products np on p.category_id = np.id where np.name like ?";
+  }
+  return query;
+}
