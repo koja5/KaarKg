@@ -75,7 +75,8 @@
             "class": "e-outline",
             "name": "email",
             "title": "emailForSettings",
-            "field": "email"
+            "field": "email",
+            "readonly": true
         },
         {
             "type": "textbox",

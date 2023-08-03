@@ -142,7 +142,7 @@ router.post("/infoApprovedAccountFromAdmin", function (req, res, next) {
   body.info_approved_account_from_admin.fields["greeting"] =
     body.info_approved_account_from_admin.fields["greeting"].replace(
       "{firstname}",
-      req.body.firstname
+      req.body.lastname + " " + req.body.firstname
     );
   var options = {
     rejectUnauthorized: false,
@@ -151,7 +151,6 @@ router.post("/infoApprovedAccountFromAdmin", function (req, res, next) {
     body: body.info_approved_account_from_admin,
     json: true,
   };
-  console.log(options);
   request(options, function (error, response, body) {
     if (!error) {
       res.json(true);
@@ -161,14 +160,15 @@ router.post("/infoApprovedAccountFromAdmin", function (req, res, next) {
   });
 });
 
-router.post("/sentLinkToEmailForReset", function (req, res, next) {
+router.post("/sentLinkToEmailForRecoveryPassword", function (req, res, next) {
   var body = JSON.parse(
     fs.readFileSync("./providers/mail_server/config.json", "utf-8")
   );
   body.reset_password.fields["email"] = req.body.email;
   body.reset_password.fields["link"] =
-    process.env.link_client + "forgot-password/" + sha1(req.body.email);
+    process.env.link_client + "recovery-password/" + sha1(req.body.email);
   var options = {
+    rejectUnauthorized: false,
     url: process.env.link_api + "mail-server/sendMail",
     method: "POST",
     body: body.reset_password,
@@ -192,7 +192,7 @@ router.post("/sendInvoiceToCustomer", function (req, res, next) {
     "greeting"
   ].replace(
     "{firstname}",
-    req.body.mainAddress.lastname + req.body.mainAddress.firstname
+    req.body.mainAddress.lastname + " " + req.body.mainAddress.firstname
   );
   body.invoiceToCustomer.fields["email"] = req.body.shippingAddress.email;
 
@@ -202,6 +202,7 @@ router.post("/sendInvoiceToCustomer", function (req, res, next) {
   body.invoiceToCustomer.fields["mainTelephone"] =
     req.body.mainAddress.telephone;
   body.invoiceToCustomer.fields["mainAddress"] = req.body.mainAddress.address;
+  body.invoiceToCustomer.fields["mainCountry"] = req.body.mainAddress.country_name;
   body.invoiceToCustomer.fields["mainCompany"] = req.body.mainAddress.company;
   body.invoiceToCustomer.fields["mainZip"] = req.body.mainAddress.zip;
   body.invoiceToCustomer.fields["mainCity"] = req.body.mainAddress.city;
@@ -217,6 +218,8 @@ router.post("/sendInvoiceToCustomer", function (req, res, next) {
     req.body.shippingAddress.email;
   body.invoiceToCustomer.fields["shippingAddress"] =
     req.body.shippingAddress.address;
+  body.invoiceToCustomer.fields["shippingCountry"] =
+    req.body.shippingAddress.country_name;
   body.invoiceToCustomer.fields["shippingCompany"] =
     req.body.shippingAddress.company;
   body.invoiceToCustomer.fields["shippingZip"] = req.body.shippingAddress.zip;

@@ -2,7 +2,7 @@ body {
   overflow-x: hidden;
 }
 .payment .res-steps-container .res-steps {
-  width: 25%;
+  width: 20%;
   text-align: center;
   float: left;
   cursor: pointer;
@@ -151,4 +151,52 @@ input.e-input {
 
 li {
   margin-bottom: 10px;
+}
+
+.product {
+  display: flex;
+}
+
+.product-details {
+  width: 80%;
+  margin-left: 15px;
+}
+
+.product-single-qty {
+  width: 10%;
+}
+
+.price-container {
+  width: 10%;
+}
+
+.product-title a,
+.btn-remove {
+  text-decoration: initial !important;
+}
+
+.product-image img {
+  width: 35px;
+}
+
+.btn-remove {
+  width: 23px;
+  width: 21px;
+}
+
+.empty-cart {
+  text-align: center;
+}
+
+.subtotal .price {
+  width: 17%;
+  text-align: center;
+  border-top: 1px solid lightgray;
+  margin-top: 30px;
+  padding-top: 15px;
+}
+
+.empty-cart img {
+  width: 228px;
+  margin: auto;
 }

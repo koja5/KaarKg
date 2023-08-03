@@ -1,13 +1,32 @@
-<div id='dropArea'><span id='drop' class="droparea"> Drop files here or <a href="" id='browse'><u>Browse</u></a> </span>
-    <ejs-uploader #defaultupload autoUpload='false' [asyncSettings]='path' (selected)="onSelect($event)"
-        (failure)="onuploadFailed($event)" (progress)="onFileUpload($event)" (success)="onuploadSuccess($event)">
-        <ng-template #template let-data="">
-            <span class='wrapper'><span class='icon sf-icon-'></span>
-                <span class='name file-name'></span></span>
-            <span class='file-size-td file-size'> bytes</span>
-            <span class='e-icons e-file-remove-btn' title='Remove'></span> <br />
-            <progress id='progressBar' class='progressbar' value='0' max='100'></progress>
-            <span class='percent-td percent'></span>
-        </ng-template>
-    </ejs-uploader>
-</div>
+<!-- <ejs-grid #grid *ngIf="config" width="100%" allowTextWrap="true" [height]="height" [dataSource]="data"
+    [editSettings]="config.editSettings" [toolbar]="config.toolbar" [allowSorting]="config.sorting.enable"
+    [sortSettings]="config.sorting.initialSorting" [allowGrouping]="config.grouping.enable"
+    [allowResizing]="config.allowResizing" [allowPaging]="config.paging.enable" [allowExcelExport]="true"
+    [allowPdfExport]="true" [pageSettings]="config.paging.settings" [allowFiltering]="config.filtering.enable"
+    [filterSettings]="config.filtering.settings" [allowExcelExport]='true' [contextMenuItems]="config.contextMenuItems"
+    (actionComplete)="actionComplete($event)" (toolbarClick)='toolbarClick($event)'>
+    <e-columns>
+        <e-column *ngFor="let item of config.columns; let i = index" [type]="item.type" [field]="item.field"
+            [headerText]="language[item.title] ? language[item.title] : item.title" [width]="item.width"
+            [class]="item.class" [textAlign]="item.position ? item.position : 'center'"
+            [isPrimaryKey]="item.isPrimaryKey" [editType]="item.editType ? item.editType : null"
+            [allowEditing]="item.allowEditing" [format]="item.format" [validationRules]="item.validation"
+            [allowFiltering]="item.allowFiltering === false ? false : true">
+            <ng-template #template let-data *ngIf="item.template">
+
+            </ng-template>
+        </e-column>
+    </e-columns>
+
+    <ng-template #editSettingsTemplate let-data>
+        <div ngForm>
+            <div class="form-row">
+                <app-dynamic-forms *ngIf="config.config && config.config.length > 0" [config]="config"
+                    [partOfGrid]="true" (submit)="submitEmitter($event)" #form="dynamicForm">
+                </app-dynamic-forms>
+            </div>
+        </div>
+    </ng-template>
+</ejs-grid> -->
+
+<app-dynamic-grid [path]="path" [file]="file"></app-dynamic-grid>

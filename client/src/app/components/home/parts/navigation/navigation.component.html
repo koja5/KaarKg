@@ -5,22 +5,21 @@
         <nav class="side-nav">
             <ul class="menu menu-vertical with-icon sf-arrows d-block no-superfish">
                 <li class="mb-1">
-                    <a href="#" class="p-0"><mat-icon _ngcontent-iux-c37="" role="img" aria-hidden="false"
+                    <a routerLink="/category/{{language.navigationActions}}"
+                        (click)="selectNavigationItem = language.navigationActions"
+                        class="{{selectNavigationItem == language.navigationActions ? 'select' : ''}} p-0"><mat-icon
+                            _ngcontent-iux-c37="" role="img" aria-hidden="false"
                             class="mat-icon notranslate material-icons mat-icon-no-color"
                             data-mat-icon-type="font">percent</mat-icon>
-                        {{language.navigationActions}}<mat-icon class="menu-btn">chevron_right</mat-icon></a>
+                        {{language.navigationActions}}</a>
 
-                    <ul>
-                        <li><a href="#"> {{language.navigationActions}}</a></li>
-                    </ul>
                 </li>
                 <li>
-                    <a href="#" class="p-0"><mat-icon>list_alt</mat-icon>
-                        {{language.navigationNew}}<mat-icon class="menu-btn">chevron_right</mat-icon></a>
+                    <a routerLink="/category/{{language.navigationNew}}"
+                        (click)="selectNavigationItem = language.navigationNew"
+                        class="{{selectNavigationItem == language.navigationNew ? 'select' : ''}} p-0"><mat-icon>list_alt</mat-icon>
+                        {{language.navigationNew}}</a>
 
-                    <ul>
-                        <li><a href="#"> {{language.navigationNew}}</a></li>
-                    </ul>
                 </li>
             </ul>
         </nav>
@@ -67,7 +66,8 @@
                             class="menu-btn">chevron_right</mat-icon></a>
                 </li>
                 <li>
-                    <a routerLink="../../document/privacy-policy" target="_blank">{{language.navigationPrivacy}}<mat-icon
+                    <a routerLink="../../document/privacy-policy"
+                        target="_blank">{{language.navigationPrivacy}}<mat-icon
                             class="menu-btn">chevron_right</mat-icon></a>
                 </li>
             </ul>

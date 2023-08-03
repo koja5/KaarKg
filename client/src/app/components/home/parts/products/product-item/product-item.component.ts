@@ -13,24 +13,32 @@ export class ProductItemComponent implements OnInit {
   @Input() item: any;
   @Input() accountType: any;
   @Output() hideProductItemDialogEvent = new EventEmitter();
-  public quantity = 1;
   public language: any;
   public showHideDescriptionText = '';
   public showViewCartOption = false;
 
-  constructor(private helpService: HelpService, private router: Router, private toastr: ToastrComponent) {}
+  constructor(
+    private helpService: HelpService,
+    private router: Router,
+    private toastr: ToastrComponent
+  ) {}
 
   ngOnInit(): void {
     this.language = this.helpService.getLanguage();
+    if (!this.item.quantity) {
+      this.item.quantity = 1;
+    }
   }
 
   addQuantity() {
-    this.quantity += 1;
+    this.item.quantity += 1;
+    this.helpService.addNewQuantityToCart(this.item, this.item.quantity);
   }
 
   removeQuantity() {
-    if (this.quantity > 1) {
-      this.quantity -= 1;
+    if (this.item.quantity > 1) {
+      this.item.quantity -= 1;
+      this.helpService.addNewQuantityToCart(this.item, this.item.quantity);
     }
   }
 
@@ -49,10 +57,16 @@ export class ProductItemComponent implements OnInit {
     const link = window.location.origin + '/article/' + this.item.id;
     navigator.clipboard.writeText(link).then(
       () => {
-        this.toastr.showSuccessCustom('', this.language.productSuccessfulyCopyLinkToClipboard);
+        this.toastr.showSuccessCustom(
+          '',
+          this.language.productSuccessfulyCopyLinkToClipboard
+        );
       },
       () => {
-        this.toastr.showErrorCustom('', this.language.productErrorCopyLinkToClipboard);
+        this.toastr.showErrorCustom(
+          '',
+          this.language.productErrorCopyLinkToClipboard
+        );
       }
     );
   }

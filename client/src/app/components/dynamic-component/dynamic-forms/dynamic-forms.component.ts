@@ -7,7 +7,8 @@ import {
   Output,
   ViewChild,
 } from '@angular/core';
-import { UntypedFormGroup, UntypedFormBuilder, Validators } from '@angular/forms';
+import { formatDate } from '@angular/common';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { FieldType } from 'src/app/enums/field-type';
 import { CallApiService } from 'src/app/services/call-api.service';

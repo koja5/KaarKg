@@ -4,7 +4,8 @@
         <div class="order-datails">
             <ul>
                 <li class="item mb-2" *ngFor="let item of products">
-                    <span class="item-title">{{item.title}}</span>
+                    <span class="item-title">{{item.title}}</span> X
+                    <span class="item-quantity">{{item.quantity}}</span>
                     <span class="item-price" *ngIf="type  === 3">€ {{item.price | number: '.2'}}</span>
                     <span class="item-price" *ngIf="type < 3">€ {{item.neto | number: '.2'}}</span>
                 </li>

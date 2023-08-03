@@ -15,3 +15,23 @@ h1 {
   font-size: 15px;
 }
 
+.new-product {
+  margin-left: 5px;
+  margin-bottom: 2px;
+}
+
+.not-available {
+  position: absolute;
+  z-index: 1;
+  font-size: 14px;
+}
+
+.package {
+  position: absolute;
+  right: 0px;
+  margin-top: 5px;
+  color: #000 !important;
+  font-weight: bolder;
+  font-size: 10px;
+  margin-left: 11px;
+}

@@ -59,6 +59,7 @@ router.post("/signUp", async function (req, res, next) {
             return res.json(err);
           }
           if (rows.length > 0) {
+            conn.release();
             res.json(false);
           } else {
             req.body.password = sha1(req.body.password);
@@ -67,6 +68,7 @@ router.post("/signUp", async function (req, res, next) {
               "insert into users set ?",
               req.body,
               async function (err) {
+                conn.release();
                 if (err) {
                   logger.log("error", err.sql + ". " + err.sqlMessage);
                   return res.json(err);
@@ -131,7 +133,6 @@ router.post("/login", function (req, res, next) {
       logger.log("error", err.sql + ". " + err.sqlMessage);
       return res.json(err);
     }
-    console.log(sha1(req.body.password));
     conn.query(
       "select * from users WHERE email=? AND password=? AND active = 1",
       [req.body.email, sha1(req.body.password)],
@@ -140,7 +141,6 @@ router.post("/login", function (req, res, next) {
           logger.log("error", err.sql + ". " + err.sqlMessage);
           res.json(err);
         }
-        console.log(rows);
         if (rows.length > 0) {
           conn.end();
           const token = jwt.sign(
@@ -181,7 +181,7 @@ router.get("/getMyShippingAddress", auth, async (req, res, next) => {
         res.json(err);
       } else {
         conn.query(
-          "select u.id, u.firstname, u.lastname, u.telephone, u.email, u.country_id, u.address, u.zip, u.city, u.company, c.name from users u join countries c on u.country_id = c.id where u.id = ?",
+          "select u.id, u.firstname, u.lastname, u.telephone, u.email, u.country_id, u.address, u.zip, u.city, u.company, c.name as 'country_name' from users u join countries c on u.country_id = c.id where u.id = ?",
           [req.user.user.id],
           function (err, rows, fields) {
             conn.release();
@@ -257,6 +257,70 @@ router.get("/verificationMail/:email", async (req, res, next) => {
   }
 });
 
+router.get("/recoveryMail/:email", async (req, res, next) => {
+  try {
+    connection.getConnection(function (err, conn) {
+      if (err) {
+        logger.log("error", err.sql + ". " + err.sqlMessage);
+        res.json(err);
+      } else {
+        conn.query(
+          "select * from users where email = ?",
+          [req.params.email],
+          function (err, rows, fields) {
+            conn.release();
+            if (err) {
+              logger.log("error", err.sql + ". " + err.sqlMessage);
+              res.json(err);
+            } else {
+              if (rows.length > 0) {
+                var option_request = {
+                  rejectUnauthorized: false,
+                  url:
+                    process.env.link_api + "sentLinkToEmailForRecoveryPassword",
+                  method: "POST",
+                  body: rows[0],
+                  json: true,
+                };
+                request(option_request, function (error, response, body) {});
+                res.json(true);
+              } else {
+                res.json(false);
+              }
+            }
+          }
+        );
+      }
+    });
+  } catch (ex) {
+    logger.log("error", err.sql + ". " + err.sqlMessage);
+    res.json(ex);
+  }
+});
+
+router.post("/changePasswordRecovery", function (req, res, next) {
+  connection.getConnection(function (err, conn) {
+    if (err) {
+      logger.log("error", err.sql + ". " + err.sqlMessage);
+      res.json(err);
+    }
+
+    conn.query(
+      "update users SET password = ? where sha1(email) = ?",
+      [sha1(req.body.password), req.body.email],
+      function (err, rows) {
+        conn.release();
+        if (!err) {
+          res.json(true);
+        } else {
+          logger.log("error", err.sql + ". " + err.sqlMessage);
+          res.json(false);
+        }
+      }
+    );
+  });
+});
+
 router.get("/activeUser/:email", function (req, res, next) {
   try {
     connection.getConnection(function (err, conn) {
@@ -274,7 +338,6 @@ router.get("/activeUser/:email", function (req, res, next) {
               [req.params.email],
               function (err, rows) {
                 conn.release();
-                console.log(rows[0]);
                 var option_request = {
                   rejectUnauthorized: false,
                   url: process.env.link_api + "infoApprovedAccountFromAdmin",
@@ -314,6 +377,7 @@ router.post("/createNavigationProduct", auth, async function (req, res, next) {
         "insert into navigation_products set ?",
         req.body,
         async function (err) {
+          conn.release();
           if (err) {
             logger.log("error", err.sql + ". " + err.sqlMessage);
             return res.json(err);
@@ -340,6 +404,7 @@ router.post("/updateNavigationProduct", auth, async function (req, res, next) {
         "update navigation_products set ? where id = ?",
         [req.body, req.body.id],
         async function (err) {
+          conn.release();
           if (err) {
             logger.log("error", err.sql + ". " + err.sqlMessage);
             return res.json(err);
@@ -426,6 +491,7 @@ router.post(
           "insert into navigation_subproducts set ?",
           req.body,
           async function (err) {
+            conn.release();
             if (err) {
               logger.log("error", err.sql + ". " + err.sqlMessage);
               return res.json(err);
@@ -456,6 +522,7 @@ router.post(
           "update navigation_subproducts set ? where id = ?",
           [req.body, req.body.id],
           async function (err) {
+            conn.release();
             if (err) {
               logger.log("error", err.sql + ". " + err.sqlMessage);
               return res.json(err);
@@ -468,6 +535,7 @@ router.post(
       });
     } catch (err) {
       logger.log("error", err);
+      res.json(false);
     }
   }
 );
@@ -530,7 +598,7 @@ router.get("/getAllNavigationSubproducts", async (req, res, next) => {
 
 /* PRODUCTS */
 
-router.get("/getAllProductsForCategory/:category", async (req, res, next) => {
+router.get("/getAllProducts", async (req, res, next) => {
   try {
     connection.getConnection(function (err, conn) {
       if (err) {
@@ -538,8 +606,7 @@ router.get("/getAllProductsForCategory/:category", async (req, res, next) => {
         res.json(err);
       } else {
         conn.query(
-          "select p.id, p.category_id, p.product_number, p.title, p.description, p.price, p.image, np.name from products p join navigation_products np on p.category_id = np.id where np.name like ?",
-          req.params.category,
+          "select p.*, np.id as 'category_id', np.name as 'category_name' from products p join navigation_products np on p.category_id = np.id",
           function (err, rows, fields) {
             conn.release();
             if (err) {
@@ -550,6 +617,87 @@ router.get("/getAllProductsForCategory/:category", async (req, res, next) => {
             }
           }
         );
+      }
+    });
+  } catch (ex) {
+    logger.log("error", err.sql + ". " + err.sqlMessage);
+    res.json(ex);
+  }
+});
+
+router.get("/getAllProductsForCategory/:category", async (req, res, next) => {
+  try {
+    connection.getConnection(function (err, conn) {
+      if (err) {
+        logger.log("error", err.sql + ". " + err.sqlMessage);
+        res.json(err);
+      } else {
+        let query = getProductsByAccountTypeForDifferentCategory(null);
+        conn.query(query, req.params.category, function (err, rows, fields) {
+          conn.release();
+          if (err) {
+            logger.log("error", err.sql + ". " + err.sqlMessage);
+            res.json(err);
+          } else {
+            res.json(rows);
+          }
+        });
+      }
+    });
+  } catch (ex) {
+    logger.log("error", err.sql + ". " + err.sqlMessage);
+    res.json(ex);
+  }
+});
+
+router.get("/getAllNewProducts", async (req, res, next) => {
+  try {
+    connection.getConnection(function (err, conn) {
+      if (err) {
+        logger.log("error", err.sql + ". " + err.sqlMessage);
+        res.json(err);
+      } else {
+        let query = getProductsByAccountType(null);
+        query +=
+          " where p.new_product_until_date >= CAST(CURRENT_TIMESTAMP AS DATE)";
+
+        conn.query(query, function (err, rows, fields) {
+          conn.release();
+          if (err) {
+            logger.log("error", err.sql + ". " + err.sqlMessage);
+            res.json(err);
+          } else {
+            res.json(rows);
+          }
+        });
+      }
+    });
+  } catch (ex) {
+    logger.log("error", err.sql + ". " + err.sqlMessage);
+    res.json(ex);
+  }
+});
+
+router.get("/getAllActionsProducts", async (req, res, next) => {
+  try {
+    connection.getConnection(function (err, conn) {
+      if (err) {
+        logger.log("error", err.sql + ". " + err.sqlMessage);
+        res.json(err);
+      } else {
+        let query = getProductsByAccountType(null);
+
+        query +=
+          " where p.discount_date_from <= CAST(CURRENT_TIMESTAMP AS DATE) and p.discount_date_to >= CAST(CURRENT_TIMESTAMP AS DATE)";
+        conn.query(query, function (err, rows, fields) {
+          conn.release();
+          if (err) {
+            logger.log("error", err.sql + ". " + err.sqlMessage);
+            res.json(err);
+          } else {
+            res.json(rows);
+          }
+        });
       }
     });
   } catch (ex) {
@@ -569,19 +717,73 @@ router.get(
           res.json(err);
         } else {
           const userType = req.user.user.type;
-          let query = "";
-          if (userType === 0 || userType === 1) {
-            query =
-              "select p.id, p.category_id, p.product_number, p.title, p.description, p.price_dealer as 'price', p.image, np.name from products p join navigation_products np on p.category_id = np.id where np.name like ?";
-          } else if (userType === 2) {
-            query =
-              "select p.id, p.category_id, p.product_number, p.title, p.description, p.price_kindergarden as 'price', p.image, np.name from products p join navigation_products np on p.category_id = np.id where np.name like ?";
-          } else if (userType === 3) {
-            query =
-              "select p.id, p.category_id, p.product_number, p.title, p.description, p.price, p.image, np.name from products p join navigation_products np on p.category_id = np.id where np.name like ?";
-          } else {
-          }
+          let query = getProductsByAccountTypeForDifferentCategory(userType);
+
           conn.query(query, req.params.category, function (err, rows, fields) {
+            conn.release();
+            if (err) {
+              logger.log("error", err.sql + ". " + err.sqlMessage);
+              res.json(err);
+            } else {
+              res.json(rows);
+            }
+          });
+        }
+      });
+    } catch (ex) {
+      logger.log("error", err.sql + ". " + err.sqlMessage);
+      res.json(ex);
+    }
+  }
+);
+
+router.get("/getAllNewProductsForLoginUser", auth, async (req, res, next) => {
+  try {
+    connection.getConnection(function (err, conn) {
+      if (err) {
+        logger.log("error", err.sql + ". " + err.sqlMessage);
+        res.json(err);
+      } else {
+        const userType = req.user.user.type;
+        let query = getProductsByAccountType(userType);
+
+        query +=
+          " where p.new_product_until_date >= CAST(CURRENT_TIMESTAMP AS DATE)";
+
+        conn.query(query, function (err, rows, fields) {
+          conn.release();
+          if (err) {
+            logger.log("error", err.sql + ". " + err.sqlMessage);
+            res.json(err);
+          } else {
+            res.json(rows);
+          }
+        });
+      }
+    });
+  } catch (ex) {
+    logger.log("error", err.sql + ". " + err.sqlMessage);
+    res.json(ex);
+  }
+});
+
+router.get(
+  "/getAllActionsProductsForLoginUser",
+  auth,
+  async (req, res, next) => {
+    try {
+      connection.getConnection(function (err, conn) {
+        if (err) {
+          logger.log("error", err.sql + ". " + err.sqlMessage);
+          res.json(err);
+        } else {
+          const userType = req.user.user.type;
+          let query = getProductsByAccountType(userType);
+
+          query +=
+            " where p.discount_date_from <= CAST(CURRENT_TIMESTAMP AS DATE) and p.discount_date_to >= CAST(CURRENT_TIMESTAMP AS DATE)";
+
+          conn.query(query, function (err, rows, fields) {
             conn.release();
             if (err) {
               logger.log("error", err.sql + ". " + err.sqlMessage);
@@ -634,11 +836,40 @@ router.get("/searchProducts/:category", async (req, res, next) => {
         logger.log("error", err.sql + ". " + err.sqlMessage);
         res.json(err);
       } else {
-        conn.query(
-          "select p.*, np.name from products p join navigation_products np on p.category_id = np.id where p.title like '%" +
-            req.params.category +
-            "%'",
-          function (err, rows, fields) {
+        let query = searchProductByAccountType(null, req.params.category);
+        conn.query(query, function (err, rows, fields) {
+          conn.release();
+          if (err) {
+            logger.log("error", err.sql + ". " + err.sqlMessage);
+            res.json(err);
+          } else {
+            console.log(rows);
+            res.json(rows);
+          }
+        });
+      }
+    });
+  } catch (ex) {
+    logger.log("error", err.sql + ". " + err.sqlMessage);
+    res.json(ex);
+  }
+});
+
+router.get(
+  "/searchProductsForLoginUser/:category",
+  auth,
+  async (req, res, next) => {
+    try {
+      connection.getConnection(function (err, conn) {
+        if (err) {
+          logger.log("error", err.sql + ". " + err.sqlMessage);
+          res.json(err);
+        } else {
+          let query = searchProductByAccountType(
+            req.user.user.type,
+            req.params.category
+          );
+          conn.query(query, function (err, rows, fields) {
             conn.release();
             if (err) {
               logger.log("error", err.sql + ". " + err.sqlMessage);
@@ -647,9 +878,104 @@ router.get("/searchProducts/:category", async (req, res, next) => {
               console.log(rows);
               res.json(rows);
             }
-          }
+          });
+        }
+      });
+    } catch (ex) {
+      logger.log("error", err.sql + ". " + err.sqlMessage);
+      res.json(ex);
+    }
+  }
+);
+
+router.post("/createProduct", auth, async function (req, res, next) {
+  try {
+    connection.getConnection(async function (err, conn) {
+      if (err) {
+        logger.log("error", err.sql + ". " + err.sqlMessage);
+        return res.json(false);
+      }
+      conn.query("insert into products set ?", req.body, async function (err) {
+        conn.release();
+        if (err) {
+          logger.log("error", err.sql + ". " + err.sqlMessage);
+          return res.json(false);
+        } else {
+          logger.log("info", "Create new city");
+          res.json(true);
+        }
+      });
+    });
+  } catch (err) {
+    logger.log("error", err);
+    res.json(false);
+  }
+});
+
+router.post("/updateProduct", auth, function (req, res, next) {
+  try {
+    connection.getConnection(function (err, conn) {
+      if (err) {
+        logger.log("error", err.sql + ". " + err.sqlMessage);
+        res.json(err);
+      }
+
+      if (req.body.discount_date_from) {
+        req.body.discount_date_from = convertToDate(
+          req.body.discount_date_from
         );
       }
+
+      if (req.body.discount_date_to) {
+        req.body.discount_date_to = convertToDate(req.body.discount_date_to);
+      }
+
+      if (req.body.new_product_until_date) {
+        req.body.new_product_until_date = convertToDate(
+          req.body.new_product_until_date
+        );
+      }
+
+      conn.query(
+        "update products SET ? where id = ?",
+        [req.body, req.body.id],
+        function (err, rows) {
+          conn.release();
+          if (!err) {
+            res.json(true);
+          } else {
+            logger.log("error", `${err.sql}. ${err.sqlMessage}`);
+            res.json(false);
+          }
+        }
+      );
+    });
+  } catch (ex) {
+    logger.log("error", err.sql + ". " + err.sqlMessage);
+    res.json(ex);
+  }
+});
+
+router.post("/deleteProduct", auth, function (req, res, next) {
+  try {
+    connection.getConnection(function (err, conn) {
+      if (err) {
+        logger.log("error", err.sql + ". " + err.sqlMessage);
+        res.json(err);
+      }
+      conn.query(
+        "delete from products where id = ?",
+        [req.body.id],
+        function (err, rows) {
+          conn.release();
+          if (!err) {
+            res.json(true);
+          } else {
+            logger.log("error", `${err.sql}. ${err.sqlMessage}`);
+            res.json(false);
+          }
+        }
+      );
     });
   } catch (ex) {
     logger.log("error", err.sql + ". " + err.sqlMessage);
@@ -690,7 +1016,6 @@ router.get("/getUsers", async (req, res, next) => {
   }
 });
 
-
 router.get("/getAccountTypes", async (req, res, next) => {
   try {
     connection.getConnection(function (err, conn) {
@@ -728,6 +1053,7 @@ router.post("/createUser", auth, async function (req, res, next) {
         return res.json(false);
       }
       conn.query("insert into users set ?", req.body, async function (err) {
+        conn.release();
         if (err) {
           logger.log("error", err.sql + ". " + err.sqlMessage);
           return res.json(false);
@@ -739,6 +1065,7 @@ router.post("/createUser", auth, async function (req, res, next) {
     });
   } catch (err) {
     logger.log("error", err);
+    res.json(false);
   }
 });
 
@@ -749,6 +1076,11 @@ router.post("/updateUser", auth, function (req, res, next) {
         logger.log("error", err.sql + ". " + err.sqlMessage);
         res.json(err);
       }
+
+      if (req.body.country_name) {
+        delete req.body.country_name;
+      }
+
       conn.query(
         "update users SET ? where id = ?",
         [req.body, req.body.id],
@@ -843,6 +1175,7 @@ router.post("/changePassword", auth, function (req, res, next) {
       req.body.current_password == req.body.new_password ||
       req.body.new_password != req.body.repet_new_password
     ) {
+      conn.release();
       res.json(false);
     } else {
       conn.query(
@@ -862,8 +1195,6 @@ router.post("/changePassword", auth, function (req, res, next) {
   });
 });
 
-
-
 /* END USERS */
 
 /* SHIPPING ADDRESS */
@@ -876,10 +1207,12 @@ router.post("/createShippingAddress", auth, async function (req, res, next) {
         return res.json(err);
       }
       req.body.id_user = req.user.user.id;
+      delete req.body.country_name;
       conn.query(
         "insert into shipping_address set ?",
         req.body,
         async function (err) {
+          conn.release();
           if (err) {
             logger.log("error", err.sql + ". " + err.sqlMessage);
             return res.json(err);
@@ -892,6 +1225,7 @@ router.post("/createShippingAddress", auth, async function (req, res, next) {
     });
   } catch (err) {
     logger.log("error", err);
+    res.json(false);
   }
 });
 
@@ -903,10 +1237,12 @@ router.post("/updateShippingAddress", auth, async function (req, res, next) {
         return res.json(err);
       }
       delete req.body.name;
+      delete req.body.country_name;
       conn.query(
         "update shipping_address set ? where id = ?",
         [req.body, req.body.id],
         async function (err) {
+          conn.release();
           if (err) {
             logger.log("error", err.sql + ". " + err.sqlMessage);
             return res.json(err);
@@ -919,6 +1255,7 @@ router.post("/updateShippingAddress", auth, async function (req, res, next) {
     });
   } catch (err) {
     logger.log("error", err);
+    req.json(false);
   }
 });
 
@@ -957,7 +1294,7 @@ router.get("/getAllShippingAddressForUser", auth, async (req, res, next) => {
         res.json(err);
       } else {
         conn.query(
-          "select s.*, c.name from shipping_address s join countries c on s.country_id = c.id where s.id_user = ?",
+          "select s.*, c.name as 'country_name' from shipping_address s join countries c on s.country_id = c.id where s.id_user = ?",
           req.user.user.id,
           function (err, rows, fields) {
             conn.release();
@@ -1109,6 +1446,7 @@ router.post("/createCountry", auth, async function (req, res, next) {
         return res.json(false);
       }
       conn.query("insert into countries set ?", req.body, async function (err) {
+        conn.release();
         if (err) {
           logger.log("error", err.sql + ". " + err.sqlMessage);
           return res.json(false);
@@ -1120,6 +1458,7 @@ router.post("/createCountry", auth, async function (req, res, next) {
     });
   } catch (err) {
     logger.log("error", err);
+    res.json(false);
   }
 });
 
@@ -1229,6 +1568,7 @@ router.post("/createShippingPrice", auth, async function (req, res, next) {
         "insert into shipping_prices set ?",
         req.body,
         async function (err) {
+          conn.release();
           if (err) {
             logger.log("error", err.sql + ". " + err.sqlMessage);
             return res.json(false);
@@ -1241,6 +1581,7 @@ router.post("/createShippingPrice", auth, async function (req, res, next) {
     });
   } catch (err) {
     logger.log("error", err);
+    res.json(false);
   }
 });
 
@@ -1308,3 +1649,58 @@ router.post("/deleteShippingPrice", auth, function (req, res, next) {
 });
 
 /* END SHIPPING PRICES */
+
+function convertToDate(date) {
+  return new Date(date);
+}
+
+function searchProductByAccountType(userType, category) {
+  let query = "";
+  if (userType === 0 || userType === 1) {
+    query =
+      "select p.id, p.category_id, p.product_number, p.title, p.description, case when number_of_pieces > 1 then price_per_unit else price_dealer end as 'price', p.image, p.available, np.name, case when new_product_until_date > CAST(CURRENT_TIMESTAMP AS DATE) then 1 else 0 end as 'new', case when discount_date_from <= CAST(CURRENT_TIMESTAMP AS DATE) and discount_date_to >= CAST(CURRENT_TIMESTAMP AS DATE) then discount_price_dealer else 0 end as 'discount_price' from products p join navigation_products np on p.category_id = np.id where p.title like '%" +
+      category +
+      "%'";
+  } else if (userType === 2) {
+    query =
+      "select p.id, p.category_id, p.product_number, p.title, p.description, p.price_kindergarden as 'price', p.image, p.available, np.name, case when new_product_until_date > CAST(CURRENT_TIMESTAMP AS DATE) then 1 else 0 end as 'new', case when discount_date_from <= CAST(CURRENT_TIMESTAMP AS DATE) and discount_date_to >= CAST(CURRENT_TIMESTAMP AS DATE) then discount_price_kindergarden else 0 end as 'discount_price'  from products p join navigation_products np on p.category_id = np.id where p.title like '%" +
+      category +
+      "%'";
+  } else if (userType === 3 || !userType) {
+    query =
+      "select p.id, p.category_id, p.product_number, p.title, p.description, p.price, p.image, p.available, np.name, case when new_product_until_date > CAST(CURRENT_TIMESTAMP AS DATE) then 1 else 0 end as 'new', case when discount_date_from <= CAST(CURRENT_TIMESTAMP AS DATE) and discount_date_to >= CAST(CURRENT_TIMESTAMP AS DATE) then discount_price else 0 end as 'discount_price' from products p join navigation_products np on p.category_id = np.id where p.title like '%" +
+      category +
+      "%'";
+  }
+  return query;
+}
+
+function getProductsByAccountType(userType) {
+  let query = "";
+  if (userType === 0 || userType === 1) {
+    query =
+      "select p.id, p.category_id, p.product_number, p.title, p.description, case when number_of_pieces > 1 then price_per_unit else price_dealer end as 'price', p.image, p.available, np.name, case when new_product_until_date > CAST(CURRENT_TIMESTAMP AS DATE) then 1 else 0 end as 'new', case when discount_date_from <= CAST(CURRENT_TIMESTAMP AS DATE) and discount_date_to >= CAST(CURRENT_TIMESTAMP AS DATE) then discount_price_dealer else 0 end as 'discount_price' from products p join navigation_products np on p.category_id = np.id";
+  } else if (userType === 2) {
+    query =
+      "select p.id, p.category_id, p.product_number, p.title, p.description, p.price_kindergarden as 'price', p.image, p.available, np.name, case when new_product_until_date > CAST(CURRENT_TIMESTAMP AS DATE) then 1 else 0 end as 'new', case when discount_date_from <= CAST(CURRENT_TIMESTAMP AS DATE) and discount_date_to >= CAST(CURRENT_TIMESTAMP AS DATE) then discount_price_kindergarden else 0 end as 'discount_price'  from products p join navigation_products np on p.category_id = np.id";
+  } else if (userType === 3 || !userType) {
+    query =
+      "select p.id, p.category_id, p.product_number, p.title, p.description, p.price, p.image, p.available, np.name, case when new_product_until_date > CAST(CURRENT_TIMESTAMP AS DATE) then 1 else 0 end as 'new', case when discount_date_from <= CAST(CURRENT_TIMESTAMP AS DATE) and discount_date_to >= CAST(CURRENT_TIMESTAMP AS DATE) then discount_price else 0 end as 'discount_price' from products p join navigation_products np on p.category_id = np.id";
+  }
+  return query;
+}
+
+function getProductsByAccountTypeForDifferentCategory(userType) {
+  let query = "";
+  if (userType === 0 || userType === 1) {
+    query =
+      "select p.id, p.category_id, p.product_number, p.title, p.description, case when number_of_pieces > 1 then price_per_unit else price_dealer end as 'price', p.price_per_unit, p.number_of_pieces, p.image, p.available, np.name, case when new_product_until_date > CAST(CURRENT_TIMESTAMP AS DATE) then 1 else 0 end as 'new', case when discount_date_from <= CAST(CURRENT_TIMESTAMP AS DATE) and discount_date_to >= CAST(CURRENT_TIMESTAMP AS DATE) then discount_price_dealer else 0 end as 'discount_price' from products p join navigation_products np on p.category_id = np.id where np.name like ?";
+  } else if (userType === 2) {
+    query =
+      "select p.id, p.category_id, p.product_number, p.title, p.description, p.price_kindergarden as 'price', p.image, p.available, np.name, case when new_product_until_date > CAST(CURRENT_TIMESTAMP AS DATE) then 1 else 0 end as 'new', case when discount_date_from <= CAST(CURRENT_TIMESTAMP AS DATE) and discount_date_to >= CAST(CURRENT_TIMESTAMP AS DATE) then discount_price_kindergarden else 0 end as 'discount_price'  from products p join navigation_products np on p.category_id = np.id where np.name like ?";
+  } else if (userType === 3 || !userType) {
+    query =
+      "select p.id, p.category_id, p.product_number, p.title, p.description, p.price, p.image, p.available, np.name, case when new_product_until_date > CAST(CURRENT_TIMESTAMP AS DATE) then 1 else 0 end as 'new', case when discount_date_from <= CAST(CURRENT_TIMESTAMP AS DATE) and discount_date_to >= CAST(CURRENT_TIMESTAMP AS DATE) then discount_price else 0 end as 'discount_price' from products p join navigation_products np on p.category_id = np.id where np.name like ?";
+  }
+  return query;
+}

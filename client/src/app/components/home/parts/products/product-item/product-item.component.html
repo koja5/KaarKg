@@ -11,6 +11,10 @@
 
                 <div class="product-single-carousel owl-theme show-nav-hover">
                     <div class="product-item">
+                        <span class='e-badge e-badge-danger not-available'
+                            *ngIf="!item.available">{{language.productNotAvailable}}</span>
+                        <span *ngIf="item.new" class='e-badge e-badge-success new-product'
+                            title="{{language.productNew}}">{{language.productNew}}</span>
                         <img class="product-single-image" src="assets/images/products/{{item.image}}" />
                     </div>
                 </div>
@@ -42,7 +46,9 @@
 
         <div class="col-md-6">
             <div class="product-single-details mb-0 ml-md-4">
-                <h1 class="product-title">{{item.title}} <span class="pointer" [title]="language.productCopyLinkToProduct" (click)="copyToClipboard()"><app-mat-icon [icon]="'content_copy'"></app-mat-icon></span></h1>
+                <h1 class="product-title">{{item.title}} <span class="pointer"
+                        [title]="language.productCopyLinkToProduct" (click)="copyToClipboard()"><app-mat-icon
+                            [icon]="'content_copy'"></app-mat-icon></span></h1>
 
                 <!-- <div class="ratings-container">
                     <div class="product-ratings">
@@ -55,14 +61,30 @@
 
                 <hr class="short-divider">
 
-                <div class="price-box">
-                    <span *ngIf="accountType && accountType === 1" class="product-price">€  {{item.price | number:
-                        '.2'}} <span class="vat">{{language.productExcludeVat}}</span></span>
-                    <span *ngIf="accountType && accountType === 2" class="product-price">€  {{item.price |
-                        number: '.2'}} <span class="vat">{{language.productExcludeVat}}</span></span>
-                    <span *ngIf="!accountType || accountType === 3" class="product-price">€  {{item.price | number:
-                        '.2'}} <span class="vat">{{language.productIncludeVat}}</span></span>
-                </div><!-- End .price-box -->
+                <div class="price-box" *ngIf="item.discount_price">
+                    <span class="old-price">€ {{item.price | number: '.2'}}</span>
+                    <span *ngIf="accountType && accountType === 1" class="product-price">€
+                        {{item.discount_price | number: '.2'}} <span
+                            class="vat">{{language.productExcludeVat}}</span></span>
+                    <span *ngIf="accountType && accountType === 2" class="product-price">€
+                        {{item.discount_price | number: '.2'}} <span
+                            class="vat">{{language.productExcludeVat}}</span></span>
+                    <span *ngIf="!accountType || accountType === 3" class="product-price">€
+                        {{item.discount_price |
+                        number: '.2'}} <span class="vat">{{language.productIncludeVat}}</span></span>
+                </div>
+
+                <div class="price-box" *ngIf="!item.discount_price">
+                    <span *ngIf="accountType && accountType === 1" class="product-price">€
+                        {{item.price | number: '.2'}} <span class="vat">{{language.productExcludeVat}}</span><span
+                            *ngIf="item.number_of_pieces > 1" class="package">{{language.productPackageFirstPart}}
+                            {{item.number_of_pieces}}
+                            {{language.productPackageLastPart}}</span></span>
+                    <span *ngIf="accountType && accountType === 2" class="product-price">€
+                        {{item.price | number: '.2'}} <span class="vat">{{language.productExcludeVat}}</span></span>
+                    <span *ngIf="!accountType || accountType === 3" class="product-price">€ {{item.price |
+                        number: '.2'}} <span class="vat">{{language.productIncludeVat}}</span></span>
+                </div>
 
                 <div class="product-desc">
                     <p class="{{showHideDescriptionText}}">
@@ -116,18 +138,19 @@
                         <span class="product-price">$245.00</span>
                     </div>
 
-                    <div class="product-single-qty">
+                    <div *ngIf="item.available" class="product-single-qty">
                         <div class="input-group bootstrap-touchspin bootstrap-touchspin-injected"><span
                                 class="input-group-btn input-group-prepend"><button
                                     class="btn btn-outline btn-down-icon bootstrap-touchspin-down" type="button"
                                     (click)="removeQuantity()"></button></span><input
                                 class="horizontal-quantity form-control" type="number" id="quantity" name="quantity"
-                                [(ngModel)]="quantity" min="1"><span class="input-group-btn input-group-append"><button
+                                [(ngModel)]="item.quantity" min="1"><span
+                                class="input-group-btn input-group-append"><button
                                     class="btn btn-outline btn-up-icon bootstrap-touchspin-up" type="button"
                                     (click)="addQuantity()"></button></span></div>
                     </div>
 
-                    <a (click)="addToCart()" class="btn btn-primary add-cart mr-2"
+                    <a *ngIf="item.available" (click)="addToCart()" class="btn btn-primary add-cart mr-2"
                         title="{{language.productAddToCart}}"><app-mat-icon icon="shopping_basket"
                             class="pr-2"></app-mat-icon> {{language.productAddToCart}}</a>
                     <div *ngIf="showViewCartOption" class="text-center">

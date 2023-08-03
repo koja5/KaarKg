@@ -102,6 +102,7 @@ export class LoginComponent implements OnInit {
               this.language.loginNeedToVerifyAccount
             );
             this.type = LoginFormType.login;
+            this.registerForm.reset();
           } else {
             this.toastr.showError();
           }
@@ -110,7 +111,25 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  recoveryPassword() {}
+  recoveryPassword() {
+    if (this.user.email) {
+      this.service
+        .callGetMethod('api/recoveryMail', this.user.email)
+        .subscribe((data) => {
+          if (data) {
+            this.toastr.showSuccessCustom(
+              this.language.loginSendRecoveryPasswordSuccess
+            );
+          } else {
+            this.toastr.showErrorCustom(
+              this.language.loginNeedToFillRequiredData
+            );
+          }
+        });
+    } else {
+      this.toastr.showErrorCustom(this.language.loginNeedToFillRequiredData);
+    }
+  }
 
   setUserInfoAndRoute(data: any) {
     this.storageService.setToken(data.token);
@@ -128,7 +147,8 @@ export class LoginComponent implements OnInit {
           : '',
       ]);
     } else if (token.type === UserType.superadmin) {
-      this.router.navigate(['/dashboard']);
+      // this.router.navigate(['/dashboard']);
+      window.location.reload();
     } else {
       window.location.reload();
     }
