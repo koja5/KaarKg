@@ -41,14 +41,16 @@
   color: black;
 }
 
-.item-title, .item-quantity {
-  width: 80%;
+.item-title {
+  width: 100%;
   display: inline-block;
   text-align: initial;
 }
 
 .item-quantity {
-  padding-left: 22px;
+  width: 41%;
+  text-align: initial;
+  margin-left: 6px;
 }
 
 .item-price {
@@ -91,4 +93,3 @@
 input.e-input {
   margin-bottom: 0px !important;
 }
-

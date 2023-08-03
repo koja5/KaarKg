@@ -76,7 +76,10 @@
 
                 <div class="price-box" *ngIf="!item.discount_price">
                     <span *ngIf="accountType && accountType === 1" class="product-price">€
-                        {{item.price | number: '.2'}} <span class="vat">{{language.productExcludeVat}}</span></span>
+                        {{item.price | number: '.2'}} <span class="vat">{{language.productExcludeVat}}</span><span
+                            *ngIf="item.number_of_pieces > 1" class="package">{{language.productPackageFirstPart}}
+                            {{item.number_of_pieces}}
+                            {{language.productPackageLastPart}}</span></span>
                     <span *ngIf="accountType && accountType === 2" class="product-price">€
                         {{item.price | number: '.2'}} <span class="vat">{{language.productExcludeVat}}</span></span>
                     <span *ngIf="!accountType || accountType === 3" class="product-price">€ {{item.price |
@@ -135,7 +138,7 @@
                         <span class="product-price">$245.00</span>
                     </div>
 
-                    <div class="product-single-qty">
+                    <div *ngIf="item.available" class="product-single-qty">
                         <div class="input-group bootstrap-touchspin bootstrap-touchspin-injected"><span
                                 class="input-group-btn input-group-prepend"><button
                                     class="btn btn-outline btn-down-icon bootstrap-touchspin-down" type="button"

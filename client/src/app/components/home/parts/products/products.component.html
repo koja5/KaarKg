@@ -105,7 +105,10 @@
                             <div class="price-box" *ngIf="!item.discount_price">
                                 <span *ngIf="accountType && accountType === 1" class="product-price">€
                                     {{item.price | number: '.2'}} <span
-                                        class="vat">{{language.productExcludeVat}}</span></span>
+                                        class="vat">{{language.productExcludeVat}}</span><span
+                                        *ngIf="item.number_of_pieces > 1"
+                                        class="package">{{language.productPackageFirstPart}} {{item.number_of_pieces}}
+                                        {{language.productPackageLastPart}}</span></span>
                                 <span *ngIf="accountType && accountType === 2" class="product-price">€
                                     {{item.price | number: '.2'}} <span
                                         class="vat">{{language.productExcludeVat}}</span></span>

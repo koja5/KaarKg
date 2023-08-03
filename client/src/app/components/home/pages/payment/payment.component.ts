@@ -28,6 +28,7 @@ export class PaymentComponent implements OnInit {
   public loader = false;
   public shippingAddress = new ShippingAddress();
   public shippingActionType = '';
+  public mainShippingAddressEditable = true;
   public confirmDialogComponent = new ConfirmDialogComponent();
   public type: number | undefined;
   public countries: any;
@@ -70,7 +71,7 @@ export class PaymentComponent implements OnInit {
     this.service.callGetMethod('/api/getMyShippingAddress', '').subscribe(
       (data: any) => {
         this.user = data[0];
-        this.selectShippingAddress(this.user);
+        this.selectShippingAddress(this.user, true);
       },
       (error) => {
         this.router.navigate(['./']);
@@ -107,8 +108,9 @@ export class PaymentComponent implements OnInit {
     );
   }
 
-  editDialogShippingAddress(address: any) {
+  editDialogShippingAddress(address: any, mainShippingAddress: boolean) {
     this.shippingAddress = address;
+    this.mainShippingAddressEditable = mainShippingAddress;
     this.shippingActionType = 'edit';
     this.getCountries();
     this.shippingAddressDialog.show();
@@ -121,26 +123,43 @@ export class PaymentComponent implements OnInit {
   createDialogNewShippingAddress() {
     this.shippingAddress = new ShippingAddress();
     this.shippingAddress.country_id = 14;
-    this.shippingAddress.country_name = "Österreich";
+    this.shippingAddress.country_name = 'Österreich';
     this.shippingActionType = 'create';
+    this.mainShippingAddressEditable = false;
     this.getCountries();
     this.shippingAddressDialog.show();
   }
 
   editShippingAddress(address: any) {
-    this.service
-      .callPostMethod('/api/updateShippingAddress', this.shippingAddress)
-      .subscribe((data) => {
-        if (data) {
-          this.shippingAddressDialog.hide();
-          this.toastr.showSuccessCustom(
-            '',
-            this.language.generalSuccessfulyExecuteAction
-          );
-          this.selectShippingAddress(this.shippingAddress);
-          this.getShippingAddresses();
-        }
-      });
+    if (this.mainShippingAddressEditable) {
+      this.service
+        .callPostMethod('/api/updateUser', this.shippingAddress)
+        .subscribe((data) => {
+          if (data) {
+            this.shippingAddressDialog.hide();
+            this.toastr.showSuccessCustom(
+              '',
+              this.language.generalSuccessfulyExecuteAction
+            );
+            this.selectShippingAddress(this.shippingAddress, true);
+            this.getShippingAddresses();
+          }
+        });
+    } else {
+      this.service
+        .callPostMethod('/api/updateShippingAddress', this.shippingAddress)
+        .subscribe((data) => {
+          if (data) {
+            this.shippingAddressDialog.hide();
+            this.toastr.showSuccessCustom(
+              '',
+              this.language.generalSuccessfulyExecuteAction
+            );
+            this.selectShippingAddress(this.shippingAddress, false);
+            this.getShippingAddresses();
+          }
+        });
+    }
   }
 
   deleteShippingAddress(address: any) {
@@ -152,6 +171,7 @@ export class PaymentComponent implements OnInit {
             '',
             this.language.generalSuccessfulyExecuteAction
           );
+          this.shippingAddress = new ShippingAddress();
           this.getShippingAddresses();
         }
       });
@@ -168,7 +188,7 @@ export class PaymentComponent implements OnInit {
             this.language.generalSuccessfulyExecuteAction
           );
           this.getShippingAddresses();
-          this.selectShippingAddress(this.shippingAddress);
+          this.selectShippingAddress(this.shippingAddress, false);
         }
       });
   }
@@ -196,8 +216,9 @@ export class PaymentComponent implements OnInit {
     return UserType;
   }
 
-  selectShippingAddress(address: any) {
+  selectShippingAddress(address: any, mainShippingAddress: boolean) {
     this.storageService.setLocalStorage('shipping', address);
+    this.mainShippingAddressEditable = mainShippingAddress;
     this.shippingAddress = address;
   }
 

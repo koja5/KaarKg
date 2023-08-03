@@ -1,31 +1,31 @@
 [
   {
-    "title": "Configurations",
+    "title": "Admin-Menue",
     "rights": [],
     "menu": [
       {
         "icon": "admin_panel_settings",
-        "title": "Category & product",
+        "title": "Kategorien",
         "link": "/dashboard/navigation-product"
       },
       {
         "icon": "group",
-        "title": "All users",
+        "title": "Kunden",
         "link": "/dashboard/all-users"
       },
       {
         "icon": "public",
-        "title": "Countries",
+        "title": "L채nder",
         "link": "/dashboard/countries"
       },
       {
         "icon": "local_shipping",
-        "title": "Shipping prices",
+        "title": "Versandkosten",
         "link": "/dashboard/shipping-prices"
       },
       {
         "icon": "inventory_2",
-        "title": "All products",
+        "title": "Produkte",
         "link": "/dashboard/all-products"
       }
     ]

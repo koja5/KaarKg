@@ -84,8 +84,12 @@ export class CheckoutComponent implements OnInit {
         this.products[i].bruto = Number(this.products[i].price * 1.2).toFixed(
           2
         );
-        // products[i].neto = products[i].price;
         this.products[i].vat = '20%';
+        if (this.products[i].number_of_pieces > 1) {
+          this.products[i].title =
+            this.products[i].title +
+            `(${this.language.productPackageFirstPart} ${this.products[i].number_of_pieces} ${this.language.productPackageLastPart})`;
+        }
       }
     }
   }

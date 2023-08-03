@@ -657,7 +657,7 @@ router.get("/getAllNewProducts", async (req, res, next) => {
         logger.log("error", err.sql + ". " + err.sqlMessage);
         res.json(err);
       } else {
-        let query = getProductsByAccountType(userType);
+        let query = getProductsByAccountType(null);
         query +=
           " where p.new_product_until_date >= CAST(CURRENT_TIMESTAMP AS DATE)";
 
@@ -1076,6 +1076,11 @@ router.post("/updateUser", auth, function (req, res, next) {
         logger.log("error", err.sql + ". " + err.sqlMessage);
         res.json(err);
       }
+
+      if (req.body.country_name) {
+        delete req.body.country_name;
+      }
+
       conn.query(
         "update users SET ? where id = ?",
         [req.body, req.body.id],
@@ -1202,6 +1207,7 @@ router.post("/createShippingAddress", auth, async function (req, res, next) {
         return res.json(err);
       }
       req.body.id_user = req.user.user.id;
+      delete req.body.country_name;
       conn.query(
         "insert into shipping_address set ?",
         req.body,
@@ -1652,7 +1658,7 @@ function searchProductByAccountType(userType, category) {
   let query = "";
   if (userType === 0 || userType === 1) {
     query =
-      "select p.id, p.category_id, p.product_number, p.title, p.description, p.price_dealer as 'price', p.image, p.available, np.name, case when new_product_until_date > CAST(CURRENT_TIMESTAMP AS DATE) then 1 else 0 end as 'new', case when discount_date_from <= CAST(CURRENT_TIMESTAMP AS DATE) and discount_date_to >= CAST(CURRENT_TIMESTAMP AS DATE) then discount_price_dealer else 0 end as 'discount_price' from products p join navigation_products np on p.category_id = np.id where p.title like '%" +
+      "select p.id, p.category_id, p.product_number, p.title, p.description, case when number_of_pieces > 1 then price_per_unit else price_dealer end as 'price', p.image, p.available, np.name, case when new_product_until_date > CAST(CURRENT_TIMESTAMP AS DATE) then 1 else 0 end as 'new', case when discount_date_from <= CAST(CURRENT_TIMESTAMP AS DATE) and discount_date_to >= CAST(CURRENT_TIMESTAMP AS DATE) then discount_price_dealer else 0 end as 'discount_price' from products p join navigation_products np on p.category_id = np.id where p.title like '%" +
       category +
       "%'";
   } else if (userType === 2) {
@@ -1673,7 +1679,7 @@ function getProductsByAccountType(userType) {
   let query = "";
   if (userType === 0 || userType === 1) {
     query =
-      "select p.id, p.category_id, p.product_number, p.title, p.description, p.price_dealer as 'price', p.image, p.available, np.name, case when new_product_until_date > CAST(CURRENT_TIMESTAMP AS DATE) then 1 else 0 end as 'new', case when discount_date_from <= CAST(CURRENT_TIMESTAMP AS DATE) and discount_date_to >= CAST(CURRENT_TIMESTAMP AS DATE) then discount_price_dealer else 0 end as 'discount_price' from products p join navigation_products np on p.category_id = np.id";
+      "select p.id, p.category_id, p.product_number, p.title, p.description, case when number_of_pieces > 1 then price_per_unit else price_dealer end as 'price', p.image, p.available, np.name, case when new_product_until_date > CAST(CURRENT_TIMESTAMP AS DATE) then 1 else 0 end as 'new', case when discount_date_from <= CAST(CURRENT_TIMESTAMP AS DATE) and discount_date_to >= CAST(CURRENT_TIMESTAMP AS DATE) then discount_price_dealer else 0 end as 'discount_price' from products p join navigation_products np on p.category_id = np.id";
   } else if (userType === 2) {
     query =
       "select p.id, p.category_id, p.product_number, p.title, p.description, p.price_kindergarden as 'price', p.image, p.available, np.name, case when new_product_until_date > CAST(CURRENT_TIMESTAMP AS DATE) then 1 else 0 end as 'new', case when discount_date_from <= CAST(CURRENT_TIMESTAMP AS DATE) and discount_date_to >= CAST(CURRENT_TIMESTAMP AS DATE) then discount_price_kindergarden else 0 end as 'discount_price'  from products p join navigation_products np on p.category_id = np.id";
@@ -1688,7 +1694,7 @@ function getProductsByAccountTypeForDifferentCategory(userType) {
   let query = "";
   if (userType === 0 || userType === 1) {
     query =
-      "select p.id, p.category_id, p.product_number, p.title, p.description, p.price_dealer as 'price', p.image, p.available, np.name, case when new_product_until_date > CAST(CURRENT_TIMESTAMP AS DATE) then 1 else 0 end as 'new', case when discount_date_from <= CAST(CURRENT_TIMESTAMP AS DATE) and discount_date_to >= CAST(CURRENT_TIMESTAMP AS DATE) then discount_price_dealer else 0 end as 'discount_price' from products p join navigation_products np on p.category_id = np.id where np.name like ?";
+      "select p.id, p.category_id, p.product_number, p.title, p.description, case when number_of_pieces > 1 then price_per_unit else price_dealer end as 'price', p.price_per_unit, p.number_of_pieces, p.image, p.available, np.name, case when new_product_until_date > CAST(CURRENT_TIMESTAMP AS DATE) then 1 else 0 end as 'new', case when discount_date_from <= CAST(CURRENT_TIMESTAMP AS DATE) and discount_date_to >= CAST(CURRENT_TIMESTAMP AS DATE) then discount_price_dealer else 0 end as 'discount_price' from products p join navigation_products np on p.category_id = np.id where np.name like ?";
   } else if (userType === 2) {
     query =
       "select p.id, p.category_id, p.product_number, p.title, p.description, p.price_kindergarden as 'price', p.image, p.available, np.name, case when new_product_until_date > CAST(CURRENT_TIMESTAMP AS DATE) then 1 else 0 end as 'new', case when discount_date_from <= CAST(CURRENT_TIMESTAMP AS DATE) and discount_date_to >= CAST(CURRENT_TIMESTAMP AS DATE) then discount_price_kindergarden else 0 end as 'discount_price'  from products p join navigation_products np on p.category_id = np.id where np.name like ?";

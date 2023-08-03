@@ -114,15 +114,19 @@
                                 <li *ngIf="user">
                                     <ejs-radiobutton label="{{generateLabel(user)}}" name="default"
                                         checked="{{shippingAddress.address === user.address ? true : null}}"
-                                        (click)="selectShippingAddress(user)"></ejs-radiobutton>
-                                </li>
-                                <li *ngFor="let item of shippingAddresses" (click)="selectShippingAddress(item)">
-                                    <ejs-radiobutton label="{{generateLabel(item)}}" name="default"
-                                        checked="{{shippingAddress.address === item.address ? true : null}}"
-                                        (click)="selectShippingAddress(item)"></ejs-radiobutton>
+                                        (click)="selectShippingAddress(user, true)"></ejs-radiobutton>
                                     <div class="shipping-action">
                                         <a
-                                            (click)="editDialogShippingAddress(item)">{{language.paymentEditShippingAddress}}</a>
+                                            (click)="editDialogShippingAddress(user, true)">{{language.paymentEditShippingAddress}}</a>
+                                    </div>
+                                </li>
+                                <li *ngFor="let item of shippingAddresses" (click)="selectShippingAddress(item, false)">
+                                    <ejs-radiobutton label="{{generateLabel(item)}}" name="default"
+                                        checked="{{shippingAddress.address === item.address ? true : null}}"
+                                        (click)="selectShippingAddress(item, false)"></ejs-radiobutton>
+                                    <div class="shipping-action">
+                                        <a
+                                            (click)="editDialogShippingAddress(item, false)">{{language.paymentEditShippingAddress}}</a>
                                         |
                                         <a
                                             (click)="deleteShippingAddress(item)">{{language.paymentDeleteShippingAddress}}</a>
@@ -176,7 +180,7 @@
                                 {{language.paymentPreviousStep}}</button>
                             <button *ngIf="currentStep < 3 && (products && products.length > 0)" class="btn btn-default"
                                 (click)="nextStep()"
-                                [disabled]="!shippingAddress.address || !paymentOption">{{language.paymentNextStep}}
+                                [disabled]="(currentStep > 0 && !shippingAddress.address) || !paymentOption">{{language.paymentNextStep}}
                                 <app-mat-icon [icon]="'navigate_next'"></app-mat-icon></button>
                         </div>
 
@@ -201,9 +205,10 @@
                 <label>{{language.checkoutTelephone}}</label>
                 <input name="telephone" [(ngModel)]="shippingAddress.telephone" required>
                 <label>{{language.checkoutEmail}}</label>
-                <input name="email" [(ngModel)]="shippingAddress.email" required>
+                <input name="email" [(ngModel)]="shippingAddress.email" required [disabled]="mainShippingAddressEditable">
                 <label>{{language.checkoutCountry}}</label>
-                <ejs-combobox cssClass="mb-1" *ngIf="countries" [id]="'country'" name="country" [dataSource]="countries" [fields]="{
+                <ejs-combobox cssClass="mb-1" *ngIf="countries" [id]="'country'" name="country" [dataSource]="countries"
+                    [fields]="{
                         text: 'name' , 'value' : 'id' }" [allowFiltering]="true"
                     [(ngModel)]="shippingAddress.country_id" [placeholder]="language.checkoutCountryPlaceholder"
                     (change)="changeCountry($event)" required>

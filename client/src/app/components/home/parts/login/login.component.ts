@@ -102,6 +102,7 @@ export class LoginComponent implements OnInit {
               this.language.loginNeedToVerifyAccount
             );
             this.type = LoginFormType.login;
+            this.registerForm.reset();
           } else {
             this.toastr.showError();
           }
