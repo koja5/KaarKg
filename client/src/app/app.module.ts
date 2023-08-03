@@ -24,7 +24,7 @@ import { DynamicModule } from './components/dynamic-component/dynamic-module/dyn
     MatIconModule,
     DynamicModule,
   ],
-  providers: [ToastrComponent],
+  providers: [ToastrComponent, { provide: 'isBrowser', useValue: true }],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

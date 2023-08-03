@@ -2,14 +2,10 @@
 {
   "extends": "./tsconfig.app.json",
   "compilerOptions": {
+    "module": "commonjs",
     "outDir": "./out-tsc/server",
-    "types": [
-      "node",
-      "@angular/localize"
-    ]
+    "target": "es2022",
+    "types": ["node", "@angular/localize"]
   },
-  "files": [
-    "src/main.server.ts",
-    "server.ts"
-  ]
+  "files": ["src/main.server.ts", "server.ts"]
 }
