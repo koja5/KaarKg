@@ -181,13 +181,13 @@
                         "field": "available",
                         "value": 0,
                         "operator": "==",
-                        "html": "<span class='e-badge e-badge-danger'>Nicht verfügbar</span>"
+                        "html": "<span class='e-badge e-badge-danger'>Nicht verf端gbar</span>"
                     },
                     {
                         "field": "available",
                         "value": 1,
                         "operator": "==",
-                        "html": "<span class='e-badge e-badge-success'>Verfügbar</span>"
+                        "html": "<span class='e-badge e-badge-success'>Verf端gbar</span>"
                     }
                 ]
             },
@@ -303,6 +303,22 @@
             "name": "new_product_until_date",
             "title": "productNewUntilDate",
             "field": "new_product_until_date"
+        },
+        {
+            "type": "numeric",
+            "width": "col-md-6",
+            "class": "e-outline",
+            "name": "price_per_unit",
+            "title": "productPricePerUnit",
+            "field": "price_per_unit"
+        },
+        {
+            "type": "numeric",
+            "width": "col-md-6",
+            "class": "e-outline",
+            "name": "number_of_pieces",
+            "title": "productNumberOfPieces",
+            "field": "number_of_pieces"
         },
         {
             "type": "combobox",
