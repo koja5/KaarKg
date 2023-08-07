@@ -455,7 +455,7 @@ router.get("/getAllNavigationProducts", async (req, res, next) => {
         res.json(err);
       } else {
         conn.query(
-          "select * from (select id, name, id as 'category_id' from navigation_products where category_id = 0 union select n2.* from navigation_products n1 join navigation_products n2 on n1.id = n2.category_id) as t order by t.category_id asc, t.id asc",
+          "select * from (select id, name, id as 'category_id' from navigation_products where category_id = 0 or category_id is NULL union select n2.* from navigation_products n1 join navigation_products n2 on n1.id = n2.category_id) as t order by t.category_id asc, t.id asc",
           function (err, rows, fields) {
             conn.release();
             if (err) {
@@ -605,18 +605,43 @@ router.get("/getAllProducts", async (req, res, next) => {
         logger.log("error", err.sql + ". " + err.sqlMessage);
         res.json(err);
       } else {
-        conn.query(
-          "select p.*, np.id as 'category_id', np.name as 'category_name' from products p join navigation_products np on p.category_id = np.id",
-          function (err, rows, fields) {
-            conn.release();
-            if (err) {
-              logger.log("error", err.sql + ". " + err.sqlMessage);
-              res.json(err);
-            } else {
-              res.json(rows);
-            }
+        let query = getProductsByAccountType(null);
+
+        conn.query(query, function (err, rows, fields) {
+          conn.release();
+          if (err) {
+            logger.log("error", err.sql + ". " + err.sqlMessage);
+            res.json(err);
+          } else {
+            res.json(rows);
           }
-        );
+        });
+      }
+    });
+  } catch (ex) {
+    logger.log("error", err.sql + ". " + err.sqlMessage);
+    res.json(ex);
+  }
+});
+
+router.get("/getAllProductsForLoginUser", auth, async (req, res, next) => {
+  try {
+    connection.getConnection(function (err, conn) {
+      if (err) {
+        logger.log("error", err.sql + ". " + err.sqlMessage);
+        res.json(err);
+      } else {
+        let query = getProductsByAccountType(req.user.user.type);
+
+        conn.query(query, function (err, rows, fields) {
+          conn.release();
+          if (err) {
+            logger.log("error", err.sql + ". " + err.sqlMessage);
+            res.json(err);
+          } else {
+            res.json(rows);
+          }
+        });
       }
     });
   } catch (ex) {

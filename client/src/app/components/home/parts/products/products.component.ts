@@ -25,6 +25,7 @@ export class ProductsComponent implements OnInit {
   public item: any;
   public language: any;
   public accountType: any;
+  public loader = false;
 
   constructor(
     private service: CallApiService,
@@ -57,6 +58,7 @@ export class ProductsComponent implements OnInit {
           this.products = data;
           this.category =
             this.language.productResultFor +
+            ' ' +
             changes['searchProduct'].currentValue;
         });
     } else {
@@ -69,6 +71,7 @@ export class ProductsComponent implements OnInit {
   };
 
   initialize() {
+    this.loader = true;
     this.category = this.route.snapshot.paramMap.get('category')!;
     if (!this.language) {
       this.language = this.helpService.getLanguageAndCheckFile();
@@ -79,12 +82,21 @@ export class ProductsComponent implements OnInit {
           .callGetMethod('/api/getAllNewProductsForLoginUser/', '')
           .subscribe((products) => {
             this.products = products;
+            this.loader = false;
           });
       } else if (this.category === this.language.navigationActions) {
         this.service
           .callGetMethod('/api/getAllActionsProductsForLoginUser/', '')
           .subscribe((products) => {
             this.products = products;
+            this.loader = false;
+          });
+      } else if (this.category === this.language.navigationAllProducts) {
+        this.service
+          .callGetMethod('/api/getAllProductsForLoginUser/', '')
+          .subscribe((products) => {
+            this.products = products;
+            this.loader = false;
           });
       } else {
         this.service
@@ -94,6 +106,7 @@ export class ProductsComponent implements OnInit {
           )
           .subscribe((products) => {
             this.products = products;
+            this.loader = false;
           });
       }
     } else {
@@ -102,18 +115,28 @@ export class ProductsComponent implements OnInit {
           .callGetMethod('/api/getAllNewProducts/', '')
           .subscribe((products) => {
             this.products = products;
+            this.loader = false;
           });
       } else if (this.category === this.language.navigationActions) {
         this.service
           .callGetMethod('/api/getAllActionsProducts/', '')
           .subscribe((products) => {
             this.products = products;
+            this.loader = false;
+          });
+      } else if (this.category === this.language.navigationAllProducts) {
+        this.service
+          .callGetMethod('/api/getAllProducts/', '')
+          .subscribe((products) => {
+            this.products = products;
+            this.loader = false;
           });
       } else {
         this.service
           .callGetMethod('/api/getAllProductsForCategory', this.category!)
           .subscribe((products) => {
             this.products = products;
+            this.loader = false;
           });
       }
     }

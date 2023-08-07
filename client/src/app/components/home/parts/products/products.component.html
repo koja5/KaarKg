@@ -1,5 +1,5 @@
-<app-loader *ngIf="!language || !products"></app-loader>
-<div class="main-content mb-4" *ngIf="language">
+<app-loader *ngIf="!language || loader"></app-loader>
+<div class="main-content mb-4" *ngIf="language&&!loader">
     <section class="home-section mb-2">
         <div class="row">
             <section class="products-container">
@@ -64,8 +64,7 @@
                                     class="btn-icon btn-add-cart product-type-simple"><app-mat-icon
                                         icon="shopping_basket" class="pt-2"></app-mat-icon></a>
                             </div>
-                            <a (click)="quickViewItem(item)" class="btn-quickview"
-                                title="Quick View">{{language.productQuickView}}
+                            <a (click)="quickViewItem(item)" class="btn-quickview">{{language.productQuickView}}
                             </a>
                         </figure>
                         <div class="product-details">
