@@ -29,6 +29,7 @@ import { SettingsComponent } from '../pages/settings/settings.component';
 import { ComboBoxAllModule } from '@syncfusion/ej2-angular-dropdowns';
 import { StripeModule } from 'stripe-angular';
 import { RecoveryPasswordComponent } from '../parts/login/recovery-password/recovery-password.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -61,6 +62,7 @@ import { RecoveryPasswordComponent } from '../parts/login/recovery-password/reco
     CheckBoxModule,
     DynamicModule,
     AccordionModule,
+    MatDialogModule
   ],
   providers: [],
 })

@@ -1,5 +1,6 @@
 import {
   Component,
+  ElementRef,
   Input,
   OnInit,
   SimpleChanges,
@@ -10,6 +11,7 @@ import { DialogComponent } from '@syncfusion/ej2-angular-popups';
 import { CallApiService } from 'src/app/services/call-api.service';
 import { HelpService } from 'src/app/services/help.service';
 import { StorageService } from 'src/app/services/storage.service';
+import { EmitType } from '@syncfusion/ej2-base';
 
 @Component({
   selector: 'app-products',
@@ -45,6 +47,14 @@ export class ProductsComponent implements OnInit {
     this.language = this.helpService.getLanguageAndCheckFile();
     this.accountType = this.helpService.getAccountTypeId();
     this.initialize();
+  }
+
+  ngAfterViewInit(): void {
+    document.onclick = (args: any): void => {
+      if (args.target.className === 'e-dlg-overlay') {
+        this.quickView!.hide();
+      }
+    };
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -97,6 +107,19 @@ export class ProductsComponent implements OnInit {
             this.products = products;
             this.loader = false;
           });
+      } else if (
+        this.helpService.getSessionStorageStringValue('mainCategoryId')
+      ) {
+        this.service
+          .callGetMethod(
+            'api/getAllProductsForMainCategoryForLoginUser',
+            this.helpService.getSessionStorageStringValue('mainCategoryId')!
+          )
+          .subscribe((products) => {
+            this.products = products;
+            this.loader = false;
+            this.helpService.removeSessionStorage('mainCategoryId');
+          });
       } else {
         this.service
           .callGetMethod(
@@ -130,6 +153,19 @@ export class ProductsComponent implements OnInit {
             this.products = products;
             this.loader = false;
           });
+      } else if (
+        this.helpService.getSessionStorageStringValue('mainCategoryId')
+      ) {
+        this.service
+          .callGetMethod(
+            'api/getAllProductsForMainCategory',
+            this.helpService.getSessionStorageStringValue('mainCategoryId')!
+          )
+          .subscribe((products) => {
+            this.products = products;
+            this.loader = false;
+            this.helpService.removeSessionStorage('mainCategoryId');
+          });
       } else {
         this.service
           .callGetMethod('/api/getAllProductsForCategory', this.category!)
@@ -162,5 +198,15 @@ export class ProductsComponent implements OnInit {
 
   hideProductItemDialog() {
     this.quickView.hide();
+  }
+
+  getProductsForMainCategory(id: string) {
+    this.service
+      .callGetMethod('api/getAllProductsForMainCategory', id)
+      .subscribe((products) => {
+        this.products = products;
+        this.loader = false;
+        this.helpService.removeSessionStorage('mainCategoryId');
+      });
   }
 }

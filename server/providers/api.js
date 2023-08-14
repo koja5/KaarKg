@@ -676,6 +676,98 @@ router.get("/getAllProductsForCategory/:category", async (req, res, next) => {
   }
 });
 
+router.get(
+  "/getAllProductsForMainCategoryForLoginUser/:category",
+  auth,
+  async (req, res, next) => {
+    try {
+      connection.getConnection(function (err, conn) {
+        if (err) {
+          logger.log("error", err.sql + ". " + err.sqlMessage);
+          res.json(err);
+        } else {
+          conn.query(
+            "select * from navigation_products where category_id = ?",
+            req.params.category,
+            function (err, rows, fields) {
+              if (err) {
+                logger.log("error", err.sql + ". " + err.sqlMessage);
+                conn.release();
+                res.json(err);
+              } else {
+                let query = getProductsByAccountTypeForMainCategory(
+                  req.user.user.type,
+                  rows
+                );
+                conn.query(
+                  query,
+                  req.params.category,
+                  function (err, rows, fields) {
+                    conn.release();
+                    if (err) {
+                      logger.log("error", err.sql + ". " + err.sqlMessage);
+                      res.json(err);
+                    } else {
+                      res.json(rows);
+                    }
+                  }
+                );
+              }
+            }
+          );
+        }
+      });
+    } catch (ex) {
+      logger.log("error", err.sql + ". " + err.sqlMessage);
+      res.json(ex);
+    }
+  }
+);
+
+router.get(
+  "/getAllProductsForMainCategory/:category",
+  async (req, res, next) => {
+    try {
+      connection.getConnection(function (err, conn) {
+        if (err) {
+          logger.log("error", err.sql + ". " + err.sqlMessage);
+          res.json(err);
+        } else {
+          conn.query(
+            "select * from navigation_products where category_id = ?",
+            req.params.category,
+            function (err, rows, fields) {
+              if (err) {
+                logger.log("error", err.sql + ". " + err.sqlMessage);
+                conn.release();
+                res.json(err);
+              } else {
+                let query = getProductsByAccountTypeForMainCategory(null, rows);
+                conn.query(
+                  query,
+                  req.params.category,
+                  function (err, rows, fields) {
+                    conn.release();
+                    if (err) {
+                      logger.log("error", err.sql + ". " + err.sqlMessage);
+                      res.json(err);
+                    } else {
+                      res.json(rows);
+                    }
+                  }
+                );
+              }
+            }
+          );
+        }
+      });
+    } catch (ex) {
+      logger.log("error", err.sql + ". " + err.sqlMessage);
+      res.json(ex);
+    }
+  }
+);
+
 router.get("/getAllNewProducts", async (req, res, next) => {
   try {
     connection.getConnection(function (err, conn) {
@@ -1727,6 +1819,33 @@ function getProductsByAccountTypeForDifferentCategory(userType) {
   } else if (userType === 3 || !userType) {
     query =
       "select p.id, p.category_id, p.product_number, p.title, p.description, p.price, p.image, p.available, np.name, case when new_product_until_date > CAST(CURRENT_TIMESTAMP AS DATE) then 1 else 0 end as 'new', case when discount_date_from <= CAST(CURRENT_TIMESTAMP AS DATE) and discount_date_to >= CAST(CURRENT_TIMESTAMP AS DATE) then discount_price else 0 end as 'discount_price' from products p join navigation_products np on p.category_id = np.id where np.name like ?";
+  }
+  return query;
+}
+
+function getProductsByAccountTypeForMainCategory(userType, categories) {
+  let query = "";
+  let condition = "";
+  let i = 0;
+  while (i < categories.length) {
+    condition += " p.category_id = " + categories[i].id;
+    ++i;
+    if (i < categories.length) {
+      condition += " or";
+    }
+  }
+  if (userType === 0 || userType === 1) {
+    query =
+      "select p.id, p.category_id, p.product_number, p.title, p.description, case when number_of_pieces > 1 then price_per_unit else price_dealer end as 'price', p.price_per_unit, p.number_of_pieces, p.image, p.available, case when new_product_until_date > CAST(CURRENT_TIMESTAMP AS DATE) then 1 else 0 end as 'new', case when discount_date_from <= CAST(CURRENT_TIMESTAMP AS DATE) and discount_date_to >= CAST(CURRENT_TIMESTAMP AS DATE) then discount_price_dealer else 0 end as 'discount_price' from products p where " +
+      condition;
+  } else if (userType === 2) {
+    query =
+      "select p.id, p.category_id, p.product_number, p.title, p.description, p.price_kindergarden as 'price', p.image, p.available, case when new_product_until_date > CAST(CURRENT_TIMESTAMP AS DATE) then 1 else 0 end as 'new', case when discount_date_from <= CAST(CURRENT_TIMESTAMP AS DATE) and discount_date_to >= CAST(CURRENT_TIMESTAMP AS DATE) then discount_price_kindergarden else 0 end as 'discount_price' from products p where " +
+      condition;
+  } else if (userType === 3 || !userType) {
+    query =
+      "select p.id, p.category_id, p.product_number, p.title, p.description, p.price, p.image, p.available,  case when new_product_until_date > CAST(CURRENT_TIMESTAMP AS DATE) then 1 else 0 end as 'new', case when discount_date_from <= CAST(CURRENT_TIMESTAMP AS DATE) and discount_date_to >= CAST(CURRENT_TIMESTAMP AS DATE) then discount_price else 0 end as 'discount_price' from products p where " +
+      condition;
   }
   return query;
 }

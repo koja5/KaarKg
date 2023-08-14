@@ -47,6 +47,7 @@ export class HomeComponent implements OnInit {
     this.checkMessageService();
   }
 
+
   checkMessageService() {
     this.messageService.getViewCart().subscribe((message) => {
       this.showCart();

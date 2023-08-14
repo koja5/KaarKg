@@ -44,10 +44,15 @@ export class OverviewComponent implements OnInit {
 
   ngOnInit(): void {
     this.language = this.helpService.getLanguage();
-    // this.currentStep = Number(
-    //   this.helpService.getSessionStorageStringValue('step')
-    // );
     this.initialize();
+  }
+
+  ngAfterViewInit(): void {
+    document.onclick = (args: any): void => {
+      if (args.target.className === 'e-dlg-overlay') {
+        this.shippingAddressDialog.hide();
+      }
+    };
   }
 
   initialize() {

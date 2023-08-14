@@ -1,6 +1,6 @@
 <!-- <app-header-top></app-header-top> -->
 <div class="container mt-4">
-    <app-back-button *ngIf="currentStep < 3" [icon]="'home'" [title]="''"></app-back-button>
+    <app-back-button *ngIf="currentStep < 4" [icon]="'home'" [title]="''"></app-back-button>
     <button *ngIf="currentStep > 0 && currentStep < 3" (click)="previousStep()" class="btn btn-default"><app-mat-icon
             [icon]="'arrow_back'"></app-mat-icon>
         {{language.paymentGoBack}}</button>
@@ -44,6 +44,14 @@
                                 <div class="res-progress-title">{{language.paymentDoneStep}}</div>
                             </div>
                         </div>
+                        <div class="progress-title-mobile">
+                            <h4 *ngIf="currentStep === 0">{{language.paymentShippingOverviewStep}}</h4>
+                            <h4 *ngIf="currentStep === 1">{{language.paymentShippingAddressStep}}</h4>
+                            <h4 *ngIf="currentStep === 2">{{language.paymentPaymentOptionStep}}</h4>
+                            <h4 *ngIf="currentStep === 3">{{language.paymentPreviewBeforePaymentStep}}</h4>
+                            <h4 *ngIf="currentStep === 4">{{language.paymentDoneStep}}</h4>
+                        </div>
+
                         <div class="clearfix">&nbsp;</div>
                         <div class="clearfix">&nbsp;</div>
                         <!-- <app-right-card [rightCard]="'opened'" [type]="'cart'"></app-right-card> -->

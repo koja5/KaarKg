@@ -66,4 +66,8 @@ export class NavigationComponent implements OnInit {
     });
     return navigationArray;
   }
+
+  setMainCategoryIdInSessionStorage(id: number) {
+    this.helpService.setSessionStorage('mainCategoryId', id);
+  }
 }

@@ -1,6 +1,6 @@
-<div class="cart-overlay {{rightCard}}"></div>
+<div class="cart-overlay {{rightCard}}" (click)="closeCardEmitter.emit()"></div>
 
-<div class="right-side-card row {{rightCard}}">
+<div class=" right-side-card row {{rightCard}}">
     <a (click)="closeCardEmitter.emit()" title="Close (Esc)" class="btn-close"></a>
 
     <div class="dropdownmenu-wrapper custom-scrollbar">

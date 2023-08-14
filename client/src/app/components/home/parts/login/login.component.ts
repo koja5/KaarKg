@@ -58,6 +58,14 @@ export class LoginComponent implements OnInit {
     this.type = LoginFormType.login;
   }
 
+  ngAfterViewInit(): void {
+    document.onclick = (args: any): void => {
+      if (args.target.className === 'e-dlg-overlay') {
+        this.closeLoginDialog.emit();
+      }
+    };
+  }
+
   initializeForm() {
     this.registerForm = this.fb.group(
       {
