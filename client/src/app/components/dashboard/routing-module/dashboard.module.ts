@@ -18,6 +18,7 @@ import { AllProductsComponent } from '../pages/all-products/all-products.compone
 import { UploaderAllModule } from '@syncfusion/ej2-angular-inputs';
 import { CountriesComponent } from '../pages/countries/countries.component';
 import { ShippingPricesComponent } from '../pages/shipping-prices/shipping-prices.component';
+import { SharingModule } from 'src/app/sharing.module';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { ShippingPricesComponent } from '../pages/shipping-prices/shipping-price
     ComboBoxModule,
     DynamicModule,
     UploaderAllModule,
+    SharingModule
   ],
   providers: [],
 })

@@ -36,5 +36,10 @@
 }
 
 .dropdown-cart-action button {
-    width: 100%;
+  width: 100%;
+  background: var(--second);
+}
+
+.dropdown-cart-action button:hover {
+  background: var(--second-light);
 }

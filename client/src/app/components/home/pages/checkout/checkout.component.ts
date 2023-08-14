@@ -88,7 +88,7 @@ export class CheckoutComponent implements OnInit {
         if (this.products[i].number_of_pieces > 1) {
           this.products[i].title =
             this.products[i].title +
-            `(${this.language.productPackageFirstPart} ${this.products[i].number_of_pieces} ${this.language.productPackageLastPart})`;
+            ` (${this.language.productPackageFirstPart} ${this.products[i].number_of_pieces} ${this.language.productPackageLastPart})`;
         }
       }
     }
@@ -271,5 +271,9 @@ export class CheckoutComponent implements OnInit {
       ', ' +
       this.shippingAddress.email
     );
+  }
+
+  getPricePerItem(price: number, quantity: number) {
+    return Number(price * quantity).toFixed(2);
   }
 }

@@ -11,11 +11,11 @@ import { MessageService } from 'src/app/services/message.service';
 import { StorageService } from 'src/app/services/storage.service';
 
 @Component({
-  selector: 'app-payment',
-  templateUrl: './payment.component.html',
-  styleUrls: ['./payment.component.scss'],
+  selector: 'app-overview',
+  templateUrl: './overview.component.html',
+  styleUrls: ['./overview.component.scss'],
 })
-export class PaymentComponent implements OnInit {
+export class OverviewComponent implements OnInit {
   @ViewChild('shippingAddressDialog') shippingAddressDialog!: DialogComponent;
   public user: any;
   public shippingAddresses: any;

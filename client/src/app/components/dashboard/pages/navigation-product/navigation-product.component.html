@@ -1,7 +1,9 @@
 <div class="pt-4">
     <div class="actions mb-2">
-        <button ejs-button [isPrimary]="true" style="margin-right: 15px;" (click)="dialogProduct.show()">{{language.navigationCreateGroup}}</button>
-        <button ejs-button cssClass="e-outline" [isPrimary]="true" (click)="dialogSubproduct.show()">{{language.navigationCreateSubGroup}}</button>
+        <button ejs-button [isPrimary]="true" style="margin-right: 15px;"
+            (click)="dialogProduct.show()">{{language.navigationCreateGroup}}</button>
+        <button ejs-button cssClass="e-outline" [isPrimary]="true"
+            (click)="dialogSubproduct.show()">{{language.navigationCreateSubGroup}}</button>
     </div>
     <ejs-treeview id="template" [fields]="field">
         <ng-template #nodeTemplate="" let-data="">
@@ -11,7 +13,7 @@
                         <span class="treeName">{{data.name}}</span>
                         <div class="menu-actions">
                             <mat-icon (click)="editProduct(data)">edit</mat-icon>
-                            <mat-icon (click)="deleteProduct(data)">delete</mat-icon>
+                            <mat-icon (click)="deleteProductQuestion(data)">delete</mat-icon>
                         </div>
                     </div>
                 </div>
@@ -20,30 +22,43 @@
     </ejs-treeview>
 </div>
 
-<ejs-dialog #dialogProduct [showCloseIcon]='true' [visible]='false' width="350px">
+<ejs-dialog #dialogProduct [showCloseIcon]='true' [visible]='false' width="350px" isModal="true">
     <ng-template #content>
         <app-dynamic-forms [path]="pathProduct" [file]="fileProduct"
             (submit)="createNavigationProduct($event)"></app-dynamic-forms>
     </ng-template>
 </ejs-dialog>
 
-<ejs-dialog #dialogProductUpdate [showCloseIcon]='true' [visible]='false' width="350px">
+<ejs-dialog #dialogProductUpdate [showCloseIcon]='true' [visible]='false' width="350px" isModal="true">
     <ng-template #content>
         <app-dynamic-forms *ngIf="data&&config" [data]="data" [config]="config" [path]="pathProduct"
             [file]="fileProduct" (submit)="updateNavigationProduct($event)"></app-dynamic-forms>
     </ng-template>
 </ejs-dialog>
 
-<ejs-dialog #dialogSubproduct [showCloseIcon]='true' [visible]='false' width="350px" height="auto">
+<ejs-dialog #dialogSubproduct [showCloseIcon]='true' [visible]='false' width="350px" height="auto" isModal="true">
     <ng-template #content>
         <app-dynamic-forms [path]="pathSubproduct" [file]="fileSubproduct"
             (submit)="createNavigationSubproduct($event)"></app-dynamic-forms>
     </ng-template>
 </ejs-dialog>
 
-<ejs-dialog #dialogSubproductUpdate [showCloseIcon]='true' [visible]='false' width="350px">
+<ejs-dialog #dialogSubproductUpdate [showCloseIcon]='true' [visible]='false' width="350px" isModal="true">
     <ng-template #content>
         <app-dynamic-forms *ngIf="data&&config" [data]="data" [config]="config" [path]="pathSubproduct"
             [file]="fileSubproduct" (submit)="updateNavigationProduct($event)"></app-dynamic-forms>
     </ng-template>
 </ejs-dialog>
+
+<!-- <ejs-dialog #confirmDialogComponent content='{{language.confirmDeleteItemText}}'
+    header='{{language.confirmDeleteItemTitle}}' width='300px' [showCloseIcon]='true' [visible]="false"
+    cssClass="e-fixed" [position]="{Y: 100}">
+    <ng-template #footerTemplate>
+        <div>
+            <button class="btn btn-sm btn-success mr-5"><span class="fa fa-check"></span> {{language.confirmDeleteItemYes}}</button>
+            <button class="btn btn-sm btn-danger"><span class="fa fa-times"></span> {{language.confirmDeleteItemNo}}</button>
+        </div>
+    </ng-template>
+</ejs-dialog> -->
+
+<app-confirm-dialog #confirmDialogComponent (eventEmitter)="deleteConfirmAnswer($event)"></app-confirm-dialog>

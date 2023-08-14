@@ -19,10 +19,6 @@ import { NumericTextBoxAllModule } from '@syncfusion/ej2-angular-inputs';
 import { CookieComponent } from '../common/cookie/cookie.component';
 import { SharingHomeModule } from './share-home.module';
 import { SharingModule } from 'src/app/sharing.module';
-import { PaymentSuccessComponent } from '../../templates/payment-success/payment-success.component';
-import { PaymentErrorComponent } from '../../templates/payment-error/payment-error.component';
-import { PaymentComponent } from '../pages/payment/payment.component';
-import { CheckoutComponent } from '../pages/checkout/checkout.component';
 import { AboutUsComponent } from '../pages/about-us/about-us.component';
 import { DynamicModule } from '../../dynamic-component/dynamic-module/dynamic/dynamic.module';
 import { FooterComponent } from '../common/footer/footer.component';
@@ -42,16 +38,12 @@ import { RecoveryPasswordComponent } from '../parts/login/recovery-password/reco
     ProductsComponent,
     ProductItemComponent,
     CookieComponent,
-    PaymentSuccessComponent,
-    PaymentErrorComponent,
-    PaymentComponent,
-    CheckoutComponent,
     AboutUsComponent,
     FooterComponent,
     ArticleDetailsComponent,
     HelpComponent,
     SettingsComponent,
-    RecoveryPasswordComponent,
+    RecoveryPasswordComponent
   ],
   imports: [
     CommonModule,
@@ -67,12 +59,8 @@ import { RecoveryPasswordComponent } from '../parts/login/recovery-password/reco
     SharingModule,
     ReactiveFormsModule,
     CheckBoxModule,
-    RadioButtonAllModule,
     DynamicModule,
     AccordionModule,
-    StripeModule.forRoot(
-      'pk_test_51NSxCnAM4XTLtMHFvdV00jIFCvdKOwGIgZ42UHsUg6USFdf646wzw0EC93bLkxlXsR5nABX4bNBhflRKHVm4fVvU006rofs2Oe'
-    ),
   ],
   providers: [],
 })

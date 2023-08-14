@@ -1,0 +1,245 @@
+<!-- <app-header-top></app-header-top> -->
+<div class="container mt-4">
+    <app-back-button *ngIf="currentStep < 3" [icon]="'home'" [title]="''"></app-back-button>
+    <button *ngIf="currentStep > 0 && currentStep < 3" (click)="previousStep()" class="btn btn-default"><app-mat-icon
+            [icon]="'arrow_back'"></app-mat-icon>
+        {{language.paymentGoBack}}</button>
+
+    <app-loader *ngIf="loader"></app-loader>
+
+    <section class="payment" *ngIf="!loader">
+        <div class="row">
+            <div>
+                <div class="row">
+                    <div class="col-xs-10 col-xs-offset-1" id="container">
+                        <div class="res-steps-container">
+                            <div class="res-steps res-step-one {{currentStep === 0 ? 'active': ''}}"
+                                data-class=".res-form-one">
+                                <div class="res-step-bar">1</div>
+                                <div class="res-progress-bar"></div>
+                                <div class="res-progress-title">{{language.paymentShippingOverviewStep}}</div>
+                            </div>
+                            <div class="res-steps res-step-two {{currentStep === 1 ? 'active': ''}}"
+                                data-class=".res-form-one">
+                                <div class="res-step-bar">2</div>
+                                <div class="res-progress-bar"></div>
+                                <div class="res-progress-title">{{language.paymentShippingAddressStep}}</div>
+                            </div>
+                            <div class="res-steps res-step-two {{currentStep === 2 ? 'active': ''}}"
+                                data-class=".res-form-two">
+                                <div class="res-step-bar">3</div>
+                                <div class="res-progress-bar"></div>
+                                <div class="res-progress-title">{{language.paymentPaymentOptionStep}}</div>
+                            </div>
+                            <div class="res-steps res-step-three {{currentStep === 3 ? 'active': ''}}"
+                                data-class=".res-form-three">
+                                <div class="res-step-bar">4</div>
+                                <div class="res-progress-bar"></div>
+                                <div class="res-progress-title">{{language.paymentPreviewBeforePaymentStep}}</div>
+                            </div>
+                            <div class="res-steps res-step-four {{currentStep === 4 ? 'active': ''}}"
+                                data-class=".res-form-four">
+                                <div class="res-step-bar">5</div>
+                                <div class="res-progress-bar"></div>
+                                <div class="res-progress-title">{{language.paymentDoneStep}}</div>
+                            </div>
+                        </div>
+                        <div class="clearfix">&nbsp;</div>
+                        <div class="clearfix">&nbsp;</div>
+                        <!-- <app-right-card [rightCard]="'opened'" [type]="'cart'"></app-right-card> -->
+
+                        <div class="res-step-form col-md-12 col-md-offset-2 res-form-one" *ngIf="currentStep === 0">
+                            <div class="empty-cart" *ngIf="!products || products.length === 0">
+                                <img src="./assets/images/icons/empty-cart.png">
+                                <h2>{{language.cartIsEmptyTitle}}</h2>
+
+                                <h5>{{language.cartIsEmptyText}}</h5>
+                                <button routerLink="../"
+                                    class="btn btn-default">{{language.cartIsEmptyBackToShop}}</button>
+                            </div>
+
+                            <table class="full-width">
+                                <tr class="header">
+                                    <th class="hidden-xs">
+                                    </th>
+                                    <th>
+                                        {{language.paymentNameOfProduct}}
+                                    </th>
+                                    <th>{{language.paymentQuantity}}</th>
+                                    <th>{{language.paymentSinglePrice}}</th>
+                                    <th>{{language.paymentTotalPriceForItem}}</th>
+                                </tr>
+                                <tr *ngFor="let item of products; let i = index">
+                                    <td class="product-image hidden-xs"><img
+                                            src="./assets/images/products/{{item.image}}" alt="product" width="60"
+                                            height="60"></td>
+                                    <td class="product-details">
+                                        <h5 class="product-title m-0">
+                                            <a>{{item.title}}</a>
+                                            <span
+                                                *ngIf="item.number_of_pieces > 1">({{language.productPackageFirstPart}}
+                                                {{item.number_of_pieces}} {{language.productPackageLastPart}})</span>
+                                        </h5>
+
+                                        <span class="cart-product-info">
+                                            <span class="cart-product-qty"></span> {{item.product_number}}
+                                        </span>
+                                    </td>
+                                    <td class="product-single-qty">
+                                        <div class="input-group bootstrap-touchspin bootstrap-touchspin-injected">
+                                            <span class="input-group-btn input-group-prepend"><button
+                                                    class="btn btn-outline btn-down-icon bootstrap-touchspin-down"
+                                                    type="button" (click)="removeQuantity(i)"></button></span><input
+                                                class="horizontal-quantity form-control" type="number" id="quantity"
+                                                name="quantity" [(ngModel)]="item.quantity" min="1"><span
+                                                class="input-group-btn input-group-append"><button
+                                                    class="btn btn-outline btn-up-icon bootstrap-touchspin-up"
+                                                    type="button" (click)="addQuantity(i)"></button></span>
+                                        </div>
+                                    </td>
+                                    <td>€ {{item.price |
+                                        number:
+                                        '.2'}}</td>
+                                    <td>€
+                                        {{getPricePerItem(item.price, item.quantity)}}</td>
+                                </tr>
+                            </table>
+                            <div class="subtotal display-flex">
+                                <div class="full-width"></div>
+                                <div class="price">{{language.paymentTotal}}: € {{subOfProductInCart | number: '.2'}}
+                                    <span
+                                        *ngIf="type === getUserType().superadmin || type === getUserType().dealer || type === getUserType().kindergarden">{{language.productExcludeVat}}</span>
+                                    <span *ngIf="type === getUserType().customer">{{language.productIncludeVat}}</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="res-step-form col-md-12 col-md-offset-2 res-form-one" *ngIf="currentStep === 1">
+
+                            <ul>
+                                <label>{{language.paymentMainShippingAddressTitle}}</label>
+                                <li *ngIf="user">
+                                    <ejs-radiobutton label="{{generateLabel(user)}}" name="default"
+                                        checked="{{shippingAddress.address === user.address ? true : null}}"
+                                        (click)="selectShippingAddress(user, true)"></ejs-radiobutton>
+                                    <div class="shipping-action">
+                                        <a
+                                            (click)="editDialogShippingAddress(user, true)">{{language.paymentEditShippingAddress}}</a>
+                                    </div>
+                                </li>
+                                <br>
+                                <label
+                                    *ngIf="shippingAddresses && shippingAddresses.length">{{language.paymentAdditionalShippingAddressTitle}}</label>
+                                <li *ngFor="let item of shippingAddresses" (click)="selectShippingAddress(item, false)">
+                                    <ejs-radiobutton label="{{generateLabel(item)}}" name="default"
+                                        checked="{{shippingAddress.address === item.address ? true : null}}"
+                                        (click)="selectShippingAddress(item, false)"></ejs-radiobutton>
+                                    <div class="shipping-action">
+                                        <a
+                                            (click)="editDialogShippingAddress(item, false)">{{language.paymentEditShippingAddress}}</a>
+                                        |
+                                        <a
+                                            (click)="deleteShippingAddress(item)">{{language.paymentDeleteShippingAddress}}</a>
+                                    </div>
+                                </li>
+                            </ul>
+                            <a
+                                (click)="createDialogNewShippingAddress()">{{language.paymentCreateNewShippingAddress}}</a>
+                        </div>
+
+                        <div class="res-step-form col-md-12 col-md-offset-2 res-form-one" *ngIf="currentStep === 2">
+                            <ul>
+                                <li class="mb-2"
+                                    *ngIf="type === getUserType().superadmin || type === getUserType().dealer || type === getUserType().kindergarden">
+                                    <ejs-radiobutton label="{{language.paymentPerInvoiceOptions}}" name="paymentOption"
+                                        checked="{{paymentOption === getPaymentOption().invoice ? true : null}}"
+                                        (click)="setPaymentOption(language.paymentPerInvoiceOptionsForMail, getPaymentOption().invoice)"></ejs-radiobutton>
+                                </li>
+                                <li class="mb-2" *ngIf="type === getUserType().customer">
+                                    <ejs-radiobutton label="{{language.paymentPrepaymentOptions}}" name="paymentOption"
+                                        checked="{{paymentOption === getPaymentOption().prepayment ? true : null}}"
+                                        (click)="setPaymentOption(language.paymentPrepaymentOptionsForMail, getPaymentOption().prepayment)"></ejs-radiobutton>
+                                </li>
+                                <li>
+                                    <ejs-radiobutton label="{{language.paymentPayOptions}}" name="paymentOption"
+                                        checked="{{paymentOption === getPaymentOption().pay ? true : null}}"
+                                        (click)="setPaymentOption(language.paymentPayOptionsForMail, getPaymentOption().pay)"></ejs-radiobutton>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="res-step-form col-md-12 col-md-offset-2 res-form-one" *ngIf="currentStep === 3">
+
+                            <div class="text-center">
+                                <app-checkout (successEmitter)="successEmitter($event)"></app-checkout>
+                            </div>
+                        </div>
+
+
+                        <div class="res-step-form col-md-12 col-md-offset-2 res-form-one" *ngIf="currentStep === 4">
+
+                            <div class="text-center">
+                                <app-payment-success></app-payment-success>
+                            </div>
+                        </div>
+
+                        <div class="text-end mt-3">
+                            <button *ngIf="currentStep > 0 && currentStep < 4" class="btn btn-default mr-2"
+                                (click)="previousStep()" [disabled]="!shippingAddress.address"><app-mat-icon
+                                    [icon]="'navigate_before'"></app-mat-icon>
+                                {{language.paymentPreviousStep}}</button>
+                            <button *ngIf="currentStep < 3 && (products && products.length > 0)" class="btn btn-default"
+                                (click)="nextStep()"
+                                [disabled]="(currentStep > 0 && !shippingAddress.address) || !paymentOption">{{language.paymentNextStep}}
+                                <app-mat-icon [icon]="'navigate_next'"></app-mat-icon></button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+</div>
+
+<ejs-dialog #shippingAddressDialog [showCloseIcon]='true' header="{{language.checkoutShippingInformation}}"
+    [position]="{Y: 100}" [visible]='false' width="450px" isModal="true">
+    <ng-template #content>
+        <form #myForm="ngForm">
+            <div class="field">
+                <label>{{language.checkoutFirstname}}</label>
+                <input name="firstname" [(ngModel)]="shippingAddress.firstname" required>
+                <label>{{language.checkoutLastname}}</label>
+                <input name="lastname" [(ngModel)]="shippingAddress.lastname" required>
+                <label>{{language.checkoutTelephone}}</label>
+                <input name="telephone" [(ngModel)]="shippingAddress.telephone" required>
+                <label>{{language.checkoutEmail}}</label>
+                <input name="email" [(ngModel)]="shippingAddress.email" required
+                    [disabled]="mainShippingAddressEditable">
+                <label>{{language.checkoutCountry}}</label>
+                <ejs-combobox cssClass="mb-1" *ngIf="countries" [id]="'country'" name="country" [dataSource]="countries"
+                    [fields]="{
+                        text: 'name' , 'value' : 'id' }" [allowFiltering]="true"
+                    [(ngModel)]="shippingAddress.country_id" [placeholder]="language.checkoutCountryPlaceholder"
+                    (change)="changeCountry($event)" required>
+                </ejs-combobox>
+                <label>{{language.checkoutAddress}}</label>
+                <input name="address" [(ngModel)]="shippingAddress.address" required>
+                <input name="company" [(ngModel)]="shippingAddress.company" [placeholder]="language.checkoutAddressTwo">
+                <div class="row">
+                    <div class="col-md-6">
+                        <label>{{language.checkoutZip}}</label>
+                        <input name="zip" [(ngModel)]="shippingAddress.zip" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label>{{language.checkoutCity}}</label>
+                        <input name="city" [(ngModel)]="shippingAddress.city" required>
+                    </div>
+                </div>
+            </div>
+            <button class="btn btn-primary full-width mt-2" [disabled]="!myForm.valid"
+                (click)="shippingActionType === 'edit' ? editShippingAddress(shippingAddress) : createNewShippingAddress()">{{language.checkoutSaveShippingInformation}}</button>
+        </form>
+    </ng-template>
+</ejs-dialog>

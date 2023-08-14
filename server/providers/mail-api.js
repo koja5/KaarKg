@@ -181,7 +181,6 @@ router.post("/sentLinkToEmailForRecoveryPassword", function (req, res, next) {
       res.json(false);
     }
   });
-  res.json(true);
 });
 
 router.post("/sendInvoiceToCustomer", function (req, res, next) {

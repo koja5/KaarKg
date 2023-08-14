@@ -20,6 +20,8 @@ export class NavigationProductComponent implements OnInit {
   public dialogSubproduct!: DialogComponent;
   @ViewChild('dialogSubproductUpdate')
   public dialogSubproductUpdate!: DialogComponent;
+  @ViewChild('confirmDialogComponent')
+  public confirmDialogComponent!: ConfirmDialogComponent;
   public groupName!: string;
   public pathProduct = '/forms/user';
   public fileProduct = 'create-navigation-product.json';
@@ -30,17 +32,19 @@ export class NavigationProductComponent implements OnInit {
   public data: any;
   public config: any;
   public language: any;
+  public selectItem: any;
+  public buttons: any;
 
   constructor(
     private service: CallApiService,
     private toastr: ToastrComponent,
-    private confirmDialogComponent: ConfirmDialogComponent,
     private configurationService: ConfigurationService,
     private helpService: HelpService
   ) {}
 
   ngOnInit(): void {
     this.language = this.helpService.getLanguage();
+    this.initializeConfirmButton();
     this.initialize();
   }
 
@@ -86,15 +90,18 @@ export class NavigationProductComponent implements OnInit {
       });
   }
 
+  deleteProductQuestion(data: any) {
+    this.selectItem = data;
+    this.confirmDialogComponent.showDialog();
+  }
+
   deleteProduct(data: any) {
-    // this.confirmDialogComponent.showDialog();
     let method = '';
     if (data.navigation_product_id) {
       method = 'deleteNavigationSubproduct';
     } else {
       method = 'deleteNavigationProduct';
     }
-
     this.service.callPostMethod('/api/' + method, data).subscribe((data) => {
       if (data) {
         this.initialize();
@@ -104,6 +111,14 @@ export class NavigationProductComponent implements OnInit {
       }
       this.dialogProduct.hide();
     });
+  }
+
+  deleteConfirmAnswer(event: any) {
+    if (event) {
+      this.deleteProduct(this.selectItem);
+    }
+
+    this.confirmDialogComponent.hideDialog();
   }
 
   createNavigationProduct(event: any) {
@@ -160,5 +175,25 @@ export class NavigationProductComponent implements OnInit {
         }
         this.dialogSubproductUpdate.hide();
       });
+  }
+
+  initializeConfirmButton() {
+    this.buttons = [
+      {
+        click: this.deleteConfirmAnswer.bind(true),
+        buttonModel: {
+          content: this.language.confirmDeleteItemYes,
+          iconCss: 'fa fa-check',
+          isPrimary: true,
+        },
+      },
+      {
+        click: this.deleteConfirmAnswer.bind(false),
+        buttonModel: {
+          content: this.language.confirmDeleteItemNo,
+          iconCss: 'fa fa-times',
+        },
+      },
+    ];
   }
 }

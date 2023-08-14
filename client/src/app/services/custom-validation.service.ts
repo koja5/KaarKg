@@ -41,4 +41,30 @@ export class CustomValidationService {
       return null;
     };
   }
+
+  MatchEmail(email: string, confirmEmail: string) {
+    return (formGroup: FormGroup) => {
+      const passwordControl = formGroup.controls[email];
+      const confirmPasswordControl = formGroup.controls[confirmEmail];
+
+      if (!passwordControl || !confirmPasswordControl) {
+        return null;
+      }
+
+      if (
+        confirmPasswordControl.errors &&
+        !confirmPasswordControl.errors['emailMismatch']
+      ) {
+        return null;
+      }
+
+      if (passwordControl.value !== confirmPasswordControl.value) {
+        confirmPasswordControl.setErrors({ emailMismatch: true });
+      } else {
+        confirmPasswordControl.setErrors(null);
+      }
+
+      return null;
+    };
+  }
 }

@@ -1,5 +1,12 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  OnInit,
+  Output,
+  ViewChild,
+} from '@angular/core';
 import { DialogComponent } from '@syncfusion/ej2-angular-popups';
+import { HelpService } from 'src/app/services/help.service';
 
 @Component({
   selector: 'app-confirm-dialog',
@@ -7,38 +14,51 @@ import { DialogComponent } from '@syncfusion/ej2-angular-popups';
   styleUrls: ['./confirm-dialog.component.scss'],
 })
 export class ConfirmDialogComponent implements OnInit {
-  @ViewChild('ejDialog') public ejDialog!: DialogComponent;
-
-  ngOnInit() {
-  }
+  @ViewChild('confirmDialogComponent') public confirmDialogComponent!: DialogComponent;
+  @Output() public eventEmitter = new EventEmitter();
 
   public animationSettings: Object = {
     effect: 'Zoom',
     duration: 400,
     delay: 0,
   };
+  public buttons: any;
+  public language: any;
+
+  constructor(private helpService: HelpService) {}
+
+  ngOnInit() {
+    this.language = this.helpService.getLanguage();
+    this.buttons = [
+      {
+        click: this.eventClickEmitter.bind(true),
+        buttonModel: {
+          content: this.language.confirmDeleteItemYes,
+          iconCss: 'fa fa-check',
+          isPrimary: true,
+        },
+      },
+      {
+        click: this.eventClickEmitter.bind(false),
+        buttonModel: {
+          content: this.language.confirmDeleteItemNo,
+          iconCss: 'fa fa-times',
+        },
+      },
+    ];
+  }
 
   public showCloseIcon: boolean = true;
 
   public showDialog() {
-    this.ejDialog.show();
+    this.confirmDialogComponent.show();
   }
 
-  public buttons: Object = [
-    {
-      click: '',
-      buttonModel: {
-        content: 'Yes',
-        iconCss: 'e-icons e-ok-icon',
-        isPrimary: true,
-      },
-    },
-    {
-      click: '',
-      buttonModel: {
-        content: 'No',
-        iconCss: 'e-icons e-close-icon',
-      },
-    },
-  ];
+  public hideDialog() {
+    this.confirmDialogComponent.hide();
+  }
+
+  eventClickEmitter(event: any) {
+    this.eventEmitter.emit(event);
+  }
 }

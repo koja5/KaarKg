@@ -64,6 +64,7 @@ router.post("/signUp", async function (req, res, next) {
           } else {
             req.body.password = sha1(req.body.password);
             delete req.body.repeatPassword;
+            delete req.body.confirmEmail;
             conn.query(
               "insert into users set ?",
               req.body,
@@ -455,7 +456,7 @@ router.get("/getAllNavigationProducts", async (req, res, next) => {
         res.json(err);
       } else {
         conn.query(
-          "select * from (select id, name, id as 'category_id' from navigation_products where category_id = 0 or category_id is NULL union select n2.* from navigation_products n1 join navigation_products n2 on n1.id = n2.category_id) as t order by t.category_id asc, t.id asc",
+          "select t.id, t.name, t.category_id, COUNT(t.title) as 'count' from (select n3.id, n3.name, n3.id as 'category_id', p1.title from navigation_products n3 left join products p1 on p1.category_id = n3.id where n3.category_id = 0 or n3.category_id is NULL union select n2.*, p.title from navigation_products n1 join navigation_products n2 on n1.id = n2.category_id left join products p on p.category_id = n2.id) as t group by t.id, t.name, t.category_id",
           function (err, rows, fields) {
             conn.release();
             if (err) {

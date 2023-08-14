@@ -3,11 +3,19 @@
     <div class="product col-md-6">
         <div class="order-datails">
             <ul>
+                <li class="header-info">
+                    <span class="header-title"> {{language.paymentNameOfProduct}}</span>
+                    <span class="item-quantity">{{language.paymentQuantity}}</span>
+                    <span class="item-price">{{language.paymentSinglePrice}}</span>
+                    <span class="item-price">{{language.paymentTotalPriceForItem}}</span>
+                </li>
                 <li class="item mb-2" *ngFor="let item of products">
                     <span class="item-title">{{item.title}}</span> X
                     <span class="item-quantity">{{item.quantity}}</span>
                     <span class="item-price" *ngIf="type  === 3">€ {{item.price | number: '.2'}}</span>
                     <span class="item-price" *ngIf="type < 3">€ {{item.neto | number: '.2'}}</span>
+                    <span class="item-price" *ngIf="type  === 3">€ {{getPricePerItem(item.price, item.quantity)}}</span>
+                    <span class="item-price" *ngIf="type < 3">€ {{getPricePerItem(item.neto, item.quantity)}}</span>
                 </li>
             </ul>
 
@@ -95,7 +103,8 @@
 
         <div class="field text-left mt-2 mb-4" *ngIf="paymentOption === language.paymentPayOptionsForMail">
             <h4 class="text-center mb-2">{{language.checkoutPaymentDetails}}</h4>
-            <stripe-card #stripeCard (tokenChange)="setStripeToken($event)"></stripe-card>
+            <stripe-card #stripeCard (tokenChange)="setStripeToken($event)"
+                [options]="{hidePostalCode: true}"></stripe-card>
         </div>
         <div class="pay mt-3">
             <button class="btn btn-primary"

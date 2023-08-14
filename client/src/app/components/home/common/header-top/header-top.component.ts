@@ -21,10 +21,10 @@ export class HeaderTopComponent implements OnInit {
   }
 
   routerToAboutUs() {
-    this.router.navigate(['about-us']);
+    this.router.navigate(['ueber-uns']);
   }
 
   routerToHelp() {
-    this.router.navigate(['help']);
+    this.router.navigate(['hilfe']);
   }
 }

@@ -1,4 +1,13 @@
-<ejs-dialog #ejDialog [animationSettings]='animationSettings'
-    content='Are you sure you want to permanently delete all of these items?' header='Delete Multiple Items'
-    width='300px' [showCloseIcon]='showCloseIcon' [buttons]='buttons'>
+<ejs-dialog #confirmDialogComponent content='{{language.confirmDeleteItemText}}'
+    header='{{language.confirmDeleteItemTitle}}' width='450px' [showCloseIcon]='true' [visible]="false"
+    [position]="{Y: 100}" isModal="true">
+    <ng-template #footerTemplate>
+        <div>
+            <button (click)="eventClickEmitter(true)" class="btn btn-sm btn-success confirm"><span
+                    class="fa fa-check"></span>
+                {{language.confirmDeleteItemYes}}</button>
+            <button (click)="eventClickEmitter(false)" class="btn btn-sm btn-danger"><span class="fa fa-times"></span>
+                {{language.confirmDeleteItemNo}}</button>
+        </div>
+    </ng-template>
 </ejs-dialog>

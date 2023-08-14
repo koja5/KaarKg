@@ -51,7 +51,7 @@
 
                             <div *ngIf="!username"
                                 class="header-contact header-login-mobile d-lg-flex pr-sm-4 mr-lg-5 ml-lg-5 pointer"
-                                (click)="loginDialog.show()">
+                                (click)="openLoginDialog()">
                                 <a class="header-icon mr-0" title="login">
                                     <app-mat-icon class="home-action-button display-flex" icon="person"></app-mat-icon>
                                 </a>
@@ -108,8 +108,8 @@
                     </aside>
 
                     <div class="col-lg-9">
-                        <app-products [searchProduct]="searchProduct"></app-products>
-
+                        <!-- <app-products [searchProduct]="searchProduct"></app-products> -->
+                        <router-outlet></router-outlet>
                         <app-footer></app-footer>
                     </div>
 
@@ -136,9 +136,9 @@
     <!-- DIALOGS -->
 
     <ejs-dialog #loginDialog [showCloseIcon]='true' [header]="loginFormTitle" [position]="{Y: 100}" [visible]='false'
-        width="450px">
+        width="450px" (close)="hideLoginDialog()" isModal="true">
         <ng-template #content>
-            <app-login (closeLoginDialog)="closeLoginDialog()"
+            <app-login *ngIf="loginDialogShow" (closeLoginDialog)="closeLoginDialog()"
                 (changeLoginFormTypeEvent)="changeLoginFormType($event)"></app-login>
         </ng-template>
     </ejs-dialog>

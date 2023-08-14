@@ -1,7 +1,4 @@
-<app-header-top></app-header-top>
-
 <main class="container main">
-    <app-back-button [icon]="'home'" [title]="''"></app-back-button>
     <div class="horizontal-tabs">
         <a (click)="clickToTab('/settings/change-personal-info')"
             class="{{currentLink === '/settings/change-personal-info' ? 'active' : ''}}">{{language.settingMyDetails}}</a>

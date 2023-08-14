@@ -1,12 +1,22 @@
 .outer {
-    height: 76vh;
+  height: 76vh;
 }
 
 img {
-    width: 550px;
-    margin: auto
+  width: 550px;
+  margin: auto;
 }
 
 .logo-img img {
-    width: 210px;
+  width: 210px;
+}
+
+a {
+  background: var(--second);
+  border-color: var(--second);
+}
+
+a:hover {
+  background: var(--second-light);
+  border-color: var(--second-light);
 }

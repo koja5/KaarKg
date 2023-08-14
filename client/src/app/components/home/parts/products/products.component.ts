@@ -44,6 +44,7 @@ export class ProductsComponent implements OnInit {
   ngOnInit(): void {
     this.language = this.helpService.getLanguageAndCheckFile();
     this.accountType = this.helpService.getAccountTypeId();
+    this.initialize();
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -66,9 +67,7 @@ export class ProductsComponent implements OnInit {
     }
   }
 
-  public onPreventScroll = (event: any): void => {
-    this.quickView.cssClass = 'e-fixed';
-  };
+  public onPreventScroll = (event: any): void => {};
 
   initialize() {
     this.loader = true;
@@ -145,7 +144,6 @@ export class ProductsComponent implements OnInit {
   quickViewItem(item: any) {
     this.item = item;
     this.item.quantity = 1;
-    this.quickView.cssClass = 'e-fixed';
     this.quickView.show();
   }
 

@@ -30,6 +30,7 @@ export class HomeComponent implements OnInit {
   public numberOfProductInChart = 0;
   public subOfProductInCart = 0;
   public searchInput = '';
+  public loginDialogShow = false;
 
   constructor(
     private router: Router,
@@ -80,7 +81,7 @@ export class HomeComponent implements OnInit {
     this.subOfProductInCart = 0;
     this.numberOfProductInChart = products.length;
     for (let i = 0; i < products.length; i++) {
-      this.subOfProductInCart += (products[i].price * products[i].quantity);
+      this.subOfProductInCart += products[i].price * products[i].quantity;
     }
   }
 
@@ -156,7 +157,6 @@ export class HomeComponent implements OnInit {
   }
 
   changeLoginFormType(event: any) {
-    console.log(event);
     switch (event) {
       case LoginFormType.login:
         this.loginFormTitle = this.language.loginTitleLogin;
@@ -180,10 +180,22 @@ export class HomeComponent implements OnInit {
   }
 
   needToLoginEmitter() {
+    this.helpService.setSessionStorage('previous', 'checkout');
+    this.loginDialogShow = true;
     this.loginDialog.show();
   }
 
   closeCard() {
     this.rightCard = '';
+  }
+
+  openLoginDialog() {
+    this.loginDialogShow = true;
+    this.loginDialog.show();
+  }
+
+  hideLoginDialog() {
+    this.loginDialogShow = false;
+    this.loginDialog.hide();
   }
 }

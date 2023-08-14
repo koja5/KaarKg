@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { ToastrComponent } from 'src/app/components/common/toastr/toastr.component';
 import { HelpService } from 'src/app/services/help.service';
 import { MessageService } from 'src/app/services/message.service';
+import { StorageService } from 'src/app/services/storage.service';
 
 @Component({
   selector: 'app-product-item',
@@ -20,7 +21,8 @@ export class ProductItemComponent implements OnInit {
   constructor(
     private helpService: HelpService,
     private router: Router,
-    private toastr: ToastrComponent
+    private toastr: ToastrComponent,
+    private storageService: StorageService
   ) {}
 
   ngOnInit(): void {
@@ -48,9 +50,11 @@ export class ProductItemComponent implements OnInit {
   }
 
   showViewCart() {
-    // this.messageService.sentViewCart();
-    // this.hideProductItemDialogEvent.emit();
-    this.router.navigate(['./payment']);
+    if (this.storageService.getToken()) {
+      this.router.navigate(['payment']);
+    } else {
+      this.toastr.showInfoCustom('', this.language.paymentNeedToLogin);
+    }
   }
 
   copyToClipboard() {

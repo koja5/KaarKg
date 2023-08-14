@@ -427,26 +427,26 @@ body[data-sidebar="dark"] .logo-light {
   cursor: default;
   font-size: 11px;
   text-transform: uppercase;
-  color: #7f8387;
+  color: var(--contrast);
   font-weight: 600;
 }
 .mm-active {
-  color: #0066f9 !important;
+  color: var(--contrast) !important;
 }
 .mm-active > a {
-  color: #0066f9 !important;
+  color: var(--contrast) !important;
 }
 .mm-active > a i {
-  color: #0066f9 !important;
+  color: var(--contrast) !important;
 }
 .mm-active .active {
-  color: #0066f9 !important;
+  color: var(--contrast) !important;
 }
 .mm-active .active i {
-  color: #0066f9 !important;
+  color: var(--contrast) !important;
 }
 .mm-active > i {
-  color: #0066f9 !important;
+  color: var(--contrast) !important;
 }
 @media (max-width: 992px) {
   .vertical-menu {
@@ -829,7 +829,7 @@ body[data-sidebar="colored"].vertical-collpsed
   ul
   li.mm-active
   .active {
-  color: #0066f9 !important;
+  color: var(--contrast) !important;
 }
 body[data-sidebar="colored"].vertical-collpsed
   .vertical-menu
@@ -848,7 +848,7 @@ body[data-sidebar="colored"].vertical-collpsed
   li
   ul.sub-menu
   li.mm-active {
-  color: #0066f9 !important;
+  color: var(--contrast) !important;
 }
 body[data-sidebar="colored"].vertical-collpsed
   .vertical-menu
@@ -858,7 +858,7 @@ body[data-sidebar="colored"].vertical-collpsed
   ul.sub-menu
   li.mm-active
   > a {
-  color: #0066f9 !important;
+  color: var(--contrast) !important;
 }
 body[data-sidebar="colored"].vertical-collpsed
   .vertical-menu
@@ -869,7 +869,7 @@ body[data-sidebar="colored"].vertical-collpsed
   li.mm-active
   > a
   i {
-  color: #0066f9 !important;
+  color: var(--contrast) !important;
 }
 .topnav {
   background: #fff;

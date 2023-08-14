@@ -179,18 +179,6 @@ a.ssolink {
   }
 }
 
-// .tabs {
-//   display: flex;
-//   border-bottom: 1px solid #0071DC;
-// }
-
-// .tabs .item {
-//   flex-direction: column;
-//   display: flex;
-//   width: 100%;
-//   text-align: center;
-// }
-
 .tabs {
   display: flex;
   position: relative;
@@ -218,13 +206,12 @@ a.ssolink {
 }
 
 .tab.true {
-  background: #0071dc;
+  background: var(--second);
   color: #fff;
   font-weight: bold;
   font-weight: bold;
   transition: auto;
 }
-
 
 .required-letter-info {
   margin-top: 10px;
@@ -241,3 +228,20 @@ a.ssolink {
   margin-right: 10px;
 }
 
+button {
+  background: var(--second) !important;
+  border-color: var(--second) !important;
+}
+
+button:hover {
+  background: var(--second-light) !important;
+}
+
+.show-password-icon {
+  float: right;
+  top: 32px;
+  right: 11px;
+  font-size: 17px;
+  position: relative;
+  cursor: pointer;
+}

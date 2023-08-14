@@ -1,4 +1,11 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  OnInit,
+  Output,
+  SimpleChanges,
+  ViewChild,
+} from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -6,6 +13,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
+import { TextBoxComponent } from '@syncfusion/ej2-angular-inputs';
 import { ToastrComponent } from 'src/app/components/common/toastr/toastr.component';
 import { LoginFormType } from 'src/app/enums/login-form-type';
 import { UserType } from 'src/app/enums/user-type';
@@ -21,6 +29,8 @@ import { StorageService } from 'src/app/services/storage.service';
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
+  @ViewChild('default', { static: true }) password?: TextBoxComponent;
+
   @Output() closeLoginDialog = new EventEmitter<null>();
   @Output() changeLoginFormTypeEvent = new EventEmitter<any>();
   public type = LoginFormType.login;
@@ -30,6 +40,7 @@ export class LoginComponent implements OnInit {
   public language: any;
   public registerForm!: FormGroup;
   public submitted = false;
+  public showHidePassword = false;
 
   constructor(
     private service: CallApiService,
@@ -44,6 +55,7 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
     this.language = this.helpService.getLanguage();
     this.initializeForm();
+    this.type = LoginFormType.login;
   }
 
   initializeForm() {
@@ -53,6 +65,7 @@ export class LoginComponent implements OnInit {
         firstname: ['', Validators.required],
         lastname: ['', Validators.required],
         email: ['', [Validators.required, Validators.email]],
+        confirmEmail: ['', [Validators.required, Validators.email]],
         telephone: ['', Validators.required],
         password: [
           '',
@@ -67,10 +80,10 @@ export class LoginComponent implements OnInit {
         newsletter: [false],
       },
       {
-        validator: this.customValidator.MatchPassword(
-          'password',
-          'confirmPassword'
-        ),
+        validator: [
+          this.customValidator.MatchPassword('password', 'confirmPassword'),
+          this.customValidator.MatchEmail('email', 'confirmEmail'),
+        ],
       }
     );
   }
@@ -84,7 +97,10 @@ export class LoginComponent implements OnInit {
       if (data) {
         this.setUserInfoAndRoute(data);
       } else {
-        this.toastr.showErrorCustom('Incorrect mail or password!', '');
+        this.toastr.showErrorCustom(
+          this.language.loginIncorrectMailOrPassword,
+          ''
+        );
       }
     });
   }
@@ -102,11 +118,11 @@ export class LoginComponent implements OnInit {
               this.language.loginNeedToVerifyAccount
             );
             this.type = LoginFormType.login;
+            this.closeLoginDialog.emit();
             this.registerForm.reset();
           } else {
-            this.toastr.showError();
+            this.toastr.showWarningCustom(this.language.loginEmailExists, '');
           }
-          this.closeLoginDialog.emit();
         });
     }
   }
@@ -146,6 +162,11 @@ export class LoginComponent implements OnInit {
           ? checkSharp[0]
           : '',
       ]);
+    } else if (
+      this.helpService.getSessionStorageStringValue('previous') === 'checkout'
+    ) {
+      this.router.navigate(['payment']);
+      this.helpService.removeSessionStorage('previous');
     } else if (token.type === UserType.superadmin) {
       // this.router.navigate(['/dashboard']);
       window.location.reload();
@@ -164,6 +185,7 @@ export class LoginComponent implements OnInit {
 
   changeLoginFormType(event: LoginFormType) {
     this.type = event;
+    this.showHidePassword = false;
     this.changeLoginFormTypeEvent.emit(event);
   }
 

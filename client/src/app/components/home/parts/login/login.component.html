@@ -9,7 +9,10 @@
                 <div class="grid--50-50">
                     <label for="password">{{language.loginPassword}}</label>
                 </div>
-                <input type="password" name="password" [(ngModel)]="user.password">
+                <span class="show-password-icon"
+                    (click)="showHidePassword ? showHidePassword = false : showHidePassword = true"
+                    class="fa fa-{{showHidePassword ? 'eye-slash' : 'eye'}}"></span>
+                <input type="{{!showHidePassword ? 'password': 'text'}}" name="password" [(ngModel)]="user.password">
                 <div class="reset-pass">
                     <a (click)="changeLoginFormType(loginFormType.forgot)">{{language.loginForgotPasswordButton}}</a>
                 </div>
@@ -68,8 +71,8 @@
                 </span>
             </div>
             <div class="field padding-bottom--24">
-                <label for="email">Email</label>
-                <input name="email" formControlName="email">
+                <label for="email">{{language.loginEmail}}</label>
+                <input name="email" formControlName="email" oncopy="return false" onpaste="return false">
                 <span class="text-danger"
                     *ngIf="(registerFormControl.email.touched || submitted) && registerFormControl.email.errors?.required">
                     {{language.loginEmailRequired}}
@@ -80,10 +83,30 @@
                 </span>
             </div>
             <div class="field padding-bottom--24">
+                <label for="confirmEmail">{{language.loginRepeatEmail}}</label>
+                <input name="confirmEmail" formControlName="confirmEmail" oncopy="return false" onpaste="return false">
+                <span class="text-danger"
+                    *ngIf="(registerFormControl.confirmEmail.touched || submitted) && registerFormControl.confirmEmail.errors?.required">
+                    {{language.loginEmailRequired}}
+                </span>
+                <span class="text-danger"
+                    *ngIf="registerFormControl.confirmEmail.touched && registerFormControl.confirmEmail.errors?.email">
+                    {{language.loginEmailNotValid}}
+                </span>
+
+                <span class="text-danger"
+                    *ngIf="registerFormControl.confirmEmail.touched && registerFormControl.confirmEmail.errors?.emailMismatch">
+                    {{language.loginEmailNotMatch}}
+                </span>
+            </div>
+            <div class="field padding-bottom--24">
                 <div class="grid--50-50">
                     <label for="password">{{language.loginPassword}}</label>
                 </div>
-                <input type="password" formControlName="password">
+                <span class="show-password-icon"
+                    (click)="showHidePassword ? showHidePassword = false : showHidePassword = true"
+                    class="fa fa-{{showHidePassword ? 'eye-slash' : 'eye'}}"></span>
+                <input type="{{!showHidePassword ? 'password': 'text'}}" formControlName="password">
                 <span class="text-danger"
                     *ngIf="(registerFormControl.password.touched || submitted) && registerFormControl.password.errors?.required">
                     {{language.loginPasswordRequired}}
@@ -110,7 +133,10 @@
                 <div class="grid--50-50">
                     <label for="password">{{language.loginRepeatPassword}}</label>
                 </div>
-                <input type="password" formControlName="confirmPassword">
+                <span class="show-password-icon"
+                    (click)="showHidePassword ? showHidePassword = false : showHidePassword = true"
+                    class="fa fa-{{showHidePassword ? 'eye-slash' : 'eye'}}"></span>
+                <input type="{{!showHidePassword ? 'password': 'text'}}" formControlName="confirmPassword">
                 <span class="text-danger"
                     *ngIf="(registerFormControl.confirmPassword.touched || submitted) && registerFormControl.confirmPassword.errors?.required">
                     {{language.loginConfirmPasswordRequired}}
@@ -132,16 +158,20 @@
             <div class="text-center">
                 <button ejs-button [isPrimary]="true" (click)="signUp()">{{language.loginSignUp}}</button>
             </div>
-        </form>
-        <div class="footer-link padding-top--24">
-            <span>{{language.loginAreYouHaveAccount}} <a
-                    (click)="changeLoginFormType(loginFormType.login)">{{language.loginLoginButton}}</a></span>
-            <div class="listing padding-top--24 padding-bottom--24 flex-flex center-center">
-                <span><a routerLink="../../document/impressum" target="_blank">{{language.loginImpressum}}</a></span>
-                <span><a routerLink="../../document/terms" target="_blank">{{language.loginTerms}}</a></span>
-                <span><a routerLink="../../document/privacy-policy" target="_blank">{{language.loginPrivacy}}</a></span>
+
+
+            <div class="footer-link padding-top--24">
+                <span>{{language.loginAreYouHaveAccount}} <a
+                        (click)="changeLoginFormType(loginFormType.login)">{{language.loginLoginButton}}</a></span>
+                <div class="listing padding-top--24 padding-bottom--24 flex-flex center-center">
+                    <span><a routerLink="../../document/impressum"
+                            target="_blank">{{language.loginImpressum}}</a></span>
+                    <span><a routerLink="../../document/terms" target="_blank">{{language.loginTerms}}</a></span>
+                    <span><a routerLink="../../document/privacy-policy"
+                            target="_blank">{{language.loginPrivacy}}</a></span>
+                </div>
             </div>
-        </div>
+        </form>
     </div>
     <div class="formbg-outer" *ngIf="type === loginFormType.forgot">
         <form id="stripe-login" class="mb-0">
