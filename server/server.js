@@ -8,7 +8,8 @@ const api = require("./providers/api");
 const mailApi = require("./providers/mail-api");
 const mailServer = require("./providers/mail_server/mail-server");
 const upload = require("./providers/upload");
-const sqlDatabase = require('./providers/config/sql-database');
+const sqlDatabase = require("./providers/config/sql-database");
+var cors = require("cors");
 sqlDatabase.connect();
 
 const express = require("express");
@@ -45,6 +46,8 @@ app.use(
 );
 app.use(cookieParser());
 
+app.use(cors());
+
 //providers
 app.use("/api", api);
 app.use("/api", mailApi);
@@ -68,4 +71,3 @@ server.listen(port, () => console.log(`API running on localhost:${port}`));
 //chat END
 
 // AUTOMATE WORK
-

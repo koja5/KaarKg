@@ -67,8 +67,9 @@ export class CallApiService {
     if (data === undefined) {
       data = '';
     }
-    const url = api.endsWith('/') ? api + data : api + '/' + data;
-    return this.http.get(url, { headers: this.headers });
+    const url = api.endsWith('/') ? api + data : (data != "" ? (api + '/' + data) : api);
+    const fullLogo = 'http://localhost:3001' + url;
+    return this.http.get(fullLogo, { headers: this.headers });
   }
 
   getDocument(body: any) {
