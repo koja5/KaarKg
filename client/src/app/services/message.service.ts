@@ -11,6 +11,7 @@ export class MessageService {
   public searchProductValue = new Subject<string>();
   public viewCart = new Subject<null>();
   public refreshCartInformation = new Subject<null>();
+  public searchValueForProduct = new Subject<any>();
 
   constructor() {}
 
@@ -54,12 +55,19 @@ export class MessageService {
     return this.viewCart.asObservable();
   }
 
-  
   sentRefreshCartInformation() {
     this.refreshCartInformation.next(null);
   }
 
   getRefreshCartInformation() {
     return this.refreshCartInformation.asObservable();
+  }
+
+  sentSearchValueForProducts(value: string) {
+    this.searchValueForProduct.next(value);
+  }
+
+  getSearchValueForProducts() {
+    return this.searchValueForProduct.asObservable();
   }
 }

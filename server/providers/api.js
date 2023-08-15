@@ -687,29 +687,37 @@ router.get(
           res.json(err);
         } else {
           conn.query(
-            "select * from navigation_products where category_id = ?",
-            req.params.category,
+            "select * from navigation_products where name like '%" +
+              req.params.category +
+              "%'",
             function (err, rows, fields) {
               if (err) {
                 logger.log("error", err.sql + ". " + err.sqlMessage);
                 conn.release();
                 res.json(err);
               } else {
-                let query = getProductsByAccountTypeForMainCategory(
-                  req.user.user.type,
-                  rows
-                );
+                console.log(rows);
                 conn.query(
-                  query,
-                  req.params.category,
+                  "select * from navigation_products where category_id = ?",
+                  rows[0].id,
                   function (err, rows, fields) {
-                    conn.release();
-                    if (err) {
-                      logger.log("error", err.sql + ". " + err.sqlMessage);
-                      res.json(err);
-                    } else {
-                      res.json(rows);
-                    }
+                    let query = getProductsByAccountTypeForMainCategory(
+                      req.user.user.type,
+                      rows
+                    );
+                    conn.query(
+                      query,
+                      req.params.category,
+                      function (err, rows, fields) {
+                        conn.release();
+                        if (err) {
+                          logger.log("error", err.sql + ". " + err.sqlMessage);
+                          res.json(err);
+                        } else {
+                          res.json(rows);
+                        }
+                      }
+                    );
                   }
                 );
               }
@@ -734,26 +742,37 @@ router.get(
           res.json(err);
         } else {
           conn.query(
-            "select * from navigation_products where category_id = ?",
-            req.params.category,
+            "select * from navigation_products where name like '%" +
+              req.params.category +
+              "%'",
             function (err, rows, fields) {
+              console.log(rows);
               if (err) {
                 logger.log("error", err.sql + ". " + err.sqlMessage);
                 conn.release();
                 res.json(err);
               } else {
-                let query = getProductsByAccountTypeForMainCategory(null, rows);
                 conn.query(
-                  query,
-                  req.params.category,
+                  "select * from navigation_products where category_id = ?",
+                  rows[0].id,
                   function (err, rows, fields) {
-                    conn.release();
-                    if (err) {
-                      logger.log("error", err.sql + ". " + err.sqlMessage);
-                      res.json(err);
-                    } else {
-                      res.json(rows);
-                    }
+                    let query = getProductsByAccountTypeForMainCategory(
+                      null,
+                      rows
+                    );
+                    conn.query(
+                      query,
+                      req.params.category,
+                      function (err, rows, fields) {
+                        conn.release();
+                        if (err) {
+                          logger.log("error", err.sql + ". " + err.sqlMessage);
+                          res.json(err);
+                        } else {
+                          res.json(rows);
+                        }
+                      }
+                    );
                   }
                 );
               }

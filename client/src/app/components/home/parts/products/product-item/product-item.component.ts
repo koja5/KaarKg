@@ -27,8 +27,12 @@ export class ProductItemComponent implements OnInit {
 
   ngOnInit(): void {
     this.language = this.helpService.getLanguage();
-    if (!this.item.quantity) {
+    if (this.item && !this.item.quantity) {
       this.item.quantity = 1;
+    } else if (!this.item) {
+      setTimeout(() => {
+        this.item.quantity = 1;
+      }, 100);
     }
   }
 

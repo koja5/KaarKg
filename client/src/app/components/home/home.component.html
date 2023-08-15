@@ -150,10 +150,10 @@
         (closeCardEmitter)="closeCard()"></app-right-card>
 
     <div class="mobile-navigation row {{mobileNavigation}}">
-        <a (click)="mobileNavigation = ''" title="Close (Esc)" class="btn-close"></a>
+        <a (click)="closeNavigation()" title="Close (Esc)" class="btn-close"></a>
 
         <div class="dropdownmenu-wrapper custom-scrollbar">
-            <app-navigation></app-navigation>
+            <app-navigation (closeNavigation)="closeNavigation()"></app-navigation>
         </div>
     </div>
 

@@ -12,6 +12,7 @@ import { CallApiService } from 'src/app/services/call-api.service';
 import { HelpService } from 'src/app/services/help.service';
 import { StorageService } from 'src/app/services/storage.service';
 import { EmitType } from '@syncfusion/ej2-base';
+import { MessageService } from 'src/app/services/message.service';
 
 @Component({
   selector: 'app-products',
@@ -32,9 +33,10 @@ export class ProductsComponent implements OnInit {
   constructor(
     private service: CallApiService,
     private route: ActivatedRoute,
-    private router: Router,
     private storageService: StorageService,
-    private helpService: HelpService
+    private helpService: HelpService,
+    private messageService: MessageService,
+    private router: Router
   ) {
     router.events.forEach((event) => {
       if (event instanceof NavigationEnd) {
@@ -47,6 +49,21 @@ export class ProductsComponent implements OnInit {
     this.language = this.helpService.getLanguageAndCheckFile();
     this.accountType = this.helpService.getAccountTypeId();
     this.initialize();
+
+    this.messageService.getSearchValueForProducts().subscribe((message) => {
+      if (message != '') {
+        this.loader = true;
+        this.service
+          .callGetMethod('/api/searchProducts', message)
+          .subscribe((data) => {
+            this.products = data;
+            this.loader = false;
+            this.category = this.language.productResultFor + ' ' + message;
+          });
+      } else {
+        this.initialize();
+      }
+    });
   }
 
   ngAfterViewInit(): void {
@@ -107,18 +124,15 @@ export class ProductsComponent implements OnInit {
             this.products = products;
             this.loader = false;
           });
-      } else if (
-        this.helpService.getSessionStorageStringValue('mainCategoryId')
-      ) {
+      } else if (this.category.includes(this.language.routerAll)) {
         this.service
           .callGetMethod(
             'api/getAllProductsForMainCategoryForLoginUser',
-            this.helpService.getSessionStorageStringValue('mainCategoryId')!
+            this.category.split('-' + this.language.routerAll)[0]
           )
           .subscribe((products) => {
             this.products = products;
             this.loader = false;
-            this.helpService.removeSessionStorage('mainCategoryId');
           });
       } else {
         this.service
@@ -153,18 +167,15 @@ export class ProductsComponent implements OnInit {
             this.products = products;
             this.loader = false;
           });
-      } else if (
-        this.helpService.getSessionStorageStringValue('mainCategoryId')
-      ) {
+      } else if (this.category.includes(this.language.routerAll)) {
         this.service
           .callGetMethod(
             'api/getAllProductsForMainCategory',
-            this.helpService.getSessionStorageStringValue('mainCategoryId')!
+            this.category.split('-' + this.language.routerAll)[0]
           )
           .subscribe((products) => {
             this.products = products;
             this.loader = false;
-            this.helpService.removeSessionStorage('mainCategoryId');
           });
       } else {
         this.service

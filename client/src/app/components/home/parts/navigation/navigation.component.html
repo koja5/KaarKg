@@ -36,8 +36,8 @@
                         class="{{selectNavigationItem == item.name ? 'select' : ''}}">{{item.name}}
                     </a>
                     <a *ngIf="item.subChildren.length > 0"
-                        (click)="!showChildren ? showChildren = item.name : (showChildren == item.name ? showChildren = '' : showChildren = item.name); setMainCategoryIdInSessionStorage(item.id); selectNavigationItem = item.name"
-                        routerLink="../../category/{{item.name}}"
+                        (click)="!showChildren ? showChildren = item.name : (showChildren == item.name ? showChildren = '' : showChildren = item.name); selectNavigationItem = item.name"
+                        routerLink="../../category/{{item.name}}-{{language.routerAll}}"
                         class="{{selectNavigationItem == item.name ? 'select' : ''}}">{{item.name}}
                         <mat-icon class="menu-btn"
                             *ngIf="item.subChildren.length > 0 && (!showChildren || showChildren != item.name)">chevron_right</mat-icon>

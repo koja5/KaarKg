@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CallApiService } from 'src/app/services/call-api.service';
 import { HelpService } from 'src/app/services/help.service';
@@ -9,6 +9,8 @@ import { HelpService } from 'src/app/services/help.service';
   styleUrls: ['./navigation.component.scss'],
 })
 export class NavigationComponent implements OnInit {
+  @Output() public closeNavigation = new EventEmitter<null>();
+
   public navigations: any;
   public showChildren!: string;
   public selectNavigationItem!: string;
@@ -23,6 +25,15 @@ export class NavigationComponent implements OnInit {
   ngOnInit(): void {
     this.selectNavigationItem = this.route.snapshot.paramMap.get('category')!;
     this.initialize();
+  }
+
+  ngAfterViewInit(): void {
+    document.onclick = (args: any): void => {
+      console.log(args.target.className);
+      if (args.target.className === 'col-lg-9') {
+        this.closeNavigation.emit();
+      }
+    };
   }
 
   initialize() {
@@ -65,9 +76,5 @@ export class NavigationComponent implements OnInit {
       }
     });
     return navigationArray;
-  }
-
-  setMainCategoryIdInSessionStorage(id: number) {
-    this.helpService.setSessionStorage('mainCategoryId', id);
   }
 }

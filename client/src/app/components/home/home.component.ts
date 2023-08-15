@@ -47,6 +47,11 @@ export class HomeComponent implements OnInit {
     this.checkMessageService();
   }
 
+  ngAfterViewInit(): void {
+    document.onclick = (args: any): void => {
+      console.log(args.target.className);
+    };
+  }
 
   checkMessageService() {
     this.messageService.getViewCart().subscribe((message) => {
@@ -150,6 +155,7 @@ export class HomeComponent implements OnInit {
   onSearchChange(event: any) {
     if (event.target.value.length > 2 || event.target.value === '') {
       this.searchProduct = event.target.value;
+      this.messageService.sentSearchValueForProducts(event.target.value);
     }
   }
 
@@ -198,5 +204,9 @@ export class HomeComponent implements OnInit {
   hideLoginDialog() {
     this.loginDialogShow = false;
     this.loginDialog.hide();
+  }
+
+  closeNavigation() {
+    this.mobileNavigation = '';
   }
 }
