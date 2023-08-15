@@ -2,7 +2,10 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DynamicFieldsDirective } from '../dynamic-fields/dynamic-fields.directive';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { NumericTextBoxModule, TextBoxModule } from '@syncfusion/ej2-angular-inputs';
+import {
+  NumericTextBoxModule,
+  TextBoxModule,
+} from '@syncfusion/ej2-angular-inputs';
 import {
   ButtonModule,
   CheckBoxModule,
@@ -17,7 +20,10 @@ import { MatIconModule } from '@angular/material/icon';
 import { SharingModule } from 'src/app/sharing.module';
 import { ComboboxComponent } from '../dynamic-fields/dropdowns/combobox/combobox.component';
 import { ComboBoxModule } from '@syncfusion/ej2-angular-dropdowns';
-import { DatePickerModule, DateTimePickerAllModule } from '@syncfusion/ej2-angular-calendars';
+import {
+  DatePickerModule,
+  DateTimePickerAllModule,
+} from '@syncfusion/ej2-angular-calendars';
 import { DatepickerComponent } from '../dynamic-fields/inputs/datepicker/datepicker.component';
 import { NumericTextboxComponent } from '../dynamic-fields/inputs/numeric-textbox/numeric-textbox.component';
 import { SwitchComponent } from '../dynamic-fields/buttons/switch/switch.component';
@@ -34,7 +40,7 @@ import { DatetimepickerComponent } from '../dynamic-fields/inputs/datetimepicker
     DatepickerComponent,
     DatetimepickerComponent,
     NumericTextboxComponent,
-    SwitchComponent
+    SwitchComponent,
   ],
   exports: [
     DynamicFieldsDirective,
@@ -46,7 +52,7 @@ import { DatetimepickerComponent } from '../dynamic-fields/inputs/datetimepicker
     DatepickerComponent,
     DatetimepickerComponent,
     NumericTextboxComponent,
-    SwitchComponent
+    SwitchComponent,
   ],
   imports: [
     CommonModule,
@@ -63,19 +69,7 @@ import { DatetimepickerComponent } from '../dynamic-fields/inputs/datetimepicker
     DatePickerModule,
     DateTimePickerAllModule,
     NumericTextBoxModule,
-    SwitchModule
-  ],
-  entryComponents: [
-    DynamicFieldsDirective,
-    TextBoxComponent,
-    LabelComponent,
-    ButtonComponent,
-    DynamicIconComponent,
-    ComboboxComponent,
-    DatepickerComponent,
-    DatetimepickerComponent,
-    NumericTextboxComponent,
-    SwitchComponent
+    SwitchModule,
   ],
 })
 export class DynamicFormsModule {}

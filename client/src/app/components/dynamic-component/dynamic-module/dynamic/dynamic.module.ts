@@ -5,7 +5,7 @@ import { DynamicActionButtonComponent } from '../../dynamic-action-button/dynami
 import { DynamicFormsModule } from '../../dynamic-forms/dynamic-forms-module/dynamic-forms.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SharingModule } from 'src/app/sharing.module';
-import { ToastrComponent } from '../../common/toastr/toastr.component';
+import { ToastrDynamicComponent } from '../../common/toastr/toastr.component';
 import { DialogModalComponent } from 'src/app/components/common/dialog-modal/dialog-modal.component';
 import { DialogAllModule } from '@syncfusion/ej2-angular-popups';
 import {
@@ -38,52 +38,51 @@ import { DynamicGridComponent } from '../../dynamic-grid/dynamic-grid.component'
 import { DynamicTextFormComponent } from '../../dynamic-text-form/dynamic-text-form.component';
 
 @NgModule({
-  declarations: [
-    DynamicGridComponent,
-    DynamicFormsComponent,
-    DynamicActionButtonComponent,
-    DialogModalComponent,
-    ToastrComponent,
-    DynamicTextFormComponent
-  ],
-  exports: [
-    DynamicGridComponent,
-    DynamicFormsComponent,
-    DynamicActionButtonComponent,
-    DialogModalComponent,
-    ToastrComponent,
-    DynamicTextFormComponent
-  ],
-  imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    DynamicFormsModule,
-    SharingModule,
-    DialogAllModule,
-    SplitButtonModule,
-    DropDownButtonModule,
-    ToastrModule.forRoot(),
-    GridModule,
-    MatIconModule,
-  ],
-  providers: [
-    EditService,
-    PdfExportService,
-    ExcelExportService,
-    ToolbarService,
-    SortService,
-    FilterService,
-    ContextMenuService,
-    PageService,
-    GroupService,
-    ResizeService,
-    ToastrComponent,
-    DayService,
-    WeekService,
-    WorkWeekService,
-    MonthService,
-    AgendaService,
-  ],
-  entryComponents: [DynamicFormsComponent],
+    declarations: [
+        DynamicGridComponent,
+        DynamicFormsComponent,
+        DynamicActionButtonComponent,
+        DialogModalComponent,
+        ToastrDynamicComponent,
+        DynamicTextFormComponent
+    ],
+    exports: [
+        DynamicGridComponent,
+        DynamicFormsComponent,
+        DynamicActionButtonComponent,
+        DialogModalComponent,
+        ToastrDynamicComponent,
+        DynamicTextFormComponent
+    ],
+    imports: [
+        CommonModule,
+        ReactiveFormsModule,
+        DynamicFormsModule,
+        SharingModule,
+        DialogAllModule,
+        SplitButtonModule,
+        DropDownButtonModule,
+        ToastrModule.forRoot(),
+        GridModule,
+        MatIconModule,
+    ],
+    providers: [
+        EditService,
+        PdfExportService,
+        ExcelExportService,
+        ToolbarService,
+        SortService,
+        FilterService,
+        ContextMenuService,
+        PageService,
+        GroupService,
+        ResizeService,
+        ToastrDynamicComponent,
+        DayService,
+        WeekService,
+        WorkWeekService,
+        MonthService,
+        AgendaService,
+    ]
 })
 export class DynamicModule {}
