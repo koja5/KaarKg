@@ -56,6 +56,8 @@
     "loginEmailNotMatch": "E-Mails variieren",
     "loginNeedToFillRequiredData": "Sie müssen die entsprechenden Daten eingeben.",
     "loginIncorrectMailOrPassword": "falsche Email oder Passwort",
+    "loginAccountNotActive": "Ein Konto ist noch nicht aktiv.",
+    "loginAccountNotVerified": "Ein Konto ist noch nicht verifiziert.",
     "loginEmailExists": "Die E-Mail-Adresse existiert bereits",
     "navigationProdukte": "Produkte",
     "navigationActions": "Aktionen",
@@ -274,7 +276,15 @@
     "confirmDeleteItemYes": "Ja",
     "confirmDeleteItemNo": "Nicht",
     "mailSubject": "Thema",
+    "mailSuperadminEmail": "Admin E-Mail",
     "mailTitle": "Titel",
+    "mailGreeting": "Grußnachricht",
     "mailText": "Mailtext",
-    "mailButtonText": "Mail-Button text"
+    "mailButtonText": "Mail-Button text",
+    "mailSignatureGreeting": "Unterschriftenbegrüßung",
+    "mailSignatureAddress": "Unterschriftenadresse",
+    "mailSignatureZipAndCity": "Signature Zip und City",
+    "mailSignatureEmail": "Signatur-E-Mail",
+    "mailSignatureTelephone": "Signaturtelefon",
+    "mailSignatureFreeText": "Freitext zur Unterschrift"
 }

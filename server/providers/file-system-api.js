@@ -12,7 +12,6 @@ router.get("/readFile/:type", async function (req, res, next) {
       "utf8",
       function (err, data) {
         if (err) return err;
-        console.log(data);
         res.json(JSON.parse(data));
       }
     );

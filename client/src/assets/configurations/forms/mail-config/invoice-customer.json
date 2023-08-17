@@ -12,9 +12,10 @@
             "type": "textbox",
             "width": "col-md-12",
             "class": "e-outline",
-            "name": "title",
-            "title": "mailTitle",
-            "field": "title"
+            "name": "greeting",
+            "title": "mailGreeting",
+            "field": "greeting",
+            "readonly": true
         },
         {
             "type": "textbox",
@@ -28,9 +29,49 @@
             "type": "textbox",
             "width": "col-md-12",
             "class": "e-outline",
-            "name": "buttonText",
-            "title": "mailButtonText",
-            "field": "buttonText"
+            "name": "signatureGreeting",
+            "title": "mailSignatureGreeting",
+            "field": "signatureGreeting"
+        },
+        {
+            "type": "textbox",
+            "width": "col-md-12",
+            "class": "e-outline",
+            "name": "signatureAddress",
+            "title": "mailSignatureAddress",
+            "field": "signatureAddress"
+        },
+        {
+            "type": "textbox",
+            "width": "col-md-12",
+            "class": "e-outline",
+            "name": "signatureZipAndCity",
+            "title": "mailSignatureZipAndCity",
+            "field": "signatureZipAndCity"
+        },
+        {
+            "type": "textbox",
+            "width": "col-md-12",
+            "class": "e-outline",
+            "name": "signatureEmail",
+            "title": "mailSignatureEmail",
+            "field": "signatureEmail"
+        },
+        {
+            "type": "textbox",
+            "width": "col-md-12",
+            "class": "e-outline",
+            "name": "signatureTelephone",
+            "title": "mailSignatureTelephone",
+            "field": "signatureTelephone"
+        },
+        {
+            "type": "textbox",
+            "width": "col-md-12",
+            "class": "e-outline",
+            "name": "signatureFreeText",
+            "title": "mailSignatureFreeText",
+            "field": "signatureFreeText"
         },
         {
             "type": "button",

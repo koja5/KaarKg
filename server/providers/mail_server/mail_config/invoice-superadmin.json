@@ -1,6 +1,12 @@
 {
-    "subject": "Subject 23",
-    "title": "Ovo je neki opis",
-    "text": "Reset password",
-    "buttonText": "Active your mail"
+    "subject": "Sie haben eine neue Bestellung",
+    "email": "albert.sprung@gmail.com",
+    "text": "sie haben eine neue Bestellung auf Ihrer Website kaarkg.at. Die Bestelldetails finden Sie weiter unten!",
+    "greeting": "Liebes Team von Kaar KG",
+    "signatureGreeting": "Kaar KG",
+    "signatureAddress": "Haselgrabenweg 3",
+    "signatureZipAndCity": "4040 Linz",
+    "signatureEmail": "E-Mail: office@kaarkg.at",
+    "signatureTelephone": "Tel: 0732 / 94 68 15",
+    "signatureFreeText": "Mit unseren Spielwaren wird die Kreativität und die Phantasie der Kinder angeregt und gefördert. Viele Kinder - privat und im Kindergarten - verwenden sie mit viel Begeisterung."
 }

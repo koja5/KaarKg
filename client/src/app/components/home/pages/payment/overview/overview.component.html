@@ -74,7 +74,7 @@
                                         {{language.paymentNameOfProduct}}
                                     </th>
                                     <th>{{language.paymentQuantity}}</th>
-                                    <th>{{language.paymentSinglePrice}}</th>
+                                    <th class="hidden-xs">{{language.paymentSinglePrice}}</th>
                                     <th>{{language.paymentTotalPriceForItem}}</th>
                                 </tr>
                                 <tr *ngFor="let item of products; let i = index">
@@ -105,7 +105,7 @@
                                                     type="button" (click)="addQuantity(i)"></button></span>
                                         </div>
                                     </td>
-                                    <td>€ {{item.price |
+                                    <td class="hidden-xs">€ {{item.price |
                                         number:
                                         '.2'}}</td>
                                     <td>€
@@ -238,7 +238,7 @@
                 <div class="row">
                     <div class="col-md-6">
                         <label>{{language.checkoutZip}}</label>
-                        <input name="zip" [(ngModel)]="shippingAddress.zip" required>
+                        <input type="number" name="zip" [(ngModel)]="shippingAddress.zip" required>
                     </div>
                     <div class="col-md-6">
                         <label>{{language.checkoutCity}}</label>

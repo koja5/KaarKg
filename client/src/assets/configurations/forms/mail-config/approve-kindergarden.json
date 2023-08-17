@@ -12,9 +12,25 @@
             "type": "textbox",
             "width": "col-md-12",
             "class": "e-outline",
+            "name": "email",
+            "title": "mailSuperadminEmail",
+            "field": "email"
+        },
+        {
+            "type": "textbox",
+            "width": "col-md-12",
+            "class": "e-outline",
             "name": "title",
             "title": "mailTitle",
             "field": "title"
+        },
+        {
+            "type": "textbox",
+            "width": "col-md-12",
+            "class": "e-outline",
+            "name": "greeting",
+            "title": "mailGreeting",
+            "field": "greeting"
         },
         {
             "type": "textbox",

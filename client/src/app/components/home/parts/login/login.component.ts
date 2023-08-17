@@ -101,16 +101,28 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    this.service.callPostMethod('/api/login', this.user).subscribe((data) => {
-      if (data) {
-        this.setUserInfoAndRoute(data);
-      } else {
-        this.toastr.showErrorCustom(
-          this.language.loginIncorrectMailOrPassword,
-          ''
-        );
-      }
-    });
+    this.service
+      .callPostMethod('/api/login', this.user)
+      .subscribe((data: any) => {
+        if (data && data.token) {
+          this.setUserInfoAndRoute(data);
+        } else if (data.type === 'exist') {
+          this.toastr.showErrorCustom(
+            this.language.loginIncorrectMailOrPassword,
+            ''
+          );
+        } else if (data.type === 'active') {
+          this.toastr.showErrorCustom(
+            this.language.loginAccountNotActive,
+            ''
+          );
+        } else if (data.type === 'verified') {
+          this.toastr.showErrorCustom(
+            this.language.loginAccountNotVerified,
+            ''
+          );
+        }
+      });
   }
 
   signUp() {
@@ -144,6 +156,7 @@ export class LoginComponent implements OnInit {
             this.toastr.showSuccessCustom(
               this.language.loginSendRecoveryPasswordSuccess
             );
+            this.closeLoginDialog.emit();
           } else {
             this.toastr.showErrorCustom(
               this.language.loginNeedToFillRequiredData

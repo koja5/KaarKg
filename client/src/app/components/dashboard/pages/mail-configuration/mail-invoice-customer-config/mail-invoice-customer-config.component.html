@@ -1,1 +1,2 @@
-<p>mail-invoice-customer-config works!</p>
+<app-dynamic-forms *ngIf="data&&config" [data]="data" [config]="config" [path]="path" [file]="file"
+    (submit)="saveConfig($event)"></app-dynamic-forms>

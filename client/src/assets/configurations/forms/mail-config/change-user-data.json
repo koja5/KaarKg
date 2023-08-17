@@ -20,17 +20,18 @@
             "type": "textbox",
             "width": "col-md-12",
             "class": "e-outline",
-            "name": "text",
-            "title": "mailText",
-            "field": "text"
+            "name": "greeting",
+            "title": "mailGreeting",
+            "field": "greeting",
+            "readonly": true
         },
         {
             "type": "textbox",
             "width": "col-md-12",
             "class": "e-outline",
-            "name": "buttonText",
-            "title": "mailButtonText",
-            "field": "buttonText"
+            "name": "text",
+            "title": "mailText",
+            "field": "text"
         },
         {
             "type": "button",
