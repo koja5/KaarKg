@@ -8,7 +8,8 @@ const api = require("./providers/api");
 const mailApi = require("./providers/mail-api");
 const mailServer = require("./providers/mail_server/mail-server");
 const upload = require("./providers/upload");
-const sqlDatabase = require('./providers/config/sql-database');
+const fileSystemApi = require("./providers/file-system-api");
+const sqlDatabase = require("./providers/config/sql-database");
 sqlDatabase.connect();
 
 const express = require("express");
@@ -50,6 +51,7 @@ app.use("/api", api);
 app.use("/api", mailApi);
 app.use("/api/mail-server", mailServer);
 app.use("/api/upload", upload);
+app.use("/api/save", fileSystemApi);
 
 app.use(express.static(path.join(__dirname, "../client/dist")));
 
@@ -62,10 +64,10 @@ app.set("port", port);
 const server = http.createServer(app);
 
 server.listen(port, () => console.log(`API running on localhost:${port}`));
+server.timeout = 120000;
 
 //chat
 
 //chat END
 
 // AUTOMATE WORK
-

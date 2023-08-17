@@ -272,5 +272,9 @@
     "confirmDeleteItemTitle": "Bist du dir sicher?",
     "confirmDeleteItemText": "Durch die Löschung verlieren Sie diese Daten dauerhaft, ohne Möglichkeit der Rückgabe!",
     "confirmDeleteItemYes": "Ja",
-    "confirmDeleteItemNo": "Nicht"
+    "confirmDeleteItemNo": "Nicht",
+    "mailSubject": "Thema",
+    "mailTitle": "Titel",
+    "mailText": "Mailtext",
+    "mailButtonText": "Mail-Button text"
 }
