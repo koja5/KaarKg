@@ -227,7 +227,7 @@
                     [disabled]="mainShippingAddressEditable">
                 <label>{{language.checkoutCountry}}</label>
                 <ejs-combobox cssClass="mb-1" *ngIf="countries" [id]="'country'" name="country" [dataSource]="countries"
-                    [fields]="{
+                    [allowCustom]="false" [fields]="{
                         text: 'name' , 'value' : 'id' }" [allowFiltering]="true"
                     [(ngModel)]="shippingAddress.country_id" [placeholder]="language.checkoutCountryPlaceholder"
                     (change)="changeCountry($event)" required>
