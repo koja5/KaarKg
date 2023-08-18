@@ -6175,6 +6175,8 @@ figure .porto-loading-icon {
   max-width: none;
   padding-right: 0;
 }
+
+
 .product-single-qty .bootstrap-touchspin .form-control {
   width: 4.7em;
   height: 36px;
@@ -15997,6 +15999,10 @@ aside .widget-info i {
 
   .hidden-xs {
     display: none !important;
+  }
+
+  .product-single-qty .bootstrap-touchspin .form-control {
+    width: 2.7em !important;
   }
 }
 @media (max-width: 575px) {

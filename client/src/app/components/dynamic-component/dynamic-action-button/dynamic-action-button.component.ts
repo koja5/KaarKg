@@ -92,7 +92,6 @@ export class DynamicActionButtonComponent implements OnInit {
 
   submitEmitter(event: any) {
     this.loader = true;
-    console.log(this.data);
     if (this.data && this.data.length) {
       this.callServerMethod(this.config.editSettingsRequest.edit, event);
     } else {

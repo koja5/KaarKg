@@ -135,7 +135,7 @@ router.post("/login", function (req, res, next) {
       return res.json(err);
     }
     conn.query(
-      "select * from users WHERE email=? AND password=? AND active = 1",
+      "select * from users WHERE email=? AND password=?",
       [req.body.email, sha1(req.body.password)],
       function (err, rows, fields) {
         if (err) {
@@ -143,31 +143,48 @@ router.post("/login", function (req, res, next) {
           res.json(err);
         }
         if (rows.length > 0) {
-          conn.end();
-          const token = jwt.sign(
-            {
-              user: {
-                id: rows[0].id,
-                firstname: rows[0].firstname,
-                type: rows[0].type,
-                isClub: rows[0].is_club,
+          if (rows[0].active && rows[0].verified) {
+            conn.end();
+            const token = jwt.sign(
+              {
+                user: {
+                  id: rows[0].id,
+                  firstname: rows[0].firstname,
+                  type: rows[0].type,
+                  isClub: rows[0].is_club,
+                },
+                email: rows[0].email,
               },
-              email: rows[0].email,
-            },
-            process.env.TOKEN_KEY,
-            {
-              expiresIn: expiresToken,
-            }
-          );
-          logger.log(
-            "info",
-            `USER: ${req.body.email} is LOGIN at ${new Date().toDateString()}.`
-          );
-          return res.json({
-            token: token,
-          });
+              process.env.TOKEN_KEY,
+              {
+                expiresIn: expiresToken,
+              }
+            );
+            logger.log(
+              "info",
+              `USER: ${
+                req.body.email
+              } is LOGIN at ${new Date().toDateString()}.`
+            );
+            return res.json({
+              token: token,
+            });
+          } else if (!rows[0].verified) {
+            return res.json({
+              type: "verified",
+              value: 0,
+            });
+          } else if (!rows[0].active) {
+            return res.json({
+              type: "active",
+              value: 0,
+            });
+          }
         } else {
-          return res.json(false);
+          return res.json({
+            type: "exist",
+            value: 0,
+          });
         }
       }
     );
@@ -230,7 +247,7 @@ router.get("/getMe", auth, async (req, res, next) => {
   }
 });
 
-router.get("/verificationMail/:email", async (req, res, next) => {
+router.get("/verificationMail/:active/:email", async (req, res, next) => {
   try {
     connection.getConnection(function (err, conn) {
       if (err) {
@@ -238,8 +255,8 @@ router.get("/verificationMail/:email", async (req, res, next) => {
         res.json(err);
       } else {
         conn.query(
-          "update users set active = 1 where SHA1(email) = ?",
-          [req.params.email],
+          "update users set verified = 1, active = ? where SHA1(email) = ?",
+          [req.params.active, req.params.email],
           function (err, rows, fields) {
             conn.release();
             if (err) {
@@ -696,7 +713,6 @@ router.get(
                 conn.release();
                 res.json(err);
               } else {
-                console.log(rows);
                 conn.query(
                   "select * from navigation_products where category_id = ?",
                   rows[0].id,
@@ -746,7 +762,6 @@ router.get(
               req.params.category +
               "%'",
             function (err, rows, fields) {
-              console.log(rows);
               if (err) {
                 logger.log("error", err.sql + ". " + err.sqlMessage);
                 conn.release();
@@ -980,7 +995,6 @@ router.get("/searchProducts/:category", async (req, res, next) => {
             logger.log("error", err.sql + ". " + err.sqlMessage);
             res.json(err);
           } else {
-            console.log(rows);
             res.json(rows);
           }
         });
@@ -1012,7 +1026,6 @@ router.get(
               logger.log("error", err.sql + ". " + err.sqlMessage);
               res.json(err);
             } else {
-              console.log(rows);
               res.json(rows);
             }
           });
@@ -1140,7 +1153,6 @@ router.get("/getUsers", async (req, res, next) => {
               logger.log("error", err.sql + ". " + err.sqlMessage);
               res.json(err);
             } else {
-              console.log(rows);
               res.json(rows);
             }
           }
@@ -1169,7 +1181,6 @@ router.get("/getAccountTypes", async (req, res, next) => {
               logger.log("error", err.sql + ". " + err.sqlMessage);
               res.json(err);
             } else {
-              console.log(rows);
               res.json(rows);
             }
           }

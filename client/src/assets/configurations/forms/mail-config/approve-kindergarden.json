@@ -1,0 +1,61 @@
+{
+    "config": [
+        {
+            "type": "textbox",
+            "width": "col-md-12",
+            "class": "e-outline",
+            "name": "subject",
+            "title": "mailSubject",
+            "field": "subject"
+        },
+        {
+            "type": "textbox",
+            "width": "col-md-12",
+            "class": "e-outline",
+            "name": "email",
+            "title": "mailSuperadminEmail",
+            "field": "email"
+        },
+        {
+            "type": "textbox",
+            "width": "col-md-12",
+            "class": "e-outline",
+            "name": "title",
+            "title": "mailTitle",
+            "field": "title"
+        },
+        {
+            "type": "textbox",
+            "width": "col-md-12",
+            "class": "e-outline",
+            "name": "greeting",
+            "title": "mailGreeting",
+            "field": "greeting"
+        },
+        {
+            "type": "textbox",
+            "width": "col-md-12",
+            "class": "e-outline",
+            "name": "text",
+            "title": "mailText",
+            "field": "text"
+        },
+        {
+            "type": "textbox",
+            "width": "col-md-12",
+            "class": "e-outline",
+            "name": "buttonText",
+            "title": "mailButtonText",
+            "field": "buttonText"
+        },
+        {
+            "type": "button",
+            "width": "col-md-12",
+            "class": "e-info button-action",
+            "name": "submit",
+            "title": "navigationCreate",
+            "field": "submitAndPay",
+            "positionClass": "text-right mt-3 col-md-12"
+        }
+    ]
+}

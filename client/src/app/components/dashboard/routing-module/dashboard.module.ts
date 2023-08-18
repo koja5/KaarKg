@@ -19,6 +19,16 @@ import { UploaderAllModule } from '@syncfusion/ej2-angular-inputs';
 import { CountriesComponent } from '../pages/countries/countries.component';
 import { ShippingPricesComponent } from '../pages/shipping-prices/shipping-prices.component';
 import { SharingModule } from 'src/app/sharing.module';
+import { MailVerifyConfigComponent } from '../pages/mail-configuration/mail-verify-config/mail-verify-config.component';
+import { MailVerifyKindergardenConfigComponent } from '../pages/mail-configuration/mail-verify-kindergarden-config/mail-verify-kindergarden-config.component';
+import { MailVerifyDealerConfigComponent } from '../pages/mail-configuration/mail-verify-dealer-config/mail-verify-dealer-config.component';
+import { MailApproveKindergardenConfigComponent } from '../pages/mail-configuration/mail-approve-kindergarden-config/mail-approve-kindergarden-config.component';
+import { MailApproveDealerConfigComponent } from '../pages/mail-configuration/mail-approve-dealer-config/mail-approve-dealer-config.component';
+import { MailResetPasswordConfigComponent } from '../pages/mail-configuration/mail-reset-password-config/mail-reset-password-config.component';
+import { MailApprovedAccountInfoConfigComponent } from '../pages/mail-configuration/mail-approved-account-info-config/mail-approved-account-info-config.component';
+import { MailChangeUserDataConfigComponent } from '../pages/mail-configuration/mail-change-user-data-config/mail-change-user-data-config.component';
+import { MailInvoiceCustomerConfigComponent } from '../pages/mail-configuration/mail-invoice-customer-config/mail-invoice-customer-config.component';
+import { MailInvoiceSuperadminConfigComponent } from '../pages/mail-configuration/mail-invoice-superadmin-config/mail-invoice-superadmin-config.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +37,17 @@ import { SharingModule } from 'src/app/sharing.module';
     AllUsersComponent,
     AllProductsComponent,
     CountriesComponent,
-    ShippingPricesComponent
+    ShippingPricesComponent,
+    MailVerifyConfigComponent,
+    MailVerifyKindergardenConfigComponent,
+    MailVerifyDealerConfigComponent,
+    MailApproveKindergardenConfigComponent,
+    MailApproveDealerConfigComponent,
+    MailApprovedAccountInfoConfigComponent,
+    MailResetPasswordConfigComponent,
+    MailChangeUserDataConfigComponent,
+    MailInvoiceCustomerConfigComponent,
+    MailInvoiceSuperadminConfigComponent
   ],
   imports: [
     CommonModule,
@@ -42,7 +62,7 @@ import { SharingModule } from 'src/app/sharing.module';
     ComboBoxModule,
     DynamicModule,
     UploaderAllModule,
-    SharingModule
+    SharingModule,
   ],
   providers: [],
 })

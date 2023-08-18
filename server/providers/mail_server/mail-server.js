@@ -36,13 +36,12 @@ router.post("/sendMail", function (req, res) {
 
   var mailOptions = {
     from: '"KaarKg"' + process.env.smtp_user,
-    to: req.body.fields["email"] ? req.body.fields["email"] : req.body.email,
+    to: req.body["email"] ? req.body["email"] : req.body.email,
     subject: req.body.subject,
-    html: compiledTemplate.render(req.body.fields),
+    html: compiledTemplate.render(req.body),
   };
 
   smtpTransport.sendMail(mailOptions, function (error, response) {
-    console.log(error);
     if (error) {
       logger.log("error", `${req.body.email}: ${error}`);
       res.send(false);
@@ -50,7 +49,7 @@ router.post("/sendMail", function (req, res) {
       logger.log(
         "info",
         `Sent mail to: ${
-          req.body.fields["email"] ? req.body.fields["email"] : req.body.email
+          req.body["email"] ? req.body["email"] : req.body.email
         }`
       );
       res.send(true);

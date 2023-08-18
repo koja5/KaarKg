@@ -29,5 +29,61 @@
         "link": "/dashboard/all-products"
       }
     ]
+  },
+  {
+    "title": "Mail-Konfigurator",
+    "rights": [],
+    "menu": [
+      {
+        "icon": "mail",
+        "title": "Verify",
+        "link": "/dashboard/mail-verify-config"
+      },
+      {
+        "icon": "mail",
+        "title": "Verify kindergarden",
+        "link": "/dashboard/mail-verify-kindergarden-config"
+      },
+      {
+        "icon": "mail",
+        "title": "Verify dealer",
+        "link": "/dashboard/mail-verify-dealer-config"
+      },
+      {
+        "icon": "mail",
+        "title": "Approve kindergarden",
+        "link": "/dashboard/mail-approve-kindergarden-config"
+      },
+      {
+        "icon": "mail",
+        "title": "Approve dealer",
+        "link": "/dashboard/mail-approve-dealer-config"
+      },
+      {
+        "icon": "mail",
+        "title": "Approved account info",
+        "link": "/dashboard/mail-approved-account-info-config"
+      },
+      {
+        "icon": "mail",
+        "title": "Reset password",
+        "link": "/dashboard/mail-reset-password-config"
+      },
+      {
+        "icon": "mail",
+        "title": "Change user data",
+        "link": "/dashboard/mail-change-user-data-config"
+      },
+      {
+        "icon": "mail",
+        "title": "Invoice customer",
+        "link": "/dashboard/mail-invoice-customer-config"
+      },
+      {
+        "icon": "mail",
+        "title": "Invoice superadmin",
+        "link": "/dashboard/mail-invoice-superadmin-config"
+      }
+    ]
   }
 ]
