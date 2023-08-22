@@ -15,14 +15,14 @@ const mock = new MockBrowser();
 // api
 const api = require('../server/providers/api');
 const { createProxyMiddleware } = require('http-proxy-middleware');
-const apiProxy = createProxyMiddleware('/api/*', {
-  target: 'http://localhost:3001',
-});
+// const apiProxy = createProxyMiddleware('/api/*', {
+//   target: 'http://localhost:3001',
+// });
 
 // The Express app is exported so that it can be used by serverless Functions.
 export function app(): express.Express {
   const server = express();
-  server.use(apiProxy);
+  // server.use(apiProxy);
   const distFolder = join(process.cwd(), 'dist/client/browser');
   const indexHtml = existsSync(join(distFolder, 'index.original.html'))
     ? 'index.original.html'
@@ -38,6 +38,13 @@ export function app(): express.Express {
 
   server.set('view engine', 'html');
   server.set('views', distFolder);
+
+  server.use(
+    '/api/**',
+    createProxyMiddleware({
+      target: 'http://localhost:3001',
+    })
+  );
 
   // Example Express Rest API endpoints
   // server.get('/api/**', (req, res) => { });
@@ -57,12 +64,14 @@ export function app(): express.Express {
     });
   });
 
+  // server.get('/api/**', (req, res) => {});
+
   // import different staff
   global['localStorage'] = localStorage;
   global['window'] = mock.getWindow();
 
   //api implemented
-  server.use('/api/*', api);
+  // server.use('/api/*', api);
 
   return server;
 }

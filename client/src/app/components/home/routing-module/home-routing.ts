@@ -18,7 +18,6 @@ import { PrivacyPolicyComponent } from '../pages/documents/privacy-policy/privac
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'category/KAPLA-Bausteine',
     component: ProductsComponent,
   },
   {

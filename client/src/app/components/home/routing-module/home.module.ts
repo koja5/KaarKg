@@ -31,6 +31,10 @@ import { StripeModule } from 'stripe-angular';
 import { RecoveryPasswordComponent } from '../parts/login/recovery-password/recovery-password.component';
 import { MatDialogModule } from '@angular/material/dialog';
 
+import { firstValueFrom, isObservable, Observable } from 'rxjs';
+import { take } from 'rxjs/operators';
+import { CoreModule } from './core.module';
+
 @NgModule({
   declarations: [
     HomeComponent,
@@ -44,7 +48,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     ArticleDetailsComponent,
     HelpComponent,
     SettingsComponent,
-    RecoveryPasswordComponent
+    RecoveryPasswordComponent,
   ],
   imports: [
     CommonModule,
@@ -62,7 +66,8 @@ import { MatDialogModule } from '@angular/material/dialog';
     CheckBoxModule,
     DynamicModule,
     AccordionModule,
-    MatDialogModule
+    MatDialogModule,
+    
   ],
   providers: [],
 })

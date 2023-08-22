@@ -1,13 +1,25 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
+import {
+  Component,
+  Inject,
+  OnInit,
+  PLATFORM_ID,
+  ViewChild,
+} from '@angular/core';
 import { Router } from '@angular/router';
 import { ItemModel, MenuEventArgs } from '@syncfusion/ej2-angular-navigations';
 import { DialogComponent } from '@syncfusion/ej2-angular-popups';
+import { Observable, firstValueFrom, isObservable } from 'rxjs';
+import { AppModule } from 'src/app/app.module';
 import { LoginFormType } from 'src/app/enums/login-form-type';
 import { UserType } from 'src/app/enums/user-type';
+import { CallApiService } from 'src/app/services/call-api.service';
 import { ConfigurationService } from 'src/app/services/configuration.service';
 import { HelpService } from 'src/app/services/help.service';
 import { MessageService } from 'src/app/services/message.service';
 import { StorageService } from 'src/app/services/storage.service';
+import { CoreModule } from './routing-module/core.module';
 
 @Component({
   selector: 'app-home',
@@ -31,26 +43,64 @@ export class HomeComponent implements OnInit {
   public subOfProductInCart = 0;
   public searchInput = '';
   public loginDialogShow = false;
+  public entries: any;
+  public products: any;
+  public testBrowser: boolean;
 
   constructor(
     private router: Router,
     private helpService: HelpService,
     private storageService: StorageService,
     private configurationService: ConfigurationService,
-    private messageService: MessageService
-  ) {}
-
-  ngOnInit(): void {
-    this.getUserInfo();
-    this.initalizeConfigData();
-    this.checkCart();
-    this.checkMessageService();
+    private messageService: MessageService,
+    private http: HttpClient,
+    @Inject(PLATFORM_ID) platformId: string,
+    private hm: CoreModule
+  ) {
+    this.testBrowser = isPlatformBrowser(platformId);
   }
 
+  ngOnInit() {
+    // this.getUserInfo();
+    // this.initalizeConfigData();
+    // this.checkCart();
+    // this.checkMessageService();
+    // this.http.get('https://api.publicapis.org/entries').subscribe((data) => {
+    //   this.products = data;
+    // });
+
+    // this.http
+    //   .get('/api/getAllNewProducts/')
+    //   .pipe()
+    //   .subscribe((products) => {
+    //     this.products = products;
+    //   });
+
+    // this.http
+    //   .get<any>('http://localhost:4200/api/getAllNewProducts/')
+    //   .subscribe((data) => {
+    //     this.products = data;
+    //   });
+
+    // const p = this.http.get<any>(
+    //   'http://localhost:4200/api/getAllNewProducts/'
+    // );
+    // this.products = this.hm.waitFor(p);
+
+    // if (this.testBrowser) {
+    //   this.http
+    //     .get<any>('http://localhost:4200/api/getAllNewProducts/')
+    //     .subscribe((data) => {
+    //       this.products = data;
+    //     });
+    // }
+  }
+
+
   ngAfterViewInit(): void {
-    document.onclick = (args: any): void => {
-      console.log(args.target.className);
-    };
+    // document.onclick = (args: any): void => {
+    //   console.log(args.target.className);
+    // };
   }
 
   checkMessageService() {

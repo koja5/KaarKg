@@ -1,8 +1,10 @@
 import {
   Component,
   ElementRef,
+  Inject,
   Input,
   OnInit,
+  PLATFORM_ID,
   SimpleChanges,
   ViewChild,
 } from '@angular/core';
@@ -13,6 +15,11 @@ import { HelpService } from 'src/app/services/help.service';
 import { StorageService } from 'src/app/services/storage.service';
 import { EmitType } from '@syncfusion/ej2-base';
 import { MessageService } from 'src/app/services/message.service';
+import { HttpClient } from '@angular/common/http';
+import { isPlatformBrowser, isPlatformServer } from '@angular/common';
+import { makeStateKey, TransferState } from '@angular/platform-browser';
+import { Observable, firstValueFrom, isObservable, of, tap } from 'rxjs';
+import { CoreModule } from '../../routing-module/core.module';
 
 @Component({
   selector: 'app-products',
@@ -36,34 +43,50 @@ export class ProductsComponent implements OnInit {
     private storageService: StorageService,
     private helpService: HelpService,
     private messageService: MessageService,
-    private router: Router
+    private router: Router,
+    private http: HttpClient,
+    @Inject(PLATFORM_ID) platformId: string,
+    private hm: CoreModule
   ) {
-    router.events.forEach((event) => {
-      if (event instanceof NavigationEnd) {
+    
+    // this.initialize();
+    this.router.events.forEach(async (event: any) => {
+      if (event.routerEvent) {
         this.initialize();
+        // this.http
+        //   .get<any>('http://localhost:4200/api/getAllNewProducts/')
+        //   .subscribe((data: any) => {
+        //     this.products = data;
+        //     this.loader = false;
+        //   });
       }
     });
   }
 
   ngOnInit(): void {
-    this.language = this.helpService.getLanguageAndCheckFile();
-    this.accountType = this.helpService.getAccountTypeId();
-    this.initialize();
-
-    this.messageService.getSearchValueForProducts().subscribe((message) => {
-      if (message != '') {
-        this.loader = true;
-        this.service
-          .callGetMethod('/api/searchProducts', message)
-          .subscribe((data) => {
-            this.products = data;
-            this.loader = false;
-            this.category = this.language.productResultFor + ' ' + message;
-          });
-      } else {
-        this.initialize();
-      }
-    });
+    // this.http
+    //   .get<any>('http://localhost:4200/api/getAllNewProducts/')
+    //   .subscribe((data: any) => {
+    //     this.products = data;
+    //     this.loader = false;
+    //   });
+    // this.language = this.helpService.getLanguageAndCheckFile();
+    // this.accountType = this.helpService.getAccountTypeId();
+    // this.initialize();
+    // this.messageService.getSearchValueForProducts().subscribe((message) => {
+    //   if (message != '') {
+    //     this.loader = true;
+    //     this.service
+    //       .callGetMethod('/api/searchProducts', message)
+    //       .subscribe((data) => {
+    //         this.products = data;
+    //         this.loader = false;
+    //         this.category = this.language.productResultFor + ' ' + message;
+    //       });
+    //   } else {
+    //     this.initialize();
+    //   }
+    // });
   }
 
   ngAfterViewInit(): void {
@@ -96,12 +119,18 @@ export class ProductsComponent implements OnInit {
 
   public onPreventScroll = (event: any): void => {};
 
-  initialize() {
+  async initialize() {
+    // this.http
+    //   .get<any>('http://localhost:4200/api/getAllNewProducts/')
+    //   .subscribe((data: any) => {
+    //     this.products = data;
+    //     this.loader = false;
+    //   });
     this.loader = true;
     this.category = this.route.snapshot.paramMap.get('category')!;
-    if (!this.language) {
-      this.language = this.helpService.getLanguageAndCheckFile();
-    }
+    // if (!this.language) {
+    //   this.language = this.helpService.getLanguageAndCheckFile();
+    // }
     if (this.storageService.getToken()) {
       if (this.category === this.language.navigationNew) {
         this.service
@@ -146,46 +175,76 @@ export class ProductsComponent implements OnInit {
           });
       }
     } else {
-      if (this.category === this.language.navigationNew) {
-        this.service
-          .callGetMethod('/api/getAllNewProducts/', '')
-          .subscribe((products) => {
-            this.products = products;
-            this.loader = false;
-          });
-      } else if (this.category === this.language.navigationActions) {
-        this.service
-          .callGetMethod('/api/getAllActionsProducts/', '')
-          .subscribe((products) => {
-            this.products = products;
-            this.loader = false;
-          });
-      } else if (this.category === this.language.navigationAllProducts) {
-        this.service
-          .callGetMethod('/api/getAllProducts/', '')
-          .subscribe((products) => {
-            this.products = products;
-            this.loader = false;
-          });
-      } else if (this.category.includes(this.language.routerAll)) {
-        this.service
-          .callGetMethod(
-            'api/getAllProductsForMainCategory',
-            this.category.split('-' + this.language.routerAll)[0]
-          )
-          .subscribe((products) => {
-            this.products = products;
-            this.loader = false;
-          });
-      } else {
-        this.service
-          .callGetMethod('/api/getAllProductsForCategory', this.category!)
-          .subscribe((products) => {
-            this.products = products;
-            this.loader = false;
-          });
-      }
+      const p = this.http.get<any>(
+        'http://localhost:4200/api/getAllNewProducts/'
+      );
+      this.products = this.hm.waitFor(p);
+      // await this.getOrganizations();
+      // if (isPlatformBrowser(this.platformId)) {
+      //   this.http
+      //     .get<any>('http://localhost:4200/api/getAllNewProducts/')
+      //     .subscribe((data: any) => {
+      //       if (isPlatformServer(this.platformId)) {
+      //         this.products = data;
+      //         this.loader = false;
+      //       }
+      //     });
+      // }
+      // if (this.category === this.language.navigationNew) {
+      //   this.service
+      //     .callGetMethod('/api/getAllNewProducts/', '')
+      //     .subscribe((products) => {
+      //       this.products = products;
+      //       this.loader = false;
+      //     });
+      // } else if (this.category === this.language.navigationActions) {
+      //   this.service
+      //     .callGetMethod('/api/getAllActionsProducts/', '')
+      //     .subscribe((products) => {
+      //       this.products = products;
+      //       this.loader = false;
+      //     });
+      // } else if (this.category === this.language.navigationAllProducts) {
+      //   this.service
+      //     .callGetMethod('/api/getAllProducts/', '')
+      //     .subscribe((products) => {
+      //       this.products = products;
+      //       this.loader = false;
+      //     });
+      // } else if (this.category.includes(this.language.routerAll)) {
+      //   this.service
+      //     .callGetMethod(
+      //       'api/getAllProductsForMainCategory',
+      //       this.category.split('-' + this.language.routerAll)[0]
+      //     )
+      //     .subscribe((products) => {
+      //       this.products = products;
+      //       this.loader = false;
+      //     });
+      // } else {
+      //   this.http
+      //     .get('https://api.publicapis.org/entries')
+      //     .subscribe((data) => {
+      //       this.products = data;
+      //     });
+      // }
     }
+  }
+
+  async getOrganizations() {
+    this.products = await this.http
+      .get<any>('http://localhost:4200/api/getAllNewProducts/')
+      .toPromise();
+    // this.organizationList = await this.organizationService
+    //   .getOrganizations()
+    //   .toPromise();
+    // this.organizationList.sort((a, b) =>
+    //   a.orginizationId < b.orginizationId ? 1 : -1
+    // );
+  }
+
+  platformId(platformId: any) {
+    throw new Error('Method not implemented.');
   }
 
   quickViewItem(item: any) {

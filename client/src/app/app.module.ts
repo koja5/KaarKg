@@ -11,6 +11,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { MatIconModule } from '@angular/material/icon';
 import { DynamicModule } from './components/dynamic-component/dynamic-module/dynamic/dynamic.module';
+import { CoreModule } from './components/home/routing-module/core.module';
 
 @NgModule({
   declarations: [AppComponent, ToastrComponent],
@@ -24,7 +25,7 @@ import { DynamicModule } from './components/dynamic-component/dynamic-module/dyn
     MatIconModule,
     DynamicModule,
   ],
-  providers: [ToastrComponent],
+  providers: [ToastrComponent, CoreModule],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

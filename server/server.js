@@ -23,20 +23,20 @@ app.use(express.json());
 
 module.exports = app;
 
-app.use(function (req, res, next) {
-  //allow cross origin requests
-  res.setHeader(
-    "Access-Control-Allow-Methods",
-    "POST, PUT, OPTIONS, DELETE, GET"
-  );
-  res.header("Access-Control-Allow-Origin", "http://localhost:4201");
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept"
-  );
-  res.header("Access-Control-Allow-Credentials", true);
-  next();
-});
+// app.use(function (req, res, next) {
+//   //allow cross origin requests
+//   res.setHeader(
+//     "Access-Control-Allow-Methods",
+//     "POST, PUT, OPTIONS, DELETE, GET"
+//   );
+//   res.header("Access-Control-Allow-Origin", "http://localhost:4201");
+//   res.header(
+//     "Access-Control-Allow-Headers",
+//     "Origin, X-Requested-With, Content-Type, Accept"
+//   );
+//   res.header("Access-Control-Allow-Credentials", true);
+//   next();
+// });
 
 // Parsers for POST data
 app.use(bodyParser.json({ limit: "50mb", extended: true }));
@@ -56,11 +56,11 @@ app.use("/api/mail-server", mailServer);
 app.use("/api/upload", upload);
 app.use("/api/save", fileSystemApi);
 
-app.use(express.static(path.join(__dirname, "../client/dist")));
+// app.use(express.static(path.join(__dirname, "../client/dist")));
 
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "../client/dist/index.html"));
-});
+// app.get("*", (req, res) => {
+//   res.sendFile(path.join(__dirname, "../client/dist/index.html"));
+// });
 
 const port = process.env.PORT || "3001";
 app.set("port", port);
