@@ -2,10 +2,11 @@
     <div class="cookie-message">
         <div>
             {{language.cookieMessage}}
-            <a routerLink="../../document/cookie">{{language.cookieMoreAbout}}</a>
+            <a class="cookie-link" routerLink="../../document/cookie">{{language.cookieMoreAbout}}</a>
         </div>
-        <div class="accept">
+        <div class="option">
             <button class="btn btn-default" (click)="acceptCookie()">{{language.cookieAcceptButton}}</button>
+            <button class="btn btn-default not-accept" (click)="notAcceptCookie()">{{language.cookieNotAcceptButton}}</button>
         </div>
     </div>
 </div>

@@ -24,4 +24,9 @@ export class CookieComponent implements OnInit {
     this.storageService.setCookie('cookie', true);
     this.cookieEmitter.emit();
   }
+
+  notAcceptCookie() {
+    this.storageService.setCookie('cookie', false);
+    this.cookieEmitter.emit();
+  }
 }

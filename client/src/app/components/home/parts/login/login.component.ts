@@ -19,6 +19,7 @@ import { LoginFormType } from 'src/app/enums/login-form-type';
 import { UserType } from 'src/app/enums/user-type';
 import { UserModel } from 'src/app/models/user-model';
 import { CallApiService } from 'src/app/services/call-api.service';
+import { ConfigurationService } from 'src/app/services/configuration.service';
 import { CustomValidationService } from 'src/app/services/custom-validation.service';
 import { HelpService } from 'src/app/services/help.service';
 import { StorageService } from 'src/app/services/storage.service';
@@ -41,6 +42,8 @@ export class LoginComponent implements OnInit {
   public registerForm!: FormGroup;
   public submitted = false;
   public showHidePassword = false;
+  public needVerification = false;
+  public text: any;
 
   constructor(
     private service: CallApiService,
@@ -49,13 +52,15 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private toastr: ToastrComponent,
     private fb: FormBuilder,
-    private customValidator: CustomValidationService
+    private customValidator: CustomValidationService,
+    private configurationService: ConfigurationService
   ) {}
 
   ngOnInit(): void {
     this.language = this.helpService.getLanguage();
-    this.initializeForm();
     this.type = LoginFormType.login;
+    this.initializeForm();
+    this.initializeConfig();
   }
 
   ngAfterViewInit(): void {
@@ -74,7 +79,6 @@ export class LoginComponent implements OnInit {
         lastname: ['', Validators.required],
         email: ['', [Validators.required, Validators.email]],
         confirmEmail: ['', [Validators.required, Validators.email]],
-        telephone: ['', Validators.required],
         password: [
           '',
           Validators.compose([
@@ -96,6 +100,10 @@ export class LoginComponent implements OnInit {
     );
   }
 
+  initializeConfig() {
+    this.text = this.helpService.getCustomText();
+  }
+
   get registerFormControl() {
     return this.registerForm.controls;
   }
@@ -112,11 +120,9 @@ export class LoginComponent implements OnInit {
             ''
           );
         } else if (data.type === 'active') {
-          this.toastr.showErrorCustom(
-            this.language.loginAccountNotActive,
-            ''
-          );
+          this.toastr.showErrorCustom(this.language.loginAccountNotActive, '');
         } else if (data.type === 'verified') {
+          this.needVerification = true;
           this.toastr.showErrorCustom(
             this.language.loginAccountNotVerified,
             ''
@@ -198,6 +204,17 @@ export class LoginComponent implements OnInit {
 
   selectUserType(type: UserType) {
     this.accountType = type;
+    if (this.accountType != this.getUserType().customer) {
+      this.registerForm.addControl(
+        'telephone',
+        new FormControl('', Validators.required)
+      );
+      // this.fb.control({
+      //   telephone: ['', Validators.required],
+      // });
+    } else {
+      this.registerForm.removeControl('telephone');
+    }
   }
 
   getUserType() {
@@ -220,5 +237,18 @@ export class LoginComponent implements OnInit {
 
   containsNumber(value: string) {
     return /[0-9]/.test(value);
+  }
+
+  resentVerificationMail() {
+    this.service
+      .callPostMethod('api/verificationMailAddress', { email: this.user.email })
+      .subscribe((data) => {
+        if (data) {
+          this.toastr.showSuccessCustom(
+            this.language.loginResentMailForVerifyAccount,
+            ''
+          );
+        }
+      });
   }
 }

@@ -27,6 +27,7 @@ export class NavigationComponent implements OnInit {
     this.initialize();
   }
 
+
   ngAfterViewInit(): void {
     document.onclick = (args: any): void => {
       console.log(args.target.className);
@@ -76,5 +77,10 @@ export class NavigationComponent implements OnInit {
       }
     });
     return navigationArray;
+  }
+
+  clickNavigation(item: string) {
+    this.selectNavigationItem = item;
+    this.closeNavigation.emit();
   }
 }

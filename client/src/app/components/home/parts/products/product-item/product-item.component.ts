@@ -53,6 +53,10 @@ export class ProductItemComponent implements OnInit {
     this.helpService.addToCart(this.item);
   }
 
+  addToFavorite() {
+    this.helpService.addToFavorite(this.item);
+  }
+
   showViewCart() {
     if (this.storageService.getToken()) {
       this.router.navigate(['payment']);

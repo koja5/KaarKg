@@ -40,11 +40,11 @@
             <!-- Logo -->
             <tr>
               <td style="text-align:center;">
-                <a href="https://city-info.at" title="logo" target="_blank">
+                <a href="https://city-info.at"  target="_blank">
                   <img
                     width="200"
                     src="http://city-info.at/assets/images/logo-black.png"
-                    title="logo"
+                    
                     alt="logo"
                   />
                 </a>

@@ -38,3 +38,43 @@ function initial(data, file) {
     }
   });
 }
+
+router.get("/readTextFile/:type", async function (req, res, next) {
+  try {
+    fs.readFile(
+      __dirname +
+        "/../../client/src/assets/configurations/custom-text/" +
+        req.params.type,
+      "utf8",
+      function (err, data) {
+        if (err) return err;
+        res.json(JSON.parse(data));
+      }
+    );
+  } catch (ex) {
+    console.log(ex);
+  }
+});
+
+router.post("/saveTextFile", function (req, res, next) {
+  try {
+    initialText(JSON.stringify(req.body.data), req.body.file);
+    res.json(true);
+  } catch (ex) {
+    console.log(ex);
+  }
+});
+
+function initialText(data, file) {
+  fs.writeFile(
+    __dirname + "/../../client/src/assets/configurations/custom-text/" + file,
+    data,
+    (err) => {
+      if (err) {
+        return false;
+      } else {
+        return true;
+      }
+    }
+  );
+}

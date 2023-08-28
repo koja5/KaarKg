@@ -145,6 +145,21 @@ export class HelpService {
     }
   }
 
+  setCustomText(value: any) {
+    localStorage.setItem(
+      'custom-text',
+      typeof value === 'string' ? value : JSON.stringify(value)
+    );
+  }
+
+  getCustomText() {
+    if (localStorage.getItem('custom-text')) {
+      return JSON.parse(localStorage.getItem('custom-text') ?? '{}');
+    } else {
+      return null;
+    }
+  }
+
   postRequestDataParameters(body: any, data: any, parameters: string[]) {
     for (let i = 0; i < parameters.length; i++) {
       body[parameters[i]] = data[parameters[i]];
@@ -209,7 +224,7 @@ export class HelpService {
           // subproducts.splice(j, 1);
         }
       }
-      subproducts = this.spliceArraies(subproducts, indexForSplice);
+      // subproducts = this.spliceArraies(subproducts, indexForSplice);
       if (products[i].id == products[i].category_id) {
         products[i]['subChild'] = items;
         array.push({
@@ -282,14 +297,21 @@ export class HelpService {
     if (currentFavorite.length > 0) {
       for (let i = 0; i < currentFavorite['length']; i++) {
         if (currentFavorite[i]['title'] === item.title) {
-          (currentFavorite as []).splice(i, 1);
+          /*(currentFavorite as []).splice(i, 1);*/
+          currentFavorite[i].quantity++;
           ind = 0;
+          break;
         }
       }
     }
     if (ind) {
       item.description = '';
+      if (item.discount_price && item.discount_price > 0) {
+        item.price = item.discount_price;
+      }
       currentFavorite.push(item);
+      this.storageService.setCookie('cart', JSON.stringify(currentFavorite));
+    } else {
       this.storageService.setCookie('cart', JSON.stringify(currentFavorite));
     }
 
@@ -307,5 +329,9 @@ export class HelpService {
     return `${date.getDate()}.${
       date.getMonth() + 1
     }.${date.getFullYear()}. ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
+  }
+
+  getUserTypeModel() {
+    return UserType;
   }
 }

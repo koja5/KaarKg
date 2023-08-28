@@ -1,2 +1,4 @@
-<button (click)="goBack()" class="btn btn-default"><app-mat-icon [icon]="icon ? icon : 'arrow_back'"></app-mat-icon>
+<div *ngIf="icon === 'logo'" class="mb-3"><img (click)="goBack()" src="../../../../assets/images/logo-black.png"></div>
+<button *ngIf="icon !== 'logo'" (click)="goBack()" class="btn btn-default"><app-mat-icon
+        [icon]="icon ? icon : 'arrow_back'"></app-mat-icon>
     {{title || title == '' ? title : language.paymentGoBack}}</button>

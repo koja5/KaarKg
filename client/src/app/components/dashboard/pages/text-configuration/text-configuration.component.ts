@@ -4,15 +4,15 @@ import { CallApiService } from 'src/app/services/call-api.service';
 import { ConfigurationService } from 'src/app/services/configuration.service';
 
 @Component({
-  selector: 'app-change-password',
-  templateUrl: './change-password.component.html',
-  styleUrls: ['./change-password.component.scss'],
+  selector: 'app-text-configuration',
+  templateUrl: './text-configuration.component.html',
+  styleUrls: ['./text-configuration.component.scss'],
 })
-export class ChangePasswordComponent implements OnInit {
-  public path = '/settings';
-  public file = 'change-password.json';
-  public config: any;
+export class TextConfigurationComponent implements OnInit {
+  public path = '/forms/text-config';
+  public file = 'text-config.json';
   public data: any;
+  public config: any;
 
   constructor(
     private service: CallApiService,
@@ -22,6 +22,7 @@ export class ChangePasswordComponent implements OnInit {
 
   ngOnInit(): void {
     this.initializeConfig();
+    this.initialize();
   }
 
   initializeConfig() {
@@ -32,9 +33,21 @@ export class ChangePasswordComponent implements OnInit {
       });
   }
 
-  saveConfig(event: any) {
+  initialize() {
     this.service
-      .callPostMethod('/api/changePassword', event)
+      .callGetMethod('api/save/readTextFile', this.file)
+      .subscribe((data) => {
+        this.data = data;
+      });
+  }
+
+  saveConfig(event: any) {
+    const body = {
+      data: event,
+      file: this.file,
+    };
+    this.service
+      .callPostMethod('/api/save/saveTextFile/', body)
       .subscribe((data) => {
         if (data) {
           this.toastr.showSuccess();

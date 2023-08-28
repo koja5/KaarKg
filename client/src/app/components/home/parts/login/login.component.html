@@ -13,7 +13,10 @@
                     (click)="showHidePassword ? showHidePassword = false : showHidePassword = true"
                     class="fa fa-{{showHidePassword ? 'eye-slash' : 'eye'}}"></span>
                 <input type="{{!showHidePassword ? 'password': 'text'}}" name="password" [(ngModel)]="user.password">
-                <div class="reset-pass">
+                <div
+                    class="reset-pass display-flex {{needVerification ? 'justify-content-between' : 'justify-content-end'}}">
+                    <a class="resent-verification" *ngIf="needVerification"
+                        (click)="resentVerificationMail()">{{language.loginResentVerificationMail}}</a>
                     <a (click)="changeLoginFormType(loginFormType.forgot)">{{language.loginForgotPasswordButton}}</a>
                 </div>
             </div>
@@ -40,6 +43,11 @@
             <label class="tab {{accountType === getUserType().kindergarden}}"
                 (click)="selectUserType(getUserType().kindergarden)">{{language.loginKindergarden}}</label>
         </div>
+        <div class="free-text"
+            *ngIf="accountType === getUserType().dealer || accountType === getUserType().kindergarden">
+            <label *ngIf="accountType === getUserType().dealer">{{text.dealerFreeText}}</label>
+            <label *ngIf="accountType === getUserType().kindergarden">{{text.kindergardenFreeText}}</label>
+        </div>
         <form [formGroup]="registerForm" class="mb-0">
             <div class="field padding-bottom--24"
                 *ngIf="accountType === getUserType().dealer || accountType === getUserType().kindergarden">
@@ -62,7 +70,7 @@
                     {{language.loginLastnameRequired}}
                 </span>
             </div>
-            <div class="field padding-bottom--24">
+            <div class="field padding-bottom--24" *ngIf="accountType !== getUserType().customer">
                 <label for="text">{{language.loginTelephone}}</label>
                 <input formControlName="telephone">
                 <span class="text-danger"
@@ -72,7 +80,7 @@
             </div>
             <div class="field padding-bottom--24">
                 <label for="email">{{language.loginEmail}}</label>
-                <input name="email" formControlName="email" oncopy="return false" onpaste="return false">
+                <input name="email" formControlName="email">
                 <span class="text-danger"
                     *ngIf="(registerFormControl.email.touched || submitted) && registerFormControl.email.errors?.required">
                     {{language.loginEmailRequired}}
@@ -147,7 +155,15 @@
                 </span>
             </div>
             <div class="field padding-bottom--24">
-                <ejs-checkbox label="{{language.loginNeedToAcceptPrivacy}}" formControlName="privacy"></ejs-checkbox>
+                <ejs-checkbox formControlName="privacy"></ejs-checkbox>
+                <label class="allow-label color-blue ml-2">
+                    {{
+                    language.loginAgreeText }}
+                    <a routerLink="/agb" target="_blank" class="signup-term-link">{{ language.loginTerms
+                        }}</a>
+                    {{ language.and }}
+                    <a routerLink="/datenschutz" target="_blank" class="signup-term-link">{{
+                        language.loginPrivacy }}</a></label>
                 <span class="text-danger"
                     *ngIf="(registerFormControl.privacy.touched || submitted) && registerFormControl.privacy.errors?.required">
                     {{language.loginNeedToAcceptPrivacy}}

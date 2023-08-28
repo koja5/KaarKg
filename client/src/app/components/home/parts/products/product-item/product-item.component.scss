@@ -16,10 +16,10 @@
 
 .not-available {
   position: absolute;
+  top: 50%;
+  left: 35%;
   z-index: 1;
   font-size: 14px;
-  // top: 16vh;
-  // left: 15vh;
 }
 
 .package {
@@ -30,4 +30,8 @@
 
 .product-single-qty {
   max-width: 105px !important;
+}
+
+.label-info {
+  margin: 0px 2px;
 }

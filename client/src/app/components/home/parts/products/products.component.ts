@@ -64,6 +64,10 @@ export class ProductsComponent implements OnInit {
         this.initialize();
       }
     });
+
+    this.messageService.getShowQuickView().subscribe((message) => {
+      this.quickViewItem(message);
+    });
   }
 
   ngAfterViewInit(): void {

@@ -12,6 +12,7 @@ export class MessageService {
   public viewCart = new Subject<null>();
   public refreshCartInformation = new Subject<null>();
   public searchValueForProduct = new Subject<any>();
+  public showQuickView = new Subject<any>();
 
   constructor() {}
 
@@ -69,5 +70,13 @@ export class MessageService {
 
   getSearchValueForProducts() {
     return this.searchValueForProduct.asObservable();
+  }
+
+  sentShowQuickView(value: any) {
+    this.showQuickView.next(value);
+  }
+
+  getShowQuickView() {
+    return this.showQuickView.asObservable();
   }
 }

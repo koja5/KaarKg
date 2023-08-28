@@ -1,12 +1,12 @@
 .cookie {
   position: fixed;
+  display: inline-block;
   left: 0;
   right: 0;
   bottom: 0;
   z-index: 9999;
   color: #fff;
   box-sizing: border-box;
-  display: inline-block;
   width: 100%;
   background-color: #084ea2;
   margin: 0 auto;
@@ -14,15 +14,15 @@
 }
 
 .cookie-message {
-  display: flex;
-  justify-content: space-between;
+  // display: flex;
+  // justify-content: space-between;
   align-items: center;
   max-width: 1650px;
-  padding: 0 10px;
+  padding: 15px 10px 0px 10px;
   margin: 0 auto;
 }
 
-.accept button {
+.option button {
   color: #fff;
   margin: 0;
   text-decoration: none;
@@ -33,4 +33,12 @@
   appearance: none;
   background-color: transparent;
   font-weight: 600;
+}
+
+.option .not-accept {
+  color: #db3737 !important;
+}
+
+.cookie-link {
+  color: var(--contrast);
 }

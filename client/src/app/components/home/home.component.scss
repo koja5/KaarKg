@@ -1,3 +1,14 @@
+@media (max-width: 768px) {
+  .mobile-header {
+    position: fixed;
+    z-index: 100;
+    top: 0px;
+    background: #fff;
+    width: 100%;
+    box-shadow: 0 0 0.5em rgba(0, 0, 0, 0.5);
+  }
+}
+
 body {
   overflow: hidden;
 }
@@ -32,4 +43,8 @@ body {
 
 .dropdown-arrow .badge-circle {
   left: 43px !important;
+}
+
+.header {
+  transition: all 0.25s;
 }

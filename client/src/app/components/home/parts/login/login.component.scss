@@ -96,7 +96,7 @@ label {
   display: block;
 }
 .reset-pass > a {
-  text-align: right;
+  text-align: center;
   margin-bottom: 10px;
 }
 .grid--50-50 {
@@ -244,4 +244,25 @@ button:hover {
   font-size: 17px;
   position: relative;
   cursor: pointer;
+}
+
+.allow-label {
+  display: contents !important;
+  font-size: 14px;
+  display: block;
+  cursor: pointer;
+  display: inline-block;
+  font-family: Segoe UI, GeezaPro, "DejaVu Serif", sans-serif, -apple-system,
+    BlinkMacSystemFont;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  -webkit-user-select: none;
+  user-select: none;
+  vertical-align: middle;
+  white-space: normal;
+}
+
+.resent-verification {
+  color: var(--primary);
 }

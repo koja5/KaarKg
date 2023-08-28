@@ -25,8 +25,8 @@ export class NavigationProductComponent implements OnInit {
   public groupName!: string;
   public pathProduct = '/forms/user';
   public fileProduct = 'create-navigation-product.json';
-  public pathSubproduct = '/forms/user';
-  public fileSubproduct = 'create-navigation-subproduct.json';
+  public pathSubproduct!: string;
+  public fileSubproduct!: string;
   public hierarchicalData: any;
   public field: any;
   public data: any;
@@ -195,5 +195,17 @@ export class NavigationProductComponent implements OnInit {
         },
       },
     ];
+  }
+
+  showDialogSubproduct() {
+    this.pathSubproduct = '/forms/user';
+    this.fileSubproduct = 'create-navigation-subproduct.json';
+    this.dialogSubproduct.show();
+  }
+
+  closeDialogSubproduct() {
+    this.pathSubproduct = '';
+    this.fileSubproduct = '';
+    this.dialogSubproduct.hide();
   }
 }

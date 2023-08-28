@@ -35,6 +35,11 @@
   color: #000;
 }
 
+.product-image img {
+  max-height: 50px;
+  object-fit: contain;
+}
+
 .dropdown-cart-action button {
   width: 100%;
   background: var(--second);
@@ -42,4 +47,10 @@
 
 .dropdown-cart-action button:hover {
   background: var(--second-light);
+}
+
+.add-to-cart {
+  vertical-align: middle;
+  color: #fff;
+  margin-top: 10px;
 }

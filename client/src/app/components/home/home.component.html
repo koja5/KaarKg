@@ -1,6 +1,6 @@
 <body *ngIf="language">
     <div class="page-wrapper">
-        <header class="header">
+        <header class="header {{mobileHeader}}">
             <app-header-top></app-header-top>
             <!-- End .header-top -->
             <div class="sticky-wrapper">
@@ -30,7 +30,7 @@
                                             placeholder="{{language.homeSearchPlaceholder}}"
                                             (input)="onSearchChange($event)">
                                         <!-- End .select-custom -->
-                                        <button class="btn" title="search" type="submit"><mat-icon
+                                        <button class="btn" type="submit"><mat-icon
                                                 class="mt-1">search</mat-icon></button>
                                     </div>
                                     <!-- End .header-search-wrapper -->
@@ -40,7 +40,7 @@
 
                             <div (click)="showFavorite()"
                                 class="header-contact header-wishlist d-lg-flex pr-sm-4 pr-2 ml-2">
-                                <a class="header-icon mr-0" title="wishlist">
+                                <a class="header-icon mr-0">
                                     <app-mat-icon class="home-action-button display-flex"
                                         icon="favorite"></app-mat-icon>
                                 </a>
@@ -52,7 +52,7 @@
                             <div *ngIf="!username"
                                 class="header-contact header-login-mobile d-lg-flex pr-sm-4 mr-lg-5 ml-lg-5 pointer"
                                 (click)="openLoginDialog()">
-                                <a class="header-icon mr-0" title="login">
+                                <a class="header-icon mr-0">
                                     <app-mat-icon class="home-action-button display-flex" icon="person"></app-mat-icon>
                                 </a>
                                 <h6 class="text-capitalize"><span
@@ -65,13 +65,13 @@
                             <div class="cart-dropdown-wrapper d-flex align-items-center pt-2 ml-lg-3 mr-lg-3 pointer"
                                 (click)="showCart()">
                                 <span class="cart-subtotal text-right font2 mr-3">{{language.homeShoppingCart}}
-                                    <span class="cart-price d-block font2">€ {{subOfProductInCart | number: '.2'}}</span>
+                                    <span class="cart-price d-block font2">€ {{subOfProductInCart | number:
+                                        '.2'}}</span>
                                 </span>
 
                                 <div class="header-contact dropdown cart-dropdown">
-                                    <a title="Cart" class="dropdown-arrow cart-toggle" role="button"
-                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-                                        data-display="static">
+                                    <a class="dropdown-arrow cart-toggle" role="button" data-toggle="dropdown"
+                                        aria-haspopup="true" aria-expanded="false" data-display="static">
                                         <app-mat-icon class="home-action-button display-flex"
                                             icon="shopping_bag"></app-mat-icon>
                                         <span class=" cart-count badge-circle">{{numberOfProductInChart}}</span>
@@ -110,9 +110,9 @@
                     <div class="col-lg-9">
                         <!-- <app-products [searchProduct]="searchProduct"></app-products> -->
                         <router-outlet></router-outlet>
-                        <app-footer></app-footer>
                     </div>
 
+                    <app-footer></app-footer>
                 </div>
             </div>
 
@@ -130,7 +130,7 @@
 
     <div class="mobile-menu-overlay"></div>
 
-    <a id="scroll-top" href="#top" title="Top" role="button"><i class="icon-angle-up"></i></a>
+    <a id="scroll-top" href="#top" role="button"><i class="icon-angle-up"></i></a>
 
 
     <!-- DIALOGS -->
@@ -147,10 +147,10 @@
 
 
     <app-right-card *ngIf="type != ''" [rightCard]="rightCard" [type]="type" (needToLoginEmitter)="needToLoginEmitter()"
-        (closeCardEmitter)="closeCard()"></app-right-card>
+        (closeCardEmitter)="closeCard()" (showQuickView)="showQuickView($event)"></app-right-card>
 
     <div class="mobile-navigation row {{mobileNavigation}}">
-        <a (click)="closeNavigation()" title="Close (Esc)" class="btn-close"></a>
+        <a (click)="closeNavigation()" class="btn-close"></a>
 
         <div class="dropdownmenu-wrapper custom-scrollbar">
             <app-navigation (closeNavigation)="closeNavigation()"></app-navigation>

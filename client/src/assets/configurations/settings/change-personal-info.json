@@ -1,23 +1,5 @@
 {
     "class": "margin-auto width-60",
-    "actionButtons": {
-        "class": "text-right p-3",
-        "simpleButtons": [],
-        "dropDownButtons": {
-            "content": "options",
-            "items": [
-                {
-                    "text": "edit",
-                    "id": "edit",
-                    "iconCss": "ddb-icons e-edit"
-                }
-            ]
-        },
-        "splitButtons": {
-            "content": "",
-            "items": []
-        }
-    },
     "request": {
         "type": "GET",
         "api": "/api/getMe/",
@@ -92,6 +74,7 @@
             "class": "e-outline",
             "name": "country_id",
             "title": "countryForSettings",
+            "allowCustom": false,
             "field": {
                 "text": "name",
                 "value": "id"

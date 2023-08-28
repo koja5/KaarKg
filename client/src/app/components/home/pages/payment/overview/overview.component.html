@@ -1,6 +1,6 @@
-<!-- <app-header-top></app-header-top> -->
+<app-header-top></app-header-top>
 <div class="container mt-4">
-    <app-back-button *ngIf="currentStep < 4" [icon]="'home'" [title]="''"></app-back-button>
+    <app-back-button *ngIf="currentStep < 4" [icon]="'logo'" [title]="''"></app-back-button>
     <button *ngIf="currentStep > 0 && currentStep < 3" (click)="previousStep()" class="btn btn-default"><app-mat-icon
             [icon]="'arrow_back'"></app-mat-icon>
         {{language.paymentGoBack}}</button>
@@ -31,17 +31,11 @@
                                 <div class="res-progress-bar"></div>
                                 <div class="res-progress-title">{{language.paymentPaymentOptionStep}}</div>
                             </div>
-                            <div class="res-steps res-step-three {{currentStep === 3 ? 'active': ''}}"
-                                data-class=".res-form-three">
+                            <div class="res-steps res-step-four {{currentStep === 3 ? 'active': ''}}"
+                                data-class=".res-form-four">
                                 <div class="res-step-bar">4</div>
                                 <div class="res-progress-bar"></div>
                                 <div class="res-progress-title">{{language.paymentPreviewBeforePaymentStep}}</div>
-                            </div>
-                            <div class="res-steps res-step-four {{currentStep === 4 ? 'active': ''}}"
-                                data-class=".res-form-four">
-                                <div class="res-step-bar">5</div>
-                                <div class="res-progress-bar"></div>
-                                <div class="res-progress-title">{{language.paymentDoneStep}}</div>
                             </div>
                         </div>
                         <div class="progress-title-mobile">
@@ -49,7 +43,6 @@
                             <h4 *ngIf="currentStep === 1">{{language.paymentShippingAddressStep}}</h4>
                             <h4 *ngIf="currentStep === 2">{{language.paymentPaymentOptionStep}}</h4>
                             <h4 *ngIf="currentStep === 3">{{language.paymentPreviewBeforePaymentStep}}</h4>
-                            <h4 *ngIf="currentStep === 4">{{language.paymentDoneStep}}</h4>
                         </div>
 
                         <div class="clearfix">&nbsp;</div>
@@ -62,62 +55,101 @@
                                 <h2>{{language.cartIsEmptyTitle}}</h2>
 
                                 <h5>{{language.cartIsEmptyText}}</h5>
-                                <button routerLink="../"
+                                <button routerLink="/"
                                     class="btn btn-default">{{language.cartIsEmptyBackToShop}}</button>
                             </div>
+                            <div *ngIf="products && products.length">
+                                <table class="full-width">
+                                    <tr class="header">
+                                        <th class="hidden-xs">
+                                        </th>
+                                        <th>
+                                            {{language.paymentNameOfProduct}}
+                                        </th>
+                                        <th>{{language.paymentQuantity}}</th>
+                                        <th class="hidden-xs">{{language.paymentSinglePrice}}</th>
+                                        <th>{{language.paymentTotalPriceForItem}}</th>
+                                        <th></th>
+                                    </tr>
+                                    <tr *ngFor="let item of products; let i = index">
+                                        <td class="product-image hidden-xs"><img
+                                                src="./assets/images/products/{{item.image}}" alt="product" width="60"
+                                                height="60"></td>
+                                        <td class="product-details">
+                                            <h5 class="product-title m-0">
+                                                <a>{{item.title}}</a>
+                                                <span
+                                                    *ngIf="item.number_of_pieces > 1">({{language.productPackageFirstPart}}
+                                                    {{item.number_of_pieces}}
+                                                    {{language.productPackageLastPart}})</span>
+                                            </h5>
 
-                            <table class="full-width">
-                                <tr class="header">
-                                    <th class="hidden-xs">
-                                    </th>
-                                    <th>
-                                        {{language.paymentNameOfProduct}}
-                                    </th>
-                                    <th>{{language.paymentQuantity}}</th>
-                                    <th class="hidden-xs">{{language.paymentSinglePrice}}</th>
-                                    <th>{{language.paymentTotalPriceForItem}}</th>
-                                </tr>
-                                <tr *ngFor="let item of products; let i = index">
-                                    <td class="product-image hidden-xs"><img
-                                            src="./assets/images/products/{{item.image}}" alt="product" width="60"
-                                            height="60"></td>
-                                    <td class="product-details">
-                                        <h5 class="product-title m-0">
-                                            <a>{{item.title}}</a>
-                                            <span
-                                                *ngIf="item.number_of_pieces > 1">({{language.productPackageFirstPart}}
-                                                {{item.number_of_pieces}} {{language.productPackageLastPart}})</span>
-                                        </h5>
+                                            <span class="cart-product-info">
+                                                <span class="cart-product-qty"></span> {{item.product_number}}
+                                            </span>
+                                        </td>
+                                        <td class="product-single-qty">
+                                            <div class="input-group bootstrap-touchspin bootstrap-touchspin-injected">
+                                                <span class="input-group-btn input-group-prepend"><button
+                                                        class="btn btn-outline btn-down-icon bootstrap-touchspin-down"
+                                                        type="button" (click)="removeQuantity(i)"></button></span><input
+                                                    class="horizontal-quantity form-control" type="number" id="quantity"
+                                                    name="quantity" (change)="changeQuantity(i)" [(ngModel)]="item.quantity" min="1"><span
+                                                    class="input-group-btn input-group-append"><button
+                                                        class="btn btn-outline btn-up-icon bootstrap-touchspin-up"
+                                                        type="button" (click)="addQuantity(i)"></button></span>
+                                            </div>
+                                        </td>
+                                        <td class="hidden-xs">€ {{item.price |
+                                            number:
+                                            '.2'}}</td>
+                                        <td>€
+                                            {{getPricePerItem(item.price, item.quantity)}}</td>
+                                        <td>
+                                            <a (click)="removeCart(i)"
+                                                class="cart-dropdown btn-remove"><span>×</span></a>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <ul class="subtotal border-bottom">
+                                    <li class="item">
+                                        <span class="item-title">{{language.checkoutShipping}}</span>
+                                        <span class="item-price" *ngIf="shipping > 0">€ {{shipping | number:
+                                            '.2'}}</span>
+                                        <span class="item-price"
+                                            *ngIf="shipping === 0 && !shippingNotAvailable">{{language.checkoutShippingFree}}</span>
+                                        <span class="item-price"
+                                            *ngIf="shipping === 0 && shippingNotAvailable">{{language.checkoutShippingNotAvailable}}</span>
+                                    </li>
+                                </ul>
+                                <ul>
+                                    <li class="item" *ngIf="type === 3">
+                                        <span class="item-title">{{language.checkoutSubtotal}}</span>
+                                        <span class="item-price">€ {{subtotalBruto | number: '.2'}}</span>
+                                    </li>
+                                    <li class="item" *ngIf="type < 3">
+                                        <span class="item-title">{{language.checkoutSubtotal}}</span>
+                                        <span class="item-price">€ {{subtotalNeto | number: '.2'}}</span>
+                                    </li>
+                                </ul>
 
-                                        <span class="cart-product-info">
-                                            <span class="cart-product-qty"></span> {{item.product_number}}
-                                        </span>
-                                    </td>
-                                    <td class="product-single-qty">
-                                        <div class="input-group bootstrap-touchspin bootstrap-touchspin-injected">
-                                            <span class="input-group-btn input-group-prepend"><button
-                                                    class="btn btn-outline btn-down-icon bootstrap-touchspin-down"
-                                                    type="button" (click)="removeQuantity(i)"></button></span><input
-                                                class="horizontal-quantity form-control" type="number" id="quantity"
-                                                name="quantity" [(ngModel)]="item.quantity" min="1"><span
-                                                class="input-group-btn input-group-append"><button
-                                                    class="btn btn-outline btn-up-icon bootstrap-touchspin-up"
-                                                    type="button" (click)="addQuantity(i)"></button></span>
-                                        </div>
-                                    </td>
-                                    <td class="hidden-xs">€ {{item.price |
-                                        number:
-                                        '.2'}}</td>
-                                    <td>€
-                                        {{getPricePerItem(item.price, item.quantity)}}</td>
-                                </tr>
-                            </table>
-                            <div class="subtotal display-flex">
-                                <div class="full-width"></div>
-                                <div class="price">{{language.paymentTotal}}: € {{subOfProductInCart | number: '.2'}}
-                                    <span
-                                        *ngIf="type === getUserType().superadmin || type === getUserType().dealer || type === getUserType().kindergarden">{{language.productExcludeVat}}</span>
-                                    <span *ngIf="type === getUserType().customer">{{language.productIncludeVat}}</span>
+                                <ul class="subtotal border-bottom">
+                                    <li class="item">
+                                        <span class="item-title">{{language.invoiceVat}}</span>
+                                        <span class="item-price">€ {{vat}}</span>
+                                    </li>
+                                </ul>
+
+                                <div class="order-footer">
+                                    <ul class="Total">
+                                        <li class="item">
+                                            <span class="item-title">{{language.checkoutTotal}}</span>
+                                            <span class="item-price">€ {{total | number: '.2'}} <span
+                                                    *ngIf="type === getUserType().superadmin || type === getUserType().dealer || type === getUserType().kindergarden">{{language.productExcludeVat}}</span>
+                                                <span
+                                                    *ngIf="type === getUserType().customer">{{language.productIncludeVat}}</span></span>
+                                        </li>
+                                    </ul>
                                 </div>
                             </div>
                         </div>
@@ -147,7 +179,7 @@
                                             (click)="editDialogShippingAddress(item, false)">{{language.paymentEditShippingAddress}}</a>
                                         |
                                         <a
-                                            (click)="deleteShippingAddress(item)">{{language.paymentDeleteShippingAddress}}</a>
+                                            (click)="deleteDialogShippingAddress(item)">{{language.paymentDeleteShippingAddress}}</a>
                                     </div>
                                 </li>
                             </ul>
@@ -192,11 +224,11 @@
                         </div>
 
                         <div class="text-end mt-3">
-                            <button *ngIf="currentStep > 0 && currentStep < 4" class="btn btn-default mr-2"
+                            <button *ngIf="currentStep > 0 && currentStep < 4" class="btn btn-success back-button"
                                 (click)="previousStep()" [disabled]="!shippingAddress.address"><app-mat-icon
                                     [icon]="'navigate_before'"></app-mat-icon>
                                 {{language.paymentPreviousStep}}</button>
-                            <button *ngIf="currentStep < 3 && (products && products.length > 0)" class="btn btn-default"
+                            <button *ngIf="currentStep < 3 && (products && products.length > 0)" class="btn btn-success"
                                 (click)="nextStep()"
                                 [disabled]="(currentStep > 0 && !shippingAddress.address) || !paymentOption">{{language.paymentNextStep}}
                                 <app-mat-icon [icon]="'navigate_next'"></app-mat-icon></button>
@@ -251,3 +283,5 @@
         </form>
     </ng-template>
 </ejs-dialog>
+
+<app-confirm-dialog #confirmDialogComponent (eventEmitter)="deleteShippingAddress($event)"></app-confirm-dialog>

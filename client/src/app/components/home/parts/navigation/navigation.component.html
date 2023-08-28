@@ -6,7 +6,7 @@
             <ul class="menu menu-vertical with-icon sf-arrows d-block no-superfish">
                 <li class="mb-1">
                     <a routerLink="/category/{{language.navigationActions}}"
-                        (click)="selectNavigationItem = language.navigationActions"
+                        (click)="clickNavigation(language.navigationActions)"
                         class="{{selectNavigationItem == language.navigationActions ? 'select' : ''}} p-0"><mat-icon
                             _ngcontent-iux-c37="" role="img" aria-hidden="false"
                             class="mat-icon notranslate material-icons mat-icon-no-color"
@@ -16,7 +16,7 @@
                 </li>
                 <li>
                     <a routerLink="/category/{{language.navigationNew}}"
-                        (click)="selectNavigationItem = language.navigationNew"
+                        (click)="clickNavigation(language.navigationNew)"
                         class="{{selectNavigationItem == language.navigationNew ? 'select' : ''}} p-0"><mat-icon>list_alt</mat-icon>
                         {{language.navigationNew}}</a>
 
@@ -32,11 +32,11 @@
 
                 <li *ngFor="let item of navigations">
                     <a *ngIf="item.subChildren.length === 0 && item.count > 0" routerLink="../../category/{{item.name}}"
-                        (click)="selectNavigationItem = item.name"
+                        (click)="clickNavigation(item.name)"
                         class="{{selectNavigationItem == item.name ? 'select' : ''}}">{{item.name}}
                     </a>
                     <a *ngIf="item.subChildren.length > 0"
-                        (click)="!showChildren ? showChildren = item.name : (showChildren == item.name ? showChildren = '' : showChildren = item.name); selectNavigationItem = item.name"
+                        (click)="!showChildren ? showChildren = item.name : (showChildren == item.name ? showChildren = '' : showChildren = item.name); clickNavigation(item.name)"
                         routerLink="../../category/{{item.name}}-{{language.routerAll}}"
                         class="{{selectNavigationItem == item.name ? 'select' : ''}}">{{item.name}}
                         <mat-icon class="menu-btn"
@@ -49,7 +49,7 @@
 
                     <ul *ngIf="item.subChildren.length > 0" class="children {{showChildren == item.name}}">
                         <li *ngFor="let child of item.subChildren"><a *ngIf="child.count"
-                                routerLink="../../category/{{child.name}}" (click)="selectNavigationItem = child.name"
+                                routerLink="../../category/{{child.name}}" (click)="clickNavigation(child.name)"
                                 class="{{selectNavigationItem == child.name ? 'select' : ''}}">{{child.name}}</a></li>
                     </ul>
                 </li>
@@ -61,15 +61,28 @@
         <nav class="side-nav">
             <ul class="menu menu-vertical main-vertical sf-arrows d-block pb-0 no-superfish">
                 <li>
-                    <a routerLink="../../agb">{{language.navigationTerms}}<mat-icon
+                    <a routerLink="../../ueber-uns" (click)="clickNavigation(language.navigationAboutUs)"
+                        class="{{selectNavigationItem == language.navigationAboutUs ? 'select' : ''}}">{{language.navigationAboutUs}}<mat-icon
                             class="menu-btn">chevron_right</mat-icon></a>
                 </li>
                 <li>
-                    <a routerLink="../../impressum">{{language.navigationImpressum}}<mat-icon
+                    <a routerLink="../../hilfe" (click)="clickNavigation(language.navigationHelp)"
+                        class="{{selectNavigationItem == language.navigationHelp ? 'select' : ''}}">{{language.navigationHelp}}<mat-icon
                             class="menu-btn">chevron_right</mat-icon></a>
                 </li>
                 <li>
-                    <a routerLink="../../datenschutz">{{language.navigationPrivacy}}<mat-icon
+                    <a routerLink="../../agb" (click)="clickNavigation(language.navigationTerms)"
+                        class="{{selectNavigationItem == language.navigationTerms ? 'select' : ''}}">{{language.navigationTerms}}<mat-icon
+                            class="menu-btn">chevron_right</mat-icon></a>
+                </li>
+                <li>
+                    <a routerLink="../../impressum" (click)="clickNavigation(language.navigationImpressum)"
+                        class="{{selectNavigationItem == language.navigationImpressum ? 'select' : ''}}">{{language.navigationImpressum}}<mat-icon
+                            class="menu-btn">chevron_right</mat-icon></a>
+                </li>
+                <li>
+                    <a routerLink="../../datenschutz" (click)="clickNavigation(language.navigationPrivacy)"
+                        class="{{selectNavigationItem == language.navigationPrivacy ? 'select' : ''}}">{{language.navigationPrivacy}}<mat-icon
                             class="menu-btn">chevron_right</mat-icon></a>
                 </li>
             </ul>

@@ -1,18 +1,19 @@
 <div class="cart-overlay {{rightCard}}" (click)="closeCardEmitter.emit()"></div>
 
 <div class=" right-side-card row {{rightCard}}">
-    <a (click)="closeCardEmitter.emit()" title="Close (Esc)" class="btn-close"></a>
+    <a (click)="closeCardEmitter.emit()" class="btn-close"></a>
 
     <div class="dropdownmenu-wrapper custom-scrollbar">
 
         <h3 *ngIf="type === 'favorite'">{{language.homeFavoriteCard}}</h3>
         <h3 *ngIf="type === 'cart'">{{language.homeCartCard}}</h3>
 
-        <div class="dropdown-cart-products" *ngFor="let item of products; let i = index">
+        <div class="dropdown-cart-products mb-2 {{products.length > 1 && type == 'favorite' ? 'border-bottom pb-4' : ''}}"
+            *ngFor="let item of products; let i = index">
             <div class="product">
                 <div class="product-details">
                     <h5 class="product-title">
-                        <a>{{item.title}}</a>
+                        <a (click)="showQuickView.emit(item)">{{item.title}}</a>
                     </h5>
 
                     <span class="cart-product-info">
@@ -30,10 +31,29 @@
                     class="btn-remove"><span>×</span></a>
             </div>
 
+            <div class="text-center">
+                <button *ngIf="type === 'favorite'" (click)="addToCart(item)"
+                    class="btn-sm btn-success add-to-cart"><app-mat-icon icon="shopping_basket"></app-mat-icon>
+                    {{language.productAddToCart}}
+                </button>
+            </div>
+
         </div>
 
         <div *ngIf="type === 'cart'">
-            <div class="dropdown-cart-total">
+
+            <div class="free-text" *ngIf="helpService.getAccountTypeId()">
+                <label><app-mat-icon icon="local_shipping"></app-mat-icon>
+                    <span
+                        *ngIf="helpService.getAccountTypeId() === helpService.getUserTypeModel().customer">{{text.customerCartFreeShipping}}</span>
+                    <span
+                        *ngIf="helpService.getAccountTypeId() === helpService.getUserTypeModel().dealer || helpService.getAccountTypeId() === helpService.getUserTypeModel().superadmin">{{text.dealerCartFreeShipping}}</span>
+                    <span
+                        *ngIf="helpService.getAccountTypeId() === helpService.getUserTypeModel().kindergarden">{{text.kindergardenCartFreeShipping}}</span>
+                </label>
+            </div>
+
+            <div class="dropdown-cart-total border-top">
                 <span>{{language.productSubtotal}}</span>
 
                 <span class="cart-total-price float-right">€ {{subOfProductInCart | number: '.2'}}</span>

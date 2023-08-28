@@ -13,8 +13,11 @@
                     <div class="product-item">
                         <span class='e-badge e-badge-danger not-available'
                             *ngIf="!item.available">{{language.productNotAvailable}}</span>
-                        <span *ngIf="item.new" class='e-badge e-badge-success new-product'
-                            title="{{language.productNew}}">{{language.productNew}}</span>
+                        <span *ngIf="item.discount_price"
+                            class='e-badge e-badge-success label-info'>{{language.productAction}}</span>
+                        <span *ngIf="item.persantage"
+                            class='e-badge e-badge-danger label-info'>{{item.persantage}}%</span>
+                        <span *ngIf="item.new" class='e-badge e-badge-success label-info'>{{language.productNew}}</span>
                         <img class="product-single-image" src="assets/images/products/{{item.image}}" />
                     </div>
                 </div>
@@ -63,13 +66,13 @@
 
                 <div class="price-box" *ngIf="item.discount_price">
                     <span class="old-price">€ {{item.price | number: '.2'}}</span>
-                    <span *ngIf="accountType && accountType === 1" class="product-price">€
+                    <span *ngIf="accountType && accountType === 1" class="product-price discount-price">€
                         {{item.discount_price | number: '.2'}} <span
                             class="vat">{{language.productExcludeVat}}</span></span>
-                    <span *ngIf="accountType && accountType === 2" class="product-price">€
+                    <span *ngIf="accountType && accountType === 2" class="product-price discount-price">€
                         {{item.discount_price | number: '.2'}} <span
                             class="vat">{{language.productExcludeVat}}</span></span>
-                    <span *ngIf="!accountType || accountType === 3" class="product-price">€
+                    <span *ngIf="!accountType || accountType === 3" class="product-price discount-price">€
                         {{item.discount_price |
                         number: '.2'}} <span class="vat">{{language.productIncludeVat}}</span></span>
                 </div>
@@ -106,7 +109,8 @@
                     <li>
                         {{language.productCategory}}:
                         <strong>
-                            <a routerLink="../{{item.name}}" class="product-category">{{item.name}}</a>
+                            <a routerLink="../{{item.name}}" (click)="hideProductItemDialogEvent.emit()"
+                                class="product-category">{{item.name}}</a>
                         </strong>
                     </li>
                 </ul>
@@ -150,32 +154,33 @@
                                     (click)="addQuantity()"></button></span></div>
                     </div>
 
-                    <a *ngIf="item.available" (click)="addToCart()" class="btn btn-primary add-cart mr-2"
-                        title="{{language.productAddToCart}}"><app-mat-icon icon="shopping_basket"
-                            class="pr-2"></app-mat-icon> {{language.productAddToCart}}</a>
+                    <a *ngIf="item.available" (click)="addToCart()" class="btn btn-primary add-cart mr-2"><app-mat-icon
+                            icon="shopping_basket" class="pr-2"></app-mat-icon> {{language.productAddToCart}}</a>
                     <div *ngIf="showViewCartOption" class="text-center">
                         <a (click)="showViewCart()" class="btn view-cart">{{language.productViewCart}}</a>
                     </div>
                 </div><!-- End .product-action -->
 
-                <hr class="divider mb-0 mt-0">
-
+                <div class="border-top text-center">
+                    <a (click)="addToFavorite()" class="btn-icon-wish add-wishlist"><app-mat-icon
+                            icon="favorite"></app-mat-icon> {{language.productAddToFavorite}}</a>
+                </div>
                 <!-- <div class="product-single-share mb-0">
                     <label class="sr-only">Share:</label>
 
                     <div class="social-icons mr-2">
                         <a href="#" class="social-icon social-facebook icon-facebook" target="_blank"
-                            title="Facebook"></a>
-                        <a href="#" class="social-icon social-twitter icon-twitter" target="_blank" title="Twitter"></a>
+                            ></a>
+                        <a href="#" class="social-icon social-twitter icon-twitter" target="_blank" ></a>
                         <a href="#" class="social-icon social-linkedin fab fa-linkedin-in" target="_blank"
-                            title="Linkedin"></a>
+                            ></a>
                         <a href="#" class="social-icon social-gplus fab fa-google-plus-g" target="_blank"
-                            title="Google +"></a>
-                        <a href="#" class="social-icon social-mail icon-mail-alt" target="_blank" title="Mail"></a>
+                            ></a>
+                        <a href="#" class="social-icon social-mail icon-mail-alt" target="_blank" ></a>
                     </div>
 
                     <a href="https://www.portotheme.com/html/porto_ecommerce/ajax/wishlist.html"
-                        class="btn-icon-wish add-wishlist" title="Add to Wishlist"><i
+                        class="btn-icon-wish add-wishlist"><i
                             class="icon-wishlist-2"></i><span>Add to
                             Wishlist</span></a>
                 </div> -->

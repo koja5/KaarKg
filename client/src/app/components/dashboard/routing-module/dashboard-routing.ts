@@ -15,6 +15,7 @@ import { MailApprovedAccountInfoConfigComponent } from '../pages/mail-configurat
 import { MailChangeUserDataConfigComponent } from '../pages/mail-configuration/mail-change-user-data-config/mail-change-user-data-config.component';
 import { MailInvoiceCustomerConfigComponent } from '../pages/mail-configuration/mail-invoice-customer-config/mail-invoice-customer-config.component';
 import { MailInvoiceSuperadminConfigComponent } from '../pages/mail-configuration/mail-invoice-superadmin-config/mail-invoice-superadmin-config.component';
+import { TextConfigurationComponent } from '../pages/text-configuration/text-configuration.component';
 
 const routes: Routes = [
   {
@@ -81,6 +82,10 @@ const routes: Routes = [
   {
     path: 'mail-invoice-superadmin-config',
     component: MailInvoiceSuperadminConfigComponent,
+  },
+  {
+    path: 'text-config',
+    component: TextConfigurationComponent,
   },
 ];
 

@@ -2,7 +2,7 @@ body {
   overflow-x: hidden;
 }
 .payment .res-steps-container .res-steps {
-  width: 20%;
+  width: 25%;
   text-align: center;
   float: left;
   cursor: pointer;
@@ -204,6 +204,8 @@ li {
 
 .product-image img {
   width: 35px;
+  max-height: 50px;
+  object-fit: contain;
 }
 
 .btn-remove {
@@ -216,7 +218,9 @@ li {
 }
 
 .subtotal .price {
-  width: 280px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
   text-align: center;
   border-top: 1px solid lightgray;
   margin-top: 30px;
@@ -239,4 +243,18 @@ li {
 table {
   border-collapse: separate;
   border-spacing: 0 1em;
+}
+
+.back-button {
+  margin-right: 10px;
+}
+
+.btn-remove {
+  display: inherit;
+}
+
+.item {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
 }

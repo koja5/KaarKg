@@ -31,6 +31,17 @@
     ]
   },
   {
+    "title": "Konfigurator",
+    "rights": [],
+    "menu": [
+      {
+        "icon": "admin_panel_settings",
+        "title": "Text",
+        "link": "/dashboard/text-config"
+      }
+    ]
+  },
+  {
     "title": "Mail-Konfigurator",
     "rights": [],
     "menu": [

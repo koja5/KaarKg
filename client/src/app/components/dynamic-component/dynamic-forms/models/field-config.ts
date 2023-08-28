@@ -37,4 +37,5 @@ export class FieldConfig {
   min?: string;
   max?: string;
   parameters?: any[];
+  allowCustom?: boolean;
 }

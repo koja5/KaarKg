@@ -14,4 +14,10 @@ export class ConfigurationService {
   getLanguage(language?: string) {
     return this.http.get('../../assets/configurations/languages/germany.json');
   }
+
+  getCustomText() {
+    return this.http.get(
+      '../../assets/configurations/custom-text/text-config.json'
+    );
+  }
 }

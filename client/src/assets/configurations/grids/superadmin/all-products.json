@@ -2,7 +2,7 @@
     "pageSize": 10,
     "request": {
         "type": "GET",
-        "api": "/api/getAllProducts",
+        "api": "/api/getAllProductsForSuperadmin",
         "parameters": [],
         "fields": "",
         "root": ""
@@ -10,7 +10,8 @@
     "paging": {
         "enable": true,
         "settings": {
-            "pageSize": 10
+            "pageSizes": true,
+            "pageSize": 20
         }
     },
     "sorting": {
@@ -306,15 +307,7 @@
         },
         {
             "type": "numeric",
-            "width": "col-md-6",
-            "class": "e-outline",
-            "name": "price_per_unit",
-            "title": "productPricePerUnit",
-            "field": "price_per_unit"
-        },
-        {
-            "type": "numeric",
-            "width": "col-md-6",
+            "width": "col-md-12",
             "class": "e-outline",
             "name": "number_of_pieces",
             "title": "productNumberOfPieces",
@@ -328,11 +321,12 @@
             "title": "productCategory",
             "field": {
                 "text": "name",
-                "value": "id"
+                "value": "id",
+                "groupBy": "category_name"
             },
             "request": {
                 "type": "GET",
-                "api": "/api/getAllNavigationProducts",
+                "api": "/api/getAllNavigationProductsWithName",
                 "parameters": [],
                 "fields": "",
                 "root": ""
@@ -351,6 +345,14 @@
             "name": "available",
             "title": "productAvailable",
             "field": "available"
+        },
+        {
+            "type": "switch",
+            "width": "col-md-12 pt-2",
+            "class": "e-outline",
+            "name": "visibility",
+            "title": "productVisibility",
+            "field": "visibility"
         },
         {
             "type": "button",

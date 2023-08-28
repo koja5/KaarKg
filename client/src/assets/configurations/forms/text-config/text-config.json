@@ -1,0 +1,65 @@
+{
+    "config": [
+        {
+            "type": "label",
+            "width": "col-md-12 pt-2",
+            "title": "Melden Sie sich an",
+            "text": "Freitext für den Anmeldeteil"
+        },
+        {
+            "type": "textbox",
+            "width": "col-md-6",
+            "class": "e-outline",
+            "name": "dealerFreeText",
+            "title": "superadminDealerFreeText",
+            "field": "dealerFreeText"
+        },
+        {
+            "type": "textbox",
+            "width": "col-md-6",
+            "class": "e-outline",
+            "name": "kindergardenFreeText",
+            "title": "superadminKindergardenFreeText",
+            "field": "kindergardenFreeText"
+        },
+        {
+            "type": "label",
+            "width": "col-md-12 pt-2",
+            "title": "Wagen",
+            "text": "Freitext für Warenkorbinformationen"
+        },
+        {
+            "type": "textbox",
+            "width": "col-md-12",
+            "class": "e-outline",
+            "name": "customerCartFreeShipping",
+            "title": "superadminKindergardenFreeText",
+            "field": "customerCartFreeShipping"
+        },
+        {
+            "type": "textbox",
+            "width": "col-md-12",
+            "class": "e-outline",
+            "name": "dealerCartFreeShipping",
+            "title": "superadminDealerFreeText",
+            "field": "dealerCartFreeShipping"
+        },
+        {
+            "type": "textbox",
+            "width": "col-md-12",
+            "class": "e-outline",
+            "name": "kindergardenCartFreeShipping",
+            "title": "superadminKindergardenFreeText",
+            "field": "kindergardenCartFreeShipping"
+        },
+        {
+            "type": "button",
+            "width": "col-md-12",
+            "class": "e-info button-action",
+            "name": "submit",
+            "title": "navigationCreate",
+            "field": "submitAndPay",
+            "positionClass": "text-right mt-3 col-md-12"
+        }
+    ]
+}

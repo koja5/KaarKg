@@ -5,9 +5,11 @@ import {
   OnInit,
   Output,
   SimpleChanges,
+  ViewChild,
 } from '@angular/core';
 import { Router } from '@angular/router';
 import { loadStripe } from '@stripe/stripe-js';
+import { DialogComponent } from '@syncfusion/ej2-angular-popups';
 import { ToastrComponent } from 'src/app/components/common/toastr/toastr.component';
 import { CallApiService } from 'src/app/services/call-api.service';
 import { HelpService } from 'src/app/services/help.service';
@@ -20,18 +22,21 @@ import { StorageService } from 'src/app/services/storage.service';
   styleUrls: ['./right-card.component.scss'],
 })
 export class RightCardComponent implements OnInit {
+  @ViewChild('quickView') quickView!: DialogComponent;
   @Input() rightCard: any;
   @Input() type: any;
   @Output() needToLoginEmitter = new EventEmitter();
   @Output() closeCardEmitter = new EventEmitter();
+  @Output() showQuickView = new EventEmitter<any>();
 
   public products: any;
   public language: any;
   public subOfProductInCart = 0;
+  public text: any;
 
   constructor(
     private storageService: StorageService,
-    private helpService: HelpService,
+    public helpService: HelpService,
     private service: CallApiService,
     private toastr: ToastrComponent,
     private messageService: MessageService,
@@ -40,6 +45,7 @@ export class RightCardComponent implements OnInit {
 
   ngOnInit(): void {
     this.language = this.helpService.getLanguage();
+    this.text = this.helpService.getCustomText();
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -86,5 +92,11 @@ export class RightCardComponent implements OnInit {
       this.toastr.showInfoCustom('', this.language.paymentNeedToLogin);
       this.needToLoginEmitter.emit();
     }
+  }
+
+  addToCart(item: any) {
+    item.quantity = 1;
+    this.helpService.addToCart(item);
+    this.checkSubtotal();
   }
 }

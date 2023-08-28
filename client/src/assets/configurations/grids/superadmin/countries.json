@@ -10,7 +10,8 @@
     "paging": {
         "enable": true,
         "settings": {
-            "pageSize": 10
+            "pageSizes": true,
+            "pageSize": 20
         }
     },
     "sorting": {

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { ItemModel, MenuEventArgs } from '@syncfusion/ej2-angular-navigations';
 import { DialogComponent } from '@syncfusion/ej2-angular-popups';
@@ -25,12 +25,14 @@ export class HomeComponent implements OnInit {
   public searchProduct!: string;
   public cookieMessage = '';
   public language: any;
+  public text: any;
   public loginFormTitle!: string;
   public listFavorites: any;
   public numberOfProductInChart = 0;
   public subOfProductInCart = 0;
   public searchInput = '';
   public loginDialogShow = false;
+  public mobileHeader = '';
 
   constructor(
     private router: Router,
@@ -51,6 +53,15 @@ export class HomeComponent implements OnInit {
     document.onclick = (args: any): void => {
       console.log(args.target.className);
     };
+  }
+
+  @HostListener('window:scroll', ['$event'])
+  onScroll(event: any) {
+    if (event.srcElement.scrollingElement.scrollTop > 10) {
+      this.mobileHeader = 'mobile-header';
+    } else {
+      this.mobileHeader = '';
+    }
   }
 
   checkMessageService() {
@@ -74,6 +85,12 @@ export class HomeComponent implements OnInit {
       this.loginFormTitle = this.language.loginTitleLogin;
       this.setDashboardProfile();
     });
+
+    this.configurationService.getCustomText().subscribe((data) => {
+      this.text = data;
+      this.helpService.setCustomText(data);
+    });
+
     this.cookieMessage = this.storageService.getCookie('cookie');
   }
 
@@ -87,7 +104,8 @@ export class HomeComponent implements OnInit {
     this.subOfProductInCart = 0;
     this.numberOfProductInChart = products.length;
     for (let i = 0; i < products.length; i++) {
-      this.subOfProductInCart += products[i].price * products[i].quantity;
+      this.subOfProductInCart +=
+        products[i].price * (products[i].quantity ? products[i].quantity : 1);
     }
   }
 
@@ -149,7 +167,7 @@ export class HomeComponent implements OnInit {
     this.storageService.deleteToken();
     this.username = null;
     this.type = null;
-    window.location.reload();
+    window.location.href = '/';
   }
 
   onSearchChange(event: any) {
@@ -188,6 +206,7 @@ export class HomeComponent implements OnInit {
 
   needToLoginEmitter() {
     this.helpService.setSessionStorage('previous', 'checkout');
+    this.loginFormTitle = this.language.loginTitleLogin;
     this.loginDialogShow = true;
     this.loginDialog.show();
   }
@@ -208,5 +227,10 @@ export class HomeComponent implements OnInit {
 
   closeNavigation() {
     this.mobileNavigation = '';
+  }
+
+  showQuickView(event: any) {
+    this.closeCard();
+    this.messageService.sentShowQuickView(event);
   }
 }
