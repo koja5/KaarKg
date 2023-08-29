@@ -15,7 +15,7 @@
       },
       {
         "icon": "public",
-        "title": "L채nder",
+        "title": "Länder",
         "link": "/dashboard/countries"
       },
       {
@@ -31,12 +31,12 @@
     ]
   },
   {
-    "title": "Konfigurator",
+    "title": "Text-Konfigurator",
     "rights": [],
     "menu": [
       {
         "icon": "admin_panel_settings",
-        "title": "Text",
+        "title": "Texte",
         "link": "/dashboard/text-config"
       }
     ]
@@ -47,52 +47,52 @@
     "menu": [
       {
         "icon": "mail",
-        "title": "Verify",
+        "title": "E-Mail Kunde",
         "link": "/dashboard/mail-verify-config"
       },
       {
         "icon": "mail",
-        "title": "Verify kindergarden",
+        "title": "E-Mail KIGA/Schule",
         "link": "/dashboard/mail-verify-kindergarden-config"
       },
       {
         "icon": "mail",
-        "title": "Verify dealer",
+        "title": "E-Mail Händler",
         "link": "/dashboard/mail-verify-dealer-config"
       },
       {
         "icon": "mail",
-        "title": "Approve kindergarden",
+        "title": "Freigabe KIGA/Schule",
         "link": "/dashboard/mail-approve-kindergarden-config"
       },
       {
         "icon": "mail",
-        "title": "Approve dealer",
+        "title": "Freigabe Händler",
         "link": "/dashboard/mail-approve-dealer-config"
       },
       {
         "icon": "mail",
-        "title": "Approved account info",
+        "title": "Freigabe Nachricht",
         "link": "/dashboard/mail-approved-account-info-config"
       },
       {
         "icon": "mail",
-        "title": "Reset password",
+        "title": "Passwort zurücksetzen",
         "link": "/dashboard/mail-reset-password-config"
       },
       {
         "icon": "mail",
-        "title": "Change user data",
+        "title": "Kundendaten geändert",
         "link": "/dashboard/mail-change-user-data-config"
       },
       {
         "icon": "mail",
-        "title": "Invoice customer",
+        "title": "Bestellbestätigung",
         "link": "/dashboard/mail-invoice-customer-config"
       },
       {
         "icon": "mail",
-        "title": "Invoice superadmin",
+        "title": "Bestellung Kaar",
         "link": "/dashboard/mail-invoice-superadmin-config"
       }
     ]
