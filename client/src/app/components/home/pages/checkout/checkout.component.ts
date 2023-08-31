@@ -37,19 +37,19 @@ export class CheckoutComponent implements OnInit {
   public countries: any;
   public shippingPrices: any;
   public paymentOption: any;
+  public additionalPay: any = {};
 
   constructor(
-    private helpService: HelpService,
+    public helpService: HelpService,
     private storageService: StorageService,
     private service: CallApiService
   ) {}
 
   ngOnInit(): void {
     this.language = this.helpService.getLanguage();
-    // this.products = this.storageService.getCookieObject('cart');
+    this.setNetoAndBrutoPrice();
     this.type = this.helpService.getAccountTypeId();
     this.getCountries();
-    this.getShippingPrices();
     this.shippingAddress =
       this.storageService.getLocalStorageObject('shipping');
     this.paymentOption =
@@ -65,17 +65,12 @@ export class CheckoutComponent implements OnInit {
       });
   }
 
-  calculateProducts() {
-    this.getSubtotalWithShipping();
-    this.getTotal();
-  }
-
   setNetoAndBrutoPrice() {
-    if (this.type === 3) {
+    this.products = this.storageService.getCookieObject('cart');
+    if (this.type === this.helpService.getUserTypeModel().customer) {
       for (let i = 0; i < this.products.length; i++) {
         this.products[i].bruto = this.products[i].price;
         this.products[i].neto = Number(this.products[i].price / 1.2).toFixed(2);
-        // products[i].bruto = products[i].price;
         this.products[i].vat = '20%';
       }
     } else {
@@ -94,37 +89,6 @@ export class CheckoutComponent implements OnInit {
     }
   }
 
-  getSubtotal() {
-    this.subtotalNeto = 0;
-    this.subtotalBruto = 0;
-    this.subtotalNetoForProduct = 0;
-    for (let i = 0; i < this.products.length; i++) {
-      this.subtotalNeto += Number(
-        this.products[i].neto * this.products[i].quantity
-      );
-      this.subtotalBruto += Number(
-        this.products[i].bruto * this.products[i].quantity
-      );
-      this.subtotalNetoForProduct += Number(
-        this.products[i].neto * this.products[i].quantity
-      );
-    }
-  }
-
-  getSubtotalWithShipping() {
-    this.subtotalNeto += this.shipping;
-    this.subtotalBruto += this.shipping;
-    this.vat = Number(this.subtotalNeto * 0.2).toFixed(2);
-  }
-
-  getTotal() {
-    if (this.type === 3) {
-      this.total = Number(this.subtotalBruto * 1.2).toFixed(2);
-    } else {
-      this.total = Number(this.subtotalNeto * 1.2).toFixed(2);
-    }
-  }
-
   pay(orderDate: any) {
     if (!orderDate) {
       orderDate = this.helpService.getCurrentDatetime();
@@ -134,11 +98,11 @@ export class CheckoutComponent implements OnInit {
       mainAddress: this.mainAddress,
       language: this.helpService.getLanguage(),
       products: this.products,
-      subtotalNeto: this.subtotalNeto,
-      total: this.total,
-      vat: this.vat,
-      shipping: this.shipping,
-      shippingNotAvailable: this.shippingNotAvailable,
+      subtotalNeto: this.additionalPay['subtotalNeto'],
+      total: this.additionalPay['total'],
+      vat: this.additionalPay['vat'],
+      shipping: this.additionalPay['shipping'],
+      shippingNotAvailable: this.additionalPay['shippingNotAvailable'],
       paymentOption: this.paymentOption,
       orderDate: orderDate,
     };
@@ -168,68 +132,6 @@ export class CheckoutComponent implements OnInit {
       this.service.callGetMethod('/api/getCountries', '').subscribe((data) => {
         this.countries = data;
       });
-    }
-  }
-
-  getShippingPrices() {
-    if (!this.shippingPrices) {
-      this.service
-        .callGetMethod('/api/getShippingPrices', '')
-        .subscribe((data) => {
-          this.shippingPrices = data;
-          this.calculateShippingPrice();
-        });
-    } else {
-      this.calculateShippingPrice();
-    }
-  }
-
-  calculateShippingPrice() {
-    this.products = this.storageService.getCookieObject('cart');
-    this.setNetoAndBrutoPrice();
-    this.getSubtotal();
-    let ind = 1;
-    for (let i = 0; i < this.shippingPrices.length; i++) {
-      if (
-        this.shippingAddress.country_id === this.shippingPrices[i].country_id
-      ) {
-        ind = 0;
-        this.shipping =
-          this.subtotalNetoForProduct <
-          this.getShippingLimitForUserType(this.shippingPrices[i])
-            ? this.getShippingPriceForUserType(this.shippingPrices[i])
-            : 0;
-        break;
-      }
-    }
-    if (ind) {
-      this.shipping = 0;
-      this.shippingNotAvailable = true;
-    }
-    this.calculateProducts();
-  }
-
-  getShippingPriceForUserType(data: any) {
-    const type = this.helpService.getAccountTypeId();
-    switch (type) {
-      case UserType.dealer:
-        return data.dealer_price;
-      case UserType.kindergarden:
-        return data.kindergarden_price;
-      default:
-        return data.customer_price;
-    }
-  }
-
-  getShippingLimitForUserType(data: any) {
-    const type = this.helpService.getAccountTypeId();
-    switch (type) {
-      case UserType.dealer:
-        return Number(data.dealer_limit);
-      case UserType.kindergarden:
-        return Number(data.kindergarden_limit);
-      default:
-        return Number(data.customer_limit);
     }
   }
 
@@ -275,5 +177,9 @@ export class CheckoutComponent implements OnInit {
 
   getPricePerItem(price: number, quantity: number) {
     return Number(price * quantity).toFixed(2);
+  }
+
+  emitProperty(event: any) {
+    this.additionalPay[event.name] = event.value;
   }
 }

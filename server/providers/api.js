@@ -393,7 +393,7 @@ router.post("/createNavigationProduct", auth, async function (req, res, next) {
         return res.json(err);
       }
       conn.query(
-        "insert into navigation_products set ?",
+        "insert into navigations set ?",
         req.body,
         async function (err) {
           conn.release();
@@ -420,7 +420,7 @@ router.post("/updateNavigationProduct", auth, async function (req, res, next) {
         return res.json(err);
       }
       conn.query(
-        "update navigation_products set ? where id = ?",
+        "update navigations set ? where id = ?",
         [req.body, req.body.id],
         async function (err) {
           conn.release();
@@ -447,7 +447,7 @@ router.post("/deleteNavigationProduct", auth, function (req, res, next) {
         res.json(err);
       }
       conn.query(
-        "delete from navigation_products where id = ?",
+        "delete from navigations where id = ?",
         [req.body.id],
         function (err, rows) {
           conn.release();
@@ -474,7 +474,7 @@ router.get("/getAllNavigationProducts", async (req, res, next) => {
         res.json(err);
       } else {
         conn.query(
-          "select t.id, t.name, t.category_id, COUNT(t.title) as 'count' from (select n3.id, n3.name, n3.id as 'category_id', p1.title from navigation_products n3 left join products p1 on p1.category_id = n3.id where n3.category_id = 0 or n3.category_id is NULL union select n2.*, p.title from navigation_products n1 join navigation_products n2 on n1.id = n2.category_id left join products p on p.category_id = n2.id) as t group by t.id, t.name, t.category_id",
+          "select t.id, t.name, t.category_id, COUNT(t.title) as 'count' from (select n3.id, n3.name, n3.id as 'category_id', p1.title from navigations n3 left join articles p1 on p1.category_id = n3.id where n3.category_id = 0 or n3.category_id is NULL union select n2.*, p.title from navigations n1 join navigations n2 on n1.id = n2.category_id left join articles p on p.category_id = n2.id) as t group by t.id, t.name, t.category_id",
           function (err, rows, fields) {
             conn.release();
             if (err) {
@@ -501,7 +501,7 @@ router.get("/getAllNavigationProductsWithName", async (req, res, next) => {
         res.json(err);
       } else {
         conn.query(
-          "select u.id, u.name, u.category_id, n4.name as 'category_name' from (select t.id, t.name, t.category_id, COUNT(t.title) as 'count' from (select n3.id, n3.name, n3.id as 'category_id', p1.title from navigation_products n3 left join products p1 on p1.category_id = n3.id where n3.category_id = 0 or n3.category_id is NULL union select n2.*, p.title from navigation_products n1 join navigation_products n2 on n1.id = n2.category_id left join products p on p.category_id = n2.id) as t group by t.id, t.name, t.category_id) u join navigation_products n4 on u.category_id = n4.id",
+          "select u.id, u.name, u.category_id, n4.name as 'category_name' from (select t.id, t.name, t.category_id, COUNT(t.title) as 'count' from (select n3.id, n3.name, n3.id as 'category_id', p1.title from navigations n3 left join articles p1 on p1.category_id = n3.id where n3.category_id = 0 or n3.category_id is NULL union select n2.*, p.title from navigations n1 join navigations n2 on n1.id = n2.category_id left join articles p on p.category_id = n2.id) as t group by t.id, t.name, t.category_id) u join navigations n4 on u.category_id = n4.id",
           function (err, rows, fields) {
             conn.release();
             if (err) {
@@ -678,7 +678,7 @@ router.get("/getAllProductsForSuperadmin", auth, async (req, res, next) => {
         res.json(err);
       } else {
         conn.query(
-          "select p.*, np.name as 'category_name' from products p join navigation_products np on p.category_id = np.id",
+          "select p.*, np.name as 'category_name' from articles p join navigations np on p.category_id = np.id",
           function (err, rows, fields) {
             conn.release();
             if (err) {
@@ -759,7 +759,7 @@ router.get(
           res.json(err);
         } else {
           conn.query(
-            "select * from navigation_products where name like '%" +
+            "select * from navigations where name like '%" +
               req.params.category +
               "%'",
             function (err, rows, fields) {
@@ -769,7 +769,7 @@ router.get(
                 res.json(err);
               } else {
                 conn.query(
-                  "select * from navigation_products where category_id = ?",
+                  "select * from navigations where category_id = ?",
                   rows[0].id,
                   function (err, categories, fields) {
                     categories.push(rows[0]);
@@ -815,7 +815,7 @@ router.get(
           res.json(err);
         } else {
           conn.query(
-            "select * from navigation_products where name like '%" +
+            "select * from navigations where name like '%" +
               req.params.category +
               "%'",
             function (err, rows, fields) {
@@ -825,7 +825,7 @@ router.get(
                 res.json(err);
               } else {
                 conn.query(
-                  "select * from navigation_products where category_id = ?",
+                  "select * from navigations where category_id = ?",
                   rows[0].id,
                   function (err, categories, fields) {
                     categories.push(rows[0]);
@@ -1019,7 +1019,7 @@ router.get("/getProductById/:id", async (req, res, next) => {
         res.json(err);
       } else {
         conn.query(
-          "select * from products where id = ?",
+          "select * from articles where id = ?",
           req.params.id,
           function (err, rows, fields) {
             conn.release();
@@ -1103,7 +1103,7 @@ router.post("/createProduct", auth, async function (req, res, next) {
         logger.log("error", err.sql + ". " + err.sqlMessage);
         return res.json(false);
       }
-      conn.query("insert into products set ?", req.body, async function (err) {
+      conn.query("insert into articles set ?", req.body, async function (err) {
         conn.release();
         if (err) {
           logger.log("error", err.sql + ". " + err.sqlMessage);
@@ -1145,7 +1145,7 @@ router.post("/updateProduct", auth, function (req, res, next) {
       }
 
       conn.query(
-        "update products SET ? where id = ?",
+        "update articles SET ? where id = ?",
         [req.body, req.body.id],
         function (err, rows) {
           conn.release();
@@ -1172,7 +1172,7 @@ router.post("/deleteProduct", auth, function (req, res, next) {
         res.json(err);
       }
       conn.query(
-        "delete from products where id = ?",
+        "delete from articles where id = ?",
         [req.body.id],
         function (err, rows) {
           conn.release();
@@ -1864,21 +1864,21 @@ function searchProductByAccountType(userType, category) {
   let query = "";
   if (userType === 0 || userType === 1) {
     query =
-      "select p.id, p.category_id, p.product_number, p.title, p.description, p.price_dealer as 'price', p.image, p.available, np.name, case when p.discount_price_dealer then CAST((((p.price_dealer - p.discount_price_dealer)/p.price_dealer) * 100) as DECIMAL(16,2)) else 0 end as 'persantage', case when new_product_until_date > CAST(CURRENT_TIMESTAMP AS DATE) then 1 else 0 end as 'new', case when discount_date_from <= CAST(CURRENT_TIMESTAMP AS DATE) and discount_date_to >= CAST(CURRENT_TIMESTAMP AS DATE) then discount_price_dealer else 0 end as 'discount_price' from products p join navigation_products np on p.category_id = np.id where p.title like '%" +
+      "select p.id, p.category_id, p.product_number, p.title, p.description, p.price_dealer as 'price', p.image, p.available, np.name, case when p.discount_price_dealer then CAST((((p.price_dealer - p.discount_price_dealer)/p.price_dealer) * 100) as DECIMAL(16,2)) else 0 end as 'persantage', case when new_product_until_date > CAST(CURRENT_TIMESTAMP AS DATE) then 1 else 0 end as 'new', case when discount_date_from <= CAST(CURRENT_TIMESTAMP AS DATE) and discount_date_to >= CAST(CURRENT_TIMESTAMP AS DATE) then discount_price_dealer else 0 end as 'discount_price' from articles p join navigations np on p.category_id = np.id where p.title like '%" +
       category +
       "%' or p.product_number like '" +
       category +
       "%'";
   } else if (userType === 2) {
     query =
-      "select p.id, p.category_id, p.product_number, p.title, p.description, p.price_kindergarden as 'price', p.image, p.available, np.name, case when p.discount_price_kindergarden then CAST((((p.price_kindergarden - p.discount_price_kindergarden)/p.price_kindergarden) * 100) as DECIMAL(16,0)) else 0 end as 'persantage', case when new_product_until_date > CAST(CURRENT_TIMESTAMP AS DATE) then 1 else 0 end as 'new', case when discount_date_from <= CAST(CURRENT_TIMESTAMP AS DATE) and discount_date_to >= CAST(CURRENT_TIMESTAMP AS DATE) then discount_price_kindergarden else 0 end as 'discount_price'  from products p join navigation_products np on p.category_id = np.id where p.title like '%" +
+      "select p.id, p.category_id, p.product_number, p.title, p.description, p.price_kindergarden as 'price', p.image, p.available, np.name, case when p.discount_price_kindergarden then CAST((((p.price_kindergarden - p.discount_price_kindergarden)/p.price_kindergarden) * 100) as DECIMAL(16,0)) else 0 end as 'persantage', case when new_product_until_date > CAST(CURRENT_TIMESTAMP AS DATE) then 1 else 0 end as 'new', case when discount_date_from <= CAST(CURRENT_TIMESTAMP AS DATE) and discount_date_to >= CAST(CURRENT_TIMESTAMP AS DATE) then discount_price_kindergarden else 0 end as 'discount_price'  from articles p join navigations np on p.category_id = np.id where p.title like '%" +
       category +
       "%' or p.product_number like '" +
       category +
       "%'";
   } else if (userType === 3 || !userType) {
     query =
-      "select p.id, p.category_id, p.product_number, p.title, p.description, p.price, p.image, p.available, np.name, case when p.discount_price then CAST((((p.price - p.discount_price)/p.price) * 100) as DECIMAL(16,0)) else 0 end as 'persantage', case when new_product_until_date > CAST(CURRENT_TIMESTAMP AS DATE) then 1 else 0 end as 'new', case when discount_date_from <= CAST(CURRENT_TIMESTAMP AS DATE) and discount_date_to >= CAST(CURRENT_TIMESTAMP AS DATE) then discount_price else 0 end as 'discount_price' from products p join navigation_products np on p.category_id = np.id where p.title like '%" +
+      "select p.id, p.category_id, p.product_number, p.title, p.description, p.price, p.image, p.available, np.name, case when p.discount_price then CAST((((p.price - p.discount_price)/p.price) * 100) as DECIMAL(16,0)) else 0 end as 'persantage', case when new_product_until_date > CAST(CURRENT_TIMESTAMP AS DATE) then 1 else 0 end as 'new', case when discount_date_from <= CAST(CURRENT_TIMESTAMP AS DATE) and discount_date_to >= CAST(CURRENT_TIMESTAMP AS DATE) then discount_price else 0 end as 'discount_price' from articles p join navigations np on p.category_id = np.id where p.title like '%" +
       category +
       "%' or p.product_number like '" +
       category +
@@ -1891,13 +1891,13 @@ function getProductsByAccountType(userType) {
   let query = "";
   if (userType === 0 || userType === 1) {
     query =
-      "select p.id, p.category_id, p.product_number, p.title, p.description, p.price_dealer as 'price', p.image, p.available, np.name, case when p.discount_price_dealer then CAST((((p.price_dealer - p.discount_price_dealer)/p.price_dealer) * 100) as DECIMAL(16,0)) else 0 end as 'persantage', case when new_product_until_date > CAST(CURRENT_TIMESTAMP AS DATE) then 1 else 0 end as 'new', case when discount_date_from <= CAST(CURRENT_TIMESTAMP AS DATE) and discount_date_to >= CAST(CURRENT_TIMESTAMP AS DATE) then discount_price_dealer else 0 end as 'discount_price' from products p join navigation_products np on p.category_id = np.id";
+      "select p.id, p.category_id, p.product_number, p.title, p.description, p.price_dealer as 'price', p.image, p.available, p.number_of_pieces, np.name, case when p.discount_price_dealer then CAST((((p.price_dealer - p.discount_price_dealer)/p.price_dealer) * 100) as DECIMAL(16,0)) else 0 end as 'persantage', case when new_product_until_date > CAST(CURRENT_TIMESTAMP AS DATE) then 1 else 0 end as 'new', case when discount_date_from <= CAST(CURRENT_TIMESTAMP AS DATE) and discount_date_to >= CAST(CURRENT_TIMESTAMP AS DATE) then discount_price_dealer else 0 end as 'discount_price' from articles p join navigations np on p.category_id = np.id";
   } else if (userType === 2) {
     query =
-      "select p.id, p.category_id, p.product_number, p.title, p.description, p.price_kindergarden as 'price', p.image, p.available, np.name, case when p.discount_price_kindergarden then CAST((((p.price_kindergarden - p.discount_price_kindergarden)/p.price_kindergarden) * 100) as DECIMAL(16,0)) else 0 end as 'persantage', case when new_product_until_date > CAST(CURRENT_TIMESTAMP AS DATE) then 1 else 0 end as 'new', case when discount_date_from <= CAST(CURRENT_TIMESTAMP AS DATE) and discount_date_to >= CAST(CURRENT_TIMESTAMP AS DATE) then discount_price_kindergarden else 0 end as 'discount_price'  from products p join navigation_products np on p.category_id = np.id";
+      "select p.id, p.category_id, p.product_number, p.title, p.description, p.price_kindergarden as 'price', p.image, p.available, np.name, case when p.discount_price_kindergarden then CAST((((p.price_kindergarden - p.discount_price_kindergarden)/p.price_kindergarden) * 100) as DECIMAL(16,0)) else 0 end as 'persantage', case when new_product_until_date > CAST(CURRENT_TIMESTAMP AS DATE) then 1 else 0 end as 'new', case when discount_date_from <= CAST(CURRENT_TIMESTAMP AS DATE) and discount_date_to >= CAST(CURRENT_TIMESTAMP AS DATE) then discount_price_kindergarden else 0 end as 'discount_price'  from articles p join navigations np on p.category_id = np.id";
   } else if (userType === 3 || !userType) {
     query =
-      "select p.id, p.category_id, p.product_number, p.title, p.description, p.price, p.image, p.available, np.name, case when p.discount_price then ((p.price - p.discount_price)/p.price) * 100 else 0 end as 'persantage', case when new_product_until_date > CAST(CURRENT_TIMESTAMP AS DATE) then 1 else 0 end as 'new', case when discount_date_from <= CAST(CURRENT_TIMESTAMP AS DATE) and discount_date_to >= CAST(CURRENT_TIMESTAMP AS DATE) then discount_price else 0 end as 'discount_price' from products p join navigation_products np on p.category_id = np.id";
+      "select p.id, p.category_id, p.product_number, p.title, p.description, p.price, p.image, p.available, np.name, case when p.discount_price then ((p.price - p.discount_price)/p.price) * 100 else 0 end as 'persantage', case when new_product_until_date > CAST(CURRENT_TIMESTAMP AS DATE) then 1 else 0 end as 'new', case when discount_date_from <= CAST(CURRENT_TIMESTAMP AS DATE) and discount_date_to >= CAST(CURRENT_TIMESTAMP AS DATE) then discount_price else 0 end as 'discount_price' from articles p join navigations np on p.category_id = np.id";
   }
   return query;
 }
@@ -1906,13 +1906,13 @@ function getProductsByAccountTypeForDifferentCategory(userType) {
   let query = "";
   if (userType === 0 || userType === 1) {
     query =
-      "select p.id, p.category_id, p.product_number, p.title, p.description, p.price_dealer as 'price', p.number_of_pieces, p.image, p.available, np.name, case when p.discount_price_dealer then CAST((((p.price_dealer - p.discount_price_dealer)/p.price_dealer) * 100) as DECIMAL(16,0)) else 0 end as 'persantage', case when new_product_until_date > CAST(CURRENT_TIMESTAMP AS DATE) then 1 else 0 end as 'new', case when discount_date_from <= CAST(CURRENT_TIMESTAMP AS DATE) and discount_date_to >= CAST(CURRENT_TIMESTAMP AS DATE) then discount_price_dealer else 0 end as 'discount_price' from products p join navigation_products np on p.category_id = np.id where np.name like ? and p.visibility = 1";
+      "select p.id, p.category_id, p.product_number, p.title, p.description, p.price_dealer as 'price', p.number_of_pieces, p.image, p.available, np.name, case when p.discount_price_dealer then CAST((((p.price_dealer - p.discount_price_dealer)/p.price_dealer) * 100) as DECIMAL(16,0)) else 0 end as 'persantage', case when new_product_until_date > CAST(CURRENT_TIMESTAMP AS DATE) then 1 else 0 end as 'new', case when discount_date_from <= CAST(CURRENT_TIMESTAMP AS DATE) and discount_date_to >= CAST(CURRENT_TIMESTAMP AS DATE) then discount_price_dealer else 0 end as 'discount_price' from articles p join navigations np on p.category_id = np.id where np.name like ? and p.visibility = 1";
   } else if (userType === 2) {
     query =
-      "select p.id, p.category_id, p.product_number, p.title, p.description, p.price_kindergarden as 'price', p.image, p.available, np.name, case when p.discount_price_kindergarden then CAST((((p.price_kindergarden - p.discount_price_kindergarden)/p.price_kindergarden) * 100) as DECIMAL(16,0)) else 0 end as 'persantage', case when new_product_until_date > CAST(CURRENT_TIMESTAMP AS DATE) then 1 else 0 end as 'new', case when discount_date_from <= CAST(CURRENT_TIMESTAMP AS DATE) and discount_date_to >= CAST(CURRENT_TIMESTAMP AS DATE) then discount_price_kindergarden else 0 end as 'discount_price'  from products p join navigation_products np on p.category_id = np.id where np.name like ? and p.visibility = 1";
+      "select p.id, p.category_id, p.product_number, p.title, p.description, p.price_kindergarden as 'price', p.image, p.available, np.name, case when p.discount_price_kindergarden then CAST((((p.price_kindergarden - p.discount_price_kindergarden)/p.price_kindergarden) * 100) as DECIMAL(16,0)) else 0 end as 'persantage', case when new_product_until_date > CAST(CURRENT_TIMESTAMP AS DATE) then 1 else 0 end as 'new', case when discount_date_from <= CAST(CURRENT_TIMESTAMP AS DATE) and discount_date_to >= CAST(CURRENT_TIMESTAMP AS DATE) then discount_price_kindergarden else 0 end as 'discount_price'  from articles p join navigations np on p.category_id = np.id where np.name like ? and p.visibility = 1";
   } else if (userType === 3 || !userType) {
     query =
-      "select p.id, p.category_id, p.product_number, p.title, p.description, p.price, p.image, p.available, np.name, case when p.discount_price then CAST((((p.price - p.discount_price)/p.price) * 100) as DECIMAL(16,0)) else 0 end as 'persantage', case when new_product_until_date > CAST(CURRENT_TIMESTAMP AS DATE) then 1 else 0 end as 'new', case when discount_date_from <= CAST(CURRENT_TIMESTAMP AS DATE) and discount_date_to >= CAST(CURRENT_TIMESTAMP AS DATE) then discount_price else 0 end as 'discount_price' from products p join navigation_products np on p.category_id = np.id where np.name like ? and p.visibility = 1";
+      "select p.id, p.category_id, p.product_number, p.title, p.description, p.price, p.image, p.available, np.name, case when p.discount_price then CAST((((p.price - p.discount_price)/p.price) * 100) as DECIMAL(16,0)) else 0 end as 'persantage', case when new_product_until_date > CAST(CURRENT_TIMESTAMP AS DATE) then 1 else 0 end as 'new', case when discount_date_from <= CAST(CURRENT_TIMESTAMP AS DATE) and discount_date_to >= CAST(CURRENT_TIMESTAMP AS DATE) then discount_price else 0 end as 'discount_price' from articles p join navigations np on p.category_id = np.id where np.name like ? and p.visibility = 1";
   }
   return query;
 }
@@ -1930,17 +1930,17 @@ function getProductsByAccountTypeForMainCategory(userType, categories) {
   }
   if (userType === 0 || userType === 1) {
     query =
-      "select p.id, p.category_id, p.product_number, p.title, p.description, p.price_dealer as 'price', p.number_of_pieces, p.image, p.available, case when p.discount_price_dealer then CAST((((p.price_dealer - p.discount_price_dealer)/p.price_dealer) * 100) as DECIMAL(16,0)) else 0 end as 'persantage', case when new_product_until_date > CAST(CURRENT_TIMESTAMP AS DATE) then 1 else 0 end as 'new', case when discount_date_from <= CAST(CURRENT_TIMESTAMP AS DATE) and discount_date_to >= CAST(CURRENT_TIMESTAMP AS DATE) then discount_price_dealer else 0 end as 'discount_price' from products p where " +
+      "select p.id, p.category_id, p.product_number, p.title, p.description, p.price_dealer as 'price', p.number_of_pieces, p.image, p.available, case when p.discount_price_dealer then CAST((((p.price_dealer - p.discount_price_dealer)/p.price_dealer) * 100) as DECIMAL(16,0)) else 0 end as 'persantage', case when new_product_until_date > CAST(CURRENT_TIMESTAMP AS DATE) then 1 else 0 end as 'new', case when discount_date_from <= CAST(CURRENT_TIMESTAMP AS DATE) and discount_date_to >= CAST(CURRENT_TIMESTAMP AS DATE) then discount_price_dealer else 0 end as 'discount_price', n.name from articles p join navigations n on p.category_id = n.id where " +
       condition +
       " and p.visibility = 1";
   } else if (userType === 2) {
     query =
-      "select p.id, p.category_id, p.product_number, p.title, p.description, p.price_kindergarden as 'price', p.image, p.available, case when p.discount_price_kindergarden then CAST((((p.price_kindergarden - p.discount_price_kindergarden)/p.price_kindergarden) * 100) as DECIMAL(16,0)) else 0 end as 'persantage', case when new_product_until_date > CAST(CURRENT_TIMESTAMP AS DATE) then 1 else 0 end as 'new', case when discount_date_from <= CAST(CURRENT_TIMESTAMP AS DATE) and discount_date_to >= CAST(CURRENT_TIMESTAMP AS DATE) then discount_price_kindergarden else 0 end as 'discount_price' from products p where " +
+      "select p.id, p.category_id, p.product_number, p.title, p.description, p.price_kindergarden as 'price', p.image, p.available, case when p.discount_price_kindergarden then CAST((((p.price_kindergarden - p.discount_price_kindergarden)/p.price_kindergarden) * 100) as DECIMAL(16,0)) else 0 end as 'persantage', case when new_product_until_date > CAST(CURRENT_TIMESTAMP AS DATE) then 1 else 0 end as 'new', case when discount_date_from <= CAST(CURRENT_TIMESTAMP AS DATE) and discount_date_to >= CAST(CURRENT_TIMESTAMP AS DATE) then discount_price_kindergarden else 0 end as 'discount_price', n.name from articles p join navigations n on p.category_id = n.id where " +
       condition +
       " and p.visibility = 1";
   } else if (userType === 3 || !userType) {
     query =
-      "select p.id, p.category_id, p.product_number, p.title, p.description, p.price, p.image, p.available, case when p.discount_price then CAST((((p.price - p.discount_price)/p.price) * 100) as DECIMAL(16,0)) else 0 end as 'persantage', case when new_product_until_date > CAST(CURRENT_TIMESTAMP AS DATE) then 1 else 0 end as 'new', case when discount_date_from <= CAST(CURRENT_TIMESTAMP AS DATE) and discount_date_to >= CAST(CURRENT_TIMESTAMP AS DATE) then discount_price else 0 end as 'discount_price' from products p where " +
+      "select p.id, p.category_id, p.product_number, p.title, p.description, p.price, p.image, p.available, case when p.discount_price then CAST((((p.price - p.discount_price)/p.price) * 100) as DECIMAL(16,0)) else 0 end as 'persantage', case when new_product_until_date > CAST(CURRENT_TIMESTAMP AS DATE) then 1 else 0 end as 'new', case when discount_date_from <= CAST(CURRENT_TIMESTAMP AS DATE) and discount_date_to >= CAST(CURRENT_TIMESTAMP AS DATE) then discount_price else 0 end as 'discount_price', n.name from articles p join navigations n on p.category_id = n.id where " +
       condition +
       " and p.visibility = 1";
   }

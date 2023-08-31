@@ -61,17 +61,21 @@
                             <div *ngIf="products && products.length">
                                 <table class="full-width">
                                     <tr class="header">
+                                        <th></th>
                                         <th class="hidden-xs">
                                         </th>
                                         <th>
                                             {{language.paymentNameOfProduct}}
                                         </th>
                                         <th>{{language.paymentQuantity}}</th>
-                                        <th class="hidden-xs">{{language.paymentSinglePrice}}</th>
-                                        <th>{{language.paymentTotalPriceForItem}}</th>
-                                        <th></th>
+                                        <th class="hidden-xs text-end">{{language.paymentSinglePrice}}</th>
+                                        <th class="text-end">{{language.paymentTotalPriceForItem}}</th>
                                     </tr>
                                     <tr *ngFor="let item of products; let i = index">
+                                        <td>
+                                            <a (click)="removeCart(i)"
+                                                class="cart-dropdown btn-remove"><span>×</span></a>
+                                        </td>
                                         <td class="product-image hidden-xs"><img
                                                 src="./assets/images/products/{{item.image}}" alt="product" width="60"
                                                 height="60"></td>
@@ -94,63 +98,23 @@
                                                         class="btn btn-outline btn-down-icon bootstrap-touchspin-down"
                                                         type="button" (click)="removeQuantity(i)"></button></span><input
                                                     class="horizontal-quantity form-control" type="number" id="quantity"
-                                                    name="quantity" (change)="changeQuantity(i)" [(ngModel)]="item.quantity" min="1"><span
+                                                    name="quantity" (change)="changeQuantity(i)"
+                                                    [(ngModel)]="item.quantity" min="1"><span
                                                     class="input-group-btn input-group-append"><button
                                                         class="btn btn-outline btn-up-icon bootstrap-touchspin-up"
                                                         type="button" (click)="addQuantity(i)"></button></span>
                                             </div>
                                         </td>
-                                        <td class="hidden-xs">€ {{item.price |
+                                        <td class="hidden-xs text-end">€ {{item.price |
                                             number:
                                             '.2'}}</td>
-                                        <td>€
+                                        <td class="text-end">€
                                             {{getPricePerItem(item.price, item.quantity)}}</td>
-                                        <td>
-                                            <a (click)="removeCart(i)"
-                                                class="cart-dropdown btn-remove"><span>×</span></a>
-                                        </td>
+
                                     </tr>
                                 </table>
-                                <ul class="subtotal border-bottom">
-                                    <li class="item">
-                                        <span class="item-title">{{language.checkoutShipping}}</span>
-                                        <span class="item-price" *ngIf="shipping > 0">€ {{shipping | number:
-                                            '.2'}}</span>
-                                        <span class="item-price"
-                                            *ngIf="shipping === 0 && !shippingNotAvailable">{{language.checkoutShippingFree}}</span>
-                                        <span class="item-price"
-                                            *ngIf="shipping === 0 && shippingNotAvailable">{{language.checkoutShippingNotAvailable}}</span>
-                                    </li>
-                                </ul>
-                                <ul>
-                                    <li class="item" *ngIf="type === 3">
-                                        <span class="item-title">{{language.checkoutSubtotal}}</span>
-                                        <span class="item-price">€ {{subtotalBruto | number: '.2'}}</span>
-                                    </li>
-                                    <li class="item" *ngIf="type < 3">
-                                        <span class="item-title">{{language.checkoutSubtotal}}</span>
-                                        <span class="item-price">€ {{subtotalNeto | number: '.2'}}</span>
-                                    </li>
-                                </ul>
-
-                                <ul class="subtotal border-bottom">
-                                    <li class="item">
-                                        <span class="item-title">{{language.invoiceVat}}</span>
-                                        <span class="item-price">€ {{vat}}</span>
-                                    </li>
-                                </ul>
-
-                                <div class="order-footer">
-                                    <ul class="Total">
-                                        <li class="item">
-                                            <span class="item-title">{{language.checkoutTotal}}</span>
-                                            <span class="item-price">€ {{total | number: '.2'}} <span
-                                                    *ngIf="type === getUserType().superadmin || type === getUserType().dealer || type === getUserType().kindergarden">{{language.productExcludeVat}}</span>
-                                                <span
-                                                    *ngIf="type === getUserType().customer">{{language.productIncludeVat}}</span></span>
-                                        </li>
-                                    </ul>
-                                </div>
+                                
+                                <app-payment-additional-amount></app-payment-additional-amount>
                             </div>
                         </div>
 

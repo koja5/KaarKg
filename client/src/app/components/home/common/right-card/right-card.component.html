@@ -8,7 +8,10 @@
         <h3 *ngIf="type === 'favorite'">{{language.homeFavoriteCard}}</h3>
         <h3 *ngIf="type === 'cart'">{{language.homeCartCard}}</h3>
 
-        <div class="dropdown-cart-products mb-2 {{products.length > 1 && type == 'favorite' ? 'border-bottom pb-4' : ''}}"
+        <p *ngIf="type === 'cart' && (!products || !products.length)">{{language.productNothingInCart}}</p>
+        <p *ngIf="type === 'favorite' && (!products || !products.length)">{{language.productNothingInFavorite}}</p>
+
+        <div class="dropdown-cart-products mb-2 {{products.length > 1 ? 'border-bottom pb-4' : ''}}"
             *ngFor="let item of products; let i = index">
             <div class="product">
                 <div class="product-details">
@@ -36,16 +39,31 @@
                     class="btn-sm btn-success add-to-cart"><app-mat-icon icon="shopping_basket"></app-mat-icon>
                     {{language.productAddToCart}}
                 </button>
+                <div *ngIf="type === 'cart'" class="product-single-qty pt-4">
+                    <div class="input-group bootstrap-touchspin bootstrap-touchspin-injected">
+                        <span class="input-group-btn input-group-prepend"><button
+                                class="btn btn-outline btn-down-icon bootstrap-touchspin-down" type="button"
+                                (click)="removeQuantity(i)"></button></span><input
+                            class="horizontal-quantity form-control" type="number" id="quantity" name="quantity"
+                            (change)="changeQuantity(i)" [(ngModel)]="item.quantity" min="1"><span
+                            class="input-group-btn input-group-append"><button
+                                class="btn btn-outline btn-up-icon bootstrap-touchspin-up" type="button"
+                                (click)="addQuantity(i)"></button></span>
+                    </div>
+                </div>
+
+                <div *ngIf="type === 'cart'" class="total-price-per-item font-bold text-end">
+                    € {{getPricePerItem(item.price, item.quantity)}}</div>
             </div>
 
         </div>
 
         <div *ngIf="type === 'cart'">
 
-            <div class="free-text" *ngIf="helpService.getAccountTypeId()">
+            <div class="free-text">
                 <label><app-mat-icon icon="local_shipping"></app-mat-icon>
                     <span
-                        *ngIf="helpService.getAccountTypeId() === helpService.getUserTypeModel().customer">{{text.customerCartFreeShipping}}</span>
+                        *ngIf="helpService.getAccountTypeId() === false || helpService.getAccountTypeId() === helpService.getUserTypeModel().customer">{{text.customerCartFreeShipping}}</span>
                     <span
                         *ngIf="helpService.getAccountTypeId() === helpService.getUserTypeModel().dealer || helpService.getAccountTypeId() === helpService.getUserTypeModel().superadmin">{{text.dealerCartFreeShipping}}</span>
                     <span
@@ -53,11 +71,22 @@
                 </label>
             </div>
 
-            <div class="dropdown-cart-total border-top">
+            <!--
+            <div class="dropdown-cart border-top">
                 <span>{{language.productSubtotal}}</span>
 
                 <span class="cart-total-price float-right">€ {{subOfProductInCart | number: '.2'}}</span>
             </div>
+
+            <div *ngIf="helpService.getAccountTypeId() !== helpService.getUserTypeModel().customer"
+                class="dropdown-cart">
+                <span>{{language.productSubtotal}}</span>
+
+                <span class="cart-total-price float-right">€ {{subOfProductInCart | number: '.2'}}</span>
+            </div> -->
+
+
+            <app-payment-additional-amount *ngIf="products && products.length"></app-payment-additional-amount>
 
             <div class="dropdown-cart-action">
                 <!-- <a href="cart.html" class="btn btn-gray btn-block view-cart">View

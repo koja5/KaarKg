@@ -13,6 +13,7 @@ export class MessageService {
   public refreshCartInformation = new Subject<null>();
   public searchValueForProduct = new Subject<any>();
   public showQuickView = new Subject<any>();
+  public refreshForAdditionalPaymentPrice = new Subject<null>();
 
   constructor() {}
 
@@ -78,5 +79,13 @@ export class MessageService {
 
   getShowQuickView() {
     return this.showQuickView.asObservable();
+  }
+
+  sentRefreshForAdditionaPaymentPrice() {
+    this.refreshForAdditionalPaymentPrice.next(null);
+  }
+
+  getRefreshForAdditionaPaymentPrice() {
+    return this.refreshForAdditionalPaymentPrice.asObservable();
   }
 }

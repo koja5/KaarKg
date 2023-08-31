@@ -1,0 +1,38 @@
+<ul class="subtotal border-bottom pb-4">
+    <li class="item">
+        <span class="item-title">{{language.checkoutShipping}}</span>
+        <span class="item-price" *ngIf="shipping > 0">€ {{shipping | number: '.2'}}</span>
+        <span class="item-price"
+            *ngIf="shipping === 0 && !shippingNotAvailable">{{language.checkoutShippingFree}}</span>
+        <span class="item-price"
+            *ngIf="shipping === 0 && shippingNotAvailable">{{language.checkoutShippingNotAvailable}}</span>
+    </li>
+</ul>
+<div *ngIf="helpService.getAccountTypeId() !== helpService.getUserTypeModel().customer">
+    <ul>
+        <!-- <li class="item" *ngIf="type === helpService.getUserTypeModel().customer">
+            <span class="item-title">{{language.checkoutSubtotal}}</span>
+            <span class="item-price">€ {{subtotalBruto | number: '.2'}}</span>
+        </li> -->
+        <li class="item">
+            <span class="item-title">{{language.checkoutSubtotal}}</span>
+            <span class="item-price">€ {{subtotalNeto | number: '.2'}}</span>
+        </li>
+    </ul>
+
+    <ul class="subtotal border-bottom pb-4">
+        <li class="item">
+            <span class="item-title">{{language.invoiceVat}}</span>
+            <span class="item-price">€ {{vat}}</span>
+        </li>
+    </ul>
+</div>
+
+<div class="order-footer">
+    <ul class="Total">
+        <li class="item">
+            <span class="item-title">{{language.checkoutTotal}}</span>
+            <span class="item-price">€ {{total | number: '.2'}}</span>
+        </li>
+    </ul>
+</div>

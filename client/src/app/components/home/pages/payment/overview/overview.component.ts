@@ -45,7 +45,7 @@ export class OverviewComponent implements OnInit {
 
   constructor(
     private service: CallApiService,
-    private helpService: HelpService,
+    public helpService: HelpService,
     private storageService: StorageService,
     private router: Router,
     private toastr: ToastrComponent,
@@ -82,7 +82,7 @@ export class OverviewComponent implements OnInit {
 
     this.service.callGetMethod('/api/getMyShippingAddress', '').subscribe(
       (data: any) => {
-        this.getShippingPrices();
+        // this.getShippingPrices();
         this.user = data[0];
         this.selectShippingAddress(this.user, true);
       },
@@ -263,16 +263,12 @@ export class OverviewComponent implements OnInit {
       '',
       this.language.productSuccessfulyRemoveArticleFromCart
     );
-    this.getSubtotal();
     this.messageService.sentRefreshCartInformation();
+    this.messageService.sentRefreshForAdditionaPaymentPrice();
   }
 
   addQuantity(index: number) {
     this.products[index].quantity += 1;
-    this.getSubtotal();
-    this.checkShipping();
-    this.getSubtotalWithShipping();
-    this.getTotal();
     this.helpService.addNewQuantityToCart(
       this.products[index],
       this.products[index].quantity
@@ -280,10 +276,6 @@ export class OverviewComponent implements OnInit {
   }
 
   changeQuantity(index: number) {
-    this.getSubtotal();
-    this.checkShipping();
-    this.getSubtotalWithShipping();
-    this.getTotal();
     this.helpService.addNewQuantityToCart(
       this.products[index],
       this.products[index].quantity
@@ -293,10 +285,6 @@ export class OverviewComponent implements OnInit {
   removeQuantity(index: number) {
     if (this.products[index].quantity > 1) {
       this.products[index].quantity -= 1;
-      this.getSubtotal();
-      this.checkShipping();
-      this.getSubtotalWithShipping();
-      this.getTotal();
       this.helpService.addNewQuantityToCart(
         this.products[index],
         this.products[index].quantity
@@ -311,129 +299,5 @@ export class OverviewComponent implements OnInit {
 
   getPricePerItem(price: number, quantity: number) {
     return Number(price * quantity).toFixed(2);
-  }
-
-  getShippingPrices() {
-    if (!this.shippingPrices) {
-      this.service
-        .callGetMethod('/api/getShippingPrices', '')
-        .subscribe((data) => {
-          this.shippingPrices = data;
-          this.calculateShippingPrice();
-        });
-    } else {
-      this.calculateShippingPrice();
-    }
-  }
-
-  calculateShippingPrice() {
-    this.products = this.storageService.getCookieObject('cart');
-    this.setNetoAndBrutoPrice();
-    this.getSubtotal();
-    this.checkShipping();
-    this.calculateProducts();
-  }
-
-  checkShipping() {
-    let ind = 1;
-    for (let i = 0; i < this.shippingPrices.length; i++) {
-      if (this.user.country_id === this.shippingPrices[i].country_id) {
-        ind = 0;
-        this.shipping =
-          this.subtotalNetoForProduct <
-          this.getShippingLimitForUserType(this.shippingPrices[i])
-            ? this.getShippingPriceForUserType(this.shippingPrices[i])
-            : 0;
-        break;
-      }
-    }
-    if (ind) {
-      this.shipping = 0;
-      this.shippingNotAvailable = true;
-    }
-  }
-
-  setNetoAndBrutoPrice() {
-    if (this.type === 3) {
-      for (let i = 0; i < this.products.length; i++) {
-        this.products[i].bruto = this.products[i].price;
-        this.products[i].neto = Number(this.products[i].price / 1.2).toFixed(2);
-        // products[i].bruto = products[i].price;
-        this.products[i].vat = '20%';
-      }
-    } else {
-      for (let i = 0; i < this.products.length; i++) {
-        this.products[i].neto = this.products[i].price;
-        this.products[i].bruto = Number(this.products[i].price * 1.2).toFixed(
-          2
-        );
-        this.products[i].vat = '20%';
-        if (this.products[i].number_of_pieces > 1) {
-          this.products[i].title =
-            this.products[i].title +
-            ` (${this.language.productPackageFirstPart} ${this.products[i].number_of_pieces} ${this.language.productPackageLastPart})`;
-        }
-      }
-    }
-  }
-
-  getSubtotal() {
-    this.subtotalNeto = 0;
-    this.subtotalBruto = 0;
-    this.subtotalNetoForProduct = 0;
-    for (let i = 0; i < this.products.length; i++) {
-      this.subtotalNeto += Number(
-        this.products[i].neto * this.products[i].quantity
-      );
-      this.subtotalBruto += Number(
-        this.products[i].bruto * this.products[i].quantity
-      );
-      this.subtotalNetoForProduct += Number(
-        this.products[i].neto * this.products[i].quantity
-      );
-    }
-  }
-
-  getShippingLimitForUserType(data: any) {
-    const type = this.helpService.getAccountTypeId();
-    switch (type) {
-      case UserType.dealer:
-        return Number(data.dealer_limit);
-      case UserType.kindergarden:
-        return Number(data.kindergarden_limit);
-      default:
-        return Number(data.customer_limit);
-    }
-  }
-
-  getShippingPriceForUserType(data: any) {
-    const type = this.helpService.getAccountTypeId();
-    switch (type) {
-      case UserType.dealer:
-        return data.dealer_price;
-      case UserType.kindergarden:
-        return data.kindergarden_price;
-      default:
-        return data.customer_price;
-    }
-  }
-
-  calculateProducts() {
-    this.getSubtotalWithShipping();
-    this.getTotal();
-  }
-
-  getSubtotalWithShipping() {
-    this.subtotalNeto += this.shipping;
-    this.subtotalBruto += this.shipping;
-    this.vat = Number(this.subtotalNeto * 0.2).toFixed(2);
-  }
-
-  getTotal() {
-    if (this.type === 3) {
-      this.total = Number(this.subtotalBruto * 1.2).toFixed(2);
-    } else {
-      this.total = Number(this.subtotalNeto * 1.2).toFixed(2);
-    }
   }
 }

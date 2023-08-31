@@ -86,7 +86,7 @@
     "productVisibility": "Sichtweite",
     "productSave": "Speichern",
     "productAddToCart": "In den Warenkorb",
-    "productAddToFavorite": "zu den Favoriten hinzufügen",
+    "productAddToFavorite": "zur Wunschliste hinzufügen",
     "productViewCart": "Warenkorb anzeigen",
     "productNoAvailable": "Für diese Kategorie ist kein Produkt verfügbar!",
     "productQuickView": "Schnellansicht",
@@ -118,6 +118,8 @@
     "productPackageLastPart": "Stk.",
     "productPricePerUnit": "Preis pro Einheit",
     "productNumberOfPieces": "Stückzahl, Anzahl der Stücke",
+    "productNothingInCart": "Sie haben nichts in Ihrem Warenkorb",
+    "productNothingInFavorite": "Sie haben nichts in Ihrer Favoritenliste",
     "homeSearchPlaceholder": "Suchen…",
     "homeFavorites": "Favoriten",
     "homeWishlist": "Wunschliste",
@@ -297,6 +299,6 @@
     "mailSignatureEmail": "Kaar Zeile 4",
     "mailSignatureTelephone": "Kaar Zeile 5",
     "mailSignatureFreeText": "Footer - Text",
-    "superadminDealerFreeText": "Freitext zur Händleranmeldung",
-    "superadminKindergardenFreeText": "Freitext zur Kindergartenanmeldung"
+    "superadminDealerFreeText": "Freier Text für Händleranmeldung",
+    "superadminKindergardenFreeText": "Infotext für Versandkosten Kindergartenanmeldung"
 }

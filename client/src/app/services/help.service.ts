@@ -289,6 +289,8 @@ export class HelpService {
     }
 
     this.storageService.setCookie('cart', JSON.stringify(current));
+
+    this.messageService.sentRefreshForAdditionaPaymentPrice();
   }
 
   addToCart(item: any) {

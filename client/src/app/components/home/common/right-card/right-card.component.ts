@@ -31,7 +31,6 @@ export class RightCardComponent implements OnInit {
 
   public products: any;
   public language: any;
-  public subOfProductInCart = 0;
   public text: any;
 
   constructor(
@@ -48,22 +47,17 @@ export class RightCardComponent implements OnInit {
     this.text = this.helpService.getCustomText();
   }
 
+  
+
   ngOnChanges(changes: SimpleChanges) {
     if (this.type === 'favorite') {
       this.products = this.storageService.getCookieObject('favorite');
     } else if (this.type === 'cart') {
       this.products = this.storageService.getCookieObject('cart');
-      this.checkSubtotal();
     }
   }
 
-  checkSubtotal() {
-    this.subOfProductInCart = 0;
-    for (let i = 0; i < this.products.length; i++) {
-      this.subOfProductInCart += this.products[i].price;
-    }
-  }
-
+  
   removeFavorite(index: number) {
     this.products.splice(index, 1);
     this.storageService.setCookieObject('favorite', this.products);
@@ -80,7 +74,6 @@ export class RightCardComponent implements OnInit {
       '',
       this.language.productSuccessfulyRemoveArticleFromCart
     );
-    this.checkSubtotal();
     this.messageService.sentRefreshCartInformation();
   }
 
@@ -97,6 +90,35 @@ export class RightCardComponent implements OnInit {
   addToCart(item: any) {
     item.quantity = 1;
     this.helpService.addToCart(item);
-    this.checkSubtotal();
   }
+
+  addQuantity(index: number) {
+    this.products[index].quantity += 1;
+    this.helpService.addNewQuantityToCart(
+      this.products[index],
+      this.products[index].quantity
+    );
+  }
+
+  changeQuantity(index: number) {
+    this.helpService.addNewQuantityToCart(
+      this.products[index],
+      this.products[index].quantity
+    );
+  }
+
+  removeQuantity(index: number) {
+    if (this.products[index].quantity > 1) {
+      this.products[index].quantity -= 1;
+      this.helpService.addNewQuantityToCart(
+        this.products[index],
+        this.products[index].quantity
+      );
+    }
+  }
+
+  getPricePerItem(price: number, quantity: number) {
+    return Number(price * quantity).toFixed(2);
+  }
+
 }
