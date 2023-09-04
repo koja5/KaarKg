@@ -51,7 +51,12 @@ export class HomeComponent implements OnInit {
 
   ngAfterViewInit(): void {
     document.onclick = (args: any): void => {
-      console.log(args.target.className);
+      if (args.target.className.indexOf('cart-overlay') !== -1 || args.target.className.indexOf('e-dlg-overlay') !== -1) {
+        this.messageService.sentHideDialog();
+        this.closeLoginDialog();
+        this.closeCard();
+        this.searchInput = '';
+      }
     };
   }
 

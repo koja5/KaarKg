@@ -57,7 +57,7 @@
             "width": "col-md-12",
             "class": "e-info button-action",
             "name": "submit",
-            "title": "navigationCreate",
+            "title": "generalSave",
             "field": "submitAndPay",
             "positionClass": "text-right mt-3 col-md-12"
         }

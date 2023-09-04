@@ -189,7 +189,7 @@
 
                         <div class="text-end mt-3">
                             <button *ngIf="currentStep > 0 && currentStep < 4" class="btn btn-success back-button"
-                                (click)="previousStep()" [disabled]="!shippingAddress.address"><app-mat-icon
+                                (click)="previousStep()"><app-mat-icon
                                     [icon]="'navigate_before'"></app-mat-icon>
                                 {{language.paymentPreviousStep}}</button>
                             <button *ngIf="currentStep < 3 && (products && products.length > 0)" class="btn btn-success"

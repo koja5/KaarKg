@@ -14,6 +14,7 @@ export class MessageService {
   public searchValueForProduct = new Subject<any>();
   public showQuickView = new Subject<any>();
   public refreshForAdditionalPaymentPrice = new Subject<null>();
+  public hideDialog = new Subject<null>();
 
   constructor() {}
 
@@ -87,5 +88,13 @@ export class MessageService {
 
   getRefreshForAdditionaPaymentPrice() {
     return this.refreshForAdditionalPaymentPrice.asObservable();
+  }
+
+  sentHideDialog() {
+    this.hideDialog.next(null);
+  }
+
+  getHideDialog() {
+    return this.hideDialog.asObservable();
   }
 }

@@ -1,6 +1,27 @@
+<div class="free-text" *ngIf="shippingInfo">
+    <label><app-mat-icon icon="local_shipping"></app-mat-icon>
+        <span
+            *ngIf="helpService.getAccountTypeId() === false || helpService.getAccountTypeId() === helpService.getUserTypeModel().customer">{{text.customerCartFreeShipping.replace('{VAT}',
+            shippingLimit)}}</span>
+        <span
+            *ngIf="helpService.getAccountTypeId() === helpService.getUserTypeModel().dealer || helpService.getAccountTypeId() === helpService.getUserTypeModel().superadmin">{{text.dealerCartFreeShipping.replace('{VAT}',
+            shippingLimit)}}</span>
+        <span
+            *ngIf="helpService.getAccountTypeId() === helpService.getUserTypeModel().kindergarden">{{text.kindergardenCartFreeShipping.replace('{VAT}',
+            shippingLimit)}}</span>
+    </label>
+
+    <div class="default-shipping-note" *ngIf="shippingCountry">
+        <p>* {{language.checkoutShippingForDefaultCountry}} <span class="font-bold">{{shippingCountry}}</span>
+        </p>
+        <p>{{language.checkoutShippingForDefaultCountryAdditionally}}</p>
+    </div>
+</div>
+
 <ul class="subtotal border-bottom pb-4">
     <li class="item">
-        <span class="item-title">{{language.checkoutShipping}}</span>
+        <span class="item-title">{{language.checkoutShipping}} <span *ngIf="shippingCountry"
+                class="font-bold">*</span></span>
         <span class="item-price" *ngIf="shipping > 0">€ {{shipping | number: '.2'}}</span>
         <span class="item-price"
             *ngIf="shipping === 0 && !shippingNotAvailable">{{language.checkoutShippingFree}}</span>
@@ -8,7 +29,8 @@
             *ngIf="shipping === 0 && shippingNotAvailable">{{language.checkoutShippingNotAvailable}}</span>
     </li>
 </ul>
-<div *ngIf="helpService.getAccountTypeId() !== helpService.getUserTypeModel().customer">
+<div
+    *ngIf="helpService.getAccountTypeId() != false && helpService.getAccountTypeId() !== helpService.getUserTypeModel().customer">
     <ul>
         <!-- <li class="item" *ngIf="type === helpService.getUserTypeModel().customer">
             <span class="item-title">{{language.checkoutSubtotal}}</span>

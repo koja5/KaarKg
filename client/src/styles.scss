@@ -10407,6 +10407,11 @@ header .separator {
   .header-search .form-control {
     min-width: 17rem;
   }
+
+  .header-search form {
+    z-index: 10000;
+    position: absolute;
+  }
 }
 .menu,
 .menu li,
@@ -12247,7 +12252,7 @@ span.toggle:before {
   margin-bottom: 1.1rem;
 }
 .product-single-details .product-action .add-cart {
-  display: inline-flex;
+  /*display: inline-flex;*/
   align-items: center;
 }
 

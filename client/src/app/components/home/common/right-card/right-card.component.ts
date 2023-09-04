@@ -31,7 +31,6 @@ export class RightCardComponent implements OnInit {
 
   public products: any;
   public language: any;
-  public text: any;
 
   constructor(
     private storageService: StorageService,
@@ -44,7 +43,6 @@ export class RightCardComponent implements OnInit {
 
   ngOnInit(): void {
     this.language = this.helpService.getLanguage();
-    this.text = this.helpService.getCustomText();
   }
 
   

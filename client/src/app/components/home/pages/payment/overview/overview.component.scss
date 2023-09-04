@@ -58,13 +58,13 @@ body {
 }
 
 .payment .res-step-form a {
-  color: blue;
+  color: #000;
   text-decoration: underline;
 }
 
 .payment .res-step-form h3 {
   margin: 10px 0;
-  color: #0071dc;
+  color: var(--primary);
   font-size: 18px;
 }
 

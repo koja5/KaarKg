@@ -9,6 +9,7 @@
     "generalErrorExecutedActionTitle": "",
     "generalWarningExecutedActionTitle": "Die Änderungen wurden NICHT gespeichert",
     "generalWarningExecutedActionText": "",
+    "generalSave": "Speichern",
     "routerAll": "Alle",
     "loginEmail": "E-Mail",
     "loginRepeatEmail": "Wiederholen Sie die E-Mail-Adresse",
@@ -199,6 +200,8 @@
     "checkoutTelephone": "Telefon",
     "checkoutPay": "Jetzt kaufen",
     "checkoutPaymentDetails": "Zahlungsdetails",
+    "checkoutShippingForDefaultCountry": "Die angegebenen Versandkosten gelten für das jeweilige Land",
+    "checkoutShippingForDefaultCountryAdditionally": "If you are from another country, register to get more precise information.",
     "invoiceTitle": "Name des Artikels",
     "invoiceQuantity": "Menge",
     "invoicePrice": "Preis",
@@ -272,6 +275,7 @@
     "shippingKindergardenShippingPrice": "Preis für den Kindergartenversand",
     "shippingCustomerShippingLimit": "Versandlimit des Kunden",
     "shippingCustomerShippingPrice": "Versandpreis des Kunden",
+    "shippingPreselectedCountry": "Vorausgewähltes Land",
     "shippingSave": "Speichern",
     "recoveryTitle": "Passwort zurücksetzen",
     "recoveryText": "Zurücksetzen Ihres Passworts",
@@ -300,5 +304,8 @@
     "mailSignatureTelephone": "Kaar Zeile 5",
     "mailSignatureFreeText": "Footer - Text",
     "superadminDealerFreeText": "Freier Text für Händleranmeldung",
-    "superadminKindergardenFreeText": "Infotext für Versandkosten Kindergartenanmeldung"
+    "superadminKindergardenFreeText": "Infotext für Versandkosten Kindergartenanmeldung",
+    "superadminCustomerFreeShippingText": "Versandtextinformationen für den Kunden",
+    "superadminDealerFreeShippingText": "Versandtextinformationen für Händler",
+    "superadminKindergardenFreeShippingText": "Versandtextinfo für den Kindergarten"
 }

@@ -30,8 +30,7 @@
                                             placeholder="{{language.homeSearchPlaceholder}}"
                                             (input)="onSearchChange($event)">
                                         <!-- End .select-custom -->
-                                        <button class="btn" type="submit"><mat-icon
-                                                class="mt-1">search</mat-icon></button>
+                                        <button class="btn" type="submit"><mat-icon>search</mat-icon></button>
                                     </div>
                                     <!-- End .header-search-wrapper -->
                                 </form>
@@ -145,6 +144,7 @@
 
     <!-- END DIALOGS -->
 
+    <div class="cart-overlay {{mobileNavigation}} {{searchInput != '' ? 'opened' : ''}}"></div>
 
     <app-right-card *ngIf="type != ''" [rightCard]="rightCard" [type]="type" (needToLoginEmitter)="needToLoginEmitter()"
         (closeCardEmitter)="closeCard()" (showQuickView)="showQuickView($event)"></app-right-card>

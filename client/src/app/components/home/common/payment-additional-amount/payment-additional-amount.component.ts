@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { UserType } from 'src/app/enums/user-type';
 import { CallApiService } from 'src/app/services/call-api.service';
@@ -12,6 +12,7 @@ import { StorageService } from 'src/app/services/storage.service';
   styleUrls: ['./payment-additional-amount.component.scss'],
 })
 export class PaymentAdditionalAmountComponent implements OnInit {
+  @Input() shippingInfo = false;
   @Output() emitProperty = new EventEmitter<any>();
 
   public language: any;
@@ -25,9 +26,12 @@ export class PaymentAdditionalAmountComponent implements OnInit {
   public vat: any;
   public total: any;
   public shippingNotAvailable = false;
+  public shippingLimit = 0;
+  public shippingCountry!: string;
 
   public subscriptionForCartInformation!: Subscription;
   public subscriptionForAdditionaPaymentPrice!: Subscription;
+  public text: any;
 
   constructor(
     public helpService: HelpService,
@@ -38,6 +42,7 @@ export class PaymentAdditionalAmountComponent implements OnInit {
 
   ngOnInit(): void {
     this.language = this.helpService.getLanguage();
+    this.text = this.helpService.getCustomText();
     this.getMyShippingAddress();
 
     this.subscriptionForCartInformation = this.messageService
@@ -59,21 +64,32 @@ export class PaymentAdditionalAmountComponent implements OnInit {
   }
 
   checkShipping() {
-    let ind = 1;
-    for (let i = 0; i < this.shippingPrices.length; i++) {
-      if (this.user.country_id === this.shippingPrices[i].country_id) {
-        ind = 0;
-        this.shipping =
-          this.subtotalNetoForProduct <
-          this.getShippingLimitForUserType(this.shippingPrices[i])
-            ? this.getShippingPriceForUserType(this.shippingPrices[i])
-            : 0;
-        break;
+    if (this.user) {
+      let ind = 1;
+      for (let i = 0; i < this.shippingPrices.length; i++) {
+        if (this.user.country_id === this.shippingPrices[i].country_id) {
+          ind = 0;
+          this.shippingLimit = this.getShippingLimitForUserType(
+            this.shippingPrices[i]
+          );
+          this.shipping =
+            this.subtotalBruto < this.shippingLimit
+              ? this.getShippingPriceForUserType(this.shippingPrices[i])
+              : 0;
+          break;
+        }
       }
-    }
-    if (ind) {
-      this.shipping = 0;
-      this.shippingNotAvailable = true;
+
+      if (ind) {
+        this.shipping = 0;
+        this.shippingNotAvailable = true;
+      }
+    } else {
+      const defaultCountry = this.getDefaultPreselectedShippingCountry();
+      this.shippingLimit = defaultCountry.limit;
+      this.shipping =
+        this.subtotalNeto < this.shippingLimit ? defaultCountry.shipping : 0;
+      this.shippingCountry = defaultCountry.name;
     }
 
     this.emitProperty.emit({
@@ -84,12 +100,15 @@ export class PaymentAdditionalAmountComponent implements OnInit {
   }
 
   getMyShippingAddress() {
-    this.service
-      .callGetMethod('/api/getMyShippingAddress', '')
-      .subscribe((data: any) => {
+    this.service.callGetMethod('/api/getMyShippingAddress', '').subscribe(
+      (data: any) => {
         this.getShippingPrices();
         this.user = data[0];
-      });
+      },
+      (error) => {
+        this.getShippingPrices();
+      }
+    );
   }
 
   getShippingPrices() {
@@ -105,6 +124,24 @@ export class PaymentAdditionalAmountComponent implements OnInit {
     }
   }
 
+  getDefaultPreselectedShippingCountry() {
+    for (let i = 0; i < this.shippingPrices.length; i++) {
+      if (this.shippingPrices[i].preselected) {
+        return {
+          limit: this.shippingPrices[i].customer_limit,
+          shipping: this.shippingPrices[i].customer_price,
+          name: this.shippingPrices[i].name,
+        };
+      }
+    }
+
+    return {
+      limit: false,
+      shipping: false,
+      name: null,
+    };
+  }
+
   calculateAllPrices() {
     this.products = this.storageService.getCookieObject('cart');
     this.setNetoAndBrutoPrice();
@@ -115,8 +152,9 @@ export class PaymentAdditionalAmountComponent implements OnInit {
 
   setNetoAndBrutoPrice() {
     if (
+      this.helpService.getAccountTypeId() === false ||
       this.helpService.getAccountTypeId() ===
-      this.helpService.getUserTypeModel().customer
+        this.helpService.getUserTypeModel().customer
     ) {
       for (let i = 0; i < this.products.length; i++) {
         this.products[i].bruto = this.products[i].price;
@@ -151,9 +189,6 @@ export class PaymentAdditionalAmountComponent implements OnInit {
       this.subtotalBruto += Number(
         this.products[i].bruto * this.products[i].quantity
       );
-      this.subtotalNetoForProduct += Number(
-        this.products[i].neto * this.products[i].quantity
-      );
     }
   }
 
@@ -163,6 +198,7 @@ export class PaymentAdditionalAmountComponent implements OnInit {
   }
 
   getSubtotalWithShipping() {
+    this.subtotalNetoForProduct = Number(this.subtotalBruto);
     this.subtotalNeto += this.shipping;
     this.subtotalBruto += this.shipping;
     this.vat = Number(this.subtotalNeto * 0.2).toFixed(2);
@@ -172,8 +208,9 @@ export class PaymentAdditionalAmountComponent implements OnInit {
 
   getTotal() {
     if (
+      this.helpService.getAccountTypeId() == false ||
       this.helpService.getAccountTypeId() ===
-      this.helpService.getUserTypeModel().customer
+        this.helpService.getUserTypeModel().customer
     ) {
       this.total = Number(this.subtotalBruto).toFixed(2);
     } else {

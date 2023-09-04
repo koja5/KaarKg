@@ -57,13 +57,13 @@ export class OverviewComponent implements OnInit {
     this.initialize();
   }
 
-  ngAfterViewInit(): void {
-    document.onclick = (args: any): void => {
-      if (args.target.className === 'e-dlg-overlay') {
-        this.shippingAddressDialog.hide();
-      }
-    };
-  }
+  // ngAfterViewInit(): void {
+  //   document.onclick = (args: any): void => {
+  //     if (args.target.className === 'e-dlg-overlay') {
+  //       this.shippingAddressDialog.hide();
+  //     }
+  //   };
+  // }
 
   initialize() {
     this.getShippingAddresses();

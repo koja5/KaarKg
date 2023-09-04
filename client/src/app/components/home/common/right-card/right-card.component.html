@@ -60,17 +60,6 @@
 
         <div *ngIf="type === 'cart'">
 
-            <div class="free-text">
-                <label><app-mat-icon icon="local_shipping"></app-mat-icon>
-                    <span
-                        *ngIf="helpService.getAccountTypeId() === false || helpService.getAccountTypeId() === helpService.getUserTypeModel().customer">{{text.customerCartFreeShipping}}</span>
-                    <span
-                        *ngIf="helpService.getAccountTypeId() === helpService.getUserTypeModel().dealer || helpService.getAccountTypeId() === helpService.getUserTypeModel().superadmin">{{text.dealerCartFreeShipping}}</span>
-                    <span
-                        *ngIf="helpService.getAccountTypeId() === helpService.getUserTypeModel().kindergarden">{{text.kindergardenCartFreeShipping}}</span>
-                </label>
-            </div>
-
             <!--
             <div class="dropdown-cart border-top">
                 <span>{{language.productSubtotal}}</span>
@@ -85,8 +74,7 @@
                 <span class="cart-total-price float-right">€ {{subOfProductInCart | number: '.2'}}</span>
             </div> -->
 
-
-            <app-payment-additional-amount *ngIf="products && products.length"></app-payment-additional-amount>
+            <app-payment-additional-amount *ngIf="products && products.length" [shippingInfo]="true"></app-payment-additional-amount>
 
             <div class="dropdown-cart-action">
                 <!-- <a href="cart.html" class="btn btn-gray btn-block view-cart">View

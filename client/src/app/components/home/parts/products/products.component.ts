@@ -13,6 +13,7 @@ import { HelpService } from 'src/app/services/help.service';
 import { StorageService } from 'src/app/services/storage.service';
 import { EmitType } from '@syncfusion/ej2-base';
 import { MessageService } from 'src/app/services/message.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-products',
@@ -29,6 +30,7 @@ export class ProductsComponent implements OnInit {
   public language: any;
   public accountType: any;
   public loader = false;
+  public subscribeShowQuickView!: Subscription;
 
   constructor(
     private service: CallApiService,
@@ -68,15 +70,25 @@ export class ProductsComponent implements OnInit {
     this.messageService.getShowQuickView().subscribe((message) => {
       this.quickViewItem(message);
     });
+
+    this.subscribeShowQuickView = this.messageService
+      .getHideDialog()
+      .subscribe(() => {
+        this.hideProductItemDialog();
+      });
   }
 
-  ngAfterViewInit(): void {
-    document.onclick = (args: any): void => {
-      if (args.target.className === 'e-dlg-overlay') {
-        this.quickView!.hide();
-      }
-    };
+  ngOnDestroy(): void {
+    this.subscribeShowQuickView.unsubscribe();
   }
+
+  // ngAfterViewInit(): void {
+  //   document.onclick = (args: any): void => {
+  //     if (args.target.className === 'e-dlg-overlay') {
+  //       this.quickView!.hide();
+  //     }
+  //   };
+  // }
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['searchProduct'].currentValue) {

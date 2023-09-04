@@ -1293,15 +1293,6 @@ router.post("/updateUser", auth, function (req, res, next) {
         function (err, rows) {
           conn.release();
           if (!err) {
-            var option_request = {
-              rejectUnauthorized: false,
-              url: process.env.link_api + "infoForActiveFreeAd",
-              method: "POST",
-              body: req.body,
-              json: true,
-            };
-            request(option_request, function (error, response, body) {});
-
             res.json(true);
           } else {
             logger.log("error", `${err.sql}. ${err.sqlMessage}`);
@@ -1681,15 +1672,6 @@ router.post("/updateCountry", auth, function (req, res, next) {
         function (err, rows) {
           conn.release();
           if (!err) {
-            var option_request = {
-              rejectUnauthorized: false,
-              url: process.env.link_api + "infoForActiveFreeAd",
-              method: "POST",
-              body: req.body,
-              json: true,
-            };
-            request(option_request, function (error, response, body) {});
-
             res.json(true);
           } else {
             logger.log("error", `${err.sql}. ${err.sqlMessage}`);
@@ -1802,18 +1784,24 @@ router.post("/updateShippingPrice", auth, function (req, res, next) {
         "update shipping_prices SET ? where id = ?",
         [req.body, req.body.id],
         function (err, rows) {
-          conn.release();
           if (!err) {
-            var option_request = {
-              rejectUnauthorized: false,
-              url: process.env.link_api + "infoForActiveFreeAd",
-              method: "POST",
-              body: req.body,
-              json: true,
-            };
-            request(option_request, function (error, response, body) {});
-
-            res.json(true);
+            if (req.body.preselected) {
+              conn.query(
+                "update shipping_prices SET preselected = 0 where id != ?",
+                [req.body.id],
+                function (err, rows) {
+                  if (!err) {
+                    res.json(true);
+                  } else {
+                    logger.log("error", `${err.sql}. ${err.sqlMessage}`);
+                    res.json(false);
+                  }
+                }
+              );
+            } else {
+              conn.release();
+              res.json(true);
+            }
           } else {
             logger.log("error", `${err.sql}. ${err.sqlMessage}`);
             res.json(false);

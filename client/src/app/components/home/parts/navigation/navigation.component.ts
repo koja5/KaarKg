@@ -1,7 +1,9 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { CallApiService } from 'src/app/services/call-api.service';
 import { HelpService } from 'src/app/services/help.service';
+import { MessageService } from 'src/app/services/message.service';
 
 @Component({
   selector: 'app-navigation',
@@ -15,27 +17,49 @@ export class NavigationComponent implements OnInit {
   public showChildren!: string;
   public selectNavigationItem!: string;
   public language: any;
+  public subscribeCloseNavigation!: Subscription;
 
   constructor(
     private service: CallApiService,
     private helpService: HelpService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private messageService: MessageService
   ) {}
 
   ngOnInit(): void {
     this.selectNavigationItem = this.route.snapshot.paramMap.get('category')!;
     this.initialize();
+
+    this.subscribeCloseNavigation = this.messageService.getHideDialog().subscribe(() => {
+      this.closeNavigation.emit();
+    });
   }
 
-
-  ngAfterViewInit(): void {
-    document.onclick = (args: any): void => {
-      console.log(args.target.className);
-      if (args.target.className === 'col-lg-9') {
-        this.closeNavigation.emit();
-      }
-    };
+  ngOnDestroy() {
+    this.subscribeCloseNavigation.unsubscribe();
   }
+
+  // ngAfterViewInit(): void {
+  //   document.onclick = (args: any): void => {
+  //     console.log(args.target.className);
+  //     if (args.target.className.indexOf('home-action-button') ||
+  //       args.target.className === 'col-lg-9' ||
+  //       args.target.className === 'container-fluid' ||
+  //       args.target.className === 'products-container' ||
+  //       args.target.className === '' ||
+  //       args.target.className === 'products-slider owl-theme row' ||
+  //       args.target.className === 'product-details' ||
+  //       args.target.className === 'btn-quickview' ||
+  //       args.target.className ===
+  //         'footer-bottom d-sm-flex align-items-center' ||
+  //       args.target.className === 'info-box info-box-icon-left pointer'
+  //     ) {
+  //       this.closeNavigation.emit();
+  //     } else if (args.target.className === 'e-dlg-overlay') {
+  //       this.messageService.sentHideDialog();
+  //     }
+  //   };
+  // }
 
   initialize() {
     this.service

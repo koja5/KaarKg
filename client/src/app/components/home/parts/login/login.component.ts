@@ -22,6 +22,7 @@ import { CallApiService } from 'src/app/services/call-api.service';
 import { ConfigurationService } from 'src/app/services/configuration.service';
 import { CustomValidationService } from 'src/app/services/custom-validation.service';
 import { HelpService } from 'src/app/services/help.service';
+import { MessageService } from 'src/app/services/message.service';
 import { StorageService } from 'src/app/services/storage.service';
 
 @Component({
@@ -53,7 +54,8 @@ export class LoginComponent implements OnInit {
     private toastr: ToastrComponent,
     private fb: FormBuilder,
     private customValidator: CustomValidationService,
-    private configurationService: ConfigurationService
+    private configurationService: ConfigurationService,
+    private messageService: MessageService
   ) {}
 
   ngOnInit(): void {
@@ -63,13 +65,16 @@ export class LoginComponent implements OnInit {
     this.initializeConfig();
   }
 
-  ngAfterViewInit(): void {
-    document.onclick = (args: any): void => {
-      if (args.target.className === 'e-dlg-overlay') {
-        this.closeLoginDialog.emit();
-      }
-    };
-  }
+  // ngAfterViewInit(): void {
+  //   document.onclick = (args: any): void => {
+  //     if (args.target.className === 'e-dlg-overlay') {
+  //       this.messageService.sentHideDialog();
+  //       this.closeLoginDialog.emit();
+  //     } else if (args.target.className === 'col-lg-9') {
+  //       this.messageService.sentHideDialog();
+  //     }
+  //   };
+  // }
 
   initializeForm() {
     this.registerForm = this.fb.group(

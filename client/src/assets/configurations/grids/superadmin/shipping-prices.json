@@ -175,6 +175,26 @@
             "validation": {
                 "required": true
             }
+        },
+        {
+            "title": "shippingPreselectedCountry",
+            "template": {
+                "choices": [
+                    {
+                        "field": "preselected",
+                        "value": 0,
+                        "operator": "==",
+                        "html": "<span class='e-badge e-badge-default'>Nicht standardmäßig</span>"
+                    },
+                    {
+                        "field": "preselected",
+                        "value": 1,
+                        "operator": "==",
+                        "html": "<span class='e-badge e-badge-success'>Standard</span>"
+                    }
+                ]
+            },
+            "field": "active"
         }
     ],
     "config": [
@@ -258,6 +278,14 @@
             "name": "customer_price",
             "title": "shippingCustomerShippingPrice",
             "field": "customer_price"
+        },
+        {
+            "type": "switch",
+            "width": "col-md-12 pt-2",
+            "class": "e-outline",
+            "name": "preselected",
+            "title": "shippingPreselectedCountry",
+            "field": "preselected"
         },
         {
             "type": "button",

@@ -26,8 +26,6 @@ export class TextBoxComponent implements OnInit {
     this.initializeRows();
   }
 
-  ngAfterViewInit() {}
-
   initializeRows() {
     if (this.config.rows) {
       setTimeout(() => {
