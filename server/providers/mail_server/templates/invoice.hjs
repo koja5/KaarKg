@@ -238,8 +238,8 @@
                                 {{shippingAddress}}<br>
                                 {{shippingZip}} {{shippingCity}}<br>
                                 {{shippingCountry}}<br>
-                                Tel: {{shippingTelephone}}<br>
-                                E-mail: {{shippingEmail}}<br>
+                                {{shippingTelephone}}<br>
+                                {{shippingEmail}}<br>
                                 
                             </td>
                         </tr>

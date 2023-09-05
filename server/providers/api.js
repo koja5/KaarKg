@@ -1203,7 +1203,7 @@ router.get("/getUsers", async (req, res, next) => {
         res.json(err);
       } else {
         conn.query(
-          "select u.*, c.name from users u join countries c on u.country_id = c.id",
+          "select u.*, c.name, a.name as 'type_name', rn.name as 'newsletter_name', ra.name as 'active_name' from users u join countries c on u.country_id = c.id join account_types a on u.type = a.id join rights_newsletter rn on u.newsletter = rn.id join rights_active ra on u.active = ra.id",
           req.params.category,
           function (err, rows, fields) {
             conn.release();

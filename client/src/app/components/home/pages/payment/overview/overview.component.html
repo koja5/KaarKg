@@ -113,7 +113,7 @@
 
                                     </tr>
                                 </table>
-                                
+
                                 <app-payment-additional-amount></app-payment-additional-amount>
                             </div>
                         </div>
@@ -189,8 +189,7 @@
 
                         <div class="text-end mt-3">
                             <button *ngIf="currentStep > 0 && currentStep < 4" class="btn btn-success back-button"
-                                (click)="previousStep()"><app-mat-icon
-                                    [icon]="'navigate_before'"></app-mat-icon>
+                                (click)="previousStep()"><app-mat-icon [icon]="'navigate_before'"></app-mat-icon>
                                 {{language.paymentPreviousStep}}</button>
                             <button *ngIf="currentStep < 3 && (products && products.length > 0)" class="btn btn-success"
                                 (click)="nextStep()"
@@ -216,11 +215,13 @@
                 <input name="firstname" [(ngModel)]="shippingAddress.firstname" required>
                 <label>{{language.checkoutLastname}}</label>
                 <input name="lastname" [(ngModel)]="shippingAddress.lastname" required>
-                <label>{{language.checkoutTelephone}}</label>
-                <input name="telephone" [(ngModel)]="shippingAddress.telephone" required>
-                <label>{{language.checkoutEmail}}</label>
-                <input name="email" [(ngModel)]="shippingAddress.email" required
-                    [disabled]="mainShippingAddressEditable">
+                <div *ngIf="mainShippingAddressEditable">
+                    <label>{{language.checkoutTelephone}}</label>
+                    <input name="telephone" [(ngModel)]="shippingAddress.telephone" required>
+                    <label>{{language.checkoutEmail}}</label>
+                    <input name="email" [(ngModel)]="shippingAddress.email" required
+                        [disabled]="mainShippingAddressEditable">
+                </div>
                 <label>{{language.checkoutCountry}}</label>
                 <ejs-combobox cssClass="mb-1" *ngIf="countries" [id]="'country'" name="country" [dataSource]="countries"
                     [allowCustom]="false" [fields]="{

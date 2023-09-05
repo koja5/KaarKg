@@ -22,7 +22,10 @@
         "group": []
     },
     "filtering": {
-        "enable": false
+        "enable": true,
+        "settings": {
+            "type": "Menu"
+        }
     },
     "customGrouping": false,
     "allowResizing": true,
@@ -103,6 +106,7 @@
             "title": "userFirstname",
             "filterable": true,
             "hideable": true,
+            "filter": "date",
             "type": "string",
             "class": "text-align-right",
             "field": "firstname",
@@ -114,6 +118,7 @@
             "title": "userLastname",
             "filterable": true,
             "hideable": true,
+            "filter": "date",
             "type": "string",
             "class": "text-align-right",
             "field": "lastname",
@@ -151,12 +156,16 @@
                     }
                 ]
             },
-            "field": "active"
+            "field": "type_name",
+            "filter": {
+                "type": "CheckBox"
+            }
         },
         {
             "title": "userCompany",
             "filterable": true,
             "hideable": true,
+            "filter": "date",
             "type": "string",
             "class": "text-align-right",
             "field": "company",
@@ -168,6 +177,7 @@
             "title": "userEmail",
             "filterable": true,
             "hideable": true,
+            "filter": "date",
             "type": "string",
             "class": "text-align-right",
             "field": "email",
@@ -179,6 +189,7 @@
             "title": "userTelephone",
             "filterable": true,
             "hideable": true,
+            "filter": "date",
             "type": "string",
             "class": "text-align-right",
             "field": "telephone",
@@ -190,6 +201,7 @@
             "title": "userCountry",
             "filterable": true,
             "hideable": true,
+            "filter": "date",
             "type": "string",
             "class": "text-align-right",
             "field": "name",
@@ -201,6 +213,7 @@
             "title": "userAddress",
             "filterable": true,
             "hideable": true,
+            "filter": "date",
             "type": "string",
             "class": "text-align-right",
             "field": "address",
@@ -212,6 +225,7 @@
             "title": "userZip",
             "filterable": true,
             "hideable": true,
+            "filter": "date",
             "type": "string",
             "class": "text-align-right",
             "field": "zip",
@@ -223,6 +237,7 @@
             "title": "userCity",
             "filterable": true,
             "hideable": true,
+            "filter": "date",
             "type": "string",
             "class": "text-align-right",
             "field": "city",
@@ -234,6 +249,7 @@
             "title": "userVat",
             "filterable": true,
             "hideable": true,
+            "filter": "date",
             "type": "string",
             "class": "text-align-right",
             "field": "vat",
@@ -259,7 +275,10 @@
                     }
                 ]
             },
-            "field": "active"
+            "field": "newsletter_name",
+            "filter": {
+                "type": "CheckBox"
+            }
         },
         {
             "title": "userActive",
@@ -291,7 +310,10 @@
                     }
                 ]
             },
-            "field": "active"
+            "field": "active_name",
+            "filter": {
+                "type": "CheckBox"
+            }
         }
     ],
     "config": [

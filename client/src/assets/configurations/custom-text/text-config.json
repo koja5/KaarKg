@@ -1,1 +1,9 @@
-{"dealerFreeText":"This is free text for dealer!","kindergardenFreeText":"This is free text for kindergarden!","customerCartFreeShipping":"Versandkostenfrei ab € {VAT} Bestellwert","dealerCartFreeShipping":"Versandkostenfrei ab € {VAT} Bestellwert","kindergardenCartFreeShipping":"Versandkostenfrei ab € {VAT} Bestellwert"}
+{
+    "dealerFreeText": "This is free text for dealer!",
+    "kindergardenFreeText": "This is free text for kindergarden!",
+    "customerCartFreeShipping": "Versandkostenfrei ab € {VAT} Bestellwert",
+    "dealerCartFreeShipping": "Versandkostenfrei ab € {VAT} Bestellwert",
+    "kindergardenCartFreeShipping": "Versandkostenfrei ab € {VAT} Bestellwert",
+    "checkoutShippingForDefaultCountry": "Die angegebenen Versandkosten gelten für das jeweilige Land",
+    "checkoutShippingForDefaultCountryAdditionally": "Wenn Sie aus einem anderen Land kommen, registrieren Sie sich, um genauere Informationen zu erhalten."
+}

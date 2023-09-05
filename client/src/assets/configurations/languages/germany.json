@@ -247,6 +247,7 @@
     "dashboardLogout": "Ausloggen",
     "userFirstname": "Vorname",
     "userLastname": "Nachname",
+    "userType": "Typ",
     "userTelephone": "Telefon",
     "userCompany": "Unternehmen",
     "userCountry": "Land",
@@ -307,5 +308,7 @@
     "superadminKindergardenFreeText": "Infotext für Versandkosten Kindergartenanmeldung",
     "superadminCustomerFreeShippingText": "Versandtextinformationen für den Kunden",
     "superadminDealerFreeShippingText": "Versandtextinformationen für Händler",
-    "superadminKindergardenFreeShippingText": "Versandtextinfo für den Kindergarten"
+    "superadminKindergardenFreeShippingText": "Versandtextinfo für den Kindergarten",
+    "superadminShippingForDefaultText": "Freitext für vorausgewähltes Land",
+    "superadminShippingForDefaultTextAdditionally": "Freitext für vorgewähltes Land zusätzlich beachten"
 }

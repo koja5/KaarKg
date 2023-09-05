@@ -214,7 +214,9 @@ router.post("/sendInvoiceToCustomer", function (req, res, next) {
     "{firstname}",
     req.body.mainAddress.lastname + " " + req.body.mainAddress.firstname
   );
-  body["email"] = req.body.shippingAddress.email;
+  body["email"] = req.body.shippingAddress.email
+    ? req.body.shippingAddress.email
+    : req.body.mainAddress.email;
 
   body["mainFirstname"] = req.body.mainAddress.firstname;
   body["mainLastname"] = req.body.mainAddress.lastname;
@@ -294,8 +296,8 @@ router.post("/sendInvoiceToSuperadmin", function (req, res, next) {
 
   body["shippingFirstname"] = req.body.shippingAddress.firstname;
   body["shippingLastname"] = req.body.shippingAddress.lastname;
-  body["shippingTelephone"] = req.body.shippingAddress.telephone;
-  body["shippingEmail"] = req.body.shippingAddress.email;
+  body["shippingTelephone"] = "Tel: " + req.body.shippingAddress.telephone;
+  body["shippingEmail"] = "E-mail: " + req.body.shippingAddress.email;
   body["shippingAddress"] = req.body.shippingAddress.address;
   body["shippingCompany"] = req.body.shippingAddress.company;
   body["shippingZip"] = req.body.shippingAddress.zip;

@@ -113,10 +113,8 @@ export class OverviewComponent implements OnInit {
       (value.zip ? value.zip + ' ' : '') +
       (value.city ? value.city + ', ' : '') +
       value.country_name +
-      ', ' +
-      value.telephone +
-      ', ' +
-      value.email
+      (value.telephone ? ', ' + value.telephone : '') +
+      (value.email ? ', ' + value.email : '')
     );
   }
 

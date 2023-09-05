@@ -13,6 +13,7 @@ import { StorageService } from 'src/app/services/storage.service';
 })
 export class PaymentAdditionalAmountComponent implements OnInit {
   @Input() shippingInfo = false;
+  @Input() shippingAddress: any;
   @Output() emitProperty = new EventEmitter<any>();
 
   public language: any;
@@ -66,6 +67,9 @@ export class PaymentAdditionalAmountComponent implements OnInit {
   checkShipping() {
     if (this.user) {
       let ind = 1;
+      if (this.shippingAddress) {
+        this.user = this.shippingAddress;
+      }
       for (let i = 0; i < this.shippingPrices.length; i++) {
         if (this.user.country_id === this.shippingPrices[i].country_id) {
           ind = 0;

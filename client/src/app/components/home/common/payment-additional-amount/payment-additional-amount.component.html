@@ -1,4 +1,4 @@
-<div class="free-text" *ngIf="shippingInfo">
+<div class="free-text" *ngIf="shippingInfo&&!shippingNotAvailable">
     <label><app-mat-icon icon="local_shipping"></app-mat-icon>
         <span
             *ngIf="helpService.getAccountTypeId() === false || helpService.getAccountTypeId() === helpService.getUserTypeModel().customer">{{text.customerCartFreeShipping.replace('{VAT}',
@@ -12,9 +12,9 @@
     </label>
 
     <div class="default-shipping-note" *ngIf="shippingCountry">
-        <p>* {{language.checkoutShippingForDefaultCountry}} <span class="font-bold">{{shippingCountry}}</span>
+        <p>* {{text.checkoutShippingForDefaultCountry}} <span class="font-bold">{{shippingCountry}}</span>
         </p>
-        <p>{{language.checkoutShippingForDefaultCountryAdditionally}}</p>
+        <p>{{text.checkoutShippingForDefaultCountryAdditionally}}</p>
     </div>
 </div>
 

@@ -62,11 +62,11 @@
         </div> -->
 
         
-        <app-payment-additional-amount (emitProperty)="emitProperty($event)"></app-payment-additional-amount>
+        <app-payment-additional-amount (emitProperty)="emitProperty($event)" [shippingAddress]="shippingAddress"></app-payment-additional-amount>
     </div>
     <div class="payment col-md-6">
         <h4>{{language.checkoutPrepayment}}</h4>
-        <div class="field mb-3 text-left">
+        <div class="field mb-3 text-left" *ngIf="shippingAddress.email">
             <label for="email">{{language.checkoutEmail}}</label>
             <input name="email" [(ngModel)]="shippingAddress.email" readonly>
         </div>
@@ -96,7 +96,7 @@
                         readonly>
                 </div>
             </div>
-            <input name="telephone" placeholder="{{language.checkoutTelephone}}" [(ngModel)]="shippingAddress.telephone"
+            <input *ngIf="shippingAddress.telephone" name="telephone" placeholder="{{language.checkoutTelephone}}" [(ngModel)]="shippingAddress.telephone"
                 readonly>
         </div>
 

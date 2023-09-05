@@ -53,6 +53,22 @@
             "field": "kindergardenCartFreeShipping"
         },
         {
+            "type": "textbox",
+            "width": "col-md-12",
+            "class": "e-outline",
+            "name": "checkoutShippingForDefaultCountry",
+            "title": "superadminShippingForDefaultText",
+            "field": "checkoutShippingForDefaultCountry"
+        },
+        {
+            "type": "textbox",
+            "width": "col-md-12",
+            "class": "e-outline",
+            "name": "checkoutShippingForDefaultCountryAdditionally",
+            "title": "superadminShippingForDefaultTextAdditionally",
+            "field": "checkoutShippingForDefaultCountryAdditionally"
+        },
+        {
             "type": "button",
             "width": "col-md-12",
             "class": "e-info button-action",
