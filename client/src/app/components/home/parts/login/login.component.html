@@ -155,15 +155,17 @@
                 </span>
             </div>
             <div class="field padding-bottom--24">
-                <ejs-checkbox formControlName="privacy"></ejs-checkbox>
-                <label class="allow-label color-blue ml-2">
-                    {{
-                    language.loginAgreeText }}
-                    <a routerLink="/agb" target="_blank" class="signup-term-link">{{ language.loginTerms
-                        }}</a>
-                    {{ language.and }}
-                    <a routerLink="/datenschutz" target="_blank" class="signup-term-link">{{
-                        language.loginPrivacy }}</a></label>
+                <div class="display-flex">
+                    <ejs-checkbox formControlName="privacy"></ejs-checkbox>
+                    <label class="allow-label terms-privacy color-blue ml-2">
+                        {{
+                        language.loginAgreeText }}
+                        <a routerLink="/agb" target="_blank" class="signup-term-link">{{ language.loginTerms
+                            }}</a>
+                        {{ language.and }}
+                        <a routerLink="/datenschutz" target="_blank" class="signup-term-link">{{
+                            language.loginPrivacy }}</a></label>
+                </div>
                 <span class="text-danger"
                     *ngIf="(registerFormControl.privacy.touched || submitted) && registerFormControl.privacy.errors?.required">
                     {{language.loginNeedToAcceptPrivacy}}

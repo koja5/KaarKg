@@ -208,7 +208,18 @@ export class OverviewComponent implements OnInit {
   }
 
   nextStep() {
-    if (this.currentStep < 4) {
+    if (
+      !this.shippingAddress.address ||
+      !this.shippingAddress.city ||
+      !this.shippingAddress.country_id ||
+      !this.shippingAddress.zip
+    ) {
+      this.shippingAddressDialog.show();
+      this.toastr.showWarningCustom(
+        this.language.shippingNeedToFillAllRequiredFields,
+        ''
+      );
+    } else if (this.currentStep < 4) {
       this.currentStep++;
     }
 

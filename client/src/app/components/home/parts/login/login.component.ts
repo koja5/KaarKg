@@ -137,7 +137,6 @@ export class LoginComponent implements OnInit {
   }
 
   signUp() {
-    console.log(this.registerForm);
     this.registerForm.patchValue({ type: this.accountType });
     this.submitted = true;
     if (this.registerForm.valid) {
@@ -145,9 +144,17 @@ export class LoginComponent implements OnInit {
         .callPostMethod('/api/signUp', this.registerForm.value)
         .subscribe((data) => {
           if (data) {
-            this.toastr.showSuccessCustom(
-              this.language.loginNeedToVerifyAccount
-            );
+            if (
+              this.helpService.getSessionStorageStringValue('previous') ===
+                'checkout' &&
+              this.accountType === UserType.customer
+            ) {
+              this.loginWithoutVerification();
+            } else {
+              this.toastr.showSuccessCustom(
+                this.language.loginNeedToVerifyAccount
+              );
+            }
             this.type = LoginFormType.login;
             this.closeLoginDialog.emit();
             this.registerForm.reset();
@@ -156,6 +163,13 @@ export class LoginComponent implements OnInit {
           }
         });
     }
+  }
+
+  loginWithoutVerification() {
+    this.user = this.registerForm.value;
+    this.user.verified = true;
+    this.user.active = true;
+    this.login();
   }
 
   recoveryPassword() {

@@ -138,20 +138,44 @@ router.post("/login", function (req, res, next) {
       "select * from users WHERE email=? AND password=?",
       [req.body.email, sha1(req.body.password)],
       function (err, rows, fields) {
+        conn.release();
         if (err) {
           logger.log("error", err.sql + ". " + err.sqlMessage);
           res.json(err);
         }
+
         if (rows.length > 0) {
-          if (rows[0].active && rows[0].verified) {
-            conn.end();
+          if (req.body.verified) {
             const token = jwt.sign(
               {
                 user: {
                   id: rows[0].id,
                   firstname: rows[0].firstname,
                   type: rows[0].type,
-                  isClub: rows[0].is_club,
+                },
+                email: rows[0].email,
+              },
+              process.env.TOKEN_KEY,
+              {
+                expiresIn: expiresToken,
+              }
+            );
+            logger.log(
+              "info",
+              `USER: ${
+                req.body.email
+              } is LOGIN first time without verification at ${new Date().toDateString()}.`
+            );
+            return res.json({
+              token: token,
+            });
+          } else if (rows[0].active && rows[0].verified) {
+            const token = jwt.sign(
+              {
+                user: {
+                  id: rows[0].id,
+                  firstname: rows[0].firstname,
+                  type: rows[0].type,
                 },
                 email: rows[0].email,
               },

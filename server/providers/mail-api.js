@@ -230,8 +230,12 @@ router.post("/sendInvoiceToCustomer", function (req, res, next) {
 
   body["shippingFirstname"] = req.body.shippingAddress.firstname;
   body["shippingLastname"] = req.body.shippingAddress.lastname;
-  body["shippingTelephone"] = req.body.shippingAddress.telephone;
-  body["shippingEmail"] = req.body.shippingAddress.email;
+  body["shippingTelephone"] = req.body.shippingAddress.telephone
+    ? "Tel: " + req.body.shippingAddress.telephone
+    : "";
+  body["shippingEmail"] = req.body.shippingAddress.email
+    ? "E-mail: " + req.body.shippingAddress.email
+    : "";
   body["shippingAddress"] = req.body.shippingAddress.address;
   body["shippingCountry"] = req.body.shippingAddress.country_name;
   body["shippingCompany"] = req.body.shippingAddress.company;
@@ -296,8 +300,12 @@ router.post("/sendInvoiceToSuperadmin", function (req, res, next) {
 
   body["shippingFirstname"] = req.body.shippingAddress.firstname;
   body["shippingLastname"] = req.body.shippingAddress.lastname;
-  body["shippingTelephone"] = "Tel: " + req.body.shippingAddress.telephone;
-  body["shippingEmail"] = "E-mail: " + req.body.shippingAddress.email;
+  body["shippingTelephone"] = req.body.shippingAddress.telephone
+    ? "Tel: " + req.body.shippingAddress.telephone
+    : "";
+  body["shippingEmail"] = req.body.shippingAddress.email
+    ? "E-mail: " + req.body.shippingAddress.email
+    : "";
   body["shippingAddress"] = req.body.shippingAddress.address;
   body["shippingCompany"] = req.body.shippingAddress.company;
   body["shippingZip"] = req.body.shippingAddress.zip;

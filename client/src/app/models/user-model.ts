@@ -10,4 +10,7 @@ export class UserModel {
   password?: string;
   repeatPassword?: string;
   type?: UserType;
+  verified?: boolean;
+  active?: boolean;
+  newsletter?: boolean;
 }

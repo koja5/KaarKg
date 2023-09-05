@@ -258,3 +258,14 @@ table {
   display: flex;
   justify-content: space-between;
 }
+
+.fill-all-fields {
+  text-align: center;
+  color: var(--red);
+  margin-bottom: 0px;
+  font-weight: bold;
+}
+
+.required-field {
+  color: var(--red);
+}
