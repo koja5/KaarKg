@@ -280,7 +280,7 @@ export class DynamicFormsComponent implements OnInit {
   }
 
   convertBooleanValue(value: number) {
-    if (value === 1) {
+    if (value === 1 || value) {
       return true;
     } else {
       return false;

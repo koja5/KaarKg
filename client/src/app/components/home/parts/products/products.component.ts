@@ -55,8 +55,12 @@ export class ProductsComponent implements OnInit {
     this.messageService.getSearchValueForProducts().subscribe((message) => {
       if (message != '') {
         this.loader = true;
+        let search = 'searchProducts';
+        if (this.helpService.getDecodeToken()) {
+          search = 'searchProductsForLoginUser';
+        }
         this.service
-          .callGetMethod('/api/searchProducts', message)
+          .callGetMethod('/api/' + search, message)
           .subscribe((data) => {
             this.products = data;
             this.loader = false;

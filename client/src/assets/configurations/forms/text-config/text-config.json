@@ -69,6 +69,60 @@
             "field": "checkoutShippingForDefaultCountryAdditionally"
         },
         {
+            "type": "label",
+            "width": "col-md-12 pt-2",
+            "title": "Titelbild",
+            "text": "Bannerteil konfigurieren"
+        },
+        {
+            "type": "textbox",
+            "width": "col-md-12",
+            "class": "e-outline",
+            "name": "coverFirstText",
+            "title": "superadminCoverFirstText",
+            "field": "coverFirstText"
+        },
+        {
+            "type": "textbox",
+            "width": "col-md-12",
+            "class": "e-outline",
+            "name": "coverSecondText",
+            "title": "superadminCoverSecondText",
+            "field": "coverSecondText"
+        },
+        {
+            "type": "textbox",
+            "width": "col-md-12",
+            "class": "e-outline",
+            "name": "coverThirdText",
+            "title": "superadminCoverThirdText",
+            "field": "coverThirdText"
+        },
+        {
+            "type": "switch",
+            "width": "col-md-12 pt-2",
+            "class": "e-outline",
+            "name": "coverButtonVisibility",
+            "title": "superadminCoverButtonVisibility",
+            "field": "coverButtonVisibility"
+        },
+        {
+            "type": "textbox",
+            "width": "col-md-12 pt-2",
+            "class": "e-outline",
+            "name": "coverButtonText",
+            "title": "superadminCoverButtonText",
+            "field": "coverButtonText"
+        },
+        {
+            "type": "textbox",
+            "width": "col-md-12 pt-2",
+            "class": "e-outline",
+            "name": "coverButtonLink",
+            "title": "superadminCoverButtonLink",
+            "field": "coverButtonLink"
+        },
+        {
             "type": "button",
             "width": "col-md-12",
             "class": "e-info button-action",

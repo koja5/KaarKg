@@ -209,11 +209,14 @@ export class OverviewComponent implements OnInit {
 
   nextStep() {
     if (
-      !this.shippingAddress.address ||
-      !this.shippingAddress.city ||
-      !this.shippingAddress.country_id ||
-      !this.shippingAddress.zip
+      this.currentStep === 1 &&
+      (!this.shippingAddress.address ||
+        !this.shippingAddress.city ||
+        !this.shippingAddress.country_id ||
+        !this.shippingAddress.zip)
     ) {
+      this.shippingActionType = 'edit';
+      this.getCountries();
       this.shippingAddressDialog.show();
       this.toastr.showWarningCustom(
         this.language.shippingNeedToFillAllRequiredFields,

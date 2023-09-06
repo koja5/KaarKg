@@ -1,4 +1,7 @@
 <app-loader *ngIf="!language || loader"></app-loader>
+
+<app-cover-background *ngIf="!loader"></app-cover-background>
+
 <div class="main-content mb-4" *ngIf="language&&!loader">
     <section class="home-section mb-2">
         <div class="row">

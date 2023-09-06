@@ -30,6 +30,7 @@ import { ComboBoxAllModule } from '@syncfusion/ej2-angular-dropdowns';
 import { StripeModule } from 'stripe-angular';
 import { RecoveryPasswordComponent } from '../parts/login/recovery-password/recovery-password.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { CoverBackgroundComponent } from '../common/cover-background/cover-background.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { MatDialogModule } from '@angular/material/dialog';
     ArticleDetailsComponent,
     HelpComponent,
     SettingsComponent,
-    RecoveryPasswordComponent
+    RecoveryPasswordComponent,
+    CoverBackgroundComponent
   ],
   imports: [
     CommonModule,

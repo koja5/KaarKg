@@ -1,0 +1,30 @@
+<div class="banner-section banner-bg" style="background-image: url(assets/images/banners/banner.png);">
+    <div class="banner col-md-11 m-auto d-flex align-items-center flex-column flex-sm-row justify-content-center">
+        <div class="content-left text-center text-sm-right">
+            <h6 class="text-transform-none appear-animate animated fadeInDownShorter appear-animation-visible"
+                data-animation-name="fadeInDownShorter" data-animation-delay="100" style="animation-duration: 1000ms;">
+                {{text.coverFirstText}}</h6>
+            <h2 class="text-transform-none appear-animate animated fadeInUpShorter appear-animation-visible"
+                data-animation-name="fadeInUpShorter" data-animation-delay="600" style="animation-duration: 1000ms;">
+                {{text.coverSecondText}}
+            </h2>
+            <h3 class="appear-animate animated fadeInRightShorter appear-animation-visible"
+                data-animation-name="fadeInRightShorter" data-animation-delay="1100"
+                style="animation-duration: 1000ms;">{{text.coverThirdText}}</h3>
+            <a *ngIf="text.coverButtonVisibility"
+                class="btn btn-primary text-transform-none appear-animate animated fadeInUpShorter appear-animation-visible"
+                data-animation-name="fadeInUpShorter" data-animation-delay="600" style="animation-duration: 1000ms;"
+                (click)="goToLink()" routerLink="{{text.coverButtonLink}}">{{text.coverButtonText}}</a>
+        </div>
+        <!-- <div class="content-right text-center text-sm-right">
+            <h5 class="appear-animate animated fadeInUpShorter appear-animation-visible"
+                data-animation-name="fadeInUpShorter" data-animation-delay="400" style="animation-duration: 1000ms;">
+                BREAKFAST PRODUCTS ON SALE</h5>
+            <h4 class="d-inline-block appear-animate animated fadeInRightShorter appear-animation-visible"
+                data-animation-name="fadeInRightShorter" data-animation-delay="800" style="animation-duration: 1000ms;">
+                <sup>UP TO</sup>
+                <b class="coupon-sale-text ls-10 text-white align-middle">50%</b>
+            </h4>
+        </div> -->
+    </div>
+</div>
