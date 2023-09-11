@@ -34,7 +34,8 @@
             "class": "e-outline",
             "name": "customerCartFreeShipping",
             "title": "superadminKindergardenFreeText",
-            "field": "customerCartFreeShipping"
+            "field": "customerCartFreeShipping",
+            "multiline": true
         },
         {
             "type": "textbox",
@@ -42,7 +43,8 @@
             "class": "e-outline",
             "name": "dealerCartFreeShipping",
             "title": "superadminDealerFreeText",
-            "field": "dealerCartFreeShipping"
+            "field": "dealerCartFreeShipping",
+            "multiline": true
         },
         {
             "type": "textbox",
@@ -50,7 +52,8 @@
             "class": "e-outline",
             "name": "kindergardenCartFreeShipping",
             "title": "superadminKindergardenFreeText",
-            "field": "kindergardenCartFreeShipping"
+            "field": "kindergardenCartFreeShipping",
+            "multiline": true
         },
         {
             "type": "textbox",

@@ -14,6 +14,7 @@ import { StorageService } from 'src/app/services/storage.service';
 import { EmitType } from '@syncfusion/ej2-base';
 import { MessageService } from 'src/app/services/message.service';
 import { Subscription } from 'rxjs';
+import { error } from 'console';
 
 @Component({
   selector: 'app-products',
@@ -126,44 +127,75 @@ export class ProductsComponent implements OnInit {
       if (this.category === this.language.navigationNew) {
         this.service
           .callGetMethod('/api/getAllNewProductsForLoginUser/', '')
-          .subscribe((products) => {
-            this.products = products;
-            this.loader = false;
-          });
+          .subscribe(
+            (products) => {
+              this.products = products;
+              this.loader = false;
+            },
+            (error) => {
+              this.callApiToGetProducts('getAllNewProducts', '');
+            }
+          );
       } else if (this.category === this.language.navigationActions) {
         this.service
           .callGetMethod('/api/getAllActionsProductsForLoginUser/', '')
-          .subscribe((products) => {
-            this.products = products;
-            this.loader = false;
-          });
+          .subscribe(
+            (products) => {
+              this.products = products;
+              this.loader = false;
+            },
+            (error) => {
+              this.callApiToGetProducts('getAllActionsProducts', '');
+            }
+          );
       } else if (this.category === this.language.navigationAllProducts) {
         this.service
           .callGetMethod('/api/getAllProductsForLoginUser/', '')
-          .subscribe((products) => {
-            this.products = products;
-            this.loader = false;
-          });
+          .subscribe(
+            (products) => {
+              this.products = products;
+              this.loader = false;
+            },
+            (error) => {
+              this.callApiToGetProducts('getAllProducts', '');
+            }
+          );
       } else if (this.category.includes(this.language.routerAll)) {
         this.service
           .callGetMethod(
             'api/getAllProductsForMainCategoryForLoginUser',
             this.category.split('-' + this.language.routerAll)[0]
           )
-          .subscribe((products) => {
-            this.products = products;
-            this.loader = false;
-          });
+          .subscribe(
+            (products) => {
+              this.products = products;
+              this.loader = false;
+            },
+            (error) => {
+              this.callApiToGetProducts(
+                'getAllProductsForMainCategory',
+                this.category.split('-' + this.language.routerAll)[0]
+              );
+            }
+          );
       } else {
         this.service
           .callGetMethod(
             '/api/getAllProductsForCategoryForLoginUser/',
             this.category!
           )
-          .subscribe((products) => {
-            this.products = products;
-            this.loader = false;
-          });
+          .subscribe(
+            (products) => {
+              this.products = products;
+              this.loader = false;
+            },
+            (error) => {
+              this.callApiToGetProducts(
+                'getAllProductsForCategory',
+                this.category!
+              );
+            }
+          );
       }
     } else {
       if (this.category === this.language.navigationNew) {
@@ -174,38 +206,27 @@ export class ProductsComponent implements OnInit {
             this.loader = false;
           });
       } else if (this.category === this.language.navigationActions) {
-        this.service
-          .callGetMethod('/api/getAllActionsProducts/', '')
-          .subscribe((products) => {
-            this.products = products;
-            this.loader = false;
-          });
+        this.callApiToGetProducts('getAllActionsProducts', '');
       } else if (this.category === this.language.navigationAllProducts) {
-        this.service
-          .callGetMethod('/api/getAllProducts/', '')
-          .subscribe((products) => {
-            this.products = products;
-            this.loader = false;
-          });
+        this.callApiToGetProducts('getAllProducts', '');
       } else if (this.category.includes(this.language.routerAll)) {
-        this.service
-          .callGetMethod(
-            'api/getAllProductsForMainCategory',
-            this.category.split('-' + this.language.routerAll)[0]
-          )
-          .subscribe((products) => {
-            this.products = products;
-            this.loader = false;
-          });
+        this.callApiToGetProducts(
+          'getAllProductsForMainCategory',
+          this.category.split('-' + this.language.routerAll)[0]
+        );
       } else {
-        this.service
-          .callGetMethod('/api/getAllProductsForCategory', this.category!)
-          .subscribe((products) => {
-            this.products = products;
-            this.loader = false;
-          });
+        this.callApiToGetProducts('getAllProductsForCategory', this.category!);
       }
     }
+  }
+
+  callApiToGetProducts(method: string, params: string) {
+    this.service
+      .callGetMethod('/api/' + method, params)
+      .subscribe((products) => {
+        this.products = products;
+        this.loader = false;
+      });
   }
 
   quickViewItem(item: any) {

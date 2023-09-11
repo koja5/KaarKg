@@ -3,8 +3,6 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>CodePen - html css invoice template</title>
-
     <style>
         .td_w {}
 
@@ -272,8 +270,9 @@
             <p>{{signatureTelephone}}</p>
             <p style="text-align: center; margin-top: 10px">{{signatureFreeText}}</p>
             <div style="text-align: center; margin-top: 10px;">
-                <a href="http://city-info.at:3005/document/terms" target="_blank">AGB</a>  |  
-                <a href="http://city-info.at:3005/document/privacy-policy" target="_blank">Datenschutz</a>
+                <a href="http://city-info.at:3005/agb" target="_blank">AGB</a>  |  
+                <a href="http://city-info.at:3005/datenschutz" target="_blank">Datenschutz</a> |  
+                <a href="http://city-info.at:3005/impressum" target="_blank">Impressum</a>
             </div>
         </div>
     </div>

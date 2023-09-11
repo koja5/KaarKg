@@ -13,7 +13,7 @@ body {
   -moz-border-radius: 50% !important;
   -ms-border-radius: 50% !important;
   border-radius: 50% !important;
-  background: #0071dc;
+  background: var(--primary);
   display: inline-block;
   height: 40px;
   width: 40px;
@@ -33,7 +33,7 @@ body {
 
 .payment .res-steps-container .res-steps .res-progress-bar {
   height: 5px;
-  background: #0071dc;
+  background: var(--primary);
   width: 50%;
   margin: -22px 0 0 50%;
   float: left;
@@ -79,11 +79,11 @@ body {
 }
 
 .payment .active .res-step-bar {
-  background: #f19b20 !important;
+  background: var(--highlight) !important;
 }
 
 .payment .active .res-progress-title {
-  color: #0071dc;
+  color: var(--primary);
 }
 
 .payment-method {

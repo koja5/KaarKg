@@ -61,8 +61,9 @@
             </ul>
         </div> -->
 
-        
-        <app-payment-additional-amount (emitProperty)="emitProperty($event)" [shippingAddress]="shippingAddress"></app-payment-additional-amount>
+
+        <app-payment-additional-amount (emitProperty)="emitProperty($event)"
+            [shippingAddress]="shippingAddress"></app-payment-additional-amount>
     </div>
     <div class="payment col-md-6">
         <h4>{{language.checkoutPrepayment}}</h4>
@@ -71,13 +72,26 @@
             <input name="email" [(ngModel)]="shippingAddress.email" readonly>
         </div>
 
-        <div class="field text-left">
+        <div class="field text-left shipping">
             <label>{{language.checkoutShippingInformation}}</label>
-            <input name="firstname" placeholder="{{language.checkoutFirstname}}" [(ngModel)]="shippingAddress.firstname"
+            <p>{{shippingAddress.firstname}} {{shippingAddress.lastname}}</p>
+            <p>{{shippingAddress.address}}</p>
+            <p *ngIf="shippingAddress.company">{{shippingAddress.company}}</p>
+            <p>{{shippingAddress.zip}} {{shippingAddress.city}}</p>
+            <p>
+                <ejs-combobox class="field input shipping-country" *ngIf="countries" [id]="'country'" name="country"
+                    [dataSource]="countries" [fields]="{
+                        text: 'name' , 'value' : 'id' }" [allowFiltering]="true"
+                    [(ngModel)]="shippingAddress.country_id" [placeholder]="language.checkoutCountryPlaceholder"
+                    readonly>
+                </ejs-combobox>
+            </p>
+            <p>{{shippingAddress.telephone}}</p>
+            <!-- <input name="firstname" placeholder="{{language.checkoutFirstname}}" [(ngModel)]="shippingAddress.firstname"
                 readonly>
             <input name="lastname" placeholder="{{language.checkoutLastname}}" [(ngModel)]="shippingAddress.lastname"
                 readonly>
-            <ejs-combobox class="mb-1" *ngIf="countries" [id]="'country'" name="country" [dataSource]="countries"
+            <ejs-combobox class="field input pl-2" *ngIf="countries" [id]="'country'" name="country" [dataSource]="countries"
                 [fields]="{
                         text: 'name' , 'value' : 'id' }" [allowFiltering]="true"
                 [(ngModel)]="shippingAddress.country_id" [placeholder]="language.checkoutCountryPlaceholder" readonly>
@@ -87,17 +101,17 @@
             <input name="company" placeholder="{{language.checkoutAddressTwo}}" [(ngModel)]="shippingAddress.company"
                 readonly>
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-12">
                     <input name="address" placeholder="{{language.checkoutZip}}" [(ngModel)]="shippingAddress.zip"
                         readonly>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-12">
                     <input name="address" placeholder="{{language.checkoutCity}}" [(ngModel)]="shippingAddress.city"
                         readonly>
                 </div>
             </div>
             <input *ngIf="shippingAddress.telephone" name="telephone" placeholder="{{language.checkoutTelephone}}" [(ngModel)]="shippingAddress.telephone"
-                readonly>
+                readonly> -->
         </div>
 
         <div class="field text-left mt-2 mb-4" *ngIf="paymentOption === language.paymentPayOptionsForMail">

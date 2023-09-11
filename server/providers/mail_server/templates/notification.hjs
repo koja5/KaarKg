@@ -1,8 +1,7 @@
 <html lang="en-US">
   <head>
     <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
-    <title>Notifications Email Template</title>
-    <meta name="description" content="Notifications Email Template" />
+    <meta name="description" content="Notifications Email" />
     <style type="text/css">
       a:hover { text-decoration: none !important; } :focus { outline: none;
       border: 0; }

@@ -87,7 +87,15 @@
 }
 
 .field input {
-  margin-bottom: 10px;
+  margin-bottom: 0px;
+  border: none;
+  box-shadow: none;
+  min-height: 0px;
+  line-height: 0px;
+}
+
+.field input:focus-visible {
+  outline: none;
 }
 
 input.e-input {
@@ -114,4 +122,29 @@ button:hover {
 
 .header-title {
   width: 93%;
+}
+
+.e-input-group,
+.e-input-group.e-control-wrapper {
+  border: none;
+  font-size: 16px;
+  color: #000;
+}
+
+.e-input-group .e-input-group-icon,
+.e-input-group.e-control-wrapper .e-input-group-icon {
+  display: none;
+}
+
+.shipping p {
+  font-size: 15px;
+  margin-left: 12px;
+  color: #000;
+  margin-bottom: 5px;
+}
+
+.shipping-country {
+  margin-left: -9px;
+  margin-top: -8px;
+  display: inline-block;
 }

@@ -1,8 +1,7 @@
 <html lang="en-US">
   <head>
     <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
-    <title>New Account Email Template</title>
-    <meta name="description" content="New Account Email Template." />
+    <meta name="description" content="New Account" />
     <style type="text/css">
       a:hover { text-decoration: underline !important; }
     </style>
@@ -139,7 +138,7 @@
                       <a
                         href="{{link}}"
                         style="
-                          background: #0071DC;
+                          background: #91bd20;
                           text-decoration: none !important;
                           display: inline-block;
                           font-weight: 500;
@@ -164,12 +163,34 @@
               <td style="height: 20px">&nbsp;</td>
             </tr>
             <tr>
-              <td style="text-align: center">
+              <td style="height:20px;">&nbsp;</td>
+            </tr>
+            <tr>
+              <td style="text-align:center;">
                 <p
-                  style="font-size:13px; color:##485963bd; line-height:18px; font-style: italic;"
-                ><strong>Ovaj mail je automatski generisan. Molimo Vas da ne
-                    odgovarate na njega.</strong></p>
+                  style="font-size:14px; color:rgba(69, 80, 86, 0.7411764705882353); line-height:18px; margin:0 0 0;"
+                >&copy; <strong>www.kaarkg.at</strong></p>
               </td>
+            </tr>
+            <tr>
+              <div>
+                <p
+                  style="text-align: center; margin-top: 10px"
+                >{{signatureFreeText}}</p>
+                <div style="text-align: center; margin-top: 10px;">
+                  <a href="http://city-info.at:3005/agb" target="_blank">AGB</a>
+                  |
+                  <a
+                    href="http://city-info.at:3005/datenschutz"
+                    target="_blank"
+                  >Datenschutz</a>
+                  |
+                  <a
+                    href="http://city-info.at:3005/impressum"
+                    target="_blank"
+                  >Impressum</a>
+                </div>
+              </div>
             </tr>
             <tr>
               <td style="height: 20px">&nbsp;</td>

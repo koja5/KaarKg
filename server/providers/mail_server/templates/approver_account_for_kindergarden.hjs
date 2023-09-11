@@ -40,11 +40,11 @@
             <!-- Logo -->
             <tr>
               <td style="text-align:center;">
-                <a href="https://city-info.at"  target="_blank">
+                <a href="https://city-info.at" title="logo" target="_blank">
                   <img
                     width="200"
                     src="http://city-info.at/assets/images/logo-black.png"
-                    
+                    title="logo"
                     alt="logo"
                   />
                 </a>
@@ -113,7 +113,7 @@
                             <td
                               style="padding: 10px; border-bottom: 1px solid #ededed; border-right: 1px solid #ededed; width: 35%; font-weight:500; color:rgba(0,0,0,.64)"
                             >
-                              Vorname:</td>
+                              Firstname:</td>
                             <td
                               style="padding: 10px; border-bottom: 1px solid #ededed; color: #455056;"
                             >
@@ -123,7 +123,7 @@
                             <td
                               style="padding: 10px; border-bottom: 1px solid #ededed; border-right: 1px solid #ededed; width: 35%; font-weight:500; color:rgba(0,0,0,.64)"
                             >
-                              Familienname:</td>
+                              Lastname:</td>
                             <td
                               style="padding: 10px; border-bottom: 1px solid #ededed; color: #455056;"
                             >
@@ -133,7 +133,7 @@
                             <td
                               style="padding: 10px; border-bottom: 1px solid #ededed; border-right: 1px solid #ededed; width: 35%; font-weight:500; color:rgba(0,0,0,.64)"
                             >
-                              Unternehmen:</td>
+                              Company:</td>
                             <td
                               style="padding: 10px; border-bottom: 1px solid #ededed; color: #455056;"
                             >
@@ -143,7 +143,7 @@
                             <td
                               style="padding: 10px; border-bottom: 1px solid #ededed; border-right: 1px solid #ededed; width: 35%; font-weight:500; color:rgba(0,0,0,.64)"
                             >
-                              Telefon:</td>
+                              Telephone:</td>
                             <td
                               style="padding: 10px; border-bottom: 1px solid #ededed; color: #455056;"
                             >

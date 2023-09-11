@@ -155,7 +155,7 @@ export class LoginComponent implements OnInit {
                 this.language.loginNeedToVerifyAccount
               );
             }
-            this.type = LoginFormType.login;
+            this.changeLoginFormType(LoginFormType.login);
             this.closeLoginDialog.emit();
             this.registerForm.reset();
           } else {
@@ -181,6 +181,7 @@ export class LoginComponent implements OnInit {
             this.toastr.showSuccessCustom(
               this.language.loginSendRecoveryPasswordSuccess
             );
+            this.changeLoginFormType(LoginFormType.login);
             this.closeLoginDialog.emit();
           } else {
             this.toastr.showErrorCustom(

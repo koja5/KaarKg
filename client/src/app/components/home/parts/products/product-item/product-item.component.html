@@ -15,8 +15,8 @@
                             *ngIf="!item.available">{{language.productNotAvailable}}</span>
                         <span *ngIf="item.discount_price"
                             class='e-badge e-badge-success label-info'>{{language.productAction}}</span>
-                        <span *ngIf="item.persantage"
-                            class='e-badge e-badge-danger label-info'>{{item.persantage}}%</span>
+                        <span *ngIf="item.persantage" class='e-badge e-badge-danger label-info'>-{{item.persantage |
+                            number: '.0'}}%</span>
                         <span *ngIf="item.new" class='e-badge e-badge-success label-info'>{{language.productNew}}</span>
                         <img class="product-single-image" src="assets/images/products/{{item.image}}" />
                     </div>
