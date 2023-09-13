@@ -293,7 +293,8 @@ export class HelpService {
     this.messageService.sentRefreshForAdditionaPaymentPrice();
   }
 
-  addToCart(item: any) {
+  addToCart(article: any) {
+    let item = this.copyObject(article);
     let currentFavorite = this.storageService.getCookieObject('cart');
     let ind = 1;
     if (currentFavorite.length > 0) {

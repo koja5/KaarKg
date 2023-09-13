@@ -355,6 +355,14 @@
             "field": "visibility"
         },
         {
+            "type": "switch",
+            "width": "col-md-12 pt-2",
+            "class": "e-outline",
+            "name": "dealer_only",
+            "title": "productDealerOnly",
+            "field": "dealer_only"
+        },
+        {
             "type": "button",
             "width": "col-md-12",
             "class": "e-info button-action",

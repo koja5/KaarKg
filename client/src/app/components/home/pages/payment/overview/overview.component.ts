@@ -236,6 +236,10 @@ export class OverviewComponent implements OnInit {
     // this.helpService.setSessionStorage('step', this.currentStep);
   }
 
+  changeStep(step: number) {
+    this.currentStep = step;
+  }
+
   getPaymentOption() {
     return PaymentOption;
   }

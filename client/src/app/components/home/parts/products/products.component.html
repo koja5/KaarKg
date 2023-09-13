@@ -84,11 +84,11 @@
                             <p>
                                 {{item.product_number}}
                                 <span *ngIf="item.discount_price"
-                                    class='e-badge e-badge-success new-product'>{{language.productAction}}</span>
+                                    class='e-badge e-badge-success article-label'>{{language.productAction}}</span>
                                 <span *ngIf="item.new"
-                                    class='e-badge e-badge-success new-product'>{{language.productNew}}</span>
+                                    class='e-badge e-badge-success article-label'>{{language.productNew}}</span>
                                 <span *ngIf="item.persantage"
-                                    class='e-badge e-badge-danger new-product'>-{{item.persantage | number:
+                                    class='e-badge e-badge-danger article-label'>-{{item.persantage | number:
                                     '.0'}}%</span>
 
                             </p>

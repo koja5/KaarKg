@@ -706,13 +706,6 @@
   border-color: var(--second) !important;
 }
 
-.e-btn.e-primary,
-.e-css.e-btn.e-primary:hover,
-.e-btn.e-info:hover {
-  background: var(--second-light) !important;
-  border-color: var(--second-light) !important;
-}
-
 .e-btn.e-outline.e-primary {
   background: transparent !important;
   color: var(--second) !important;
@@ -2678,7 +2671,7 @@ a.btn.disabled {
 .btn-primary:not(:disabled):not(.disabled):active,
 .show > .btn-primary.dropdown-toggle {
   border-color: var(--second);
-  background-color: (--second);
+  background-color: var(--second);
   color: #fff;
 }
 .btn-secondary {
@@ -16394,7 +16387,8 @@ aside .widget-info i {
 
 .e-popup.e-popup-open.e-dialog {
   display: flex !important;
-  max-height: -webkit-fill-available !important;
+  /*max-height: -webkit-fill-available !important;*/
+  max-height: calc(100% - 80px) !important;
 }
 
 .btn-success {
@@ -16432,4 +16426,8 @@ aside .widget-info i {
 .free-text label span {
   margin-left: 5px;
   white-space: break-spaces;
+}
+
+.e-badge-success {
+  background-color: var(--second) !important;
 }

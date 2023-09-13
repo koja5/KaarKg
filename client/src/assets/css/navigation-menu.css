@@ -342,6 +342,7 @@ body[data-sidebar="dark"] .logo-light {
   transition: 0.3s;
   border-right: 1px solid lightgray;
   box-shadow: 1px 2px 5px 0px lightgray;
+  overflow: auto;
 }
 .main-content {
   margin-left: 250px;

@@ -85,6 +85,7 @@
     "productPriceKindergarden": "Kindergarten-Preis",
     "productAvailable": "Verfügbar",
     "productVisibility": "Sichtweite",
+    "productDealerOnly": "Nur Händler",
     "productSave": "Speichern",
     "productAddToCart": "In den Warenkorb",
     "productAddToFavorite": "zur Wunschliste hinzufügen",
@@ -313,10 +314,10 @@
     "superadminKindergardenFreeShippingText": "Versandinfo für Kindergärten",
     "superadminShippingForDefaultText": "Freitext für vorausgewähltes Land",
     "superadminShippingForDefaultTextAdditionally": "Freitext für vorgewähltes Land zusätzlich beachten",
-    "superadminCoverFirstText": "Erster Text des Banners",
-    "superadminCoverSecondText": "Zweiter Text des Banners",
-    "superadminCoverThirdText": "Banner dritter Text",
-    "superadminCoverButtonVisibility": "Sichtbarkeit der Bannerschaltfläche",
-    "superadminCoverButtonText": "Banner-Schaltflächentext",
-    "superadminCoverButtonLink": "Link zur Banner-Schaltfläche"
+    "superadminCoverFirstText": "Erste Zeile Banner",
+    "superadminCoverSecondText": "Zweite Zeile Banner",
+    "superadminCoverThirdText": "Dritte Zeile Banner",
+    "superadminCoverButtonVisibility": "Banner aktivieren",
+    "superadminCoverButtonText": "Text Banner Button",
+    "superadminCoverButtonLink": "Link Banner Button"
 }

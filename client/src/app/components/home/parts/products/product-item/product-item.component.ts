@@ -1,4 +1,11 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  SimpleChanges,
+} from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrComponent } from 'src/app/components/common/toastr/toastr.component';
 import { HelpService } from 'src/app/services/help.service';
@@ -34,6 +41,10 @@ export class ProductItemComponent implements OnInit {
         this.item.quantity = 1;
       }, 100);
     }
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    this.showHideDescriptionText = '';
   }
 
   addQuantity() {
