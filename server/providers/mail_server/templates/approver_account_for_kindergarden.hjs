@@ -178,10 +178,24 @@
             </tr>
             <tr>
               <td style="text-align:center;">
-                <p
-                  style="font-size:13px; color:##485963bd; line-height:18px; font-style: italic;"
-                ><strong>This email is automatically generated. Please don't you
-                    respond to him.</strong></p>
+                <img
+                  src="http://city-info.at/assets/images/logo-black.png"
+                  style="width: 120px"
+                />
+              </td>
+            </tr>
+            <tr style="font-size:14px; color:#455056bd;">
+              <td style="text-align:center;">
+                <p style="margin-bottom: 0px;">
+                  <span style="font-weight: bold;">A. Kaar Kg</span>
+                  | Haselgrabenweg 4, 4040 Linz
+                </p>
+                <p style="margin-top: 5px;">+43 732 946815 | office@kaarkg.at</p>
+              </td>
+            </tr>
+            <tr>
+              <td style="text-align: center; font-weight: bold;">
+                <span>www.kaarkg.at</span>
               </td>
             </tr>
           </table>

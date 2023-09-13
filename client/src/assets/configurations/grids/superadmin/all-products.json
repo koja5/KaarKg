@@ -314,15 +314,14 @@
             "field": "number_of_pieces"
         },
         {
-            "type": "combobox",
+            "type": "multiselect",
             "width": "col-md-12",
             "class": "e-outline",
             "name": "category_id",
             "title": "productCategory",
             "field": {
                 "text": "name",
-                "value": "id",
-                "groupBy": "category_name"
+                "value": "id"
             },
             "request": {
                 "type": "GET",

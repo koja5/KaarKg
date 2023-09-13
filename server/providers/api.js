@@ -278,7 +278,6 @@ router.get("/verificationMail/:active/:email", async (req, res, next) => {
         logger.log("error", err.sql + ". " + err.sqlMessage);
         res.json(err);
       } else {
-        console.log(req.active);
         conn.query(
           "update users set verified = 1, active = ? where SHA1(email) = ?",
           [req.params.active, req.params.email],
@@ -1172,6 +1171,8 @@ router.post("/updateProduct", auth, function (req, res, next) {
         logger.log("error", err.sql + ". " + err.sqlMessage);
         res.json(err);
       }
+
+      console.log(req.body);
 
       if (req.body.discount_date_from) {
         req.body.discount_date_from = convertToDate(

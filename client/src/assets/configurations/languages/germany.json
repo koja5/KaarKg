@@ -77,7 +77,7 @@
     "productNumber": "Artikelnummer",
     "productImage": "Bild",
     "productCategory": "KATEGORIE",
-    "productCountryPlaceholder": "",
+    "productCategoryPlaceholder": "",
     "productTitle": "Artikelbezeichnung",
     "productDescription": "Beschreibung",
     "productPrice": "Endkunden-Preis",

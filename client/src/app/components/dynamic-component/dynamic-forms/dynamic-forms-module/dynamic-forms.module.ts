@@ -16,12 +16,13 @@ import { DynamicIconComponent } from '../../common/dynamic-icon/dynamic-icon.com
 import { MatIconModule } from '@angular/material/icon';
 import { SharingModule } from 'src/app/sharing.module';
 import { ComboboxComponent } from '../dynamic-fields/dropdowns/combobox/combobox.component';
-import { ComboBoxModule } from '@syncfusion/ej2-angular-dropdowns';
+import { ComboBoxModule, MultiSelectModule } from '@syncfusion/ej2-angular-dropdowns';
 import { DatePickerModule, DateTimePickerAllModule } from '@syncfusion/ej2-angular-calendars';
 import { DatepickerComponent } from '../dynamic-fields/inputs/datepicker/datepicker.component';
 import { NumericTextboxComponent } from '../dynamic-fields/inputs/numeric-textbox/numeric-textbox.component';
 import { SwitchComponent } from '../dynamic-fields/buttons/switch/switch.component';
 import { DatetimepickerComponent } from '../dynamic-fields/inputs/datetimepicker/datetimepicker.component';
+import { MultiselectComponent } from '../dynamic-fields/dropdowns/multiselect/multiselect.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { DatetimepickerComponent } from '../dynamic-fields/inputs/datetimepicker
     ButtonComponent,
     DynamicIconComponent,
     ComboboxComponent,
+    MultiselectComponent,
     DatepickerComponent,
     DatetimepickerComponent,
     NumericTextboxComponent,
@@ -60,6 +62,7 @@ import { DatetimepickerComponent } from '../dynamic-fields/inputs/datetimepicker
     MatIconModule,
     SharingModule,
     ComboBoxModule,
+    MultiSelectModule,
     DatePickerModule,
     DateTimePickerAllModule,
     NumericTextBoxModule,
@@ -72,6 +75,7 @@ import { DatetimepickerComponent } from '../dynamic-fields/inputs/datetimepicker
     ButtonComponent,
     DynamicIconComponent,
     ComboboxComponent,
+    MultiselectComponent,
     DatepickerComponent,
     DatetimepickerComponent,
     NumericTextboxComponent,
