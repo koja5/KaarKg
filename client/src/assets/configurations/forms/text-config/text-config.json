@@ -33,7 +33,7 @@
             "width": "col-md-12",
             "class": "e-outline",
             "name": "customerCartFreeShipping",
-            "title": "superadminKindergardenFreeText",
+            "title": "superadminCustomerFreeShippingText",
             "field": "customerCartFreeShipping",
             "multiline": true
         },
@@ -42,7 +42,7 @@
             "width": "col-md-12",
             "class": "e-outline",
             "name": "dealerCartFreeShipping",
-            "title": "superadminDealerFreeText",
+            "title": "superadminDealerFreeShippingText",
             "field": "dealerCartFreeShipping",
             "multiline": true
         },
@@ -51,7 +51,7 @@
             "width": "col-md-12",
             "class": "e-outline",
             "name": "kindergardenCartFreeShipping",
-            "title": "superadminKindergardenFreeText",
+            "title": "superadminKindergardenFreeShippingText",
             "field": "kindergardenCartFreeShipping",
             "multiline": true
         },

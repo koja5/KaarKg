@@ -64,7 +64,7 @@ export class StorageService {
   }
 
   setCookie(key: string, value: any) {
-    this.cookieService.set(key, value);
+    this.cookieService.set(key, value, undefined, '/');
   }
 
   getCookie(key: string) {
@@ -72,7 +72,7 @@ export class StorageService {
   }
 
   removeCookie(key: string) {
-    this.cookieService.delete(key);
+    this.cookieService.delete(key, '/');
   }
 
   setCookieObject(key: string, value: any) {

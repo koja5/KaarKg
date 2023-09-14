@@ -53,7 +53,35 @@
             <tr>
               <td style="height:20px;">&nbsp;</td>
             </tr>
-            <!-- Email Content -->
+
+            <tr>
+              <div
+                style="display: flex; width: 95%;
+                                                text-align: center;
+                                                justify-content: center;
+                                                background: #186EB1;
+                                                height: 120px;
+                                                margin-bottom: 15px; margin-left: auto; margin-right: auto;"
+              >
+                <div
+                  style="color: #fff; display: flex; text-align: center; margin: auto;"
+                >
+                  <div>
+                    <h1
+                      style="margin: 0px; font-size: 50px; line-height: initial"
+                    >{{bannerFirstText}}</h1>
+                    <h4 style="margin: 0px;">{{bannerSecondText}}</h4>
+                  </div>
+                </div>
+                <div style="width: 50%; margin-top: -45px !important;">
+                  <img
+                    style="width: 110px;"
+                    src="http://vps.officenode.com:3005/assets/images/banners/smile_logo.png"
+                  />
+                </div>
+              </div>
+            </tr>
+
             <tr>
               <td>
                 <table

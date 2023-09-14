@@ -22,11 +22,18 @@ module.exports = router;
   database: process.env.database,
 });*/
 
+// var connection = mysql.createPool({
+//   host: "116.203.109.78",
+//   user: "cityinfo_kaarkg",
+//   password: "p37wMevidufqWjbcg9hb1#DB",
+//   database: "cityinfo_kaarkg",
+// });
+
 var connection = mysql.createPool({
-  host: "116.203.109.78",
-  user: "cityinfo_kaarkg",
-  password: "p37wMevidufqWjbcg9hb1#DB",
-  database: "cityinfo_kaarkg",
+  host: "195.201.89.46",
+  user: "admin_root",
+  password: "Kaarkg#BCI#2019",
+  database: "admin_kaarkg",
 });
 
 connection.getConnection(function (err, conn) {
@@ -676,6 +683,8 @@ router.get("/getAllProducts", async (req, res, next) => {
       } else {
         let query = getProductsByAccountType(null);
 
+        query += " where p.dealer_only = 0";
+
         conn.query(query, function (err, rows, fields) {
           conn.release();
           if (err) {
@@ -955,7 +964,6 @@ router.get(
     try {
       connection.getConnection(function (err, conn) {
         if (err) {
-          console.log("usao sam gore");
           logger.log("error", err.sql + ". " + err.sqlMessage);
           res.json(err);
         } else {

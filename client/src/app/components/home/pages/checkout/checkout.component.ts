@@ -7,6 +7,7 @@ import {
 } from '@angular/core';
 import { Router } from '@angular/router';
 import { ShippingAddress } from '@stripe/stripe-js';
+import { ToastrComponent } from 'src/app/components/common/toastr/toastr.component';
 import { UserType } from 'src/app/enums/user-type';
 import { CallApiService } from 'src/app/services/call-api.service';
 import { HelpService } from 'src/app/services/help.service';
@@ -42,7 +43,8 @@ export class CheckoutComponent implements OnInit {
   constructor(
     public helpService: HelpService,
     private storageService: StorageService,
-    private service: CallApiService
+    private service: CallApiService,
+    private toastr: ToastrComponent
   ) {}
 
   ngOnInit(): void {
@@ -106,23 +108,36 @@ export class CheckoutComponent implements OnInit {
       paymentOption: this.paymentOption,
       orderDate: orderDate,
     };
+
     this.loader = true;
+
+    setTimeout(() => {
+      this.storageService.removeCookie('cart');
+      this.helpService.removeSessionStorage('payment');
+      this.loader = false;
+      this.helpService.removeSessionStorage('step');
+      this.successEmitter.emit();
+    }, 200);
+    
     this.service
       .callPostMethod('/api/sendInvoiceToCustomer', data)
       .subscribe((data) => {
-        console.log(data);
+        if (!data) {
+          this.toastr.showErrorCustom(
+            this.language.paymentProblemWithOrder,
+            ''
+          );
+        }
       });
 
     this.service
       .callPostMethod('/api/sendInvoiceToSuperadmin', data)
       .subscribe((data) => {
-        console.log(data);
-        if (data) {
-          this.storageService.removeCookie('cart');
-          this.helpService.removeSessionStorage('payment');
-          this.loader = true;
-          this.helpService.removeSessionStorage('step');
-          this.successEmitter.emit();
+        if (!data) {
+          this.toastr.showErrorCustom(
+            this.language.paymentProblemWithOrder,
+            ''
+          );
         }
       });
   }
