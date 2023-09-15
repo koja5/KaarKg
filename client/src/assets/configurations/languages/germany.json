@@ -190,7 +190,7 @@
     "checkoutShippingNotAvailable": "nach Aufwand",
     "checkoutShippingInformation": "Lieferadresse",
     "checkoutSaveShippingInformation": "Lieferadresse speichern",
-    "checkoutEmail": "E-Mail",													
+    "checkoutEmail": "E-Mail",
     "checkoutCountry": "Land",
     "checkoutCountryPlaceholder": "Wählen Sie Ihr Land",
     "checkoutFirstname": "Vorname",
@@ -318,9 +318,13 @@
     "superadminShippingForDefaultText": "Freitext für vorausgewähltes Land",
     "superadminShippingForDefaultTextAdditionally": "Freitext für vorgewähltes Land zusätzlich beachten",
     "superadminCoverFirstText": "Erste Zeile Banner",
+    "superadminCoverFirstTextColor": "Erste Zeile Banner Farbe",
     "superadminCoverSecondText": "Zweite Zeile Banner",
+    "superadminCoverSecondTextColor": "Zweite Zeile Banner Farbe",
     "superadminCoverThirdText": "Dritte Zeile Banner",
+    "superadminCoverThirdTextColor": "Dritte Zeile Banner Farbe",
     "superadminCoverButtonVisibility": "Banner aktivieren",
     "superadminCoverButtonText": "Text Banner Button",
-    "superadminCoverButtonLink": "Link Banner Button"
+    "superadminCoverButtonLink": "Link Banner Button",
+    "superadminCoverAnimation": "Cover-Animation"
 }

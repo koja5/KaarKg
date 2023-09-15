@@ -1,19 +1,26 @@
 <div class="banner-section banner-bg" style="background-image: url(assets/images/banners/banner.png);">
-    <div class="banner col-md-11 m-auto d-flex align-items-center flex-column flex-sm-row justify-content-center">
+    <div class="banner col-md-11 m-auto d-flex align-items-center flex-column flex-sm-row"
+        [ngStyle]="{'justify-content': position}">
         <div class="content-left text-center text-sm-right">
             <h6 class="text-transform-none appear-animate animated fadeInDownShorter appear-animation-visible"
-                data-animation-name="fadeInDownShorter" data-animation-delay="100" style="animation-duration: 1000ms;">
+                data-animation-name="fadeInDownShorter"
+                [ngStyle]="{'color': text.coverFirstTextColor ? text.coverFirstTextColor : '#000', 'animation-duration' : text.coverAnimation ? '1000ms' : '0ms'}"
+                data-animation-delay="100">
                 {{text.coverFirstText}}</h6>
             <h2 class="text-transform-none appear-animate animated fadeInUpShorter appear-animation-visible"
-                data-animation-name="fadeInUpShorter" data-animation-delay="600" style="animation-duration: 1000ms;">
+                data-animation-name="fadeInUpShorter"
+                [ngStyle]="{'color': text.coverSecondTextColor ? text.coverSecondTextColor : '#000', 'animation-duration' : text.coverAnimation ? '1000ms' : '0ms'}"
+                data-animation-delay="600">
                 {{text.coverSecondText}}
             </h2>
             <h3 class="appear-animate animated fadeInRightShorter appear-animation-visible"
-                data-animation-name="fadeInRightShorter" data-animation-delay="1100"
-                style="animation-duration: 1000ms;">{{text.coverThirdText}}</h3>
+                data-animation-name="fadeInRightShorter"
+                [ngStyle]="{'color': text.coverThirdTextColor ? text.coverThirdTextColor : '#000', 'animation-duration' : text.coverAnimation ? '1000ms' : '0ms'}"
+                data-animation-delay="1100">{{text.coverThirdText}}</h3>
             <a *ngIf="text.coverButtonVisibility"
                 class="btn btn-primary text-transform-none appear-animate animated fadeInUpShorter appear-animation-visible"
-                data-animation-name="fadeInUpShorter" data-animation-delay="600" style="animation-duration: 1000ms;"
+                data-animation-name="fadeInUpShorter"
+                [ngStyle]="{'animation-duration' : text.coverAnimation ? '1000ms' : '0ms'}" data-animation-delay="600"
                 (click)="goToLink()" routerLink="{{text.coverButtonLink}}">{{text.coverButtonText}}</a>
         </div>
         <!-- <div class="content-right text-center text-sm-right">

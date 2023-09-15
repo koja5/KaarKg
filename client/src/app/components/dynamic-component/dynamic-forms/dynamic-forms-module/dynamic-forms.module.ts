@@ -2,7 +2,12 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DynamicFieldsDirective } from '../dynamic-fields/dynamic-fields.directive';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { NumericTextBoxModule, TextBoxModule } from '@syncfusion/ej2-angular-inputs';
+import {
+  ColorPickerComponent,
+  ColorPickerModule,
+  NumericTextBoxModule,
+  TextBoxModule,
+} from '@syncfusion/ej2-angular-inputs';
 import {
   ButtonModule,
   CheckBoxModule,
@@ -16,13 +21,20 @@ import { DynamicIconComponent } from '../../common/dynamic-icon/dynamic-icon.com
 import { MatIconModule } from '@angular/material/icon';
 import { SharingModule } from 'src/app/sharing.module';
 import { ComboboxComponent } from '../dynamic-fields/dropdowns/combobox/combobox.component';
-import { ComboBoxModule, MultiSelectModule } from '@syncfusion/ej2-angular-dropdowns';
-import { DatePickerModule, DateTimePickerAllModule } from '@syncfusion/ej2-angular-calendars';
+import {
+  ComboBoxModule,
+  MultiSelectModule,
+} from '@syncfusion/ej2-angular-dropdowns';
+import {
+  DatePickerModule,
+  DateTimePickerAllModule,
+} from '@syncfusion/ej2-angular-calendars';
 import { DatepickerComponent } from '../dynamic-fields/inputs/datepicker/datepicker.component';
 import { NumericTextboxComponent } from '../dynamic-fields/inputs/numeric-textbox/numeric-textbox.component';
 import { SwitchComponent } from '../dynamic-fields/buttons/switch/switch.component';
 import { DatetimepickerComponent } from '../dynamic-fields/inputs/datetimepicker/datetimepicker.component';
 import { MultiselectComponent } from '../dynamic-fields/dropdowns/multiselect/multiselect.component';
+import { ColorpickerComponent } from '../dynamic-fields/inputs/colorpicker/colorpicker.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +48,8 @@ import { MultiselectComponent } from '../dynamic-fields/dropdowns/multiselect/mu
     DatepickerComponent,
     DatetimepickerComponent,
     NumericTextboxComponent,
-    SwitchComponent
+    SwitchComponent,
+    ColorpickerComponent,
   ],
   exports: [
     DynamicFieldsDirective,
@@ -48,7 +61,8 @@ import { MultiselectComponent } from '../dynamic-fields/dropdowns/multiselect/mu
     DatepickerComponent,
     DatetimepickerComponent,
     NumericTextboxComponent,
-    SwitchComponent
+    SwitchComponent,
+    ColorpickerComponent,
   ],
   imports: [
     CommonModule,
@@ -66,7 +80,8 @@ import { MultiselectComponent } from '../dynamic-fields/dropdowns/multiselect/mu
     DatePickerModule,
     DateTimePickerAllModule,
     NumericTextBoxModule,
-    SwitchModule
+    SwitchModule,
+    ColorPickerModule,
   ],
   entryComponents: [
     DynamicFieldsDirective,
@@ -79,7 +94,8 @@ import { MultiselectComponent } from '../dynamic-fields/dropdowns/multiselect/mu
     DatepickerComponent,
     DatetimepickerComponent,
     NumericTextboxComponent,
-    SwitchComponent
+    SwitchComponent,
+    ColorpickerComponent,
   ],
 })
 export class DynamicFormsModule {}

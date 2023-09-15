@@ -29,7 +29,7 @@
     "approve_account_for_kindergarden": {
         "template": "approver_account_for_kindergarden.hjs",
         "subject": "Neues Kindergartenkonto wurde erstellt!",
-        "email": "albert.sprung@gmail.com",
+        "email": "akojicpmf@gmail.com",
         "fields": {
             "title": "Neues Kindergartenkonto wurde erstellt!",
             "text": "Bitte Kindergarten-Konto prüfen und freigeben!",

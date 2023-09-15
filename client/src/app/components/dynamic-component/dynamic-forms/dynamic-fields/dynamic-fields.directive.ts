@@ -11,6 +11,7 @@ import { NumericTextboxComponent } from './inputs/numeric-textbox/numeric-textbo
 import { TextBoxComponent } from './inputs/text-box/text-box.component';
 import { LabelComponent } from './label/label.component';
 import { MultiselectComponent } from './dropdowns/multiselect/multiselect.component';
+import { ColorpickerComponent } from './inputs/colorpicker/colorpicker.component';
 
 const components: {[type: string]: Type<Field>} = {
   textbox: TextBoxComponent,
@@ -22,7 +23,8 @@ const components: {[type: string]: Type<Field>} = {
   multiselect: MultiselectComponent,
   datepicker: DatepickerComponent,
   datetimepicker: DatetimepickerComponent,
-  switch: SwitchComponent
+  switch: SwitchComponent,
+  color: ColorpickerComponent
 };
 
 @Directive({

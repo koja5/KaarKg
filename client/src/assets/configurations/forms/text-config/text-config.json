@@ -78,28 +78,75 @@
             "text": "Bannerteil konfigurieren"
         },
         {
-            "type": "textbox",
+            "type": "combobox",
             "width": "col-md-12",
+            "class": "e-outline",
+            "name": "coverBannerTextPosition",
+            "title": "productCategory",
+            "field": {
+                "text": "name",
+                "value": "value"
+            },
+            "request": {
+                "localData": {
+                    "path": "local-data",
+                    "file": "text-position.json"
+                }
+            },
+            "placeholder": "coverBannerSelectPositionCover",
+            "fieldConfig": {
+                "ignoreAccent": false,
+                "filter": true
+            },
+            "required": true
+        },
+        {
+            "type": "textbox",
+            "width": "col-md-9",
             "class": "e-outline",
             "name": "coverFirstText",
             "title": "superadminCoverFirstText",
             "field": "coverFirstText"
         },
         {
+            "type": "color",
+            "width": "col-md-3",
+            "class": "e-outline",
+            "name": "coverFirstTextColor",
+            "title": "superadminCoverFirstTextColor",
+            "field": "coverFirstTextColor"
+        },
+        {
             "type": "textbox",
-            "width": "col-md-12",
+            "width": "col-md-9",
             "class": "e-outline",
             "name": "coverSecondText",
             "title": "superadminCoverSecondText",
             "field": "coverSecondText"
         },
         {
+            "type": "color",
+            "width": "col-md-3",
+            "class": "e-outline",
+            "name": "coverSecondTextColor",
+            "title": "superadminCoverSecondTextColor",
+            "field": "coverSecondTextColor"
+        },
+        {
             "type": "textbox",
-            "width": "col-md-12",
+            "width": "col-md-9",
             "class": "e-outline",
             "name": "coverThirdText",
             "title": "superadminCoverThirdText",
             "field": "coverThirdText"
+        },
+        {
+            "type": "color",
+            "width": "col-md-3",
+            "class": "e-outline",
+            "name": "coverThirdTextColor",
+            "title": "superadminCoverThirdTextColor",
+            "field": "coverThirdTextColor"
         },
         {
             "type": "switch",
@@ -108,6 +155,14 @@
             "name": "coverButtonVisibility",
             "title": "superadminCoverButtonVisibility",
             "field": "coverButtonVisibility"
+        },
+        {
+            "type": "switch",
+            "width": "col-md-12 pt-2",
+            "class": "e-outline",
+            "name": "coverAnimation",
+            "title": "superadminCoverAnimation",
+            "field": "coverAnimation"
         },
         {
             "type": "textbox",
