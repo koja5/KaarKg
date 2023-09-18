@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "client": "ng serve --port 4201 --proxy-config proxy.config.json",
+    "client": "npx scully serve --port 4201 --proxy-config proxy.config.json",
     "server": "nodemon ../server/server.js --port 3001",
     "start": "npx npm-run-all -p client server",
     "build": "ng serve --port 3000 --open && nodemon server",
@@ -26,6 +26,8 @@
     "@angular/platform-browser-dynamic": "~13.3.11",
     "@angular/router": "~13.3.11",
     "@auth0/angular-jwt": "^5.1.2",
+    "@scullyio/init": "^2.1.41",
+    "@scullyio/scully-plugin-puppeteer": "^2.1.41",
     "@stripe/stripe-js": "^1.54.1",
     "@syncfusion/ej2-angular-buttons": "^19.4.55",
     "@syncfusion/ej2-angular-calendars": "^19.2.60",
