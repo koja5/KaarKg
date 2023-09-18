@@ -209,7 +209,11 @@ router.post("/sendInvoiceToCustomer", function (req, res, next) {
       "utf-8"
     )
   );
-  body["template"] = "invoice.hjs";
+  if (req.body.type === 3) {
+    body["template"] = "invoice_customer.hjs";
+  } else {
+    body["template"] = "invoice.hjs";
+  }
   body["greeting"] = body["greeting"].replace(
     "{firstname}",
     req.body.mainAddress.lastname + " " + req.body.mainAddress.firstname

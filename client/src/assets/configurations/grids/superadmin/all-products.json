@@ -131,12 +131,45 @@
             }
         },
         {
+            "title": "productTitleShort",
+            "filterable": true,
+            "hideable": true,
+            "type": "string",
+            "class": "text-align-right",
+            "field": "title_short",
+            "validation": {
+                "required": true
+            }
+        },
+        {
+            "title": "productDescription",
+            "filterable": true,
+            "hideable": true,
+            "type": "string",
+            "class": "text-align-right",
+            "field": "description",
+            "validation": {
+                "required": true
+            }
+        },
+        {
             "title": "productPrice",
             "filterable": true,
             "hideable": true,
             "type": "string",
             "class": "text-align-right",
             "field": "price",
+            "validation": {
+                "required": true
+            }
+        },
+        {
+            "title": "productPriceBruto",
+            "filterable": true,
+            "hideable": true,
+            "type": "string",
+            "class": "text-align-right",
+            "field": "price_bruto",
             "validation": {
                 "required": true
             }
@@ -175,6 +208,86 @@
             }
         },
         {
+            "title": "productDiscrountDateFrom",
+            "filterable": true,
+            "hideable": true,
+            "type": "date",
+            "format": "dd.MM.yyyy",
+            "class": "text-align-right",
+            "field": "discount_date_from",
+            "validation": {
+                "required": true
+            }
+        },
+        {
+            "title": "productDiscrountDateTo",
+            "filterable": true,
+            "hideable": true,
+            "type": "date",
+            "format": "dd.MM.yyyy",
+            "class": "text-align-right",
+            "field": "discount_date_to",
+            "validation": {
+                "required": true
+            }
+        },
+        {
+            "title": "productDiscrountPrice",
+            "filterable": true,
+            "hideable": true,
+            "type": "string",
+            "class": "text-align-right",
+            "field": "discount_price",
+            "validation": {
+                "required": true
+            }
+        },
+        {
+            "title": "productDiscrountPriceDealer",
+            "filterable": true,
+            "hideable": true,
+            "type": "string",
+            "class": "text-align-right",
+            "field": "discount_price_dealer",
+            "validation": {
+                "required": true
+            }
+        },
+        {
+            "title": "productDiscrountPriceKindergarden",
+            "filterable": true,
+            "hideable": true,
+            "type": "string",
+            "class": "text-align-right",
+            "field": "discount_price_kindergarden",
+            "validation": {
+                "required": true
+            }
+        },
+        {
+            "title": "productNewUntilDate",
+            "filterable": true,
+            "hideable": true,
+            "type": "date",
+            "format": "dd.MM.yyyy",
+            "class": "text-align-right",
+            "field": "new_product_until_date",
+            "validation": {
+                "required": true
+            }
+        },
+        {
+            "title": "productNumberOfPieces",
+            "filterable": true,
+            "hideable": true,
+            "type": "string",
+            "class": "text-align-right",
+            "field": "number_of_pieces",
+            "validation": {
+                "required": true
+            }
+        },
+        {
             "title": "productAvailable",
             "template": {
                 "choices": [
@@ -182,17 +295,57 @@
                         "field": "available",
                         "value": 0,
                         "operator": "==",
-                        "html": "<span class='e-badge e-badge-danger'>Nicht verf端gbar</span>"
+                        "html": "<span class='e-badge e-badge-danger'>Nicht verfügbar</span>"
                     },
                     {
                         "field": "available",
                         "value": 1,
                         "operator": "==",
-                        "html": "<span class='e-badge e-badge-success'>Verf端gbar</span>"
+                        "html": "<span class='e-badge e-badge-success'>Verfügbar</span>"
                     }
                 ]
             },
             "field": "active"
+        },
+        {
+            "title": "productVisibility",
+            "template": {
+                "choices": [
+                    {
+                        "field": "visibility",
+                        "value": 0,
+                        "operator": "==",
+                        "html": "<span class='e-badge e-badge-danger'>Nicht verfügbar</span>"
+                    },
+                    {
+                        "field": "visibility",
+                        "value": 1,
+                        "operator": "==",
+                        "html": "<span class='e-badge e-badge-success'>Verfügbar</span>"
+                    }
+                ]
+            },
+            "field": "visibility"
+        },
+        {
+            "title": "productDealerOnly",
+            "template": {
+                "choices": [
+                    {
+                        "field": "dealer_only",
+                        "value": 0,
+                        "operator": "==",
+                        "html": "<span class='e-badge e-badge-info'>Für alle</span>"
+                    },
+                    {
+                        "field": "dealer_only",
+                        "value": 1,
+                        "operator": "==",
+                        "html": "<span class='e-badge e-badge-warning'>Für Händler</span>"
+                    }
+                ]
+            },
+            "field": "dealer_only"
         }
     ],
     "config": [
@@ -223,6 +376,14 @@
         },
         {
             "type": "textbox",
+            "width": "col-md-12",
+            "class": "e-outline",
+            "name": "title_short",
+            "title": "productTitleShort",
+            "field": "title_short"
+        },
+        {
+            "type": "textbox",
             "multiline": true,
             "width": "col-md-12",
             "class": "e-outline",
@@ -232,7 +393,7 @@
         },
         {
             "type": "numeric",
-            "width": "col-md-4",
+            "width": "col-md-3",
             "class": "e-outline",
             "name": "price",
             "title": "productPrice",
@@ -240,7 +401,15 @@
         },
         {
             "type": "numeric",
-            "width": "col-md-4",
+            "width": "col-md-3",
+            "class": "e-outline",
+            "name": "price_bruto",
+            "title": "productPrice",
+            "field": "price_bruto"
+        },
+        {
+            "type": "numeric",
+            "width": "col-md-3",
             "class": "e-outline",
             "name": "price_dealer",
             "title": "productPriceDealer",
@@ -248,7 +417,7 @@
         },
         {
             "type": "numeric",
-            "width": "col-md-4",
+            "width": "col-md-3",
             "class": "e-outline",
             "name": "price_kindergarden",
             "title": "productPriceKindergarden",

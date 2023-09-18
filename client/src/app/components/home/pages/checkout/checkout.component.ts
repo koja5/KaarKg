@@ -49,8 +49,8 @@ export class CheckoutComponent implements OnInit {
 
   ngOnInit(): void {
     this.language = this.helpService.getLanguage();
-    this.setNetoAndBrutoPrice();
     this.type = this.helpService.getAccountTypeId();
+    this.setNetoAndBrutoPrice();
     this.getCountries();
     this.shippingAddress =
       this.storageService.getLocalStorageObject('shipping');
@@ -71,8 +71,8 @@ export class CheckoutComponent implements OnInit {
     this.products = this.storageService.getCookieObject('cart');
     if (this.type === this.helpService.getUserTypeModel().customer) {
       for (let i = 0; i < this.products.length; i++) {
+        this.products[i].neto = this.products[i].price_neto;
         this.products[i].bruto = this.products[i].price;
-        this.products[i].neto = Number(this.products[i].price / 1.2).toFixed(2);
         this.products[i].vat = '20%';
       }
     } else {
@@ -107,6 +107,7 @@ export class CheckoutComponent implements OnInit {
       shippingNotAvailable: this.additionalPay['shippingNotAvailable'],
       paymentOption: this.paymentOption,
       orderDate: orderDate,
+      type: this.type,
     };
 
     this.loader = true;
@@ -118,7 +119,7 @@ export class CheckoutComponent implements OnInit {
       this.helpService.removeSessionStorage('step');
       this.successEmitter.emit();
     }, 200);
-    
+
     this.service
       .callPostMethod('/api/sendInvoiceToCustomer', data)
       .subscribe((data) => {
@@ -155,7 +156,7 @@ export class CheckoutComponent implements OnInit {
       const orderDate = this.helpService.getCurrentDatetime();
       const data = {
         token: token,
-        price: this.total,
+        price: this.additionalPay['total'],
         description: this.getDescriptionInformation(orderDate),
       };
 

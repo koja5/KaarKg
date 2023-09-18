@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <style>
+        .td_w {}
+
+        button {
+            padding: 5px 10px;
+            font-size: 14px;
+        }
+
+        .invoice-box {
+            max-width: 890px;
+            margin: auto;
+            padding: 10px;
+            border: 1px solid #eee;
+            box-shadow: 0 0 10px rgba(0, 0, 0, .15);
+            font-size: 14px;
+            line-height: 24px;
+            font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
+            color: #555;
+        }
+
+        .invoice-box table {
+            width: 100%;
+            line-height: inherit;
+            text-align: left;
+            border-bottom: solid 1px #ccc;
+        }
+
+        .invoice-box table td {
+            padding: 5px;
+            vertical-align: middle;
+        }
+
+        .invoice-box table tr td:nth-child(2) {
+            text-align: right;
+        }
+
+        .invoice-box table tr.top table td {
+            padding-bottom: 20px;
+        }
+
+        .invoice-box table tr.top table td.title {
+            font-size: 45px;
+            line-height: 45px;
+            color: #333;
+        }
+
+        .invoice-box table tr.information table td {
+            padding-bottom: 40px;
+        }
+
+        .invoice-box table tr.heading td {
+            background: #eee;
+            border-bottom: 1px solid #ddd;
+            font-weight: bold;
+            font-size: 12px;
+        }
+
+        .invoice-box table tr.details td {
+            padding-bottom: 20px;
+        }
+
+        .invoice-box table tr.item td {
+            border-bottom: 1px solid #eee;
+        }
+
+        .invoice-box table tr.item.last td {
+            border-bottom: none;
+        }
+
+        .invoice-box table tr.total td:nth-child(2) {
+            border-top: 2px solid #eee;
+            font-weight: bold;
+        }
+
+        @media only screen and (max-width: 600px) {
+            .invoice-box table tr.top table td {
+                width: 100%;
+                display: block;
+                text-align: center;
+            }
+
+            .invoice-box table tr.information table td {
+                width: 100%;
+                display: block;
+                text-align: center;
+            }
+        }
+
+        /** RTL **/
+        .rtl {
+            direction: rtl;
+            font-family: Tahoma, 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
+        }
+
+        .rtl table {
+            text-align: right;
+        }
+
+        .rtl table tr td:nth-child(2) {
+            text-align: left;
+        }
+
+        .logo {
+            text-align: center;
+        }
+
+        .logo img {
+            margin: auto;
+            width: 180px;
+        }
+
+        .contact p {
+            margin: 0px;
+        }
+
+        .contact {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- partial:index.partial.html -->
+    <div class="invoice-box">
+        <table cellpadding="0" cellspacing="0">
+            <tr class="top_rw">
+                <td colspan="2">
+                    <div class="logo">
+                        <img src="https://city-info.at/assets/images/logo-black.png">
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <div
+                    style="display: flex; width: 95%;
+                                        text-align: center;
+                                        justify-content: center;
+                                        background: #186EB1;
+                                        height: 120px;
+                                        margin-bottom: 15px; margin-left: auto; margin-right: auto;"
+                >
+                    <div style="color: #fff; display: flex; text-align: center; margin: auto;">
+                        <div>
+                            <h1
+                                style="margin: 0px; font-size: 50px; line-height: initial"
+                            >{{bannerFirstText}}</h1>
+                            <h4 style="margin: 0px;">{{bannerSecondText}}</h4>
+                        </div>
+                    </div>
+                    <div style="width: 50%; margin-top: -45px !important;">
+                        <img
+                            style="width: 110px;"
+                            src="http://vps.officenode.com:3005/assets/images/banners/smile_logo.png"
+                        />
+                    </div>
+                </div>
+            </tr>
+
+            <tr class="top">
+                <td colspan="3">
+                    <table>
+                        <tr>
+                            <td>
+                                {{greeting}},
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                {{text}}
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <td colspan="3">
+                <table cellspacing="0px" cellpadding="2px">
+                    <tr class="heading">
+                        <td style="width:50%;">
+                            {{invoiceTitle}}
+                        </td>
+                        <td style="width:10%; text-align:center;">
+                            {{invoiceQuantity}}
+                        </td>
+                        <td style="width:10%; text-align:right;">
+                            {{invoicePrice}}
+                        </td>
+                        <td style="width:10%; text-align:right;">
+                            {{invoiceTotal}}
+                        </td>
+                        <td style="width:20%; text-align:right;">
+                            {{invoiceTotal}}
+                        </td>
+                    </tr>
+                    {{#products}}
+                    <tr class="item">
+                        <td style="width:50%;">
+                            {{title}}
+                        </td>
+                        <td style="width:10%; text-align:center;">
+                            {{quantity}}
+                        </td>
+                        <td style="width:10%; text-align:right;">
+                            € {{neto}}
+                        </td>
+                        <td style="width:10%; text-align:right;">
+                            {{vat}}
+                        </td>
+                        <td style="width:20%; text-align:right;">
+                            € {{bruto}}
+                        </td>
+                    </tr>
+                    {{/products}}
+                    <tr class="item">
+                        <td style="width:50%;">
+                            {{invoiceShipping}}
+                        </td>
+                        <td style="width:10%; text-align:center;">
+                        </td>
+                        <td style="width:10%; text-align:right;">
+                        </td>
+                        <td style="width:10%; text-align:right;">
+                        </td>
+                        <td style="width:20%; text-align:right;">
+                            {{shipping}}
+                        </td>
+                    </tr>
+            </td>
+            
+            <tr class="total">
+                <td colspan="5" align="right"> {{invoiceTotal}}  <b> € {{total}} </b> </td>
+            </tr>
+            <tr class="information">
+                <td colspan="3">
+                    <table>
+                        <tr>
+                            <td colspan="2">
+                                <b> {{invoiceMainAddress}} </b> <br>
+                                {{mainFirstname}} {{mainLastname}} <br>
+                                {{mainCompany}}<br>
+                                {{mainAddress}}<br>
+                                {{mainZip}}  {{mainCity}}<br>
+                                {{mainCountry}}<br>
+                                Tel: {{mainTelephone}}<br>
+                                E-mail: {{mainEmail}}<br>
+                               
+                            </td>
+                            <td> <b> {{invoiceShippingAddress}} </b><br>
+                                {{shippingFirstname}} {{shippingLastname}} <br>
+                                {{shippingCompany}}<br>
+                                {{shippingAddress}}<br>
+                                {{shippingZip}} {{shippingCity}}<br>
+                                {{shippingCountry}}<br>
+                                {{shippingTelephone}}<br>
+                                {{shippingEmail}}<br>
+                                
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3">
+                    <table cellspacing="0px" cellpadding="2px">
+                        <tr>
+                            <td width="50%">
+                                <b> {{invoiceOrderDate}}: </b> {{orderDate}}<br>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="50%">
+                                <b> {{invoicePaymentType}}: </b> {{paymentOption}}<br>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+
+        <div class="contact">
+            <p>{{signatureGreeting}}</p>
+            <p>{{signatureAddress}}</p>
+            <p>{{signatureZipAndCity}}</p>
+            <p>{{signatureEmail}}</p>
+            <p>{{signatureTelephone}}</p>
+            <p style="text-align: center; margin-top: 10px">{{signatureFreeText}}</p>
+            <br />
+            <tr>
+                <td style="text-align:center;">
+                    <img
+                    src="http://city-info.at/assets/images/logo-black.png"
+                    style="width: 120px"
+                    />
+                </td>
+            </tr>
+            <tr style="font-size:14px; color:#455056bd;">
+                <td style="text-align:center;">
+                    <p style="margin-bottom: 0px;">
+                    <span style="font-weight: bold;">A. Kaar Kg</span>
+                    | Haselgrabenweg 4, 4040 Linz
+                    </p>
+                    <p style="margin-top: 5px;">+43 732 946815 | office@kaarkg.at</p>
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align: center; font-weight: bold;">
+                    <span>www.kaarkg.at</span>
+                </td>
+            </tr>
+
+            <div style="text-align: center; margin-top: 10px;">
+                <a href="http://city-info.at:3005/agb" target="_blank">AGB</a>  |  
+                <a href="http://city-info.at:3005/datenschutz" target="_blank">Datenschutz</a> |  
+                <a href="http://city-info.at:3005/impressum" target="_blank">Impressum</a>
+            </div>
+        </div>
+    </div>
+    <!-- partial -->
+
+</body>
+
+</html>
