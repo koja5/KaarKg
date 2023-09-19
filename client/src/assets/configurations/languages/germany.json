@@ -182,6 +182,7 @@
     "paymentSinglePrice": "Preis",
     "paymentTotalPriceForItem": "Gesamt",
     "paymentProblemWithOrder": "Bei Ihrem Kauf ist ein Problem aufgetreten. Bitte kontaktieren Sie uns.",
+    "paymentCardIsNotValid": "Ihre Karte ist ungültig!",
     "checkoutAnd": "und",
     "checkoutMore": "mehr",
     "checkoutSubtotal": "Zwischensumme",

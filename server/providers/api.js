@@ -9,18 +9,16 @@ const logger = require("./config/logger");
 const request = require("request");
 const fs = require("fs");
 const sha1 = require("sha1");
-const stripe = require("stripe")(
-  "sk_test_51NSxCnAM4XTLtMHFbYr7Rv051CyPsZzl22mKWy2J3fKOwxqIvfaCXNcgeLzBZWi2LDPbgHxddspzF7tAGPCDDpQM00V6nSv8iJ"
-);
+const stripe = require("stripe")(process.env.code);
 
 module.exports = router;
 
-/*var connection = mysql.createPool({
+var connection = mysql.createPool({
   host: process.env.host,
   user: process.env.user,
   password: process.env.password,
   database: process.env.database,
-});*/
+});
 
 // var connection = mysql.createPool({
 //   host: "116.203.109.78",
@@ -1654,10 +1652,10 @@ router.post("/createAdPayment", (req, res, next) => {
     },
     (err, charge) => {
       if (err) {
-        next(err);
+        res.json(false);
+      } else {
+        res.json(true);
       }
-
-      res.json(true);
     }
   );
 });

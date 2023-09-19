@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { AuthenticationService } from './authentication.service';
 import { HelpService } from './help.service';
 import { loadStripe } from '@stripe/stripe-js';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -104,9 +105,7 @@ export class CallApiService {
   checkout(products: any) {
     this.callPostMethod('/api/checkout', { items: products }).subscribe(
       async (res: any) => {
-        let stripe = await loadStripe(
-          'pk_test_51NSxCnAM4XTLtMHFvdV00jIFCvdKOwGIgZ42UHsUg6USFdf646wzw0EC93bLkxlXsR5nABX4bNBhflRKHVm4fVvU006rofs2Oe'
-        );
+        let stripe = await loadStripe(environment.code);
         stripe?.redirectToCheckout({
           sessionId: res.id,
         });

@@ -36,9 +36,14 @@ export class CoverBackgroundComponent implements OnInit {
   }
 
   goToLink() {
-    if (this.text.coverButtonLink) {
-      const path = this.text.coverButtonLink.split(window.location.host)[1];
-      this.router.navigate([path]);
+    const contains = this.text.coverButtonLink.indexOf(window.location.origin);
+    if (contains != -1) {
+      if (this.text.coverButtonLink) {
+        const path = this.text.coverButtonLink.split(window.location.host)[1];
+        this.router.navigate([path]);
+      }
+    } else {
+      window.open(this.text.coverButtonLink, "_self");
     }
   }
 }

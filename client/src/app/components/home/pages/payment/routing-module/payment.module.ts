@@ -24,6 +24,7 @@ import { OverviewComponent } from '../overview/overview.component';
 import { RouterModule } from '@angular/router';
 import { PaymentSuccessComponent } from 'src/app/components/templates/payment-success/payment-success.component';
 import { PaymentErrorComponent } from 'src/app/components/templates/payment-error/payment-error.component';
+import { environment } from '../../../../../../environments/environment';
 
 @NgModule({
   declarations: [
@@ -44,9 +45,7 @@ import { PaymentErrorComponent } from 'src/app/components/templates/payment-erro
     SharingHomeModule,
     SharingModule,
     RadioButtonAllModule,
-    StripeModule.forRoot(
-      'pk_test_51NSxCnAM4XTLtMHFvdV00jIFCvdKOwGIgZ42UHsUg6USFdf646wzw0EC93bLkxlXsR5nABX4bNBhflRKHVm4fVvU006rofs2Oe'
-    ),
+    StripeModule.forRoot(environment.code),
   ],
   providers: [],
 })

@@ -131,7 +131,7 @@
             <tr class="top_rw">
                 <td colspan="2">
                     <div class="logo">
-                        <img src="https://city-info.at/assets/images/logo-black.png">
+                        <img src="https://kaarkg.at/assets/images/logo-black.png">
                     </div>
                 </td>
             </tr>
@@ -192,7 +192,7 @@
                             {{invoicePrice}}
                         </td>
                         <td style="width:10%; text-align:right;">
-                            {{invoiceTotal}}
+                            {{invoiceVat}}
                         </td>
                         <td style="width:20%; text-align:right;">
                             {{invoiceTotal}}
@@ -201,7 +201,7 @@
                     {{#products}}
                     <tr class="item">
                         <td style="width:50%;">
-                            {{title}}
+                            {{title}} ({{product_number}})
                         </td>
                         <td style="width:10%; text-align:center;">
                             {{quantity}}
@@ -294,7 +294,7 @@
             <tr>
                 <td style="text-align:center;">
                     <img
-                    src="http://city-info.at/assets/images/logo-black.png"
+                    src="https://kaarkg.at/assets/images/logo-black.png"
                     style="width: 120px"
                     />
                 </td>
@@ -315,9 +315,9 @@
             </tr>
 
             <div style="text-align: center; margin-top: 10px;">
-                <a href="http://city-info.at:3005/agb" target="_blank">AGB</a>  |  
-                <a href="http://city-info.at:3005/datenschutz" target="_blank">Datenschutz</a> |  
-                <a href="http://city-info.at:3005/impressum" target="_blank">Impressum</a>
+                <a href="https://kaarkg.at/agb" target="_blank">AGB</a>  |  
+                <a href="https://kaarkg.at/datenschutz" target="_blank">Datenschutz</a> |  
+                <a href="https://kaarkg.at:3005/impressum" target="_blank">Impressum</a>
             </div>
         </div>
     </div>

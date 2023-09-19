@@ -20,10 +20,10 @@ const logger = require("../config/logger");
 // });
 
 var smtpTransport = nodemailer.createTransport({
-  service: "gmail",
+  service: process.env.smtp_host,
   auth: {
-    user: "kidsnodeoffice@gmail.com",
-    pass: "rvciekpadttcvbwt",
+    user: process.env.smtp_user,
+    pass: process.env.smtp_pass,
   },
 });
 

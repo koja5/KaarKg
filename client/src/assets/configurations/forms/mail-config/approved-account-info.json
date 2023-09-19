@@ -4,22 +4,6 @@
             "type": "textbox",
             "width": "col-md-12",
             "class": "e-outline",
-            "name": "bannerFirstText",
-            "title": "mailBannerFirstText",
-            "field": "bannerFirstText"
-        },
-        {
-            "type": "textbox",
-            "width": "col-md-12",
-            "class": "e-outline",
-            "name": "bannerSecondText",
-            "title": "mailBannerSecondText",
-            "field": "bannerSecondText"
-        },
-        {
-            "type": "textbox",
-            "width": "col-md-12",
-            "class": "e-outline",
             "name": "subject",
             "title": "mailSubject",
             "field": "subject"

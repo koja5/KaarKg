@@ -71,14 +71,14 @@ export class CheckoutComponent implements OnInit {
     this.products = this.storageService.getCookieObject('cart');
     if (this.type === this.helpService.getUserTypeModel().customer) {
       for (let i = 0; i < this.products.length; i++) {
-        this.products[i].neto = this.products[i].price_neto;
-        this.products[i].bruto = this.products[i].price;
+        this.products[i].neto = Number(this.products[i].price_neto).toFixed(2);
+        this.products[i].bruto = Number(this.products[i].quantity * this.products[i].price).toFixed(2);
         this.products[i].vat = '20%';
       }
     } else {
       for (let i = 0; i < this.products.length; i++) {
-        this.products[i].neto = this.products[i].price;
-        this.products[i].bruto = Number(this.products[i].price * 1.2).toFixed(
+        this.products[i].neto = Number(this.products[i].price).toFixed(2);
+        this.products[i].bruto = Number(this.products[i].price * 1.2 * this.products[i].quantity).toFixed(
           2
         );
         this.products[i].vat = '20%';
@@ -151,6 +151,12 @@ export class CheckoutComponent implements OnInit {
     }
   }
 
+  onStripeError(error: any) {
+    if (error) {
+      this.toastr.showErrorCustom(this.language.paymentCardIsNotValid, '');
+    }
+  }
+
   setStripeToken(token: stripe.Token) {
     if (token) {
       const orderDate = this.helpService.getCurrentDatetime();
@@ -161,13 +167,23 @@ export class CheckoutComponent implements OnInit {
       };
 
       this.loader = true;
-      this.service
-        .callPostMethod('/api/createAdPayment', data)
-        .subscribe((data) => {
+      this.service.callPostMethod('/api/createAdPayment', data).subscribe(
+        (data) => {
           if (data) {
             this.pay(orderDate);
+          } else {
+            this.toastr.showErrorCustom(
+              this.language.paymentCardIsNotValid,
+              ''
+            );
+            this.loader = false;
           }
-        });
+        },
+        (error) => {
+          this.toastr.showErrorCustom(this.language.paymentCardIsNotValid, '');
+          this.loader = false;
+        }
+      );
     }
   }
 
