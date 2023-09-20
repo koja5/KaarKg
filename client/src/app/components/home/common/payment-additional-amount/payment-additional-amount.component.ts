@@ -203,9 +203,10 @@ export class PaymentAdditionalAmountComponent implements OnInit {
 
   getSubtotalWithShipping() {
     this.subtotalNetoForProduct = Number(this.subtotalBruto);
+    const netoWithoutShipping = this.helpService.copyObject(this.subtotalNeto);
     this.subtotalNeto += this.shipping;
     this.subtotalBruto += this.shipping;
-    this.vat = Number(this.subtotalNeto * 0.2).toFixed(2);
+    this.vat = Number(netoWithoutShipping * 0.2).toFixed(2);
     this.emitProperty.emit({ name: 'vat', value: this.vat });
     this.emitProperty.emit({ name: 'subtotalNeto', value: this.subtotalNeto });
   }

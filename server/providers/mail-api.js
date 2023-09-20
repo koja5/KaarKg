@@ -248,8 +248,18 @@ router.post("/sendInvoiceToCustomer", function (req, res, next) {
 
   body["invoiceTitle"] = req.body.language.invoiceTitle;
   body["invoiceQuantity"] = req.body.language.invoiceQuantity;
-  body["invoicePrice"] = req.body.language.invoicePrice;
-  body["invoiceTotal"] = req.body.language.invoiceTotal;
+  body["invoicePrice"] =
+    req.body.type === 3
+      ? req.body.language.invoicePriceCustomer
+      : req.body.language.invoicePrice;
+  body["invoiceTotalPerRow"] =
+    req.body.type === 3
+      ? req.body.language.invoiceTotalPerRowCustomer
+      : req.body.language.invoiceTotalPerRow;
+  body["invoiceTotal"] =
+    req.body.type === 3
+      ? req.body.language.invoiceTotalCustomer
+      : req.body.language.invoiceTotal;
   body["invoiceMainAddress"] = req.body.language.invoiceMainAddress;
   body["invoiceShippingAddress"] = req.body.language.invoiceShippingAddress;
   body["invoiceOrderDate"] = req.body.language.invoiceOrderDate;

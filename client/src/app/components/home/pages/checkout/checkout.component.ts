@@ -71,16 +71,18 @@ export class CheckoutComponent implements OnInit {
     this.products = this.storageService.getCookieObject('cart');
     if (this.type === this.helpService.getUserTypeModel().customer) {
       for (let i = 0; i < this.products.length; i++) {
-        this.products[i].neto = Number(this.products[i].price_neto).toFixed(2);
-        this.products[i].bruto = Number(this.products[i].quantity * this.products[i].price).toFixed(2);
+        this.products[i].neto = Number(this.products[i].price).toFixed(2);
+        this.products[i].bruto = Number(
+          this.products[i].quantity * this.products[i].price
+        ).toFixed(2);
         this.products[i].vat = '20%';
       }
     } else {
       for (let i = 0; i < this.products.length; i++) {
         this.products[i].neto = Number(this.products[i].price).toFixed(2);
-        this.products[i].bruto = Number(this.products[i].price * 1.2 * this.products[i].quantity).toFixed(
-          2
-        );
+        this.products[i].bruto = Number(
+          this.products[i].price * this.products[i].quantity
+        ).toFixed(2);
         this.products[i].vat = '20%';
         if (this.products[i].number_of_pieces > 1) {
           this.products[i].title =
