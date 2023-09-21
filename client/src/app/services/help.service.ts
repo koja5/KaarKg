@@ -7,6 +7,7 @@ import { HttpClient } from '@angular/common/http';
 import { ConfigurationService } from './configuration.service';
 import { ToastrComponent } from '../components/common/toastr/toastr.component';
 import { MessageService } from './message.service';
+import { CallApiService } from './call-api.service';
 
 @Injectable({
   providedIn: 'root',
@@ -43,7 +44,7 @@ export class HelpService {
       const user = this.helper.decodeToken(this.storageService.getToken());
       return user.user.type;
     }
-    return false;
+    return -1;
   }
 
   checkRights(rights: any) {
@@ -288,7 +289,7 @@ export class HelpService {
       }
     }
 
-    this.storageService.setCookie('cart', JSON.stringify(current));
+    this.storageService.setCookieObject('cart', current);
 
     this.messageService.sentRefreshForAdditionaPaymentPrice();
   }
@@ -337,4 +338,41 @@ export class HelpService {
   getUserTypeModel() {
     return UserType;
   }
+
+  // checkRealProductPriceForCart() {
+  //   const products = this.storageService.getCookieObject('cart');
+  //   if (products.length) {
+  //     if (this.getAccountTypeId() != false) {
+  //       this.service
+  //         .callPostMethod('/api/getProductPriceForLoginUser', products)
+  //         .subscribe((data) => {
+  //           this.setRealPrice(data, products);
+  //           this.storageService.setCookieObject('cart', products);
+  //           this.messageService.sentRefreshCartInformation();
+  //         });
+  //     } else {
+  //       this.service
+  //         .callPostMethod('/api/getProductPrice', products)
+  //         .subscribe((data) => {
+  //           this.setRealPrice(data, products);
+  //           this.storageService.setCookieObject('cart', products);
+  //           this.messageService.sentRefreshCartInformation();
+  //         });
+  //     }
+  //   }
+  // }
+
+  // setRealPrice(data: any, products: any) {
+  //   let i = 0;
+  //   while (i < data.length) {
+  //     for (let j = 0; j < products.length; j++) {
+  //       if (data[i].id == products[j].id) {
+  //         products[j].price = data[i].price;
+  //         data.splice(i, 1);
+  //         i = 0;
+  //         break;
+  //       }
+  //     }
+  //   }
+  // }
 }

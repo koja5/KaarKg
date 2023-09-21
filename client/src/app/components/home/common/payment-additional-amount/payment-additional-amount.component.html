@@ -1,7 +1,7 @@
 <div class="free-text" *ngIf="shippingInfo&&!shippingNotAvailable">
     <label><app-mat-icon icon="local_shipping"></app-mat-icon>
         <span
-            *ngIf="helpService.getAccountTypeId() === false || helpService.getAccountTypeId() === helpService.getUserTypeModel().customer">{{text.customerCartFreeShipping.replace('{VAT}',
+            *ngIf="helpService.getAccountTypeId() === -1 || helpService.getAccountTypeId() === helpService.getUserTypeModel().customer">{{text.customerCartFreeShipping.replace('{VAT}',
             shippingLimit)}}</span>
         <span
             *ngIf="helpService.getAccountTypeId() === helpService.getUserTypeModel().dealer || helpService.getAccountTypeId() === helpService.getUserTypeModel().superadmin">{{text.dealerCartFreeShipping.replace('{VAT}',
@@ -30,7 +30,7 @@
     </li>
 </ul>
 <div
-    *ngIf="helpService.getAccountTypeId() != false && helpService.getAccountTypeId() !== helpService.getUserTypeModel().customer">
+    *ngIf="helpService.getAccountTypeId() != -1 && helpService.getAccountTypeId() !== helpService.getUserTypeModel().customer">
     <ul>
         <!-- <li class="item" *ngIf="type === helpService.getUserTypeModel().customer">
             <span class="item-title">{{language.checkoutSubtotal}}</span>

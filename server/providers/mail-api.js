@@ -301,7 +301,12 @@ router.post("/sendInvoiceToSuperadmin", function (req, res, next) {
       "utf-8"
     )
   );
-  body["template"] = "invoice.hjs";
+
+  if (req.body.type === 3) {
+    body["template"] = "invoice_customer.hjs";
+  } else {
+    body["template"] = "invoice.hjs";
+  }
 
   body["mainFirstname"] = req.body.mainAddress.firstname;
   body["mainLastname"] = req.body.mainAddress.lastname;
@@ -328,7 +333,18 @@ router.post("/sendInvoiceToSuperadmin", function (req, res, next) {
   body["invoiceTitle"] = req.body.language.invoiceTitle;
   body["invoiceQuantity"] = req.body.language.invoiceQuantity;
   body["invoicePrice"] = req.body.language.invoicePrice;
-  body["invoiceTotal"] = req.body.language.invoiceTotal;
+  body["invoicePrice"] =
+    req.body.type === 3
+      ? req.body.language.invoicePriceCustomer
+      : req.body.language.invoicePrice;
+  body["invoiceTotalPerRow"] =
+    req.body.type === 3
+      ? req.body.language.invoiceTotalPerRowCustomer
+      : req.body.language.invoiceTotalPerRow;
+  body["invoiceTotal"] =
+    req.body.type === 3
+      ? req.body.language.invoiceTotalCustomer
+      : req.body.language.invoiceTotal;
   body["invoiceMainAddress"] = req.body.language.invoiceMainAddress;
   body["invoiceShippingAddress"] = req.body.language.invoiceShippingAddress;
   body["invoiceOrderDate"] = req.body.language.invoiceOrderDate;
@@ -336,7 +352,6 @@ router.post("/sendInvoiceToSuperadmin", function (req, res, next) {
   body["invoiceShipping"] = req.body.language.invoiceShipping;
   body["invoiceSubtotal"] = req.body.language.invoiceSubtotal;
   body["invoiceVat"] = req.body.language.invoiceVat;
-  body["invoiceTotal"] = req.body.language.invoiceTotal;
   body["products"] = req.body.products;
   body["subtotalNeto"] = Number(req.body.subtotalNeto).toFixed(2);
   body["shipping"] = req.body.shippingNotAvailable

@@ -1089,6 +1089,56 @@ router.get("/getProductById/:id", async (req, res, next) => {
   }
 });
 
+router.post("/getProductPriceForLoginUser", auth, async (req, res, next) => {
+  try {
+    connection.getConnection(function (err, conn) {
+      if (err) {
+        logger.log("error", err.sql + ". " + err.sqlMessage);
+        res.json(err);
+      } else {
+        let query = getProductPriceByAccountType(req.user.user.type, req.body);
+        conn.query(query, function (err, rows, fields) {
+          conn.release();
+          if (err) {
+            logger.log("error", err.sql + ". " + err.sqlMessage);
+            res.json(err);
+          } else {
+            res.json(rows);
+          }
+        });
+      }
+    });
+  } catch (ex) {
+    logger.log("error", err.sql + ". " + err.sqlMessage);
+    res.json(ex);
+  }
+});
+
+router.post("/getProductPrice", async (req, res, next) => {
+  try {
+    connection.getConnection(function (err, conn) {
+      if (err) {
+        logger.log("error", err.sql + ". " + err.sqlMessage);
+        res.json(err);
+      } else {
+        let query = getProductPriceByAccountType(false, req.body);
+        conn.query(query, function (err, rows, fields) {
+          conn.release();
+          if (err) {
+            logger.log("error", err.sql + ". " + err.sqlMessage);
+            res.json(err);
+          } else {
+            res.json(rows);
+          }
+        });
+      }
+    });
+  } catch (ex) {
+    logger.log("error", err.sql + ". " + err.sqlMessage);
+    res.json(ex);
+  }
+});
+
 router.get("/searchProducts/:category", async (req, res, next) => {
   try {
     connection.getConnection(function (err, conn) {
@@ -1940,6 +1990,31 @@ function getProductsByAccountType(userType) {
   } else if (userType === 3 || !userType) {
     query =
       "select p.id, p.category_id, p.product_number, p.title, p.title_short, p.description, CAST(p.price as DECIMAL(16,2)) as 'price_neto', CAST(p.price_bruto as DECIMAL(16,2)) as 'price', p.image, p.available, np.name, case when p.discount_price then CAST((((p.price_bruto - p.discount_price)/p.price_bruto) * 100) as DECIMAL(16,0)) else 0 end as 'persantage', case when new_product_until_date > CAST(CURRENT_TIMESTAMP AS DATE) then 1 else 0 end as 'new', case when discount_date_from <= CAST(CURRENT_TIMESTAMP AS DATE) and discount_date_to >= CAST(CURRENT_TIMESTAMP AS DATE) then discount_price else 0 end as 'discount_price' from articles p join navigations np on p.category_id = np.id";
+  }
+  return query;
+}
+
+function getProductPriceByAccountType(userType, products) {
+  let query = "";
+  let condition = "";
+  for (let i = 0; i < products.length; i++) {
+    condition += " id = " + products[i].id;
+    if (i < products.length - 1) {
+      condition += " or";
+    }
+  }
+  if (userType === 0 || userType === 1) {
+    query =
+      "select id, case when discount_price_dealer then discount_price_dealer else price_dealer end as 'price' from articles where " +
+      condition;
+  } else if (userType === 2) {
+    query =
+      "select id, case when discount_price_kindergarden then discount_price_kindergarden else price_kindergarden end as 'price' from articles where " +
+      condition;
+  } else if (userType === 3 || !userType) {
+    query =
+      "select id, CAST(price as DECIMAL(16,2)) as 'price_neto', case when discount_price then discount_price else CAST(price_bruto as DECIMAL(16,2)) end as 'price' from articles where " +
+      condition;
   }
   return query;
 }

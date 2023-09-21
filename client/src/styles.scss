@@ -16034,6 +16034,14 @@ aside .widget-info i {
   .product-single-details .product-action {
     text-align: center;
   }
+
+  .e-dropdown-btn .e-caret, .e-dropdown-btn.e-btn .e-caret {
+    display: none;
+  }
+
+  .header-middle .header-right {
+    padding: 0px;
+  }
 }
 @media (max-width: 575px) {
   .banner h5 {

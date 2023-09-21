@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 import { loadStripe } from '@stripe/stripe-js';
 import { DialogComponent } from '@syncfusion/ej2-angular-popups';
 import { ToastrComponent } from 'src/app/components/common/toastr/toastr.component';
+import { UserType } from 'src/app/enums/user-type';
 import { CallApiService } from 'src/app/services/call-api.service';
 import { HelpService } from 'src/app/services/help.service';
 import { MessageService } from 'src/app/services/message.service';
@@ -45,17 +46,16 @@ export class RightCardComponent implements OnInit {
     this.language = this.helpService.getLanguage();
   }
 
-  
-
   ngOnChanges(changes: SimpleChanges) {
     if (this.type === 'favorite') {
       this.products = this.storageService.getCookieObject('favorite');
     } else if (this.type === 'cart') {
       this.products = this.storageService.getCookieObject('cart');
+      // this.checkRealProductPrice();
     }
   }
 
-  
+
   removeFavorite(index: number) {
     this.products.splice(index, 1);
     this.storageService.setCookieObject('favorite', this.products);
@@ -88,6 +88,7 @@ export class RightCardComponent implements OnInit {
   addToCart(item: any) {
     item.quantity = 1;
     this.helpService.addToCart(item);
+    this.messageService.sentRefreshCartInformation();
   }
 
   addQuantity(index: number) {
@@ -96,6 +97,7 @@ export class RightCardComponent implements OnInit {
       this.products[index],
       this.products[index].quantity
     );
+    this.messageService.sentRefreshCartInformation();
   }
 
   changeQuantity(index: number) {
@@ -103,6 +105,7 @@ export class RightCardComponent implements OnInit {
       this.products[index],
       this.products[index].quantity
     );
+    this.messageService.sentRefreshCartInformation();
   }
 
   removeQuantity(index: number) {
@@ -112,11 +115,11 @@ export class RightCardComponent implements OnInit {
         this.products[index],
         this.products[index].quantity
       );
+      this.messageService.sentRefreshCartInformation();
     }
   }
 
   getPricePerItem(price: number, quantity: number) {
     return Number(price * quantity).toFixed(2);
   }
-
 }

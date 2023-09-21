@@ -137,7 +137,7 @@
     <ejs-dialog #loginDialog [showCloseIcon]='true' [header]="loginFormTitle" [position]="{Y: 100}" [visible]='false'
         width="450px" (close)="hideLoginDialog()" isModal="true">
         <ng-template #content>
-            <app-login *ngIf="loginDialogShow" (closeLoginDialog)="closeLoginDialog()"
+            <app-login #login *ngIf="loginDialogShow" (closeLoginDialog)="closeLoginDialog()"
                 (changeLoginFormTypeEvent)="changeLoginFormType($event)"></app-login>
         </ng-template>
     </ejs-dialog>

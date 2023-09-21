@@ -4,6 +4,7 @@ import { ItemModel, MenuEventArgs } from '@syncfusion/ej2-angular-navigations';
 import { DialogComponent } from '@syncfusion/ej2-angular-popups';
 import { LoginFormType } from 'src/app/enums/login-form-type';
 import { UserType } from 'src/app/enums/user-type';
+import { CallApiService } from 'src/app/services/call-api.service';
 import { ConfigurationService } from 'src/app/services/configuration.service';
 import { HelpService } from 'src/app/services/help.service';
 import { MessageService } from 'src/app/services/message.service';
@@ -39,7 +40,8 @@ export class HomeComponent implements OnInit {
     private helpService: HelpService,
     private storageService: StorageService,
     private configurationService: ConfigurationService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private service: CallApiService
   ) {}
 
   ngOnInit(): void {
@@ -51,7 +53,10 @@ export class HomeComponent implements OnInit {
 
   ngAfterViewInit(): void {
     document.onclick = (args: any): void => {
-      if (args.target.className.indexOf('cart-overlay') !== -1 || args.target.className.indexOf('e-dlg-overlay') !== -1) {
+      if (
+        args.target.className.indexOf('cart-overlay') !== -1 ||
+        args.target.className.indexOf('e-dlg-overlay') !== -1
+      ) {
         this.messageService.sentHideDialog();
         this.closeLoginDialog();
         this.closeCard();
@@ -172,7 +177,7 @@ export class HomeComponent implements OnInit {
     this.storageService.deleteToken();
     this.username = null;
     this.type = null;
-    window.location.href = '/';
+    this.checkRealProductPriceForCart();
   }
 
   onSearchChange(event: any) {
@@ -237,5 +242,46 @@ export class HomeComponent implements OnInit {
   showQuickView(event: any) {
     this.closeCard();
     this.messageService.sentShowQuickView(event);
+  }
+
+  public checkRealProductPriceForCart() {
+    const products = this.storageService.getCookieObject('cart');
+    if (products.length) {
+      if (this.helpService.getAccountTypeId() != -1) {
+        this.service
+          .callPostMethod('/api/getProductPriceForLoginUser', products)
+          .subscribe((data) => {
+            this.setRealPrice(data, products);
+            this.storageService.setCookieObject('cart', products);
+            this.messageService.sentRefreshCartInformation();
+            window.location.href = '/';
+          });
+      } else {
+        this.service
+          .callPostMethod('/api/getProductPrice', products)
+          .subscribe((data) => {
+            this.setRealPrice(data, products);
+            this.storageService.setCookieObject('cart', products);
+            this.messageService.sentRefreshCartInformation();
+            window.location.href = '/';
+          });
+      }
+    } else {
+      window.location.href = '/';
+    }
+  }
+
+  setRealPrice(data: any, products: any) {
+    let i = 0;
+    while (i < data.length) {
+      for (let j = 0; j < products.length; j++) {
+        if (data[i].id == products[j].id) {
+          products[j].price = data[i].price;
+          data.splice(i, 1);
+          i = 0;
+          break;
+        }
+      }
+    }
   }
 }

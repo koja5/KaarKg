@@ -281,15 +281,28 @@
             }
         },
         {
-            "title": "userActive",
+            "title": "userVerified",
             "template": {
                 "choices": [
                     {
-                        "field": "active",
-                        "value": -1,
+                        "field": "verified",
+                        "value": 0,
                         "operator": "==",
-                        "html": "<span class='e-badge e-badge-warning'>Nicht bestätigte E-Mail</span>"
+                        "html": "<span class='e-badge e-badge-danger'>Nicht bestätigte E-Mail</span>"
                     },
+                    {
+                        "field": "verified",
+                        "value": 1,
+                        "operator": "==",
+                        "html": "<span class='e-badge e-badge-success'>Verifizierte E-Mail</span>"
+                    }
+                ]
+            }
+        },
+        {
+            "title": "userActive",
+            "template": {
+                "choices": [
                     {
                         "field": "active",
                         "value": 0,
@@ -301,12 +314,6 @@
                         "value": 1,
                         "operator": "==",
                         "html": "<span class='e-badge e-badge-success'>Aktiv</span>"
-                    },
-                    {
-                        "field": "active",
-                        "value": 2,
-                        "operator": "==",
-                        "html": "<span class='e-badge e-badge-info'>Verifizierte E-Mail</span>"
                     }
                 ]
             },
@@ -454,6 +461,14 @@
             "name": "newsletter",
             "title": "userNewsletter",
             "field": "newsletter"
+        },
+        {
+            "type": "switch",
+            "width": "col-md-12 pt-2",
+            "class": "e-outline",
+            "name": "verified",
+            "title": "userVerified",
+            "field": "verified"
         },
         {
             "type": "switch",

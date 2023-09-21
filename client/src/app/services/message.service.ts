@@ -15,6 +15,7 @@ export class MessageService {
   public showQuickView = new Subject<any>();
   public refreshForAdditionalPaymentPrice = new Subject<null>();
   public hideDialog = new Subject<null>();
+  public logoutRefresh = new Subject<null>();
 
   constructor() {}
 
@@ -54,7 +55,7 @@ export class MessageService {
     this.viewCart.next(null);
   }
 
-  getViewCart() {
+  getViewCart(): Observable<null> {
     return this.viewCart.asObservable();
   }
 
@@ -62,7 +63,7 @@ export class MessageService {
     this.refreshCartInformation.next(null);
   }
 
-  getRefreshCartInformation() {
+  getRefreshCartInformation(): Observable<null> {
     return this.refreshCartInformation.asObservable();
   }
 
@@ -70,7 +71,7 @@ export class MessageService {
     this.searchValueForProduct.next(value);
   }
 
-  getSearchValueForProducts() {
+  getSearchValueForProducts(): Observable<string> {
     return this.searchValueForProduct.asObservable();
   }
 
@@ -78,7 +79,7 @@ export class MessageService {
     this.showQuickView.next(value);
   }
 
-  getShowQuickView() {
+  getShowQuickView(): Observable<any> {
     return this.showQuickView.asObservable();
   }
 
@@ -86,7 +87,7 @@ export class MessageService {
     this.refreshForAdditionalPaymentPrice.next(null);
   }
 
-  getRefreshForAdditionaPaymentPrice() {
+  getRefreshForAdditionaPaymentPrice(): Observable<null> {
     return this.refreshForAdditionalPaymentPrice.asObservable();
   }
 
@@ -94,7 +95,15 @@ export class MessageService {
     this.hideDialog.next(null);
   }
 
-  getHideDialog() {
+  getHideDialog(): Observable<null> {
     return this.hideDialog.asObservable();
+  }
+
+  sentLogoutRefresh() {
+    this.logoutRefresh.next(null);
+  }
+
+  getLogoutRefresh(): Observable<null> {
+    return this.logoutRefresh.asObservable();
   }
 }

@@ -105,25 +105,28 @@
 
                             <div class="price-box" *ngIf="item.discount_price">
                                 <span class="old-price">€ {{item.price | number: '.2'}}</span>
-                                <span *ngIf="accountType && accountType === 1" class="product-price discount-price">€
+                                <span *ngIf="accountType == 0 || accountType === 1"
+                                    class="product-price discount-price">€
                                     {{item.discount_price | number: '.2'}} <span
                                         class="vat">{{language.productExcludeVat}}</span></span>
                                 <span *ngIf="accountType && accountType === 2" class="product-price discount-price">€
                                     {{item.discount_price | number: '.2'}} <span
                                         class="vat">{{language.productExcludeVat}}</span></span>
-                                <span *ngIf="!accountType || accountType === 3" class="product-price discount-price">€
+                                <span *ngIf="accountType == undefined || accountType == -1 || accountType === 3"
+                                    class="product-price discount-price">€
                                     {{item.discount_price |
                                     number: '.2'}} <span class="vat">{{language.productIncludeVat}}</span></span>
                             </div>
 
                             <div class="price-box" *ngIf="!item.discount_price">
-                                <span *ngIf="accountType && accountType === 1" class="product-price">€
+                                <span *ngIf="accountType == 0 || accountType === 1" class="product-price">€
                                     {{item.price | number: '.2'}} <span
                                         class="vat">{{language.productExcludeVat}}</span></span>
                                 <span *ngIf="accountType && accountType === 2" class="product-price">€
                                     {{item.price | number: '.2'}} <span
                                         class="vat">{{language.productExcludeVat}}</span></span>
-                                <span *ngIf="!accountType || accountType === 3" class="product-price">€ {{item.price |
+                                <span *ngIf="accountType == undefined || accountType == -1 || accountType === 3"
+                                    class="product-price">€ {{item.price |
                                     number: '.2'}} <span class="vat">{{language.productIncludeVat}}</span></span>
                             </div>
                             <!-- End .price-box -->

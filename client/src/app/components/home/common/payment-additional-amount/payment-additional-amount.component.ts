@@ -156,7 +156,7 @@ export class PaymentAdditionalAmountComponent implements OnInit {
 
   setNetoAndBrutoPrice() {
     if (
-      this.helpService.getAccountTypeId() === false ||
+      this.helpService.getAccountTypeId() === -1 ||
       this.helpService.getAccountTypeId() ===
         this.helpService.getUserTypeModel().customer
     ) {
@@ -213,7 +213,7 @@ export class PaymentAdditionalAmountComponent implements OnInit {
 
   getTotal() {
     if (
-      this.helpService.getAccountTypeId() == false ||
+      this.helpService.getAccountTypeId() == -1 ||
       this.helpService.getAccountTypeId() ===
         this.helpService.getUserTypeModel().customer
     ) {

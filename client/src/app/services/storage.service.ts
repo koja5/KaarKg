@@ -64,7 +64,11 @@ export class StorageService {
   }
 
   setCookie(key: string, value: any) {
-    this.cookieService.set(key, value);
+    this.cookieService.set(key, value, {
+      expires: undefined,
+      path: '/',
+      sameSite: 'Lax',
+    });
   }
 
   getCookie(key: string) {
@@ -76,7 +80,11 @@ export class StorageService {
   }
 
   setCookieObject(key: string, value: any) {
-    this.cookieService.set(key, JSON.stringify(value));
+    this.cookieService.set(key, JSON.stringify(value), {
+      expires: undefined,
+      path: '/',
+      sameSite: 'Lax',
+    });
   }
 
   getCookieObject(key: string) {

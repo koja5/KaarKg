@@ -14,6 +14,7 @@ import {
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import { TextBoxComponent } from '@syncfusion/ej2-angular-inputs';
+import { Subscription } from 'rxjs';
 import { ToastrComponent } from 'src/app/components/common/toastr/toastr.component';
 import { LoginFormType } from 'src/app/enums/login-form-type';
 import { UserType } from 'src/app/enums/user-type';
@@ -45,6 +46,7 @@ export class LoginComponent implements OnInit {
   public showHidePassword = false;
   public needVerification = false;
   public text: any;
+  public subscribe!: Subscription;
 
   constructor(
     private service: CallApiService,
@@ -63,6 +65,16 @@ export class LoginComponent implements OnInit {
     this.type = LoginFormType.login;
     this.initializeForm();
     this.initializeConfig();
+
+    this.subscribe = this.messageService
+      .getLogoutRefresh()
+      .subscribe((message) => {
+        console.log('TEST');
+      });
+  }
+
+  ngOnDestroy(): void {
+    this.subscribe.unsubscribe();
   }
 
   // ngAfterViewInit(): void {
@@ -198,6 +210,7 @@ export class LoginComponent implements OnInit {
     this.storageService.setToken(data.token);
     const token = this.helpService.getDecodeToken();
     this.helpService.setLocalStorage('logo', token.logo);
+    this.checkRealProductPriceForCart();
     if (this.helpService.getLocalStorageStringValue('previousLink')) {
       const checkSharp = this.helpService
         .getLocalStorageStringValue('previousLink')
@@ -213,13 +226,12 @@ export class LoginComponent implements OnInit {
       this.helpService.getSessionStorageStringValue('previous') === 'checkout'
     ) {
       this.router.navigate(['payment']);
-      this.helpService.removeSessionStorage('previous');
-    } else if (token.type === UserType.superadmin) {
-      // this.router.navigate(['/dashboard']);
-      window.location.reload();
-    } else {
-      window.location.reload();
     }
+    // else if (token.type === UserType.superadmin) {
+    //   window.location.reload();
+    // } else {
+    //   window.location.reload();
+    // }
   }
 
   selectUserType(type: UserType) {
@@ -270,5 +282,58 @@ export class LoginComponent implements OnInit {
           );
         }
       });
+  }
+
+  public checkRealProductPriceForCart() {
+    const products = this.storageService.getCookieObject('cart');
+    if (products.length) {
+      if (this.helpService.getAccountTypeId() != -1) {
+        this.service
+          .callPostMethod('/api/getProductPriceForLoginUser', products)
+          .subscribe((data) => {
+            this.setRealPrice(data, products);
+            this.storageService.setCookieObject('cart', products);
+            this.messageService.sentRefreshCartInformation();
+            if (!this.helpService.getSessionStorageStringValue('previous')) {
+              window.location.reload();
+            } else {
+              this.helpService.removeSessionStorage('previous');
+            }
+          });
+      } else {
+        this.service
+          .callPostMethod('/api/getProductPrice', products)
+          .subscribe((data) => {
+            this.setRealPrice(data, products);
+            this.storageService.setCookieObject('cart', products);
+            this.messageService.sentRefreshCartInformation();
+            if (!this.helpService.getSessionStorageStringValue('previous')) {
+              window.location.reload();
+            } else {
+              this.helpService.removeSessionStorage('previous');
+            }
+          });
+      }
+    } else {
+      if (!this.helpService.getSessionStorageStringValue('previous')) {
+        window.location.reload();
+      } else {
+        this.helpService.removeSessionStorage('previous');
+      }
+    }
+  }
+
+  setRealPrice(data: any, products: any) {
+    let i = 0;
+    while (i < data.length) {
+      for (let j = 0; j < products.length; j++) {
+        if (data[i].id == products[j].id) {
+          products[j].price = data[i].price;
+          data.splice(i, 1);
+          i = 0;
+          break;
+        }
+      }
+    }
   }
 }

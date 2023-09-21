@@ -73,7 +73,7 @@
                     <span *ngIf="accountType && accountType === 2" class="product-price discount-price">€
                         {{item.discount_price | number: '.2'}} <span
                             class="vat">{{language.productExcludeVat}}</span></span>
-                    <span *ngIf="!accountType || accountType === 3" class="product-price discount-price">€
+                    <span *ngIf="accountType === -1 || accountType === 3" class="product-price discount-price">€
                         {{item.discount_price |
                         number: '.2'}} <span class="vat">{{language.productIncludeVat}}</span></span>
                 </div>
@@ -86,7 +86,7 @@
                             {{language.productPackageLastPart}}</span></span>
                     <span *ngIf="accountType && accountType === 2" class="product-price">€
                         {{item.price | number: '.2'}} <span class="vat">{{language.productExcludeVat}}</span></span>
-                    <span *ngIf="!accountType || accountType === 3" class="product-price">€ {{item.price |
+                    <span *ngIf="accountType === -1 || accountType === 3" class="product-price">€ {{item.price |
                         number: '.2'}} <span class="vat">{{language.productIncludeVat}}</span></span>
                 </div>
 
