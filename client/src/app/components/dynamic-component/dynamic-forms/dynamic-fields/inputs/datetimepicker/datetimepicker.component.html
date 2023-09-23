@@ -2,7 +2,7 @@
   <label *ngIf="config.title" class="custom-label">{{ language[config.title] ? language[config.title] : config.title
   }}</label>
   <ejs-datetimepicker cssClass="{{ config.class }}" [id]="config.name" [formControlName]="config.name"
-    [disabled]="config.disabled!" [readonly]="config.readonly!"></ejs-datetimepicker>
+    [disabled]="config.disabled!" [readonly]="config.readonly!" [format]="config.format"></ejs-datetimepicker>
 </div>
 
 <div *ngIf="config?.schedule" class="{{ config?.width }}">

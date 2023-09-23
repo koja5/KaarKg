@@ -7,20 +7,23 @@ import { RightCardComponent } from '../common/right-card/right-card.component';
 import { FooterComponent } from '../common/footer/footer.component';
 import { FormsModule } from '@angular/forms';
 import { PaymentAdditionalAmountComponent } from '../common/payment-additional-amount/payment-additional-amount.component';
+import { NoProductsAvailableComponent } from '../common/no-products-available/no-products-available.component';
 
 @NgModule({
   declarations: [
     HeaderTopComponent,
     MatIconComponent,
     RightCardComponent,
-    PaymentAdditionalAmountComponent
+    PaymentAdditionalAmountComponent,
+    NoProductsAvailableComponent
   ],
   imports: [CommonModule, MatIconModule, FormsModule],
   exports: [
     HeaderTopComponent,
     MatIconComponent,
     RightCardComponent,
-    PaymentAdditionalAmountComponent
+    PaymentAdditionalAmountComponent,
+    NoProductsAvailableComponent
   ],
   providers: [],
   bootstrap: [],

@@ -16443,3 +16443,7 @@ aside .widget-info i {
 .e-badge-success {
   background-color: var(--second) !important;
 }
+
+.e-input-group, .e-input-group.e-control-wrapper {
+  border-radius: 5px;
+}

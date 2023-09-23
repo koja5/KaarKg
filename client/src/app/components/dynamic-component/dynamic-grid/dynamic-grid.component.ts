@@ -41,6 +41,7 @@ export class DynamicGridComponent implements OnInit {
   @ViewChild('grid') public grid!: GridComponent;
   @ViewChild('orderForm') public orderForm!: FormGroup;
   @ViewChild('editSettingsTemplate') editSettingsTemplate!: DialogComponent;
+  @ViewChild('contextMenuDialog') contextMenuDialog!: DialogComponent;
   @ViewChild('container') public container!: ElementRef;
 
   public config: any;
@@ -72,7 +73,6 @@ export class DynamicGridComponent implements OnInit {
     private messageService: MessageService
   ) {
     // setCulture('de-DE');
-
     // L10n.load({
     //   'de-DE': {
     //     grid: {
@@ -201,7 +201,11 @@ export class DynamicGridComponent implements OnInit {
       this.callServerMethod(this.config.editSettingsRequest.edit, event);
     }
 
-    this.operations.dialog.close();
+    if (this.operations) {
+      this.operations.dialog.close();
+    } else {
+      this.contextMenuDialog.hide();
+    }
   }
 
   callServerMethod(request: any, event: any) {
@@ -362,5 +366,16 @@ export class DynamicGridComponent implements OnInit {
   previewInvoice(body: any) {
     this.selectedData = body;
     this.invoiceDialog.show();
+  }
+
+  contextMenuClick(event: any) {
+    console.log(event);
+    if (event && event.item.properties.iconCss === 'e-icons e-copy') {
+      this.setValue(this.config.config, event.rowInfo.rowData);
+
+      this.contextMenuDialog.show();
+      this.typeOfModification = 'add';
+      this.operations = null;
+    }
   }
 }

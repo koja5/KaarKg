@@ -8,13 +8,15 @@
     [allowResizing]="config.allowResizing" [allowPaging]="config.paging.enable" [allowExcelExport]="true"
     [allowPdfExport]="true" [pageSettings]="config.paging.settings" [allowFiltering]="config.filtering.enable"
     [filterSettings]="config.filtering.settings" [allowExcelExport]='true' [contextMenuItems]="config.contextMenuItems"
-    (actionComplete)="actionComplete($event)" (toolbarClick)='toolbarClick($event)'>
+    (actionComplete)="actionComplete($event)" (toolbarClick)='toolbarClick($event)'
+    (contextMenuClick)="contextMenuClick($event)">
     <e-columns>
       <e-column *ngFor="let item of config.columns; let i = index" [type]="item.type" [field]="item.field"
         [headerText]="language[item.title] ? language[item.title] : item.title" [width]="item.width"
         [class]="item.class" [textAlign]="item.position ? item.position : 'center'" [isPrimaryKey]="item.isPrimaryKey"
-        [editType]="item.editType ? item.editType : null" [allowEditing]="item.allowEditing" [format]="item.format" [filter]="item.filter"
-        [validationRules]="item.validation" [allowFiltering]="item.allowFiltering === false ? false : true">
+        [editType]="item.editType ? item.editType : null" [allowEditing]="item.allowEditing" [format]="item.format"
+        [filter]="item.filter" [validationRules]="item.validation"
+        [allowFiltering]="item.allowFiltering === false ? false : true">
         <ng-template #template let-data *ngIf="item.template">
           <div *ngIf="item.template.type === 'button'">
             <button [class]="item.template.class" *ngIf="item.template.action === 'open'" (click)="
@@ -109,6 +111,12 @@
     </ng-template>
   </ejs-grid>
 </div>
+
+<ejs-dialog #contextMenuDialog [showCloseIcon]='true' isModal="true" [visible]='false'>
+  <app-dynamic-forms *ngIf="config.config && config.config.length > 0" [config]="config" [partOfGrid]="true"
+    (submit)="submitEmitter($event)" #form="dynamicForm">
+  </app-dynamic-forms>
+</ejs-dialog>
 
 
 <ejs-dialog id='invoiceDialog' #invoiceDialog showCloseIcon='true' (beforeOpen)="onBeforeOpen($event)" showOnInit="true"

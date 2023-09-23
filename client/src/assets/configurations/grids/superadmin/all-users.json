@@ -321,6 +321,18 @@
             "filter": {
                 "type": "CheckBox"
             }
+        },
+        {
+            "title": "userSignUpTime",
+            "filterable": false,
+            "hideable": true,
+            "type": "date",
+            "format": "dd.MM.yyyy. HH:mm:ss",
+            "class": "text-align-right",
+            "field": "signup_time",
+            "validation": {
+                "required": true
+            }
         }
     ],
     "config": [
@@ -477,6 +489,16 @@
             "name": "active",
             "title": "userActive",
             "field": "active"
+        },
+        {
+            "type": "datetimepicker",
+            "width": "col-md-12 pt-2",
+            "class": "e-outline",
+            "readonly": true,
+            "format": "dd.MM.yyyy. HH:mm:ss",
+            "name": "signup_time",
+            "title": "userSignUpTime",
+            "field": "signup_time"
         },
         {
             "type": "button",

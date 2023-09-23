@@ -25,6 +25,7 @@ export class HeaderTopComponent implements OnInit {
   }
 
   routerToHelp() {
-    this.router.navigate(['hilfe']);
+    // this.router.navigate(['hilfe']);
+    window.open('https://kaarkg.odoo.com/faq');
   }
 }

@@ -245,7 +245,7 @@ export class ProductsComponent implements OnInit {
   }
 
   getNoImageAvailablePicture(index: number) {
-    this.products[index].image = '../no-image-available.png';
+    this.products[index].image = '../no-image.png';
   }
 
   hideProductItemDialog() {

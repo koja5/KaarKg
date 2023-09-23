@@ -249,7 +249,8 @@ export class HelpService {
     return JSON.parse(JSON.stringify(data));
   }
 
-  addToFavorite(item: any) {
+  addToFavorite(article: any) {
+    let item = this.copyObject(article);
     let currentFavorite = this.storageService.getCookieObject('favorite');
     let ind = 1;
     if (currentFavorite != '') {
@@ -264,7 +265,7 @@ export class HelpService {
       if (currentFavorite === '') {
         currentFavorite = [];
       }
-      item.description = '';
+      item = this.removeUnnecessaryProperty(item);
       currentFavorite.push(item);
       this.storageService.setCookie(
         'favorite',
@@ -288,10 +289,9 @@ export class HelpService {
         break;
       }
     }
-
     this.storageService.setCookieObject('cart', current);
-
-    this.messageService.sentRefreshForAdditionaPaymentPrice();
+    this.messageService.sentRefreshCartInformation();
+    // this.messageService.sentRefreshForAdditionaPaymentPrice();
   }
 
   addToCart(article: any) {
@@ -309,10 +309,10 @@ export class HelpService {
       }
     }
     if (ind) {
-      item.description = '';
       if (item.discount_price && item.discount_price > 0) {
         item.price = item.discount_price;
       }
+      item = this.removeUnnecessaryProperty(item);
       currentFavorite.push(item);
       this.storageService.setCookie('cart', JSON.stringify(currentFavorite));
     } else {
@@ -326,6 +326,18 @@ export class HelpService {
       language.productSuccessfulyAddNewArticleInCart
     );
     this.messageService.sentRefreshCartInformation();
+  }
+
+  removeUnnecessaryProperty(item: any) {
+    delete item.description;
+    delete item.title_short;
+    delete item.name;
+    delete item.available;
+    delete item.persantage;
+    delete item.new;
+    delete item.discount_price;
+    delete item.category_id;
+    return item;
   }
 
   getCurrentDatetime() {

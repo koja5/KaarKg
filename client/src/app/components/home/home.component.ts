@@ -181,7 +181,11 @@ export class HomeComponent implements OnInit {
   }
 
   onSearchChange(event: any) {
-    if (event.target.value.length > 2 || event.target.value === '') {
+    if (window.location.pathname.indexOf('category') === -1) {
+      this.router.navigate(['/']);
+      this.searchProduct = event.target.value;
+      this.messageService.sentSearchValueForProducts(event.target.value);
+    } else if (event.target.value.length > 2 || event.target.value === '') {
       this.searchProduct = event.target.value;
       this.messageService.sentSearchValueForProducts(event.target.value);
     }
@@ -241,7 +245,28 @@ export class HomeComponent implements OnInit {
 
   showQuickView(event: any) {
     this.closeCard();
-    this.messageService.sentShowQuickView(event);
+    if (this.helpService.getAccountTypeId() != -1) {
+      this.service
+        .callGetMethod('/api/getProductByIdForLoginUser', event.id)
+        .subscribe((data: any) => {
+          if (data) {
+            this.messageService.sentShowQuickView(data[0]);
+          }
+        });
+    } else {
+      this.service
+        .callGetMethod('/api/getProductById', event.id)
+        .subscribe((data: any) => {
+          if (data) {
+            this.messageService.sentShowQuickView(data[0]);
+          }
+        });
+    }
+  }
+
+  setRequiredFields(event: any, data: any) {
+    event['description'] = data['description'];
+    event['title'];
   }
 
   public checkRealProductPriceForCart() {

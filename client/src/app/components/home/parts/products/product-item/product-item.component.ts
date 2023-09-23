@@ -93,4 +93,8 @@ export class ProductItemComponent implements OnInit {
       }
     );
   }
+
+  getNoImageAvailablePicture() {
+    this.item['image'] = '../no-image.png';
+  }
 }

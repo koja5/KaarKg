@@ -20,20 +20,6 @@ var connection = mysql.createPool({
   database: process.env.database,
 });
 
-// var connection = mysql.createPool({
-//   host: "116.203.109.78",
-//   user: "cityinfo_kaarkg",
-//   password: "p37wMevidufqWjbcg9hb1#DB",
-//   database: "cityinfo_kaarkg",
-// });
-
-var connection = mysql.createPool({
-  host: "195.201.89.46",
-  user: "admin_root",
-  password: "Kaarkg#BCI#2019",
-  database: "admin_kaarkg",
-});
-
 connection.getConnection(function (err, conn) {
   console.log(err);
   console.log(conn);
@@ -68,8 +54,11 @@ router.post("/signUp", async function (req, res, next) {
             res.json(false);
           } else {
             req.body.password = sha1(req.body.password);
+            req.body["signup_time"] = new Date();
             delete req.body.repeatPassword;
             delete req.body.confirmEmail;
+            const country_name = `${req.body.country_name}`;
+            delete req.body.country_name;
             conn.query(
               "insert into users set ?",
               req.body,
@@ -111,6 +100,7 @@ router.post("/signUp", async function (req, res, next) {
                   request(options, function (error, response, body) {});
 
                   if (req.body.type === 1 || req.body.type === 2) {
+                    req.body["country_name"] = country_name;
                     var options_admin = {
                       url: process.env.link_api + mailAdminTemplate,
                       method: "POST",
@@ -809,7 +799,6 @@ router.get(
                   rows[0].id,
                   function (err, categories, fields) {
                     categories.push(rows[0]);
-                    console.log(categories);
                     let query = getProductsByAccountTypeForMainCategory(
                       req.user.user.type,
                       categories
@@ -980,7 +969,6 @@ router.get(
         }
       });
     } catch (ex) {
-      console.log("usao sam dole");
       logger.log("error", err.sql + ". " + err.sqlMessage);
       res.json(ex);
     }
@@ -1068,19 +1056,43 @@ router.get("/getProductById/:id", async (req, res, next) => {
         logger.log("error", err.sql + ". " + err.sqlMessage);
         res.json(err);
       } else {
-        conn.query(
-          "select * from articles where id = ?",
-          req.params.id,
-          function (err, rows, fields) {
-            conn.release();
-            if (err) {
-              logger.log("error", err.sql + ". " + err.sqlMessage);
-              res.json(err);
-            } else {
-              res.json(rows);
-            }
+        let query = getProductsByAccountType(null);
+        query += " where p.id = " + req.params.id;
+        conn.query(query, function (err, rows, fields) {
+          conn.release();
+          if (err) {
+            logger.log("error", err.sql + ". " + err.sqlMessage);
+            res.json(err);
+          } else {
+            res.json(rows);
           }
-        );
+        });
+      }
+    });
+  } catch (ex) {
+    logger.log("error", err.sql + ". " + err.sqlMessage);
+    res.json(ex);
+  }
+});
+
+router.get("/getProductByIdForLoginUser/:id", auth, async (req, res, next) => {
+  try {
+    connection.getConnection(function (err, conn) {
+      if (err) {
+        logger.log("error", err.sql + ". " + err.sqlMessage);
+        res.json(err);
+      } else {
+        let query = getProductsByAccountType(req.user.user.type);
+        query += " where p.id = " + req.params.id;
+        conn.query(query, function (err, rows, fields) {
+          conn.release();
+          if (err) {
+            logger.log("error", err.sql + ". " + err.sqlMessage);
+            res.json(err);
+          } else {
+            res.json(rows);
+          }
+        });
       }
     });
   } catch (ex) {
@@ -1203,6 +1215,10 @@ router.post("/createProduct", auth, async function (req, res, next) {
         logger.log("error", err.sql + ". " + err.sqlMessage);
         return res.json(false);
       }
+      if (req.body.id) {
+        delete req.body.id;
+      }
+      req.body["image"] = req.body.product_number + ".jpg";
       conn.query("insert into articles set ?", req.body, async function (err) {
         conn.release();
         if (err) {
@@ -1228,8 +1244,6 @@ router.post("/updateProduct", auth, function (req, res, next) {
         res.json(err);
       }
 
-      console.log(req.body);
-
       if (req.body.discount_date_from) {
         req.body.discount_date_from = convertToDate(
           req.body.discount_date_from
@@ -1245,8 +1259,6 @@ router.post("/updateProduct", auth, function (req, res, next) {
           req.body.new_product_until_date
         );
       }
-
-      console.log(req.body);
 
       conn.query(
         "update articles SET ? where id = ?",
@@ -1956,23 +1968,29 @@ function searchProductByAccountType(userType, category) {
   let query = "";
   if (userType === 0 || userType === 1) {
     query =
-      "select p.id, p.category_id, p.product_number, p.title, p.title_short, p.description, p.price_dealer as 'price', p.image, p.available, np.name, case when p.discount_price_dealer then CAST((((p.price_dealer - p.discount_price_dealer)/p.price_dealer) * 100) as DECIMAL(16,0)) else 0 end as 'persantage', case when new_product_until_date > CAST(CURRENT_TIMESTAMP AS DATE) then 1 else 0 end as 'new', case when discount_date_from <= CAST(CURRENT_TIMESTAMP AS DATE) and discount_date_to >= CAST(CURRENT_TIMESTAMP AS DATE) then discount_price_dealer else 0 end as 'discount_price' from articles p join navigations np on p.category_id = np.id where p.title like '%" +
+      "select p.id, p.category_id, p.product_number, p.title, p.title_short, p.description, p.price_dealer as 'price', p.image, p.available, p.number_of_pieces, np.name, case when p.discount_price_dealer then CAST((((p.price_dealer - p.discount_price_dealer)/p.price_dealer) * 100) as DECIMAL(16,0)) else 0 end as 'persantage', case when new_product_until_date > CAST(CURRENT_TIMESTAMP AS DATE) then 1 else 0 end as 'new', case when discount_date_from <= CAST(CURRENT_TIMESTAMP AS DATE) and discount_date_to >= CAST(CURRENT_TIMESTAMP AS DATE) then discount_price_dealer else 0 end as 'discount_price' from articles p join navigations np on p.category_id = np.id where p.title like '%" +
       category +
-      "%' or p.product_number like '" +
+      "%' or p.product_number like '%" +
+      category +
+      "%' or p.description like '%" +
       category +
       "%' and p.visibility = 1";
   } else if (userType === 2) {
     query =
       "select p.id, p.category_id, p.product_number, p.title, p.title_short, p.description, p.price_kindergarden as 'price', p.image, p.available, np.name, case when p.discount_price_kindergarden then CAST((((p.price_kindergarden - p.discount_price_kindergarden)/p.price_kindergarden) * 100) as DECIMAL(16,0)) else 0 end as 'persantage', case when new_product_until_date > CAST(CURRENT_TIMESTAMP AS DATE) then 1 else 0 end as 'new', case when discount_date_from <= CAST(CURRENT_TIMESTAMP AS DATE) and discount_date_to >= CAST(CURRENT_TIMESTAMP AS DATE) then discount_price_kindergarden else 0 end as 'discount_price'  from articles p join navigations np on p.category_id = np.id where p.title like '%" +
       category +
-      "%' or p.product_number like '" +
+      "%' or p.product_number like '%" +
+      category +
+      "%' or p.description like '%" +
       category +
       "%' and p.visibility = 1 and p.dealer_only = 0";
   } else if (userType === 3 || !userType) {
     query =
       "select p.id, p.category_id, p.product_number, p.title, p.title_short, p.description, CAST(p.price as DECIMAL(16,2)) as 'price_neto', CAST(p.price_bruto as DECIMAL(16,2)) as 'price' , p.image, p.available, np.name, case when p.discount_price then CAST((((p.price_bruto - p.discount_price)/p.price_bruto) * 100) as DECIMAL(16,0)) else 0 end as 'persantage', case when new_product_until_date > CAST(CURRENT_TIMESTAMP AS DATE) then 1 else 0 end as 'new', case when discount_date_from <= CAST(CURRENT_TIMESTAMP AS DATE) and discount_date_to >= CAST(CURRENT_TIMESTAMP AS DATE) then discount_price else 0 end as 'discount_price' from articles p join navigations np on p.category_id = np.id where p.title like '%" +
       category +
-      "%' or p.product_number like '" +
+      "%' or p.product_number like '%" +
+      category +
+      "%' or p.description like '%" +
       category +
       "%' and p.visibility = 1 and p.dealer_only = 0";
   }

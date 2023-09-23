@@ -47,6 +47,7 @@ export class LoginComponent implements OnInit {
   public needVerification = false;
   public text: any;
   public subscribe!: Subscription;
+  public countries: any;
 
   constructor(
     private service: CallApiService,
@@ -237,14 +238,33 @@ export class LoginComponent implements OnInit {
   selectUserType(type: UserType) {
     this.accountType = type;
     if (this.accountType != this.getUserType().customer) {
+      this.getCountries();
       this.registerForm.addControl(
         'telephone',
         new FormControl('', Validators.required)
       );
-      // this.fb.control({
-      //   telephone: ['', Validators.required],
-      // });
+      this.registerForm.addControl(
+        'country_id',
+        new FormControl('', Validators.required)
+      );
+      this.registerForm.addControl('country_name', new FormControl(''));
+      this.registerForm.addControl(
+        'address',
+        new FormControl('', Validators.required)
+      );
+      this.registerForm.addControl(
+        'zip',
+        new FormControl('', Validators.required)
+      );
+      this.registerForm.addControl(
+        'city',
+        new FormControl('', Validators.required)
+      );
     } else {
+      this.registerForm.removeControl('country_id');
+      this.registerForm.removeControl('address');
+      this.registerForm.removeControl('zip');
+      this.registerForm.removeControl('city');
       this.registerForm.removeControl('telephone');
     }
   }
@@ -335,5 +355,19 @@ export class LoginComponent implements OnInit {
         }
       }
     }
+  }
+
+  getCountries() {
+    if (!this.countries) {
+      this.service.callGetMethod('/api/getCountries', '').subscribe((data) => {
+        this.countries = data;
+      });
+    }
+  }
+
+  changeCountry(event: any) {
+    console.log(event);
+    this.registerForm.value.country_name = event.itemData.name;
+    this.registerForm.controls['country_name'].setValue(event.itemData.name);
   }
 }

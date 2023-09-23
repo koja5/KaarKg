@@ -97,9 +97,14 @@ router.post("/approveAccountForKindergarden", function (req, res, next) {
   body["lastname"] = req.body.lastname;
   body["company"] = req.body.company;
   body["telephone"] = req.body.telephone;
+  body["country_name"] = req.body.country_name;
+  body["address"] = req.body.address;
+  body["zip"] = req.body.zip;
+  body["city"] = req.body.city;
   body["email_info"] = req.body.email;
 
   body["link"] = process.env.link_api + "activeUser/" + sha1(req.body.email);
+
   var options = {
     url: process.env.link_api + "mail-server/sendMail",
     method: "POST",
@@ -127,6 +132,10 @@ router.post("/approveAccountForDealer", function (req, res, next) {
   body["lastname"] = req.body.lastname;
   body["company"] = req.body.company;
   body["telephone"] = req.body.telephone;
+  body["country_name"] = req.body.country_name;
+  body["address"] = req.body.address;
+  body["zip"] = req.body.zip;
+  body["city"] = req.body.city;
   body["email_info"] = req.body.email;
 
   body["link"] = process.env.link_api + "activeUser/" + sha1(req.body.email);
@@ -271,9 +280,9 @@ router.post("/sendInvoiceToCustomer", function (req, res, next) {
   body["subtotalNeto"] = Number(req.body.subtotalNeto).toFixed(2);
   body["shipping"] = req.body.shippingNotAvailable
     ? req.body.language.checkoutShippingNotAvailable
-    : "€ " + req.body.shipping;
-  body["vat"] = req.body.vat;
-  body["total"] = req.body.total;
+    : "€ " + Number(req.body.shipping).toFixed(2);
+  body["vat"] = Number(req.body.vat).toFixed(2);
+  body["total"] = Number(req.body.total).toFixed(2);
 
   body["orderDate"] = req.body.orderDate;
 
@@ -356,9 +365,9 @@ router.post("/sendInvoiceToSuperadmin", function (req, res, next) {
   body["subtotalNeto"] = Number(req.body.subtotalNeto).toFixed(2);
   body["shipping"] = req.body.shippingNotAvailable
     ? req.body.language.checkoutShippingNotAvailable
-    : "€ " + req.body.shipping;
-  body["vat"] = req.body.vat;
-  body["total"] = req.body.total;
+    : "€ " + Number(req.body.shipping).toFixed(2);
+  body["vat"] = Number(req.body.vat).toFixed(2);
+  body["total"] = Number(req.body.total).toFixed(2);
 
   body["orderDate"] = req.body.orderDate;
   body["paymentOption"] = req.body.paymentOption;

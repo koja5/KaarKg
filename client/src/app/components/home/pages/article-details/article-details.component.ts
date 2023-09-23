@@ -11,6 +11,7 @@ import { HelpService } from 'src/app/services/help.service';
 export class ArticleDetailsComponent implements OnInit {
   public item: any;
   public accountType: number | undefined;
+  public language: any;
 
   constructor(
     private route: ActivatedRoute,
@@ -20,13 +21,28 @@ export class ArticleDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     this.accountType = this.helpService.getAccountTypeId();
+    this.language = this.helpService.getLanguage();
     this.getProductDetails();
   }
 
   getProductDetails() {
     const id = this.route.snapshot.paramMap.get('id')!;
-    this.service.callGetMethod('/api/getProductById', id).subscribe((data: any) => {
-      this.item = data[0];
-    });
+    if (this.helpService.getAccountTypeId() != -1) {
+      this.service
+        .callGetMethod('/api/getProductByIdForLoginUser', id)
+        .subscribe((data: any) => {
+          if (data) {
+            this.item = data[0];
+          }
+        });
+    } else {
+      this.service
+        .callGetMethod('/api/getProductById', id)
+        .subscribe((data: any) => {
+          if (data) {
+            this.item = data[0];
+          }
+        });
+    }
   }
 }

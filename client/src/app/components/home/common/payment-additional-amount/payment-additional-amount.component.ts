@@ -21,6 +21,7 @@ export class PaymentAdditionalAmountComponent implements OnInit {
   public user: any;
   public products: any;
   public subtotalNeto = 0;
+  public subtotalNetoWithoutShipping = 0;
   public subtotalBruto = 0;
   public subtotalNetoForProduct = 0;
   public shipping: any;
@@ -77,7 +78,7 @@ export class PaymentAdditionalAmountComponent implements OnInit {
             this.shippingPrices[i]
           );
           this.shipping =
-            this.subtotalBruto < this.shippingLimit
+            this.subtotalNetoWithoutShipping < this.shippingLimit
               ? this.getShippingPriceForUserType(this.shippingPrices[i])
               : 0;
           break;
@@ -92,7 +93,9 @@ export class PaymentAdditionalAmountComponent implements OnInit {
       const defaultCountry = this.getDefaultPreselectedShippingCountry();
       this.shippingLimit = defaultCountry.limit;
       this.shipping =
-        this.subtotalNeto < this.shippingLimit ? defaultCountry.shipping : 0;
+        this.subtotalNetoWithoutShipping < this.shippingLimit
+          ? defaultCountry.shipping
+          : 0;
       this.shippingCountry = defaultCountry.name;
     }
 
@@ -188,12 +191,15 @@ export class PaymentAdditionalAmountComponent implements OnInit {
     this.subtotalNetoForProduct = 0;
     for (let i = 0; i < this.products.length; i++) {
       this.subtotalNeto += Number(
-        this.products[i].neto * this.products[i].quantity
+        this.products[i].price * this.products[i].quantity
       );
       this.subtotalBruto += Number(
         this.products[i].bruto * this.products[i].quantity
       );
     }
+    this.subtotalNetoWithoutShipping = this.helpService.copyObject(
+      this.subtotalNeto
+    );
   }
 
   calculateProducts() {
@@ -203,10 +209,9 @@ export class PaymentAdditionalAmountComponent implements OnInit {
 
   getSubtotalWithShipping() {
     this.subtotalNetoForProduct = Number(this.subtotalBruto);
-    const netoWithoutShipping = this.helpService.copyObject(this.subtotalNeto);
     this.subtotalNeto += this.shipping;
     this.subtotalBruto += this.shipping;
-    this.vat = Number(netoWithoutShipping * 0.2).toFixed(2);
+    this.vat = Number(this.subtotalNetoWithoutShipping * 0.2).toFixed(2);
     this.emitProperty.emit({ name: 'vat', value: this.vat });
     this.emitProperty.emit({ name: 'subtotalNeto', value: this.subtotalNeto });
   }
@@ -217,9 +222,9 @@ export class PaymentAdditionalAmountComponent implements OnInit {
       this.helpService.getAccountTypeId() ===
         this.helpService.getUserTypeModel().customer
     ) {
-      this.total = Number(this.subtotalBruto).toFixed(2);
+      this.total = Number(this.subtotalNeto).toFixed(2);
     } else {
-      this.total = Number(this.subtotalNeto * 1.2).toFixed(2);
+      this.total = Number(this.subtotalNeto + Number(this.vat)).toFixed(2);
     }
 
     this.emitProperty.emit({ name: 'total', value: this.total });

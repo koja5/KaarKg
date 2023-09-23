@@ -40,10 +40,12 @@
 
 
 
-                    <div *ngIf="!products || products.length == 0" class="no-product">
+                    <!-- <div *ngIf="!products || products.length == 0" class="no-product">
                         <img src="./assets/images/no-product.png">
                         <h4 class="mt-3">{{language.productNoAvailable}}</h4>
-                    </div>
+                    </div> -->
+
+                    <app-no-products-available *ngIf="!products || products.length == 0"></app-no-products-available>
 
 
 

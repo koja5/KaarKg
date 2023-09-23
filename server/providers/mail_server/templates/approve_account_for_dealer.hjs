@@ -151,6 +151,46 @@
                             <td
                               style="padding: 10px; border-bottom: 1px solid #ededed; border-right: 1px solid #ededed; width: 35%; font-weight:500; color:rgba(0,0,0,.64)"
                             >
+                              Land:</td>
+                            <td
+                              style="padding: 10px; border-bottom: 1px solid #ededed; color: #455056;"
+                            >
+                              {{country_name}}</td>
+                          </tr>
+                          <tr>
+                            <td
+                              style="padding: 10px; border-bottom: 1px solid #ededed; border-right: 1px solid #ededed; width: 35%; font-weight:500; color:rgba(0,0,0,.64)"
+                            >
+                              Address:</td>
+                            <td
+                              style="padding: 10px; border-bottom: 1px solid #ededed; color: #455056;"
+                            >
+                              {{address}}</td>
+                          </tr>
+                          <tr>
+                            <td
+                              style="padding: 10px; border-bottom: 1px solid #ededed; border-right: 1px solid #ededed; width: 35%; font-weight:500; color:rgba(0,0,0,.64)"
+                            >
+                              PLZ:</td>
+                            <td
+                              style="padding: 10px; border-bottom: 1px solid #ededed; color: #455056;"
+                            >
+                              {{zip}}</td>
+                          </tr>
+                          <tr>
+                            <td
+                              style="padding: 10px; border-bottom: 1px solid #ededed; border-right: 1px solid #ededed; width: 35%; font-weight:500; color:rgba(0,0,0,.64)"
+                            >
+                              Stadt:</td>
+                            <td
+                              style="padding: 10px; border-bottom: 1px solid #ededed; color: #455056;"
+                            >
+                              {{city}}</td>
+                          </tr>
+                          <tr>
+                            <td
+                              style="padding: 10px; border-bottom: 1px solid #ededed; border-right: 1px solid #ededed; width: 35%; font-weight:500; color:rgba(0,0,0,.64)"
+                            >
                               Email:</td>
                             <td
                               style="padding: 10px; border-bottom: 1px solid #ededed; color: #455056;"
@@ -211,7 +251,7 @@
                   >Datenschutz</a>
                   |
                   <a
-                    href="https://kaarkg.at/impressum"
+                    href="https://kaarkg.odoo.com/impressum"
                     target="_blank"
                   >Impressum</a>
                 </div>

@@ -18,7 +18,8 @@
                         <span *ngIf="item.persantage" class='e-badge e-badge-danger label-info'>-{{item.persantage |
                             number: '.0'}}%</span>
                         <span *ngIf="item.new" class='e-badge e-badge-success label-info'>{{language.productNew}}</span>
-                        <img class="product-single-image" src="assets/images/products/{{item.image}}" />
+                        <img class="product-single-image" (error)="getNoImageAvailablePicture()"
+                            src="assets/images/products/{{item.image}}" />
                     </div>
                 </div>
                 <!-- End .product-single-carousel -->
@@ -67,7 +68,7 @@
 
                 <div class="price-box" *ngIf="item.discount_price">
                     <span class="old-price">€ {{item.price | number: '.2'}}</span>
-                    <span *ngIf="accountType && accountType === 1" class="product-price discount-price">€
+                    <span *ngIf="accountType === 0 || accountType === 1" class="product-price discount-price">€
                         {{item.discount_price | number: '.2'}} <span
                             class="vat">{{language.productExcludeVat}}</span></span>
                     <span *ngIf="accountType && accountType === 2" class="product-price discount-price">€
@@ -79,7 +80,7 @@
                 </div>
 
                 <div class="price-box" *ngIf="!item.discount_price">
-                    <span *ngIf="accountType && accountType === 1" class="product-price">€
+                    <span *ngIf="accountType === 0 || accountType === 1" class="product-price">€
                         {{item.price | number: '.2'}} <span class="vat">{{language.productExcludeVat}}</span><span
                             *ngIf="item.number_of_pieces > 1" class="package">{{language.productPackageFirstPart}}
                             {{item.number_of_pieces}}

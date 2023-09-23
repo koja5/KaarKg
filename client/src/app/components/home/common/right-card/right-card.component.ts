@@ -88,7 +88,6 @@ export class RightCardComponent implements OnInit {
   addToCart(item: any) {
     item.quantity = 1;
     this.helpService.addToCart(item);
-    this.messageService.sentRefreshCartInformation();
   }
 
   addQuantity(index: number) {
@@ -97,7 +96,6 @@ export class RightCardComponent implements OnInit {
       this.products[index],
       this.products[index].quantity
     );
-    this.messageService.sentRefreshCartInformation();
   }
 
   changeQuantity(index: number) {
@@ -105,7 +103,6 @@ export class RightCardComponent implements OnInit {
       this.products[index],
       this.products[index].quantity
     );
-    this.messageService.sentRefreshCartInformation();
   }
 
   removeQuantity(index: number) {
@@ -115,7 +112,6 @@ export class RightCardComponent implements OnInit {
         this.products[index],
         this.products[index].quantity
       );
-      this.messageService.sentRefreshCartInformation();
     }
   }
 

@@ -1,3 +1,4 @@
 <div class="container mt-4">
-    <app-product-item [item]="item" [accountType]="accountType"></app-product-item>
+    <app-product-item *ngIf="item" [item]="item" [accountType]="accountType"></app-product-item>
+    <app-no-products-available *ngIf="!item"></app-no-products-available>
 </div>

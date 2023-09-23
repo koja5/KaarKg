@@ -28,7 +28,7 @@
             <span>{{language.loginNoHaveAccount}} <a class="font-bold"
                     (click)="changeLoginFormType(loginFormType.signup)">{{language.loginSignUp}}</a></span>
             <div class="listing padding-top--24 padding-bottom--24 flex-flex center-center">
-                <span><a routerLink="../../impressum" target="_blank">{{language.loginImpressum}}</a></span>
+                <span><a href="https://kaarkg.odoo.com/impressum" target="_blank">{{language.loginImpressum}}</a></span>
                 <span><a routerLink="../../agb" target="_blank">{{language.loginTerms}}</a></span>
                 <span><a routerLink="../../datenschutz" target="_blank">{{language.loginPrivacy}}</a></span>
             </div>
@@ -77,6 +77,46 @@
                     *ngIf="(registerFormControl.telephone.touched || submitted) && registerFormControl.telephone.errors?.required">
                     {{language.loginTelephoneRequired}}
                 </span>
+            </div>
+            <div *ngIf="accountType === getUserType().dealer || accountType === getUserType().kindergarden">
+                <div class="field padding-bottom--24">
+                    <label for="text">{{language.loginCountry}}</label>
+                    <ejs-combobox cssClass="mb-1" *ngIf="countries" [id]="'country_id'" name="country_id"
+                        [dataSource]="countries" [allowCustom]="false" [fields]="{
+                        text: 'name' , 'value' : 'id' }" [allowFiltering]="true" formControlName="country_id"
+                        [placeholder]="language.checkoutCountryPlaceholder" (change)="changeCountry($event)" required>
+                    </ejs-combobox>
+                    <span class="text-danger"
+                        *ngIf="(registerFormControl.country_id.touched || submitted) && registerFormControl.country_id.errors?.required">
+                        {{language.loginCountryRequired}}
+                    </span>
+                </div>
+                <div class="field padding-bottom--24">
+                    <label for="text">{{language.loginAddress}}</label>
+                    <input formControlName="address">
+                    <span class="text-danger"
+                        *ngIf="(registerFormControl.address.touched || submitted) && registerFormControl.address.errors?.required">
+                        {{language.loginAddressRequired}}
+                    </span>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 field padding-bottom--24">
+                        <label for="text">{{language.loginZip}}</label>
+                        <input formControlName="zip">
+                        <span class="text-danger"
+                            *ngIf="(registerFormControl.zip.touched || submitted) && registerFormControl.zip.errors?.required">
+                            {{language.loginZipRequired}}
+                        </span>
+                    </div>
+                    <div class="col-md-6 field padding-bottom--24">
+                        <label for="text">{{language.loginCity}}</label>
+                        <input formControlName="city">
+                        <span class="text-danger"
+                            *ngIf="(registerFormControl.city.touched || submitted) && registerFormControl.city.errors?.required">
+                            {{language.loginCityRequired}}
+                        </span>
+                    </div>
+                </div>
             </div>
             <div class="field padding-bottom--24">
                 <label for="email">{{language.loginEmail}}</label>
@@ -182,7 +222,7 @@
                 <span>{{language.loginAreYouHaveAccount}} <a class="font-bold"
                         (click)="changeLoginFormType(loginFormType.login)">{{language.loginLoginButton}}</a></span>
                 <div class="listing padding-top--24 padding-bottom--24 flex-flex center-center">
-                    <span><a routerLink="../../impressum" target="_blank">{{language.loginImpressum}}</a></span>
+                    <span><a href="https://kaarkg.odoo.com/impressum" target="_blank">{{language.loginImpressum}}</a></span>
                     <span><a routerLink="../../agb" target="_blank">{{language.loginTerms}}</a></span>
                     <span><a routerLink="../../datenschutz" target="_blank">{{language.loginPrivacy}}</a></span>
                 </div>
@@ -204,7 +244,7 @@
             <span>{{language.loginNoHaveAccount}} <a class="font-bold"
                     (click)="changeLoginFormType(loginFormType.signup)">{{language.loginSignUp}}</a></span>
             <div class="listing padding-top--24 padding-bottom--24 flex-flex center-center">
-                <span><a routerLink="../../impressum" target="_blank">{{language.loginImpressum}}</a></span>
+                <span><a href="https://kaarkg.odoo.com/impressum" target="_blank">{{language.loginImpressum}}</a></span>
                 <span><a routerLink="../../agb" target="_blank">{{language.loginTerms}}</a></span>
                 <span><a routerLink="../../datenschutz" target="_blank">{{language.loginPrivacy}}</a></span>
             </div>
