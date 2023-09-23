@@ -29,6 +29,7 @@ export class OverviewComponent implements OnInit {
   public userType!: UserType;
   public loader = false;
   public shippingAddress = new ShippingAddress();
+  public shippingAddressCopy = new ShippingAddress();
   public shippingActionType = '';
   public mainShippingAddressEditable = true;
   public type!: number;
@@ -66,6 +67,7 @@ export class OverviewComponent implements OnInit {
   // }
 
   initialize() {
+    this.getMyShippingAddress();
     this.getShippingAddresses();
     this.products = this.storageService.getCookieObject('cart');
     this.type = this.helpService.getAccountTypeId();
@@ -79,7 +81,19 @@ export class OverviewComponent implements OnInit {
       this.paymentOptionSelect = this.language.paymentPerInvoiceOptionsForMail;
       this.helpService.setSessionStorage('payment', this.paymentOptionSelect);
     }
+  }
 
+  getShippingAddresses() {
+    this.loader = true;
+    this.service
+      .callGetMethod('/api/getAllShippingAddressForUser', '')
+      .subscribe((data) => {
+        this.shippingAddresses = data;
+        this.loader = false;
+      });
+  }
+
+  getMyShippingAddress() {
     this.service.callGetMethod('/api/getMyShippingAddress', '').subscribe(
       (data: any) => {
         // this.getShippingPrices();
@@ -91,16 +105,6 @@ export class OverviewComponent implements OnInit {
         this.toastr.showInfoCustom('', this.language.paymentNeedToLogin);
       }
     );
-  }
-
-  getShippingAddresses() {
-    this.loader = true;
-    this.service
-      .callGetMethod('/api/getAllShippingAddressForUser', '')
-      .subscribe((data) => {
-        this.shippingAddresses = data;
-        this.loader = false;
-      });
   }
 
   generateLabel(value: any) {
@@ -119,7 +123,7 @@ export class OverviewComponent implements OnInit {
   }
 
   editDialogShippingAddress(address: any, mainShippingAddress: boolean) {
-    this.shippingAddress = address;
+    this.shippingAddressCopy = this.helpService.copyObject(address);
     this.mainShippingAddressEditable = mainShippingAddress;
     this.shippingActionType = 'edit';
     this.getCountries();
@@ -144,7 +148,7 @@ export class OverviewComponent implements OnInit {
   editShippingAddress(address: any) {
     if (this.mainShippingAddressEditable) {
       this.service
-        .callPostMethod('/api/updateUser', this.shippingAddress)
+        .callPostMethod('/api/updateUser', address)
         .subscribe((data) => {
           if (data) {
             this.shippingAddressDialog.hide();
@@ -152,13 +156,13 @@ export class OverviewComponent implements OnInit {
               '',
               this.language.generalSuccessfulyExecuteAction
             );
-            this.selectShippingAddress(this.shippingAddress, true);
-            this.getShippingAddresses();
+            this.selectShippingAddress(address, true);
+            this.getMyShippingAddress();
           }
         });
     } else {
       this.service
-        .callPostMethod('/api/updateShippingAddress', this.shippingAddress)
+        .callPostMethod('/api/updateShippingAddress', address)
         .subscribe((data) => {
           if (data) {
             this.shippingAddressDialog.hide();
@@ -166,7 +170,7 @@ export class OverviewComponent implements OnInit {
               '',
               this.language.generalSuccessfulyExecuteAction
             );
-            this.selectShippingAddress(this.shippingAddress, false);
+            this.selectShippingAddress(address, false);
             this.getShippingAddresses();
           }
         });

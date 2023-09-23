@@ -128,11 +128,11 @@
     <!-- partial:index.partial.html -->
     <div class="invoice-box">
         <table cellpadding="0" cellspacing="0">
-            <tr class="top_rw">
-                <td colspan="2">
-                    <div class="logo">
-                        <img src="https://kaarkg.at/assets/images/logo-black.png">
-                    </div>
+            <tr>
+                <td style="text-align:center;">
+                    <a href="https://kaarkg.at" target="_blank">
+                    <img width="200" src="https://kaarkg.at/assets/images/logo-black.png" alt="logo">
+                    </a>
                 </td>
             </tr>
 
@@ -154,7 +154,7 @@
                         </div>
                     </div>
                     <div style="width: 50%; margin-top: -45px !important;">
-                        <img
+                        <img width="110"
                             style="width: 110px;"
                             src="https://kaarkg.at/assets/images/banners/smile_logo.png"
                         />
@@ -299,7 +299,7 @@
             <br />
             <tr>
                 <td style="text-align:center;">
-                    <img
+                    <img width="120"
                     src="https://kaarkg.at/assets/images/logo-black.png"
                     style="width: 120px"
                     />

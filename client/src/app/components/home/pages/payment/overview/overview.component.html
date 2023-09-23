@@ -211,40 +211,40 @@
         <form #myForm="ngForm">
             <div class="field">
                 <label>{{language.checkoutFirstname}} <span class="required-field">*</span></label>
-                <input name="firstname" [(ngModel)]="shippingAddress.firstname" required>
+                <input name="firstname" [(ngModel)]="shippingAddressCopy.firstname" required>
                 <label>{{language.checkoutLastname}} <span class="required-field">*</span></label>
-                <input name="lastname" [(ngModel)]="shippingAddress.lastname" required>
+                <input name="lastname" [(ngModel)]="shippingAddressCopy.lastname" required>
                 <div *ngIf="mainShippingAddressEditable">
                     <label>{{language.checkoutTelephone}} <span class="required-field">*</span></label>
-                    <input name="telephone" [(ngModel)]="shippingAddress.telephone" required>
+                    <input name="telephone" [(ngModel)]="shippingAddressCopy.telephone" required>
                     <label>{{language.checkoutEmail}} <span class="required-field">*</span></label>
-                    <input name="email" [(ngModel)]="shippingAddress.email" required
+                    <input name="email" [(ngModel)]="shippingAddressCopy.email" required
                         [disabled]="mainShippingAddressEditable">
                 </div>
                 <label>{{language.checkoutCountry}} <span class="required-field">*</span></label>
                 <ejs-combobox cssClass="mb-1" *ngIf="countries" [id]="'country'" name="country" [dataSource]="countries"
                     [allowCustom]="false" [fields]="{
                         text: 'name' , 'value' : 'id' }" [allowFiltering]="true"
-                    [(ngModel)]="shippingAddress.country_id" [placeholder]="language.checkoutCountryPlaceholder"
+                    [(ngModel)]="shippingAddressCopy.country_id" [placeholder]="language.checkoutCountryPlaceholder"
                     (change)="changeCountry($event)" required>
                 </ejs-combobox>
                 <label>{{language.checkoutAddress}} <span class="required-field">*</span></label>
-                <input name="address" [(ngModel)]="shippingAddress.address" required>
-                <input name="company" [(ngModel)]="shippingAddress.company" [placeholder]="language.checkoutAddressTwo">
+                <input name="address" [(ngModel)]="shippingAddressCopy.address" required>
+                <input name="company" [(ngModel)]="shippingAddressCopy.company" [placeholder]="language.checkoutAddressTwo">
                 <div class="row">
                     <div class="col-md-6">
                         <label>{{language.checkoutZip}} <span class="required-field">*</span></label>
-                        <input type="number" name="zip" [(ngModel)]="shippingAddress.zip" required>
+                        <input type="number" name="zip" [(ngModel)]="shippingAddressCopy.zip" required>
                     </div>
                     <div class="col-md-6">
                         <label>{{language.checkoutCity}} <span class="required-field">*</span></label>
-                        <input name="city" [(ngModel)]="shippingAddress.city" required>
+                        <input name="city" [(ngModel)]="shippingAddressCopy.city" required>
                     </div>
                 </div>
             </div>
             <p *ngIf="!myForm.valid" class="fill-all-fields">{{language.shippingNeedToFillAllRequiredFields}}</p>
             <button class="btn btn-primary full-width mt-2" [disabled]="!myForm.valid"
-                (click)="shippingActionType === 'edit' ? editShippingAddress(shippingAddress) : createNewShippingAddress()">{{language.checkoutSaveShippingInformation}}</button>
+                (click)="shippingActionType === 'edit' ? editShippingAddress(shippingAddressCopy) : createNewShippingAddress()">{{language.checkoutSaveShippingInformation}}</button>
         </form>
     </ng-template>
 </ejs-dialog>

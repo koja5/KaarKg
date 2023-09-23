@@ -1,11 +1,17 @@
 @media (max-width: 768px) {
   .mobile-header {
     position: fixed;
-    z-index: 100;
+    z-index: 1051;
     top: 0px;
     background: #fff;
     width: 100%;
     box-shadow: 0 0 0.5em rgba(0, 0, 0, 0.5);
+  }
+}
+
+@media (min-width: 769px) {
+  .logo-mobile {
+    display: none;
   }
 }
 
@@ -56,6 +62,11 @@ body {
   color: var(--second);
 }
 
-.e-dropdown-btn .e-caret, .e-dropdown-btn.e-btn .e-caret {
+.e-dropdown-btn .e-caret,
+.e-dropdown-btn.e-btn .e-caret {
   margin-top: 10px !important;
+}
+
+.logo-mobile img {
+  width: 65px;
 }

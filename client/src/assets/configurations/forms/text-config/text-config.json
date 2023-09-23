@@ -32,6 +32,22 @@
             "type": "textbox",
             "width": "col-md-12",
             "class": "e-outline",
+            "name": "dealerCartInfoText",
+            "title": "superadminDealerCartInfoText",
+            "field": "dealerCartInfoText"
+        },
+        {
+            "type": "textbox",
+            "width": "col-md-12",
+            "class": "e-outline",
+            "name": "kindergardenCartInfoText",
+            "title": "superadminKindergardenCartInfoText",
+            "field": "kindergardenCartInfoText"
+        },
+        {
+            "type": "textbox",
+            "width": "col-md-12",
+            "class": "e-outline",
             "name": "customerCartFreeShipping",
             "title": "superadminCustomerFreeShippingText",
             "field": "customerCartFreeShipping",

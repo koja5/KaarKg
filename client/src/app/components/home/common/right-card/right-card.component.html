@@ -11,6 +11,21 @@
         <p *ngIf="type === 'cart' && (!products || !products.length)">{{language.productNothingInCart}}</p>
         <p *ngIf="type === 'favorite' && (!products || !products.length)">{{language.productNothingInFavorite}}</p>
 
+        <div class="free-text"
+            *ngIf="text.dealerCartInfoText && (helpService.getAccountTypeId() === helpService.getUserTypeModel().dealer || helpService.getAccountTypeId() === helpService.getUserTypeModel().superadmin)">
+            <label>
+                <span>{{text.dealerCartInfoText}}</span>
+            </label>
+        </div>
+
+        <div class="free-text"
+            *ngIf="text.kindergardenCartInfoText && helpService.getAccountTypeId() === helpService.getUserTypeModel().kindergarden">
+            <label>
+                <span>{{text.kindergardenCartInfoText}}</span>
+            </label>
+        </div>
+
+
         <div class="dropdown-cart-products mb-2 {{products.length > 1 ? 'border-bottom pb-4' : ''}}"
             *ngFor="let item of products; let i = index">
             <div class="product">
@@ -74,7 +89,8 @@
                 <span class="cart-total-price float-right">€ {{subOfProductInCart | number: '.2'}}</span>
             </div> -->
 
-            <app-payment-additional-amount *ngIf="products && products.length" [shippingInfo]="true"></app-payment-additional-amount>
+            <app-payment-additional-amount *ngIf="products && products.length"
+                [shippingInfo]="true"></app-payment-additional-amount>
 
             <div class="dropdown-cart-action">
                 <!-- <a href="cart.html" class="btn btn-gray btn-block view-cart">View
