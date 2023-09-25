@@ -155,13 +155,55 @@ router.post("/approveAccountForDealer", function (req, res, next) {
 });
 
 router.post("/infoApprovedAccountFromAdmin", function (req, res, next) {
+  let config = "approved-dealer-account-info.json";
+
+  console.log(req.body);
+  if (req.body.type === 1) {
+    config = "approved-dealer-account-info.json";
+  } else if (req.body.type === 2) {
+    config = "approved-kindergarden-account-info.json";
+  }
+
   var body = JSON.parse(
-    fs.readFileSync(
-      "./providers/mail_server/mail_config/approved-account-info.json",
-      "utf-8"
-    )
+    fs.readFileSync("./providers/mail_server/mail_config/" + config, "utf-8")
   );
   body["template"] = "info_approved_account_from_admin.hjs";
+  body["email"] = req.body.email;
+  body["link"] = process.env.link_client;
+  body["greeting"] = body["greeting"].replace(
+    "{firstname}",
+    req.body.lastname + " " + req.body.firstname
+  );
+  var options = {
+    rejectUnauthorized: false,
+    url: process.env.link_api + "mail-server/sendMail",
+    method: "POST",
+    body: body,
+    json: true,
+  };
+  request(options, function (error, response, body) {
+    if (!error) {
+      res.json(true);
+    } else {
+      res.json(false);
+    }
+  });
+});
+
+router.post("/infoRejectedAccountFromAdmin", function (req, res, next) {
+  let config = "rejected-dealer-account-info.json";
+
+  console.log(req.body);
+  if (req.body.type === 1) {
+    config = "rejected-dealer-account-info.json";
+  } else if (req.body.type === 2) {
+    config = "rejected-kindergarden-account-info.json";
+  }
+
+  var body = JSON.parse(
+    fs.readFileSync("./providers/mail_server/mail_config/" + config, "utf-8")
+  );
+  body["template"] = "info_rejected_account_from_admin.hjs";
   body["email"] = req.body.email;
   body["link"] = process.env.link_client;
   body["greeting"] = body["greeting"].replace(
@@ -272,6 +314,9 @@ router.post("/sendInvoiceToCustomer", function (req, res, next) {
   body["invoiceMainAddress"] = req.body.language.invoiceMainAddress;
   body["invoiceShippingAddress"] = req.body.language.invoiceShippingAddress;
   body["invoiceOrderDate"] = req.body.language.invoiceOrderDate;
+  body["invoiceUserNumber"] = req.body.mainAddress.user_number
+    ? req.body.language.userNumber + ": " + req.body.mainAddress.user_number
+    : "";
   body["invoicePaymentType"] = req.body.language.invoicePaymentType;
   body["invoiceShipping"] = req.body.language.invoiceShipping;
   body["invoiceSubtotal"] = req.body.language.invoiceSubtotal;
@@ -357,6 +402,9 @@ router.post("/sendInvoiceToSuperadmin", function (req, res, next) {
   body["invoiceMainAddress"] = req.body.language.invoiceMainAddress;
   body["invoiceShippingAddress"] = req.body.language.invoiceShippingAddress;
   body["invoiceOrderDate"] = req.body.language.invoiceOrderDate;
+  body["invoiceUserNumber"] = req.body.mainAddress.user_number
+    ? req.body.language.userNumber + ": " + req.body.mainAddress.user_number
+    : "";
   body["invoicePaymentType"] = req.body.language.invoicePaymentType;
   body["invoiceShipping"] = req.body.language.invoiceShipping;
   body["invoiceSubtotal"] = req.body.language.invoiceSubtotal;

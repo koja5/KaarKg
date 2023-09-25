@@ -92,13 +92,24 @@
     "columns": [
         {
             "title": "ID",
-            "width": 70,
+            "width": 90,
             "filterable": true,
             "hideable": true,
             "filter": "date",
             "type": "number",
             "class": "text-align-right",
             "field": "id",
+            "isPrimaryKey": true,
+            "allowEditing": false
+        },
+        {
+            "title": "userNumber",
+            "filterable": true,
+            "hideable": true,
+            "filter": "date",
+            "type": "string",
+            "class": "text-align-right",
+            "field": "user_number",
             "isPrimaryKey": true,
             "allowEditing": false
         },
@@ -297,7 +308,10 @@
                         "html": "<span class='e-badge e-badge-success'>Verifizierte E-Mail</span>"
                     }
                 ]
-            }
+            },
+            "field": "verified",
+            "filterable": false,
+            "filter": "date"
         },
         {
             "title": "userActive",
@@ -326,6 +340,7 @@
             "title": "userSignUpTime",
             "filterable": false,
             "hideable": true,
+            "filter": "date",
             "type": "date",
             "format": "dd.MM.yyyy. HH:mm:ss",
             "class": "text-align-right",
@@ -344,6 +359,14 @@
             "title": "ID",
             "field": "id",
             "readonly": true
+        },
+        {
+            "type": "textbox",
+            "width": "col-md-12",
+            "class": "e-outline",
+            "name": "user_number",
+            "title": "userNumber",
+            "field": "user_number"
         },
         {
             "type": "textbox",

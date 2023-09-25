@@ -72,8 +72,23 @@
       },
       {
         "icon": "mail",
-        "title": "Freigabe Nachricht",
-        "link": "/dashboard/mail-approved-account-info-config"
+        "title": "Freigabe Nachricht Händler",
+        "link": "/dashboard/mail-approved-dealer-account-info-config"
+      },
+      {
+        "icon": "mail",
+        "title": "Freigabe Nachricht Kindergarten",
+        "link": "/dashboard/mail-approved-kindergarden-account-info-config"
+      },
+      {
+        "icon": "mail",
+        "title": "Bestellung Abgelehnt Händler",
+        "link": "/dashboard/mail-rejected-dealer-account-info-config"
+      },
+      {
+        "icon": "mail",
+        "title": "Bestellung Abgelehnt Kindergarten",
+        "link": "/dashboard/mail-rejected-kindergarden-account-info-config"
       },
       {
         "icon": "mail",

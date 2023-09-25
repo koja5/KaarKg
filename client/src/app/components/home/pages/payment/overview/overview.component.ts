@@ -220,6 +220,9 @@ export class OverviewComponent implements OnInit {
         !this.shippingAddress.zip)
     ) {
       this.shippingActionType = 'edit';
+      this.shippingAddressCopy = this.helpService.copyObject(
+        this.shippingAddress
+      );
       this.getCountries();
       this.shippingAddressDialog.show();
       this.toastr.showWarningCustom(

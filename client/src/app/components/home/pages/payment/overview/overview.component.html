@@ -49,7 +49,7 @@
                         <div class="clearfix">&nbsp;</div>
                         <!-- <app-right-card [rightCard]="'opened'" [type]="'cart'"></app-right-card> -->
 
-                        <div class="res-step-form col-md-12 col-md-offset-2 res-form-one" *ngIf="currentStep === 0">
+                        <div class="res-step-form col-md-12 col-md-offset-2 res-form-one p-3" *ngIf="currentStep === 0">
                             <div class="empty-cart" *ngIf="!products || products.length === 0">
                                 <img src="./assets/images/icons/empty-cart.png">
                                 <h2>{{language.cartIsEmptyTitle}}</h2>
@@ -72,7 +72,7 @@
                                         <th class="text-end">{{language.paymentTotalPriceForItem}}</th>
                                     </tr>
                                     <tr *ngFor="let item of products; let i = index">
-                                        <td>
+                                        <td style="width: 35px;">
                                             <a (click)="removeCart(i)"
                                                 class="cart-dropdown btn-remove"><span>×</span></a>
                                         </td>

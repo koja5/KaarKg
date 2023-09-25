@@ -270,6 +270,11 @@
                                 <b> {{invoicePaymentType}}: </b> {{paymentOption}}<br>
                             </td>
                         </tr>
+                        <tr>
+                            <td width="50%">
+                                <b> {{invoiceUserNumber}}<br>
+                            </td>
+                        </tr>
                     </table>
                 </td>
             </tr>

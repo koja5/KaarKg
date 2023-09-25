@@ -4,13 +4,13 @@ import { CallApiService } from 'src/app/services/call-api.service';
 import { ConfigurationService } from 'src/app/services/configuration.service';
 
 @Component({
-  selector: 'app-mail-approved-account-info-config',
-  templateUrl: './mail-approved-account-info-config.component.html',
-  styleUrls: ['./mail-approved-account-info-config.component.scss'],
+  selector: 'app-mail-rejected-dealer-info-config',
+  templateUrl: './mail-rejected-dealer-info-config.component.html',
+  styleUrls: ['./mail-rejected-dealer-info-config.component.scss'],
 })
-export class MailApprovedAccountInfoConfigComponent implements OnInit {
+export class MailRejectedDealerInfoConfigComponent implements OnInit {
   public path = '/forms/mail-config';
-  public file = 'approved-account-info.json';
+  public file = 'rejected-dealer-account-info.json';
   public data: any;
   public config: any;
 

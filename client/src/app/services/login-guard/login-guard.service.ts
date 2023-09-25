@@ -20,9 +20,8 @@ export class LoginGuardService {
     ) {
       return true;
     } else {
-      console.log(window.location);
       this.helpService.setLocalStorage('previousLink', window.location.hash);
-      this.router.navigate(['/']);
+      window.location.href = '/';
       return false;
     }
   }

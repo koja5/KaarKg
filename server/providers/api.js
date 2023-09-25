@@ -218,7 +218,7 @@ router.get("/getMyShippingAddress", auth, async (req, res, next) => {
         res.json(err);
       } else {
         conn.query(
-          "select u.id, u.firstname, u.lastname, u.telephone, u.email, u.country_id, u.address, u.zip, u.city, u.company, c.name as 'country_name' from users u join countries c on u.country_id = c.id where u.id = ?",
+          "select u.id, u.firstname, u.lastname, u.telephone, u.email, u.country_id, u.address, u.zip, u.city, u.company, c.name as 'country_name', u.user_number from users u join countries c on u.country_id = c.id where u.id = ?",
           [req.user.user.id],
           function (err, rows, fields) {
             conn.release();
@@ -1404,12 +1404,40 @@ router.post("/updateUser", auth, function (req, res, next) {
       }
 
       conn.query(
-        "update users SET ? where id = ?",
-        [req.body, req.body.id],
+        "select * from users where id = ?",
+        [req.body.id],
         function (err, rows) {
-          conn.release();
           if (!err) {
-            res.json(true);
+            if (
+              (req.body.type === 1 || req.body.type === 2) &&
+              rows[0].active != req.body.active
+            ) {
+              let mailTemplate = "infoApprovedAccountFromAdmin";
+              if (!req.body.active) {
+                mailTemplate = "infoRejectedAccountFromAdmin";
+              }
+              var options_admin = {
+                url: process.env.link_api + mailTemplate,
+                method: "POST",
+                body: req.body,
+                json: true,
+              };
+              request(options_admin, function (error, response, body) {});
+            }
+            conn.query(
+              "update users SET ? where id = ?",
+              [req.body, req.body.id],
+              function (err, rows) {
+                conn.release();
+                if (!err) {
+                  res.json(true);
+                } else {
+                  conn.release();
+                  logger.log("error", `${err.sql}. ${err.sqlMessage}`);
+                  res.json(false);
+                }
+              }
+            );
           } else {
             logger.log("error", `${err.sql}. ${err.sqlMessage}`);
             res.json(false);

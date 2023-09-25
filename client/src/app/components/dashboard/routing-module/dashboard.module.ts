@@ -25,11 +25,14 @@ import { MailVerifyDealerConfigComponent } from '../pages/mail-configuration/mai
 import { MailApproveKindergardenConfigComponent } from '../pages/mail-configuration/mail-approve-kindergarden-config/mail-approve-kindergarden-config.component';
 import { MailApproveDealerConfigComponent } from '../pages/mail-configuration/mail-approve-dealer-config/mail-approve-dealer-config.component';
 import { MailResetPasswordConfigComponent } from '../pages/mail-configuration/mail-reset-password-config/mail-reset-password-config.component';
-import { MailApprovedAccountInfoConfigComponent } from '../pages/mail-configuration/mail-approved-account-info-config/mail-approved-account-info-config.component';
+import { MailApprovedDealerAccountInfoConfigComponent } from '../pages/mail-configuration/mail-approved-account-info-config/mail-approved-dealer-account-info-config.component';
 import { MailChangeUserDataConfigComponent } from '../pages/mail-configuration/mail-change-user-data-config/mail-change-user-data-config.component';
 import { MailInvoiceCustomerConfigComponent } from '../pages/mail-configuration/mail-invoice-customer-config/mail-invoice-customer-config.component';
 import { MailInvoiceSuperadminConfigComponent } from '../pages/mail-configuration/mail-invoice-superadmin-config/mail-invoice-superadmin-config.component';
 import { TextConfigurationComponent } from '../pages/text-configuration/text-configuration.component';
+import { MailApprovedKindergardenInfoConfigComponent } from '../pages/mail-configuration/mail-approved-kindergarden-info-config/mail-approved-kindergarden-info-config.component';
+import { MailRejectedDealerInfoConfigComponent } from '../pages/mail-configuration/mail-rejected-dealer-info-config/mail-rejected-dealer-info-config.component';
+import { MailRejectedKindergardenInfoConfigComponent } from '../pages/mail-configuration/mail-rejected-kindergarden-info-config/mail-rejected-kindergarden-info-config.component';
 
 @NgModule({
   declarations: [
@@ -44,12 +47,15 @@ import { TextConfigurationComponent } from '../pages/text-configuration/text-con
     MailVerifyDealerConfigComponent,
     MailApproveKindergardenConfigComponent,
     MailApproveDealerConfigComponent,
-    MailApprovedAccountInfoConfigComponent,
+    MailApprovedDealerAccountInfoConfigComponent,
+    MailApprovedKindergardenInfoConfigComponent,
+    MailRejectedDealerInfoConfigComponent,
+    MailRejectedKindergardenInfoConfigComponent,
     MailResetPasswordConfigComponent,
     MailChangeUserDataConfigComponent,
     MailInvoiceCustomerConfigComponent,
     MailInvoiceSuperadminConfigComponent,
-    TextConfigurationComponent
+    TextConfigurationComponent,
   ],
   imports: [
     CommonModule,
