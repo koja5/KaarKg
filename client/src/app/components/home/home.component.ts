@@ -2,6 +2,7 @@ import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { ItemModel, MenuEventArgs } from '@syncfusion/ej2-angular-navigations';
 import { DialogComponent } from '@syncfusion/ej2-angular-popups';
+import { Subscription } from 'rxjs';
 import { LoginFormType } from 'src/app/enums/login-form-type';
 import { UserType } from 'src/app/enums/user-type';
 import { CallApiService } from 'src/app/services/call-api.service';
@@ -34,6 +35,10 @@ export class HomeComponent implements OnInit {
   public searchInput = '';
   public loginDialogShow = false;
   public mobileHeader = '';
+  
+  //subscription
+  private subscribeViewCart!: Subscription;
+  private subscribeRefreshCartInformation!: Subscription;
 
   constructor(
     private router: Router,
@@ -49,6 +54,11 @@ export class HomeComponent implements OnInit {
     this.initalizeConfigData();
     this.checkCart();
     this.checkMessageService();
+  }
+
+  ngOnDestroy() {
+    this.subscribeViewCart.unsubscribe();
+    this.subscribeRefreshCartInformation.unsubscribe();
   }
 
   ngAfterViewInit(): void {
@@ -75,11 +85,11 @@ export class HomeComponent implements OnInit {
   }
 
   checkMessageService() {
-    this.messageService.getViewCart().subscribe((message) => {
+    this.subscribeViewCart = this.messageService.getViewCart().subscribe((message) => {
       this.showCart();
     });
 
-    this.messageService.getRefreshCartInformation().subscribe((message) => {
+    this.subscribeRefreshCartInformation = this.messageService.getRefreshCartInformation().subscribe((message) => {
       this.checkCart();
     });
   }

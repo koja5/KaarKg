@@ -238,6 +238,23 @@
                 <span>www.kaarkg.at</span>
               </td>
             </tr>
+            <tr>
+              <div>
+                <p
+                  style="text-align: center; margin-top: 10px"
+                >{{signatureFreeText}}</p>
+                <div style="text-align: center; margin-top: 10px;">
+                  <a href="{{abg}}" target="_blank">AGB</a>
+                  |
+                  <a href="{{privacyPolicy}}" target="_blank">Datenschutz</a>
+                  |
+                  <a href="{{impressum}}" target="_blank">Impressum</a>
+                </div>
+              </div>
+            </tr>
+            <tr>
+              <td style="height:20px;">&nbsp;</td>
+            </tr>
           </table>
         </td>
       </tr>

@@ -51,7 +51,7 @@
 
             <div class="text-center">
                 <button *ngIf="type === 'favorite'" (click)="addToCart(item)"
-                    class="btn-sm btn-success add-to-cart"><app-mat-icon icon="shopping_basket"></app-mat-icon>
+                    class="btn-md btn-success add-to-cart"><app-mat-icon icon="shopping_basket"></app-mat-icon>
                     {{language.productAddToCart}}
                 </button>
                 <div *ngIf="type === 'cart'" class="product-single-qty pt-4">

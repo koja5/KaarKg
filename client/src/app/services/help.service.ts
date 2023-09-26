@@ -8,6 +8,7 @@ import { ConfigurationService } from './configuration.service';
 import { ToastrComponent } from '../components/common/toastr/toastr.component';
 import { MessageService } from './message.service';
 import { CallApiService } from './call-api.service';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -20,7 +21,8 @@ export class HelpService {
     private http: HttpClient,
     private configurationService: ConfigurationService,
     private toastr: ToastrComponent,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private router: Router
   ) {}
 
   getDecodeToken() {
@@ -336,7 +338,9 @@ export class HelpService {
     delete item.persantage;
     delete item.new;
     delete item.discount_price;
+    delete item.price_neto
     delete item.category_id;
+    item.price = Number(item.price).toFixed(2);
     return item;
   }
 
@@ -387,4 +391,16 @@ export class HelpService {
   //     }
   //   }
   // }
+
+  openLink(link: string) {
+    const contains = link.indexOf(window.location.origin);
+    if (contains != -1) {
+      if (link) {
+        const path = link.split(window.location.host)[1];
+        this.router.navigate([path]);
+      }
+    } else {
+      window.open(link);
+    }
+  }
 }

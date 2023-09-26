@@ -86,17 +86,9 @@
                             style="text-align: center; margin-top: 10px"
                             >{{signatureFreeText}}</p>
                             <div style="text-align: center; margin-top: 10px;">
-                            <a href="https://kaarkg.at/agb" target="_blank">AGB</a>
-                            |
-                            <a
-                                href="https://kaarkg.at/datenschutz"
-                                target="_blank"
-                            >Datenschutz</a>
-                            |
-                            <a
-                                href="https://kaarkg.odoo.com/impressum"
-                                target="_blank"
-                            >Impressum</a>
+                                <a href="{{abg}}" target="_blank">AGB</a>  |  
+                                <a href="{{privacyPolicy}}" target="_blank">Datenschutz</a> |  
+                                <a href="{{impressum}}" target="_blank">Impressum</a>
                             </div>
                         </div>
                     </tr>

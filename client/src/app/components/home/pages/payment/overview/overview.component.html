@@ -187,13 +187,19 @@
                             </div>
                         </div>
 
-                        <div class="text-end mt-3">
+                        <div class="text-end mt-3 mb-2">
                             <button *ngIf="currentStep > 0 && currentStep < 4" class="btn btn-success back-button"
-                                (click)="previousStep()"><app-mat-icon [icon]="'navigate_before'"></app-mat-icon>
-                                {{language.paymentPreviousStep}}</button>
+                                (click)="previousStep()">
+                                <!-- <div class="step-icon">
+                                    <app-mat-icon [icon]="'navigate_before'">
+                                    </app-mat-icon>
+                                </div> -->
+                                {{language.paymentPreviousStep}}
+                            </button>
                             <button *ngIf="currentStep < 3 && (products && products.length > 0)" class="btn btn-success"
                                 (click)="nextStep()" [disabled]="!paymentOption">{{language.paymentNextStep}}
-                                <app-mat-icon [icon]="'navigate_next'"></app-mat-icon></button>
+                                <!-- <div class="step-icon"><app-mat-icon [icon]="'navigate_next'"></app-mat-icon></div> -->
+                            </button>
                         </div>
 
                     </div>
@@ -230,7 +236,8 @@
                 </ejs-combobox>
                 <label>{{language.checkoutAddress}} <span class="required-field">*</span></label>
                 <input name="address" [(ngModel)]="shippingAddressCopy.address" required>
-                <input name="company" [(ngModel)]="shippingAddressCopy.company" [placeholder]="language.checkoutAddressTwo">
+                <input name="company" [(ngModel)]="shippingAddressCopy.company"
+                    [placeholder]="language.checkoutAddressTwo">
                 <div class="row">
                     <div class="col-md-6">
                         <label>{{language.checkoutZip}} <span class="required-field">*</span></label>

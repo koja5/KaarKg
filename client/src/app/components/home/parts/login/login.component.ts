@@ -52,7 +52,7 @@ export class LoginComponent implements OnInit {
   constructor(
     private service: CallApiService,
     private storageService: StorageService,
-    private helpService: HelpService,
+    public helpService: HelpService,
     private router: Router,
     private toastr: ToastrComponent,
     private fb: FormBuilder,

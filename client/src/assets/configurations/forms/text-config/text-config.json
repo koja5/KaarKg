@@ -24,7 +24,7 @@
         },
         {
             "type": "label",
-            "width": "col-md-12 pt-2",
+            "width": "col-md-12 pt-4 mt-1 border-top-black",
             "title": "Wagen",
             "text": "Freitext für Warenkorbinformationen"
         },
@@ -89,7 +89,7 @@
         },
         {
             "type": "label",
-            "width": "col-md-12 pt-2",
+            "width": "col-md-12 pt-4 mt-1 border-top-black",
             "title": "Titelbild",
             "text": "Bannerteil konfigurieren"
         },
@@ -195,6 +195,52 @@
             "name": "coverButtonLink",
             "title": "superadminCoverButtonLink",
             "field": "coverButtonLink"
+        },
+        {
+            "type": "label",
+            "width": "col-md-12 pt-4 mt-1 border-top-black",
+            "title": "Sonderseiten",
+            "text": "Konfiguration link für spezielle Seiten wie Über uns, Impressum etc."
+        },
+        {
+            "type": "textbox",
+            "width": "col-md-12 pt-2",
+            "class": "e-outline",
+            "name": "aboutUsConfigurationPage",
+            "title": "superadminAboutUsConfigurationPage",
+            "field": "aboutUsConfigurationPage"
+        },
+        {
+            "type": "textbox",
+            "width": "col-md-12 pt-2",
+            "class": "e-outline",
+            "name": "faqConfigurationPage",
+            "title": "superadminFAQConfigurationPage",
+            "field": "faqConfigurationPage"
+        },
+        {
+            "type": "textbox",
+            "width": "col-md-12 pt-2",
+            "class": "e-outline",
+            "name": "agbConfigurationPage",
+            "title": "superadminAGBConfigurationPage",
+            "field": "agbConfigurationPage"
+        },
+        {
+            "type": "textbox",
+            "width": "col-md-12 pt-2",
+            "class": "e-outline",
+            "name": "impressumConfigurationPage",
+            "title": "superadminImpressumConfigurationPage",
+            "field": "impressumConfigurationPage"
+        },
+        {
+            "type": "textbox",
+            "width": "col-md-12 pt-2",
+            "class": "e-outline",
+            "name": "privacyPolicyConfigurationPage",
+            "title": "superadminPrivacyPolicyConfigurationPage",
+            "field": "privacyPolicyConfigurationPage"
         },
         {
             "type": "button",

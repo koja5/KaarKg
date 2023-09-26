@@ -18,16 +18,18 @@ export class NavigationComponent implements OnInit {
   public selectNavigationItem!: string;
   public language: any;
   public subscribeCloseNavigation!: Subscription;
+  public text: any;
 
   constructor(
     private service: CallApiService,
-    private helpService: HelpService,
+    public helpService: HelpService,
     private route: ActivatedRoute,
     private messageService: MessageService
   ) {}
 
   ngOnInit(): void {
     this.selectNavigationItem = this.route.snapshot.paramMap.get('category')!;
+    this.text = this.helpService.getCustomText();
     this.initialize();
 
     this.subscribeCloseNavigation = this.messageService.getHideDialog().subscribe(() => {

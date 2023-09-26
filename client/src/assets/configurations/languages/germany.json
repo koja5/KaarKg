@@ -347,5 +347,10 @@
     "superadminCoverButtonVisibility": "Banner aktivieren",
     "superadminCoverButtonText": "Text Banner Button",
     "superadminCoverButtonLink": "Link Banner Button",
-    "superadminCoverAnimation": "Cover-Animation"
+    "superadminCoverAnimation": "Cover-Animation",
+    "superadminAboutUsConfigurationPage": "Link für Über uns",
+    "superadminFAQConfigurationPage": "Link für FAQ",
+    "superadminAGBConfigurationPage": "Link zu den AGB",
+    "superadminImpressumConfigurationPage": "Link zum Impressum",
+    "superadminPrivacyPolicyConfigurationPage": "Link zur Datenschutzerklärung"
 }

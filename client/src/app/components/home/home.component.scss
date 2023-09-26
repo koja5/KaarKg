@@ -15,6 +15,12 @@
   }
 }
 
+@media (max-width: 992px) {
+  .dropdown-arrow .badge-circle {
+    left: 30px !important;
+  }
+}
+
 body {
   overflow: hidden;
 }
@@ -48,7 +54,7 @@ body {
 }
 
 .dropdown-arrow .badge-circle {
-  left: 43px !important;
+  left: 43px;
 }
 
 .header {

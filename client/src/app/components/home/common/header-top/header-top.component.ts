@@ -9,23 +9,16 @@ import { HelpService } from 'src/app/services/help.service';
 })
 export class HeaderTopComponent implements OnInit {
   public language: any;
+  public text: any;
 
-  constructor(private helpService: HelpService, private router: Router) {}
+  constructor(public helpService: HelpService, private router: Router) {}
 
   ngOnInit(): void {
     this.language = this.helpService.getLanguage();
+    this.text = this.helpService.getCustomText();
   }
 
   routerToHome() {
     this.router.navigate(['./']);
-  }
-
-  routerToAboutUs() {
-    this.router.navigate(['ueber-uns']);
-  }
-
-  routerToHelp() {
-    // this.router.navigate(['hilfe']);
-    window.open('https://kaarkg.odoo.com/faq');
   }
 }

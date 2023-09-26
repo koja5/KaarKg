@@ -31,7 +31,11 @@ export class ProductsComponent implements OnInit {
   public language: any;
   public accountType: any;
   public loader = false;
+
+  //subscription
   public subscribeShowQuickView!: Subscription;
+  public subscribeSearchValueForProducts!: Subscription;
+  public subscribeHideDialog!: Subscription;
 
   constructor(
     private service: CallApiService,
@@ -53,7 +57,7 @@ export class ProductsComponent implements OnInit {
     this.accountType = this.helpService.getAccountTypeId();
     this.initialize();
 
-    this.messageService.getSearchValueForProducts().subscribe((message) => {
+    this.subscribeSearchValueForProducts = this.messageService.getSearchValueForProducts().subscribe((message) => {
       if (message != '') {
         this.loader = true;
         let search = 'searchProducts';
@@ -72,11 +76,13 @@ export class ProductsComponent implements OnInit {
       }
     });
 
-    this.messageService.getShowQuickView().subscribe((message) => {
-      this.quickViewItem(message);
-    });
-
     this.subscribeShowQuickView = this.messageService
+      .getShowQuickView()
+      .subscribe((message) => {
+        this.quickViewItem(message);
+      });
+
+    this.subscribeHideDialog = this.messageService
       .getHideDialog()
       .subscribe(() => {
         this.hideProductItemDialog();
@@ -85,6 +91,8 @@ export class ProductsComponent implements OnInit {
 
   ngOnDestroy(): void {
     this.subscribeShowQuickView.unsubscribe();
+    this.subscribeSearchValueForProducts.unsubscribe();
+    this.subscribeHideDialog.unsubscribe();
   }
 
   // ngAfterViewInit(): void {

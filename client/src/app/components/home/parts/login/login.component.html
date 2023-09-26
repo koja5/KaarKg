@@ -28,9 +28,11 @@
             <span>{{language.loginNoHaveAccount}} <a class="font-bold"
                     (click)="changeLoginFormType(loginFormType.signup)">{{language.loginSignUp}}</a></span>
             <div class="listing padding-top--24 padding-bottom--24 flex-flex center-center">
-                <span><a href="https://kaarkg.odoo.com/impressum" target="_blank">{{language.loginImpressum}}</a></span>
-                <span><a routerLink="../../agb" target="_blank">{{language.loginTerms}}</a></span>
-                <span><a routerLink="../../datenschutz" target="_blank">{{language.loginPrivacy}}</a></span>
+                <span><a
+                        (click)="helpService.openLink(text.impressumConfigurationPage)">{{language.loginImpressum}}</a></span>
+                <span><a (click)="helpService.openLink(text.agbConfigurationPage)">{{language.loginTerms}}</a></span>
+                <span><a (click)="helpService.openLink(text.privacyPolicyConfigurationPage)"
+                        target="_blank">{{language.loginPrivacy}}</a></span>
             </div>
         </div>
     </div>
@@ -200,10 +202,12 @@
                     <label class="allow-label terms-privacy color-blue ml-2">
                         {{
                         language.loginAgreeText }}
-                        <a routerLink="/agb" target="_blank" class="signup-term-link">{{ language.loginTerms
+                        <a (click)="helpService.openLink(text.agbConfigurationPage)" class="signup-term-link">{{
+                            language.loginTerms
                             }}</a>
                         {{ language.and }}
-                        <a routerLink="/datenschutz" target="_blank" class="signup-term-link">{{
+                        <a (click)="helpService.openLink(text.privacyPolicyConfigurationPage)"
+                            class="signup-term-link">{{
                             language.loginPrivacy }}</a></label>
                 </div>
                 <span class="text-danger"
@@ -222,9 +226,12 @@
                 <span>{{language.loginAreYouHaveAccount}} <a class="font-bold"
                         (click)="changeLoginFormType(loginFormType.login)">{{language.loginLoginButton}}</a></span>
                 <div class="listing padding-top--24 padding-bottom--24 flex-flex center-center">
-                    <span><a href="https://kaarkg.odoo.com/impressum" target="_blank">{{language.loginImpressum}}</a></span>
-                    <span><a routerLink="../../agb" target="_blank">{{language.loginTerms}}</a></span>
-                    <span><a routerLink="../../datenschutz" target="_blank">{{language.loginPrivacy}}</a></span>
+                    <span><a
+                            (click)="helpService.openLink(text.impressumConfigurationPage)">{{language.loginImpressum}}</a></span>
+                    <span><a
+                            (click)="helpService.openLink(text.agbConfigurationPage)">{{language.loginTerms}}</a></span>
+                    <span><a (click)="helpService.openLink(text.privacyPolicyConfigurationPage)"
+                            target="_blank">{{language.loginPrivacy}}</a></span>
                 </div>
             </div>
         </form>
@@ -244,9 +251,11 @@
             <span>{{language.loginNoHaveAccount}} <a class="font-bold"
                     (click)="changeLoginFormType(loginFormType.signup)">{{language.loginSignUp}}</a></span>
             <div class="listing padding-top--24 padding-bottom--24 flex-flex center-center">
-                <span><a href="https://kaarkg.odoo.com/impressum" target="_blank">{{language.loginImpressum}}</a></span>
-                <span><a routerLink="../../agb" target="_blank">{{language.loginTerms}}</a></span>
-                <span><a routerLink="../../datenschutz" target="_blank">{{language.loginPrivacy}}</a></span>
+                <span><a
+                        (click)="helpService.openLink(text.impressumConfigurationPage)">{{language.loginImpressum}}</a></span>
+                <span><a (click)="helpService.openLink(text.agbConfigurationPage)">{{language.loginTerms}}</a></span>
+                <span><a (click)="helpService.openLink(text.privacyPolicyConfigurationPage)"
+                        target="_blank">{{language.loginPrivacy}}</a></span>
             </div>
         </div>
     </div>

@@ -30,7 +30,8 @@
                 <div class="separator"></div>
 
                 <div class="info-box info-box-icon-left p-0 pointer">
-                    <div class=" info-box info-box-icon-left pointer" (click)="routerToAboutUs()">
+                    <div class=" info-box info-box-icon-left pointer"
+                        (click)="helpService.openLink(text.aboutUsConfigurationPage)">
                         <app-mat-icon icon="pin_drop"></app-mat-icon>
 
                         <div class="info-box-content">
@@ -42,7 +43,8 @@
 
                     <div class="separator"></div>
 
-                    <div class="info-box info-box-icon-left pointer hidden-xs" (click)="routerToHelp()">
+                    <div class="info-box info-box-icon-left pointer hidden-xs"
+                        (click)="helpService.openLink(text.faqConfigurationPage)">
                         <app-mat-icon icon="contact_support"></app-mat-icon>
 
                         <div class="info-box-content">

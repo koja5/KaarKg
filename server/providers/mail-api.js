@@ -11,10 +11,20 @@ router.post("/verificationMailAddress", function (req, res, next) {
   var body = JSON.parse(
     fs.readFileSync("./providers/mail_server/mail_config/verify.json", "utf-8")
   );
+  var text = JSON.parse(
+    fs.readFileSync(process.env.config_custom_text, "utf-8")
+  );
+
   body["template"] = "activate_mail.hjs";
   body["email"] = req.body.email;
   body["link"] =
     process.env.link_api + "/verificationMail/1/" + sha1(req.body.email);
+
+  //custom-text
+  body["abg"] = text.agbConfigurationPage;
+  body["privacyPolicy"] = text.privacyPolicyConfigurationPage;
+  body["impressum"] = text.impressumConfigurationPage;
+
   var options = {
     url: process.env.link_api + "mail-server/sendMail",
     method: "POST",
@@ -39,10 +49,20 @@ router.post(
         "utf-8"
       )
     );
+    var text = JSON.parse(
+      fs.readFileSync(process.env.config_custom_text, "utf-8")
+    );
+
     body["template"] = "activate_mail.hjs";
     body["email"] = req.body.email;
     body["link"] =
       process.env.link_api + "/verificationMail/0/" + sha1(req.body.email);
+
+    //custom-text
+    body["abg"] = text.agbConfigurationPage;
+    body["privacyPolicy"] = text.privacyPolicyConfigurationPage;
+    body["impressum"] = text.impressumConfigurationPage;
+
     var options = {
       url: process.env.link_api + "mail-server/sendMail",
       method: "POST",
@@ -66,10 +86,20 @@ router.post("/verificationMailAddressForDealer", function (req, res, next) {
       "utf-8"
     )
   );
+  var text = JSON.parse(
+    fs.readFileSync(process.env.config_custom_text, "utf-8")
+  );
+
   body["template"] = "activate_mail.hjs";
   body["email"] = req.body.email;
   body["link"] =
     process.env.link_api + "/verificationMail/0/" + sha1(req.body.email);
+
+  //custom-text
+  body["abg"] = text.agbConfigurationPage;
+  body["privacyPolicy"] = text.privacyPolicyConfigurationPage;
+  body["impressum"] = text.impressumConfigurationPage;
+
   var options = {
     url: process.env.link_api + "mail-server/sendMail",
     method: "POST",
@@ -92,6 +122,10 @@ router.post("/approveAccountForKindergarden", function (req, res, next) {
       "utf-8"
     )
   );
+  var text = JSON.parse(
+    fs.readFileSync(process.env.config_custom_text, "utf-8")
+  );
+
   body["template"] = "approver_account_for_kindergarden.hjs";
   body["firstname"] = req.body.firstname;
   body["lastname"] = req.body.lastname;
@@ -104,6 +138,11 @@ router.post("/approveAccountForKindergarden", function (req, res, next) {
   body["email_info"] = req.body.email;
 
   body["link"] = process.env.link_api + "activeUser/" + sha1(req.body.email);
+
+  //custom-text
+  body["abg"] = text.agbConfigurationPage;
+  body["privacyPolicy"] = text.privacyPolicyConfigurationPage;
+  body["impressum"] = text.impressumConfigurationPage;
 
   var options = {
     url: process.env.link_api + "mail-server/sendMail",
@@ -127,6 +166,10 @@ router.post("/approveAccountForDealer", function (req, res, next) {
       "utf-8"
     )
   );
+  var text = JSON.parse(
+    fs.readFileSync(process.env.config_custom_text, "utf-8")
+  );
+
   body["template"] = "approve_account_for_dealer.hjs";
   body["firstname"] = req.body.firstname;
   body["lastname"] = req.body.lastname;
@@ -139,6 +182,12 @@ router.post("/approveAccountForDealer", function (req, res, next) {
   body["email_info"] = req.body.email;
 
   body["link"] = process.env.link_api + "activeUser/" + sha1(req.body.email);
+
+  //custom-text
+  body["abg"] = text.agbConfigurationPage;
+  body["privacyPolicy"] = text.privacyPolicyConfigurationPage;
+  body["impressum"] = text.impressumConfigurationPage;
+
   var options = {
     url: process.env.link_api + "mail-server/sendMail",
     method: "POST",
@@ -157,7 +206,6 @@ router.post("/approveAccountForDealer", function (req, res, next) {
 router.post("/infoApprovedAccountFromAdmin", function (req, res, next) {
   let config = "approved-dealer-account-info.json";
 
-  console.log(req.body);
   if (req.body.type === 1) {
     config = "approved-dealer-account-info.json";
   } else if (req.body.type === 2) {
@@ -167,6 +215,10 @@ router.post("/infoApprovedAccountFromAdmin", function (req, res, next) {
   var body = JSON.parse(
     fs.readFileSync("./providers/mail_server/mail_config/" + config, "utf-8")
   );
+  var text = JSON.parse(
+    fs.readFileSync(process.env.config_custom_text, "utf-8")
+  );
+
   body["template"] = "info_approved_account_from_admin.hjs";
   body["email"] = req.body.email;
   body["link"] = process.env.link_client;
@@ -174,6 +226,12 @@ router.post("/infoApprovedAccountFromAdmin", function (req, res, next) {
     "{firstname}",
     req.body.lastname + " " + req.body.firstname
   );
+
+  //custom-text
+  body["abg"] = text.agbConfigurationPage;
+  body["privacyPolicy"] = text.privacyPolicyConfigurationPage;
+  body["impressum"] = text.impressumConfigurationPage;
+
   var options = {
     rejectUnauthorized: false,
     url: process.env.link_api + "mail-server/sendMail",
@@ -193,7 +251,6 @@ router.post("/infoApprovedAccountFromAdmin", function (req, res, next) {
 router.post("/infoRejectedAccountFromAdmin", function (req, res, next) {
   let config = "rejected-dealer-account-info.json";
 
-  console.log(req.body);
   if (req.body.type === 1) {
     config = "rejected-dealer-account-info.json";
   } else if (req.body.type === 2) {
@@ -203,6 +260,10 @@ router.post("/infoRejectedAccountFromAdmin", function (req, res, next) {
   var body = JSON.parse(
     fs.readFileSync("./providers/mail_server/mail_config/" + config, "utf-8")
   );
+  var text = JSON.parse(
+    fs.readFileSync(process.env.config_custom_text, "utf-8")
+  );
+
   body["template"] = "info_rejected_account_from_admin.hjs";
   body["email"] = req.body.email;
   body["link"] = process.env.link_client;
@@ -210,6 +271,12 @@ router.post("/infoRejectedAccountFromAdmin", function (req, res, next) {
     "{firstname}",
     req.body.lastname + " " + req.body.firstname
   );
+
+  //custom-text
+  body["abg"] = text.agbConfigurationPage;
+  body["privacyPolicy"] = text.privacyPolicyConfigurationPage;
+  body["impressum"] = text.impressumConfigurationPage;
+
   var options = {
     rejectUnauthorized: false,
     url: process.env.link_api + "mail-server/sendMail",
@@ -233,10 +300,20 @@ router.post("/sentLinkToEmailForRecoveryPassword", function (req, res, next) {
       "utf-8"
     )
   );
+  var text = JSON.parse(
+    fs.readFileSync(process.env.config_custom_text, "utf-8")
+  );
+
   body["template"] = "reset_password.hjs";
   body["email"] = req.body.email;
   body["link"] =
     process.env.link_client + "recovery-password/" + sha1(req.body.email);
+
+  //custom-text
+  body["abg"] = text.agbConfigurationPage;
+  body["privacyPolicy"] = text.privacyPolicyConfigurationPage;
+  body["impressum"] = text.impressumConfigurationPage;
+
   var options = {
     rejectUnauthorized: false,
     url: process.env.link_api + "mail-server/sendMail",
@@ -260,6 +337,10 @@ router.post("/sendInvoiceToCustomer", function (req, res, next) {
       "utf-8"
     )
   );
+  var text = JSON.parse(
+    fs.readFileSync(process.env.config_custom_text, "utf-8")
+  );
+
   if (req.body.type === 3) {
     body["template"] = "invoice_customer.hjs";
   } else {
@@ -333,6 +414,11 @@ router.post("/sendInvoiceToCustomer", function (req, res, next) {
 
   body["paymentOption"] = req.body.paymentOption;
 
+  //custom-text
+  body["abg"] = text.agbConfigurationPage;
+  body["privacyPolicy"] = text.privacyPolicyConfigurationPage;
+  body["impressum"] = text.impressumConfigurationPage;
+
   var options = {
     url: process.env.link_api + "mail-server/sendMail",
     method: "POST",
@@ -354,6 +440,9 @@ router.post("/sendInvoiceToSuperadmin", function (req, res, next) {
       "./providers/mail_server/mail_config/invoice-superadmin.json",
       "utf-8"
     )
+  );
+  var text = JSON.parse(
+    fs.readFileSync(process.env.config_custom_text, "utf-8")
   );
 
   if (req.body.type === 3) {
@@ -419,6 +508,11 @@ router.post("/sendInvoiceToSuperadmin", function (req, res, next) {
 
   body["orderDate"] = req.body.orderDate;
   body["paymentOption"] = req.body.paymentOption;
+
+  //custom-text
+  body["abg"] = text.agbConfigurationPage;
+  body["privacyPolicy"] = text.privacyPolicyConfigurationPage;
+  body["impressum"] = text.impressumConfigurationPage;
 
   var options = {
     url: process.env.link_api + "mail-server/sendMail",

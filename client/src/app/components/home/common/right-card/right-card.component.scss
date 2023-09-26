@@ -1,5 +1,5 @@
 .right-side-card {
-  padding: 3rem 2rem 2rem 2rem;
+  padding: 3rem 0rem 2rem 0rem;
   display: none;
   top: 0;
   bottom: 0;
@@ -21,6 +21,7 @@
   position: fixed;
   display: block;
   overflow-y: auto;
+  z-index: 1052;
 }
 
 .product {
