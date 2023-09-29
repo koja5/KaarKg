@@ -76,6 +76,14 @@ export class HelpService {
     );
   }
 
+  getLocalStorage(key: string) {
+    if (localStorage.getItem(key) != null) {
+      return JSON.parse(JSON.parse(JSON.stringify(localStorage.getItem(key))));
+    } else {
+      return '';
+    }
+  }
+
   getLocalStorageStringValue(key: string) {
     return localStorage.getItem(key);
   }
@@ -253,7 +261,7 @@ export class HelpService {
 
   addToFavorite(article: any) {
     let item = this.copyObject(article);
-    let currentFavorite = this.storageService.getCookieObject('favorite');
+    let currentFavorite = this.getLocalStorage('favorite');
     let ind = 1;
     if (currentFavorite != '') {
       for (let i = 0; i < currentFavorite['length']; i++) {
@@ -269,10 +277,7 @@ export class HelpService {
       }
       item = this.removeUnnecessaryProperty(item);
       currentFavorite.push(item);
-      this.storageService.setCookie(
-        'favorite',
-        JSON.stringify(currentFavorite)
-      );
+      this.setLocalStorage('favorite', JSON.stringify(currentFavorite));
     }
 
     const language = this.getLanguage();
@@ -284,21 +289,22 @@ export class HelpService {
   }
 
   addNewQuantityToCart(item: any, quantity: number) {
-    let current = this.storageService.getCookieObject('cart');
+    let current = this.getLocalStorage('cart');
     for (let i = 0; i < current['length']; i++) {
       if (current[i]['title'] === item.title) {
         current[i].quantity = quantity;
         break;
       }
     }
-    this.storageService.setCookieObject('cart', current);
+    this.setLocalStorage('cart', current);
     this.messageService.sentRefreshCartInformation();
     // this.messageService.sentRefreshForAdditionaPaymentPrice();
   }
 
   addToCart(article: any) {
     let item = this.copyObject(article);
-    let currentFavorite = this.storageService.getCookieObject('cart');
+    // let currentFavorite = this.storageService.getCookieObject('cart');
+    let currentFavorite = this.getLocalStorage('cart');
     let ind = 1;
     if (currentFavorite.length > 0) {
       for (let i = 0; i < currentFavorite['length']; i++) {
@@ -316,9 +322,12 @@ export class HelpService {
       }
       item = this.removeUnnecessaryProperty(item);
       currentFavorite.push(item);
-      this.storageService.setCookie('cart', JSON.stringify(currentFavorite));
+      // this.storageService.setCookie('cart', JSON.stringify(currentFavorite));
+      this.setLocalStorage('cart', JSON.stringify(currentFavorite));
     } else {
-      this.storageService.setCookie('cart', JSON.stringify(currentFavorite));
+      // this.storageService.setCookie('cart', JSON.stringify(currentFavorite));
+
+      this.setLocalStorage('cart', JSON.stringify(currentFavorite));
     }
 
     const language = this.getLanguage();
@@ -338,7 +347,7 @@ export class HelpService {
     delete item.persantage;
     delete item.new;
     delete item.discount_price;
-    delete item.price_neto
+    delete item.price_neto;
     delete item.category_id;
     item.price = Number(item.price).toFixed(2);
     return item;

@@ -1,1 +1,13 @@
-{"bannerFirstText":"DANKE","bannerSecondText":"für deine Bestellung!","subject":"Bitte Konto aktivieren 1","title":"Bitte Konto aktivieren","text":"Sie haben erfolgreich ein Konto erstellt. Bitte bestätigen Sie Ihre E-Mail Adresse über den untenstehenden Link. Anschließend können Sie sich anmelden!","buttonText":"E-Mail bestätigen und Konto aktivieren"}
+{
+    "bannerFirstText": "DANKE",
+    "bannerSecondText": "für deine Bestellung!",
+    "subject": "Bitte Konto aktivieren 1",
+    "title": "Bitte Konto aktivieren",
+    "text": "Sie haben erfolgreich ein Konto erstellt. Bitte bestätigen Sie Ihre E-Mail Adresse über den untenstehenden Link. Anschließend können Sie sich anmelden!",
+    "buttonText": "E-Mail bestätigen und Konto aktivieren",
+    "signatureGreeting": "A. Kaar Kg",
+    "signatureAddress": "Haselgrabenweg 3",
+    "signatureZipAndCity": "4040 Linz",
+    "signatureEmail": "office@kaarkg.at",
+    "signatureTelephone": "+43 732 946815"
+}

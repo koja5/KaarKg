@@ -3,8 +3,6 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>CodePen - html css invoice template</title>
-
     <style>
         .td_w {}
 
@@ -130,11 +128,11 @@
     <!-- partial:index.partial.html -->
     <div class="invoice-box">
         <table cellpadding="0" cellspacing="0">
-            <tr class="top_rw">
-                <td colspan="2">
-                    <div class="logo">
-                        <img src="https://city-info.at/assets/images/logo-black.png">
-                    </div>
+            <tr>
+                <td style="text-align:center;">
+                    <a href="https://kaarkg.at" target="_blank">
+                    <img width="200" src="https://kaarkg.at/assets/images/logo-black.png" alt="logo">
+                    </a>
                 </td>
             </tr>
             <tr class="top">
@@ -167,19 +165,19 @@
                             {{invoicePrice}}
                         </td>
                         <td style="width:10%; text-align:right;">
-                            {{invoiceTotal}}
+                            {{invoiceVat}}
                         </td>
                         <td style="width:20%; text-align:right;">
-                            {{invoiceTotal}}
+                            {{invoiceTotalPerRow}}
                         </td>
                     </tr>
                     {{#products}}
                     <tr class="item">
                         <td style="width:50%;">
-                            {{title}}
+                            {{title}} ({{product_number}})
                         </td>
                         <td style="width:10%; text-align:center;">
-                            1
+                            {{quantity}}
                         </td>
                         <td style="width:10%; text-align:right;">
                             € {{neto}}
@@ -224,20 +222,22 @@
                             <td colspan="2">
                                 <b> {{invoiceMainAddress}} </b> <br>
                                 {{mainFirstname}} {{mainLastname}} <br>
+                                {{mainCompany}}<br>
                                 {{mainAddress}}<br>
                                 {{mainZip}}  {{mainCity}}<br>
+                                {{mainCountry}}<br>
                                 Tel: {{mainTelephone}}<br>
                                 E-mail: {{mainEmail}}<br>
-                                {{mainCompany}}<br>
                                
                             </td>
                             <td> <b> {{invoiceShippingAddress}} </b><br>
                                 {{shippingFirstname}} {{shippingLastname}} <br>
+                                {{shippingCompany}}<br>
                                 {{shippingAddress}}<br>
                                 {{shippingZip}} {{shippingCity}}<br>
-                                Tel: {{shippingTelephone}}<br>
-                                E-mail: {{shippingEmail}}<br>
-                                {{shippingCompany}}<br>
+                                {{shippingCountry}}<br>
+                                {{shippingTelephone}}<br>
+                                {{shippingEmail}}<br>
                                 
                             </td>
                         </tr>
@@ -257,22 +257,55 @@
                                 <b> {{invoicePaymentType}}: </b> {{paymentOption}}<br>
                             </td>
                         </tr>
+                        <tr class="{{invoiceUserNumber ? 'dispay-none' : ''}}">
+                            <td width="50%">
+                                <b> {{invoiceUserNumber}}<br>
+                            </td>
+                        </tr>
                     </table>
                 </td>
             </tr>
         </table>
 
-        <div class="contact">
-            <p>{{signatureGreeting}}</p>
-            <p>{{signatureAddress}}</p>
-            <p>{{signatureZipAndCity}}</p>
-            <p>{{signatureEmail}}</p>
-            <p>{{signatureTelephone}}</p>
+        <div class="contact" style="text-align: center;">
             <p style="text-align: center; margin-top: 10px">{{signatureFreeText}}</p>
-            <div style="text-align: center; margin-top: 10px;">
-                <a href="http://city-info.at:3005/document/terms" target="_blank">AGB</a>  |  
-                <a href="http://city-info.at:3005/document/privacy-policy" target="_blank">Datenschutz</a>
-            </div>
+            <br />
+            <tr>
+                <td style="text-align:center;">
+                    <img width="120"
+                    src="https://kaarkg.at/assets/images/logo-black.png"
+                    style="width: 120px"
+                    />
+                </td>
+            </tr>
+             <tr style="font-size:14px; color:#455056bd;">
+              <td style="text-align:center;">
+                <p style="margin-bottom: 0px;">
+                  <span style="font-weight: bold;">{{signatureGreeting}}</span>
+                  |
+                  {{signatureAddress}},
+                  {{signatureZipAndCity}}
+                </p>
+                <p style="margin-top: 5px;">{{signatureTelephone}}
+                  |
+                  {{signatureEmail}}</p>
+              </td>
+            </tr>
+            <tr>
+                <td style="text-align: center; font-weight: bold;">
+                    <span>www.kaarkg.at</span>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <div style="text-align: center; margin-top: 10px;">
+                        <a href="{{abg}}" target="_blank">AGB</a>  |  
+                        <a href="{{privacyPolicy}}" target="_blank">Datenschutz</a> |  
+                        <a href="{{impressum}}" target="_blank">Impressum</a>
+                    </div>
+                </td>
+            </tr>
         </div>
     </div>
     <!-- partial -->

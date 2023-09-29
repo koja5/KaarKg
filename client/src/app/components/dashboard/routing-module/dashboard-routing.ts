@@ -12,7 +12,6 @@ import { MailApproveKindergardenConfigComponent } from '../pages/mail-configurat
 import { MailApproveDealerConfigComponent } from '../pages/mail-configuration/mail-approve-dealer-config/mail-approve-dealer-config.component';
 import { MailResetPasswordConfigComponent } from '../pages/mail-configuration/mail-reset-password-config/mail-reset-password-config.component';
 import { MailApprovedDealerAccountInfoConfigComponent } from '../pages/mail-configuration/mail-approved-account-info-config/mail-approved-dealer-account-info-config.component';
-import { MailChangeUserDataConfigComponent } from '../pages/mail-configuration/mail-change-user-data-config/mail-change-user-data-config.component';
 import { MailInvoiceCustomerConfigComponent } from '../pages/mail-configuration/mail-invoice-customer-config/mail-invoice-customer-config.component';
 import { MailInvoiceSuperadminConfigComponent } from '../pages/mail-configuration/mail-invoice-superadmin-config/mail-invoice-superadmin-config.component';
 import { TextConfigurationComponent } from '../pages/text-configuration/text-configuration.component';
@@ -85,10 +84,6 @@ const routes: Routes = [
   {
     path: 'mail-reset-password-config',
     component: MailResetPasswordConfigComponent,
-  },
-  {
-    path: 'mail-change-user-data-config',
-    component: MailChangeUserDataConfigComponent,
   },
   {
     path: 'mail-invoice-customer-config',

@@ -69,10 +69,14 @@
                     <tr style="font-size:14px; color:#455056bd;">
                         <td style="text-align:center;">
                             <p style="margin-bottom: 0px;">
-                            <span style="font-weight: bold;">A. Kaar Kg</span>
-                            | Haselgrabenweg 4, 4040 Linz
+                            <span style="font-weight: bold;">{{signatureGreeting}}</span>
+                            |
+                            {{signatureAddress}},
+                            {{signatureZipAndCity}}
                             </p>
-                            <p style="margin-top: 5px;">+43 732 946815 | office@kaarkg.at</p>
+                            <p style="margin-top: 5px;">{{signatureTelephone}}
+                            |
+                            {{signatureEmail}}</p>
                         </td>
                     </tr>
                     <tr>

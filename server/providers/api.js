@@ -181,9 +181,7 @@ router.post("/login", function (req, res, next) {
             );
             logger.log(
               "info",
-              `USER: ${
-                req.body.email
-              } is LOGIN at ${new Date().toDateString()}.`
+              `USER: ${req.body.email} is LOGIN at ${new Date()}.`
             );
             return res.json({
               token: token,
@@ -276,6 +274,34 @@ router.get("/verificationMail/:active/:email", async (req, res, next) => {
         conn.query(
           "update users set verified = 1, active = ? where SHA1(email) = ?",
           [req.params.active, req.params.email],
+          function (err, rows, fields) {
+            conn.release();
+            if (err) {
+              logger.log("error", err.sql + ". " + err.sqlMessage);
+              res.json(err);
+            } else {
+              res.redirect(process.env.link_client);
+            }
+          }
+        );
+      }
+    });
+  } catch (ex) {
+    logger.log("error", err.sql + ". " + err.sqlMessage);
+    res.json(ex);
+  }
+});
+
+router.get("/verificationMailWithoutRelease/:email", async (req, res, next) => {
+  try {
+    connection.getConnection(function (err, conn) {
+      if (err) {
+        logger.log("error", err.sql + ". " + err.sqlMessage);
+        res.json(err);
+      } else {
+        conn.query(
+          "update users set verified = 1 where SHA1(email) = ?",
+          [req.params.email],
           function (err, rows, fields) {
             conn.release();
             if (err) {
@@ -1319,7 +1345,7 @@ router.get("/getUsers", async (req, res, next) => {
         res.json(err);
       } else {
         conn.query(
-          "select u.*, c.name, a.name as 'type_name', rn.name as 'newsletter_name', ra.name as 'active_name' from users u join countries c on u.country_id = c.id join account_types a on u.type = a.id join rights_newsletter rn on u.newsletter = rn.id join rights_active ra on u.active = ra.id",
+          "select u.*, c.name, a.name as 'type_name', rn.name as 'newsletter_name', ra.name as 'active_name' from users u join countries c on u.country_id = c.id join account_types a on u.type = a.id join rights_newsletter rn on u.newsletter = rn.id join rights_active ra on u.active = ra.id order by u.id asc",
           req.params.category,
           function (err, rows, fields) {
             conn.release();

@@ -500,7 +500,7 @@ body[data-sidebar="dark"] .logo-light {
   display: none;
 }
 .vertical-collpsed .vertical-menu #sidebar-menu > ul > li {
-  position: relative;
+  position: inherit;
   white-space: nowrap;
   height: 55px;
 }

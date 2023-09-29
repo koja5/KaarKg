@@ -5,6 +5,7 @@
 export const environment = {
   production: false,
   code: 'pk_live_51Nrf4dKDXPZf33rnZ7espIkWJ6RnCLZHizmXz9h9bhHQKinnZ1VDmrjCDEwmDWitu0RaaYiGOfmB9tDw9f3BGNp700PkDbeePO',
+  version: 'DEV'
 };
 
 /*

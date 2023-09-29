@@ -5,6 +5,7 @@ import { ItemModel, MenuEventArgs } from '@syncfusion/ej2-angular-navigations';
 import { ConfigurationService } from 'src/app/services/configuration.service';
 import { HelpService } from 'src/app/services/help.service';
 import { StorageService } from 'src/app/services/storage.service';
+import { environment } from '../../../environments/environment.prod';
 
 @Component({
   selector: 'app-dashboard',
@@ -56,6 +57,7 @@ export class DashboardComponent implements OnInit {
   public isFullScreen = false;
   private socket: any;
   public items: ItemModel[] = [];
+  public version!: string;
 
   constructor(
     private configurationService: ConfigurationService,
@@ -68,6 +70,7 @@ export class DashboardComponent implements OnInit {
   ngOnInit(): void {
     this.elem = document.documentElement;
     this.language = this.helpService.getLanguage();
+    this.version = environment.version;
     this.items = [
       {
         text: this.language.dashboardSettings,

@@ -5,7 +5,7 @@
     <meta name="description" content="Approved account for dealer" />
   </head>
   <style>
-    a:hover {text-decoration: underline !important;}
+    a:hover { text-decoration: underline !important; }
   </style>
 
   <body
@@ -70,7 +70,8 @@
                     <td style="padding:0 15px; text-align:center;">
                       <h4
                         style="color:#1e1e2d; font-weight:400; margin:0;font-size:32px;font-family:'Rubik',sans-serif;"
-                      >{{title}}</h4>
+                      >
+                        {{title}}</h4>
                       <span
                         style="display:inline-block; vertical-align:middle; margin:29px 0 26px; border-bottom:1px solid #cecece; 
                                         width:100px;"
@@ -197,14 +198,19 @@
                             >
                               {{email_info}}</td>
                           </tr>
+
+                          <tr>
+                            <td>
+                              <a
+                                href="{{link}}"
+                                style="background:#91bd20;text-decoration:none !important; font-weight:500; margin-top:35px; color:#fff;text-transform:uppercase; font-size:14px;padding:10px 24px;display:inline-block;border-radius:50px;"
+                              >{{buttonText}}</a>
+                            </td>
+                          </tr>
                         </tbody>
                       </table>
                     </td>
                   </tr>
-                  <a
-                    href="{{link}}"
-                    style="background:#91bd20;text-decoration:none !important; font-weight:500; margin-top:35px; color:#fff;text-transform:uppercase; font-size:14px;padding:10px 24px;display:inline-block;border-radius:50px;"
-                  >{{buttonText}}</a>
                   <tr>
                     <td style="height:40px;">&nbsp;</td>
                   </tr>
@@ -214,7 +220,6 @@
             <tr>
               <td style="height:20px;">&nbsp;</td>
             </tr>
-
             <tr>
               <td style="text-align:center;">
                 <img
@@ -226,10 +231,14 @@
             <tr style="font-size:14px; color:#455056bd;">
               <td style="text-align:center;">
                 <p style="margin-bottom: 0px;">
-                  <span style="font-weight: bold;">A. Kaar Kg</span>
-                  | Haselgrabenweg 4, 4040 Linz
+                  <span style="font-weight: bold;">{{signatureGreeting}}</span>
+                  |
+                  {{signatureAddress}},
+                  {{signatureZipAndCity}}
                 </p>
-                <p style="margin-top: 5px;">+43 732 946815 | office@kaarkg.at</p>
+                <p style="margin-top: 5px;">{{signatureTelephone}}
+                  |
+                  {{signatureEmail}}</p>
               </td>
             </tr>
             <tr>
@@ -238,18 +247,20 @@
               </td>
             </tr>
             <tr>
-              <div>
-                <p
-                  style="text-align: center; margin-top: 10px"
-                >{{signatureFreeText}}</p>
-                <div style="text-align: center; margin-top: 10px;">
-                  <a href="{{abg}}" target="_blank">AGB</a>
-                  |
-                  <a href="{{privacyPolicy}}" target="_blank">Datenschutz</a>
-                  |
-                  <a href="{{impressum}}" target="_blank">Impressum</a>
+              <td>
+                <div>
+                  <p
+                    style="text-align: center; margin-top: 10px"
+                  >{{signatureFreeText}}</p>
+                  <div style="text-align: center; margin-top: 10px;">
+                    <a href="{{abg}}" target="_blank">AGB</a>
+                    |
+                    <a href="{{privacyPolicy}}" target="_blank">Datenschutz</a>
+                    |
+                    <a href="{{impressum}}" target="_blank">Impressum</a>
+                  </div>
                 </div>
-              </div>
+              </td>
             </tr>
             <tr>
               <td style="height:20px;">&nbsp;</td>

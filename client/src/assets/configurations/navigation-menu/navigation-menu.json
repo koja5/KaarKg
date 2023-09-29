@@ -97,11 +97,6 @@
       },
       {
         "icon": "mail",
-        "title": "Kundendaten geändert",
-        "link": "/dashboard/mail-change-user-data-config"
-      },
-      {
-        "icon": "mail",
         "title": "Bestellbestätigung",
         "link": "/dashboard/mail-invoice-customer-config"
       },

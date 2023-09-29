@@ -30,8 +30,7 @@
             "class": "e-outline",
             "name": "greeting",
             "title": "mailGreeting",
-            "field": "greeting",
-            "readonly": true
+            "field": "greeting"
         },
         {
             "type": "textbox",

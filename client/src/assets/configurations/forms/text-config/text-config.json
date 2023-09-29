@@ -243,6 +243,36 @@
             "field": "privacyPolicyConfigurationPage"
         },
         {
+            "type": "label",
+            "width": "col-md-12 pt-4 mt-1 border-top-black",
+            "title": "Land",
+            "text": "Wählen Sie beim Erstellen eines neuen Kontos das Standardland aus"
+        },
+        {
+            "type": "combobox",
+            "width": "col-md-12",
+            "class": "e-outline",
+            "name": "preselectedCountry",
+            "title": "superadminPreselectedCountryForRegistration",
+            "field": {
+                "text": "name",
+                "value": "id"
+            },
+            "request": {
+                "type": "GET",
+                "api": "/api/getCountries",
+                "parameters": [],
+                "fields": "",
+                "root": ""
+            },
+            "placeholder": "superadminPreselectedCountryForRegistration",
+            "fieldConfig": {
+                "ignoreAccent": false,
+                "filter": true
+            },
+            "required": true
+        },
+        {
             "type": "button",
             "width": "col-md-12",
             "class": "e-info button-action",

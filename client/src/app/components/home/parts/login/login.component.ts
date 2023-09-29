@@ -245,7 +245,10 @@ export class LoginComponent implements OnInit {
       );
       this.registerForm.addControl(
         'country_id',
-        new FormControl('', Validators.required)
+        new FormControl(
+          this.text.preselectedCountry ? this.text.preselectedCountry : '',
+          Validators.required
+        )
       );
       this.registerForm.addControl('country_name', new FormControl(''));
       this.registerForm.addControl(
@@ -305,14 +308,14 @@ export class LoginComponent implements OnInit {
   }
 
   public checkRealProductPriceForCart() {
-    const products = this.storageService.getCookieObject('cart');
+    const products = this.helpService.getLocalStorage('cart');
     if (products.length) {
       if (this.helpService.getAccountTypeId() != -1) {
         this.service
           .callPostMethod('/api/getProductPriceForLoginUser', products)
           .subscribe((data) => {
             this.setRealPrice(data, products);
-            this.storageService.setCookieObject('cart', products);
+            this.helpService.setLocalStorage('cart', products);
             this.messageService.sentRefreshCartInformation();
             if (!this.helpService.getSessionStorageStringValue('previous')) {
               window.location.reload();
@@ -325,7 +328,7 @@ export class LoginComponent implements OnInit {
           .callPostMethod('/api/getProductPrice', products)
           .subscribe((data) => {
             this.setRealPrice(data, products);
-            this.storageService.setCookieObject('cart', products);
+            this.helpService.setLocalStorage('cart', products);
             this.messageService.sentRefreshCartInformation();
             if (!this.helpService.getSessionStorageStringValue('previous')) {
               window.location.reload();

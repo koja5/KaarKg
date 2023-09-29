@@ -483,7 +483,7 @@
             "field": "number_of_pieces"
         },
         {
-            "type": "multiselect",
+            "type": "combobox",
             "width": "col-md-12",
             "class": "e-outline",
             "name": "category_id",

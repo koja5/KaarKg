@@ -68,7 +68,7 @@ export class CheckoutComponent implements OnInit {
   }
 
   setNetoAndBrutoPrice() {
-    this.products = this.storageService.getCookieObject('cart');
+    this.products = this.helpService.getLocalStorage('cart');
     if (this.type === this.helpService.getUserTypeModel().customer) {
       for (let i = 0; i < this.products.length; i++) {
         this.products[i].neto = Number(this.products[i].price).toFixed(2);
@@ -115,7 +115,7 @@ export class CheckoutComponent implements OnInit {
     this.loader = true;
 
     setTimeout(() => {
-      this.storageService.removeCookie('cart');
+      this.helpService.removeLocalStorage('cart');
       this.helpService.removeSessionStorage('payment');
       this.loader = false;
       this.helpService.removeSessionStorage('step');

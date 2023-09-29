@@ -28,40 +28,23 @@ export class NavigationComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.selectNavigationItem = this.route.snapshot.paramMap.get('category')!;
+    if (window.location.pathname.indexOf('category') != -1) {
+      this.selectNavigationItem =
+        window.location.pathname.split('category/')[1];
+    }
     this.text = this.helpService.getCustomText();
     this.initialize();
 
-    this.subscribeCloseNavigation = this.messageService.getHideDialog().subscribe(() => {
-      this.closeNavigation.emit();
-    });
+    this.subscribeCloseNavigation = this.messageService
+      .getHideDialog()
+      .subscribe(() => {
+        this.closeNavigation.emit();
+      });
   }
 
   ngOnDestroy() {
     this.subscribeCloseNavigation.unsubscribe();
   }
-
-  // ngAfterViewInit(): void {
-  //   document.onclick = (args: any): void => {
-  //     console.log(args.target.className);
-  //     if (args.target.className.indexOf('home-action-button') ||
-  //       args.target.className === 'col-lg-9' ||
-  //       args.target.className === 'container-fluid' ||
-  //       args.target.className === 'products-container' ||
-  //       args.target.className === '' ||
-  //       args.target.className === 'products-slider owl-theme row' ||
-  //       args.target.className === 'product-details' ||
-  //       args.target.className === 'btn-quickview' ||
-  //       args.target.className ===
-  //         'footer-bottom d-sm-flex align-items-center' ||
-  //       args.target.className === 'info-box info-box-icon-left pointer'
-  //     ) {
-  //       this.closeNavigation.emit();
-  //     } else if (args.target.className === 'e-dlg-overlay') {
-  //       this.messageService.sentHideDialog();
-  //     }
-  //   };
-  // }
 
   initialize() {
     this.service

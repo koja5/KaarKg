@@ -294,12 +294,7 @@
             </tr>
         </table>
 
-        <div class="contact">
-            <p>{{signatureGreeting}}</p>
-            <p>{{signatureAddress}}</p>
-            <p>{{signatureZipAndCity}}</p>
-            <p>{{signatureEmail}}</p>
-            <p>{{signatureTelephone}}</p>
+        <div class="contact" style="text-align: center;">
             <p style="text-align: center; margin-top: 10px">{{signatureFreeText}}</p>
             <br />
             <tr>
@@ -310,14 +305,18 @@
                     />
                 </td>
             </tr>
-            <tr style="font-size:14px; color:#455056bd;">
-                <td style="text-align:center;">
-                    <p style="margin-bottom: 0px;">
-                    <span style="font-weight: bold;">A. Kaar Kg</span>
-                    | Haselgrabenweg 4, 4040 Linz
-                    </p>
-                    <p style="margin-top: 5px;">+43 732 946815 | office@kaarkg.at</p>
-                </td>
+             <tr style="font-size:14px; color:#455056bd;">
+              <td style="text-align:center;">
+                <p style="margin-bottom: 0px;">
+                  <span style="font-weight: bold;">{{signatureGreeting}}</span>
+                  |
+                  {{signatureAddress}},
+                  {{signatureZipAndCity}}
+                </p>
+                <p style="margin-top: 5px;">{{signatureTelephone}}
+                  |
+                  {{signatureEmail}}</p>
+              </td>
             </tr>
             <tr>
                 <td style="text-align: center; font-weight: bold;">
@@ -325,11 +324,15 @@
                 </td>
             </tr>
 
-            <div style="text-align: center; margin-top: 10px;">
-                <a href="{{abg}}" target="_blank">AGB</a>  |  
-                <a href="{{privacyPolicy}}" target="_blank">Datenschutz</a> |  
-                <a href="{{impressum}}" target="_blank">Impressum</a>
-            </div>
+            <tr>
+                <td>
+                    <div style="text-align: center; margin-top: 10px;">
+                        <a href="{{abg}}" target="_blank">AGB</a>  |  
+                        <a href="{{privacyPolicy}}" target="_blank">Datenschutz</a> |  
+                        <a href="{{impressum}}" target="_blank">Impressum</a>
+                    </div>
+                </td>
+            </tr>
         </div>
     </div>
     <!-- partial -->

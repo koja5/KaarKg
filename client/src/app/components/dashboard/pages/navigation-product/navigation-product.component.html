@@ -36,7 +36,8 @@
     </ng-template>
 </ejs-dialog>
 
-<ejs-dialog #dialogSubproduct [showCloseIcon]='true' (close)="closeDialogSubproduct()" [visible]='false' width="350px" height="auto" isModal="true">
+<ejs-dialog #dialogSubproduct [showCloseIcon]='true' (close)="closeDialogSubproduct()" [visible]='false' width="350px"
+    height="auto" isModal="true">
     <ng-template #content>
         <app-dynamic-forms *ngIf="pathSubproduct&&fileSubproduct" [path]="pathSubproduct" [file]="fileSubproduct"
             (submit)="createNavigationSubproduct($event)"></app-dynamic-forms>

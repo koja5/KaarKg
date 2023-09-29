@@ -120,7 +120,7 @@ export class HomeComponent implements OnInit {
   }
 
   checkCart() {
-    const products = this.storageService.getCookieObject('cart');
+    const products = this.helpService.getLocalStorage('cart');
     this.subOfProductInCart = 0;
     this.numberOfProductInChart = products.length;
     for (let i = 0; i < products.length; i++) {
@@ -280,14 +280,14 @@ export class HomeComponent implements OnInit {
   }
 
   public checkRealProductPriceForCart() {
-    const products = this.storageService.getCookieObject('cart');
+    const products = this.helpService.getLocalStorage('cart');
     if (products.length) {
       if (this.helpService.getAccountTypeId() != -1) {
         this.service
           .callPostMethod('/api/getProductPriceForLoginUser', products)
           .subscribe((data) => {
             this.setRealPrice(data, products);
-            this.storageService.setCookieObject('cart', products);
+            this.helpService.setLocalStorage('cart', products);
             this.messageService.sentRefreshCartInformation();
             window.location.href = '/';
           });
@@ -296,7 +296,7 @@ export class HomeComponent implements OnInit {
           .callPostMethod('/api/getProductPrice', products)
           .subscribe((data) => {
             this.setRealPrice(data, products);
-            this.storageService.setCookieObject('cart', products);
+            this.helpService.setLocalStorage('cart', products);
             this.messageService.sentRefreshCartInformation();
             window.location.href = '/';
           });

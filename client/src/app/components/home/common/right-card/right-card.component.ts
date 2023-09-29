@@ -50,16 +50,16 @@ export class RightCardComponent implements OnInit {
 
   ngOnChanges(changes: SimpleChanges) {
     if (this.type === 'favorite') {
-      this.products = this.storageService.getCookieObject('favorite');
+      this.products = this.helpService.getLocalStorage('favorite');
     } else if (this.type === 'cart') {
-      this.products = this.storageService.getCookieObject('cart');
+      this.products = this.helpService.getLocalStorage('cart');
       // this.checkRealProductPrice();
     }
   }
 
   removeFavorite(index: number) {
     this.products.splice(index, 1);
-    this.storageService.setCookieObject('favorite', this.products);
+    this.helpService.setLocalStorage('favorite', this.products);
     this.toastr.showSuccessCustom(
       '',
       this.language.productSuccessfulyRemoveArticleFromFavorite
@@ -68,7 +68,7 @@ export class RightCardComponent implements OnInit {
 
   removeCart(index: number) {
     this.products.splice(index, 1);
-    this.storageService.setCookieObject('cart', this.products);
+    this.helpService.setLocalStorage('cart', this.products);
     this.toastr.showSuccessCustom(
       '',
       this.language.productSuccessfulyRemoveArticleFromCart

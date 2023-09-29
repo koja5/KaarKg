@@ -43,6 +43,7 @@ export class OverviewComponent implements OnInit {
   public subtotalBruto = 0;
   public vat: string | undefined;
   public total: string | undefined;
+  public selectAddress = true;
 
   constructor(
     private service: CallApiService,
@@ -69,7 +70,7 @@ export class OverviewComponent implements OnInit {
   initialize() {
     this.getMyShippingAddress();
     this.getShippingAddresses();
-    this.products = this.storageService.getCookieObject('cart');
+    this.products = this.helpService.getLocalStorage('cart');
     this.type = this.helpService.getAccountTypeId();
 
     if (this.type === 3) {
@@ -96,9 +97,10 @@ export class OverviewComponent implements OnInit {
   getMyShippingAddress() {
     this.service.callGetMethod('/api/getMyShippingAddress', '').subscribe(
       (data: any) => {
-        // this.getShippingPrices();
         this.user = data[0];
-        this.selectShippingAddress(this.user, true);
+        if (this.selectAddress) {
+          this.selectShippingAddress(this.user, true);
+        }
       },
       (error) => {
         this.router.navigate(['./']);
@@ -126,6 +128,7 @@ export class OverviewComponent implements OnInit {
     this.shippingAddressCopy = this.helpService.copyObject(address);
     this.mainShippingAddressEditable = mainShippingAddress;
     this.shippingActionType = 'edit';
+    this.selectAddress = true;
     this.getCountries();
     this.shippingAddressDialog.show();
   }
@@ -156,7 +159,6 @@ export class OverviewComponent implements OnInit {
               '',
               this.language.generalSuccessfulyExecuteAction
             );
-            this.selectShippingAddress(address, true);
             this.getMyShippingAddress();
           }
         });
@@ -229,6 +231,22 @@ export class OverviewComponent implements OnInit {
         this.language.shippingNeedToFillAllRequiredFields,
         ''
       );
+    } else if (
+      (this.currentStep === 1 && !this.user.address) ||
+      !this.user.city ||
+      !this.user.country_id ||
+      !this.user.zip
+    ) {
+      this.shippingAddressCopy = this.helpService.copyObject(this.user);
+      this.shippingActionType = 'edit';
+      this.mainShippingAddressEditable = true;
+      this.selectAddress = false;
+      this.getCountries();
+      this.shippingAddressDialog.show();
+      this.toastr.showWarningCustom(
+        this.language.shippingNeedToFillAllRequiredFields,
+        ''
+      );
     } else if (this.currentStep < 4) {
       this.currentStep++;
     }
@@ -281,7 +299,7 @@ export class OverviewComponent implements OnInit {
 
   removeCart(index: number) {
     this.products.splice(index, 1);
-    this.storageService.setCookieObject('cart', this.products);
+    this.helpService.setLocalStorage('cart', this.products);
     this.toastr.showSuccessCustom(
       '',
       this.language.productSuccessfulyRemoveArticleFromCart

@@ -150,7 +150,7 @@ export class PaymentAdditionalAmountComponent implements OnInit {
   }
 
   calculateAllPrices() {
-    this.products = this.storageService.getCookieObject('cart');
+    this.products = this.helpService.getLocalStorage('cart');
     this.setNetoAndBrutoPrice();
     this.getSubtotal();
     this.checkShipping();

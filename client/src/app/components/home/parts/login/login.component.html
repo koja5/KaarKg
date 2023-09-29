@@ -51,9 +51,12 @@
             <label *ngIf="accountType === getUserType().kindergarden">{{text.kindergardenFreeText}}</label>
         </div>
         <form [formGroup]="registerForm" class="mb-0">
-            <div class="field padding-bottom--24"
-                *ngIf="accountType === getUserType().dealer || accountType === getUserType().kindergarden">
+            <div class="field padding-bottom--24" *ngIf="accountType === getUserType().dealer">
                 <label for="text">{{language.loginCompany}}</label>
+                <input formControlName="company">
+            </div>
+            <div class="field padding-bottom--24" *ngIf="accountType === getUserType().kindergarden">
+                <label for="text">{{language.loginKindergardenName}}</label>
                 <input formControlName="company">
             </div>
             <div class="field padding-bottom--24">
@@ -74,7 +77,7 @@
             </div>
             <div class="field padding-bottom--24" *ngIf="accountType !== getUserType().customer">
                 <label for="text">{{language.loginTelephone}}</label>
-                <input formControlName="telephone">
+                <input type="number" formControlName="telephone">
                 <span class="text-danger"
                     *ngIf="(registerFormControl.telephone.touched || submitted) && registerFormControl.telephone.errors?.required">
                     {{language.loginTelephoneRequired}}
@@ -104,7 +107,7 @@
                 <div class="row">
                     <div class="col-md-6 field padding-bottom--24">
                         <label for="text">{{language.loginZip}}</label>
-                        <input formControlName="zip">
+                        <input type="number" formControlName="zip">
                         <span class="text-danger"
                             *ngIf="(registerFormControl.zip.touched || submitted) && registerFormControl.zip.errors?.required">
                             {{language.loginZipRequired}}

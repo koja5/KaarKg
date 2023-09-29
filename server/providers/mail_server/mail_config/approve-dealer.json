@@ -1,1 +1,13 @@
-{"subject":"Neues Händlerkonto wurde erstellt!","email":"akojicpmf@gmail.com","title":"Neues Händlerkonto wurde erstellt!","greeting":"Liebes Team von Kaar KG","text":"Bitte Händler-Konto prüfen und freigeben!","buttonText":"Händler-Konto aktivieren"}
+{
+    "subject": "Neues Händlerkonto wurde erstellt!",
+    "email": "akojicpmf@gmail.com",
+    "title": "Neues Händlerkonto wurde erstellt!",
+    "greeting": "Liebes Team von Kaar KG",
+    "text": "Bitte Händler-Konto prüfen und freigeben!",
+    "buttonText": "Händler-Konto aktivieren",
+    "signatureGreeting": "A. Kaar Kg",
+    "signatureAddress": "Haselgrabenweg 3",
+    "signatureZipAndCity": "4040 Linz",
+    "signatureEmail": "office@kaarkg.at",
+    "signatureTelephone": "+43 732 946815"
+}

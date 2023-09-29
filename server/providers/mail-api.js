@@ -56,7 +56,9 @@ router.post(
     body["template"] = "activate_mail.hjs";
     body["email"] = req.body.email;
     body["link"] =
-      process.env.link_api + "/verificationMail/0/" + sha1(req.body.email);
+      process.env.link_api +
+      "/verificationMailWithoutRelease/" +
+      sha1(req.body.email);
 
     //custom-text
     body["abg"] = text.agbConfigurationPage;
@@ -93,7 +95,9 @@ router.post("/verificationMailAddressForDealer", function (req, res, next) {
   body["template"] = "activate_mail.hjs";
   body["email"] = req.body.email;
   body["link"] =
-    process.env.link_api + "/verificationMail/0/" + sha1(req.body.email);
+    process.env.link_api +
+    "/verificationMailWithoutRelease/" +
+    sha1(req.body.email);
 
   //custom-text
   body["abg"] = text.agbConfigurationPage;
@@ -224,8 +228,9 @@ router.post("/infoApprovedAccountFromAdmin", function (req, res, next) {
   body["link"] = process.env.link_client;
   body["greeting"] = body["greeting"].replace(
     "{firstname}",
-    req.body.lastname + " " + req.body.firstname
+    req.body.firstname
   );
+  body["greeting"] = body["greeting"].replace("{lastname}", req.body.lastname);
 
   //custom-text
   body["abg"] = text.agbConfigurationPage;
@@ -269,8 +274,9 @@ router.post("/infoRejectedAccountFromAdmin", function (req, res, next) {
   body["link"] = process.env.link_client;
   body["greeting"] = body["greeting"].replace(
     "{firstname}",
-    req.body.lastname + " " + req.body.firstname
+    req.body.firstname
   );
+  body["greeting"] = body["greeting"].replace("{lastname}", req.body.lastname);
 
   //custom-text
   body["abg"] = text.agbConfigurationPage;
@@ -348,7 +354,11 @@ router.post("/sendInvoiceToCustomer", function (req, res, next) {
   }
   body["greeting"] = body["greeting"].replace(
     "{firstname}",
-    req.body.mainAddress.lastname + " " + req.body.mainAddress.firstname
+    req.body.mainAddress.firstname
+  );
+  body["greeting"] = body["greeting"].replace(
+    "{lastname}",
+    req.body.mainAddress.lastname
   );
   body["email"] = req.body.shippingAddress.email
     ? req.body.shippingAddress.email
@@ -446,9 +456,9 @@ router.post("/sendInvoiceToSuperadmin", function (req, res, next) {
   );
 
   if (req.body.type === 3) {
-    body["template"] = "invoice_customer.hjs";
+    body["template"] = "invoice_superadmin_customer.hjs";
   } else {
-    body["template"] = "invoice.hjs";
+    body["template"] = "invoice_superadmin.hjs";
   }
 
   body["mainFirstname"] = req.body.mainAddress.firstname;
