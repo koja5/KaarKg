@@ -490,7 +490,8 @@
             "title": "productCategory",
             "field": {
                 "text": "name",
-                "value": "id"
+                "value": "id",
+                "groupBy": "category_name"
             },
             "request": {
                 "type": "GET",

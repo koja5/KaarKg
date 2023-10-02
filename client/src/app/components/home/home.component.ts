@@ -35,7 +35,7 @@ export class HomeComponent implements OnInit {
   public searchInput = '';
   public loginDialogShow = false;
   public mobileHeader = '';
-  
+
   //subscription
   private subscribeViewCart!: Subscription;
   private subscribeRefreshCartInformation!: Subscription;
@@ -85,13 +85,17 @@ export class HomeComponent implements OnInit {
   }
 
   checkMessageService() {
-    this.subscribeViewCart = this.messageService.getViewCart().subscribe((message) => {
-      this.showCart();
-    });
+    this.subscribeViewCart = this.messageService
+      .getViewCart()
+      .subscribe((message) => {
+        this.showCart();
+      });
 
-    this.subscribeRefreshCartInformation = this.messageService.getRefreshCartInformation().subscribe((message) => {
-      this.checkCart();
-    });
+    this.subscribeRefreshCartInformation = this.messageService
+      .getRefreshCartInformation()
+      .subscribe((message) => {
+        this.checkCart();
+      });
   }
 
   login() {

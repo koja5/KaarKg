@@ -9,6 +9,7 @@ import { ToastrComponent } from '../components/common/toastr/toastr.component';
 import { MessageService } from './message.service';
 import { CallApiService } from './call-api.service';
 import { Router } from '@angular/router';
+import { isEmpty } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -80,7 +81,7 @@ export class HelpService {
     if (localStorage.getItem(key) != null) {
       return JSON.parse(JSON.parse(JSON.stringify(localStorage.getItem(key))));
     } else {
-      return '';
+      return {};
     }
   }
 
@@ -272,7 +273,7 @@ export class HelpService {
       }
     }
     if (ind) {
-      if (currentFavorite === '') {
+      if (currentFavorite === '' || !Object.keys(currentFavorite).length) {
         currentFavorite = [];
       }
       item = this.removeUnnecessaryProperty(item);
@@ -317,6 +318,9 @@ export class HelpService {
       }
     }
     if (ind) {
+      if (currentFavorite === '' || !Object.keys(currentFavorite).length) {
+        currentFavorite = [];
+      }
       if (item.discount_price && item.discount_price > 0) {
         item.price = item.discount_price;
       }

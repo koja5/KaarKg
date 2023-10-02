@@ -12,14 +12,14 @@
         <p *ngIf="type === 'favorite' && (!products || !products.length)">{{language.productNothingInFavorite}}</p>
 
         <div class="free-text"
-            *ngIf="text.dealerCartInfoText && (helpService.getAccountTypeId() === helpService.getUserTypeModel().dealer || helpService.getAccountTypeId() === helpService.getUserTypeModel().superadmin)">
+            *ngIf="text && text.dealerCartInfoText && (helpService.getAccountTypeId() === helpService.getUserTypeModel().dealer || helpService.getAccountTypeId() === helpService.getUserTypeModel().superadmin)">
             <label>
                 <span>{{text.dealerCartInfoText}}</span>
             </label>
         </div>
 
         <div class="free-text"
-            *ngIf="text.kindergardenCartInfoText && helpService.getAccountTypeId() === helpService.getUserTypeModel().kindergarden">
+            *ngIf="text && text.kindergardenCartInfoText && helpService.getAccountTypeId() === helpService.getUserTypeModel().kindergarden">
             <label>
                 <span>{{text.kindergardenCartInfoText}}</span>
             </label>

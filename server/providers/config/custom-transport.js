@@ -1,6 +1,7 @@
 const Transport = require("winston-transport");
 const util = require("util");
 const fs = require("fs");
+const request = require("request");
 
 module.exports = class CustomTransport extends Transport {
   constructor(opts) {
@@ -77,8 +78,14 @@ module.exports = class CustomTransport extends Transport {
     if (data) {
       arr = JSON.parse(data);
     }
+
     //add data
     arr.push(info);
+    console.log(this.filename);
+    // if (this.filename === "info.log") {
+    //   this.sendErrorToMail(info);
+    // }
+
     //convert it back to json
     const json = JSON.stringify(arr);
     try {
@@ -105,5 +112,15 @@ module.exports = class CustomTransport extends Transport {
     this.writeLog(info);
 
     callback();
+  }
+
+  sendErrorToMail(info) {
+    var options = {
+      url: process.env.link_api + "/sentErrorLogToAdmin",
+      method: "POST",
+      body: { email: process.env.admin_mail, info: info },
+      json: true,
+    };
+    request(options, function (error, response, body) {});
   }
 };

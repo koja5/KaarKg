@@ -538,3 +538,31 @@ router.post("/sendInvoiceToSuperadmin", function (req, res, next) {
     }
   });
 });
+
+router.post("/sentErrorLogToAdmin", function (req, res, next) {
+  var body = JSON.parse(
+    fs.readFileSync(
+      "./providers/mail_server/mail_config/verify-kindergarden.json",
+      "utf-8"
+    )
+  );
+
+  body["template"] = "sent_log_to_admin.hjs";
+  body["subject"] = "Error log for KaarKG!"
+  body["email"] = req.body.email;
+  body["info"] = req.body.info;
+
+  var options = {
+    url: process.env.link_api + "mail-server/sendMail",
+    method: "POST",
+    body: body,
+    json: true,
+  };
+  request(options, function (error, response, body) {
+    if (!error) {
+      res.json(true);
+    } else {
+      res.json(false);
+    }
+  });
+});

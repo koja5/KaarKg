@@ -140,8 +140,9 @@ export class OverviewComponent implements OnInit {
 
   createDialogNewShippingAddress() {
     this.shippingAddress = new ShippingAddress();
-    this.shippingAddress.country_id = 14;
-    this.shippingAddress.country_name = 'Österreich';
+    this.shippingAddressCopy = new ShippingAddress();
+    this.shippingAddressCopy.country_id = 14;
+    this.shippingAddressCopy.country_name = 'Österreich';
     this.shippingActionType = 'create';
     this.mainShippingAddressEditable = false;
     this.getCountries();
@@ -199,7 +200,7 @@ export class OverviewComponent implements OnInit {
 
   createNewShippingAddress() {
     this.service
-      .callPostMethod('/api/createShippingAddress', this.shippingAddress)
+      .callPostMethod('/api/createShippingAddress', this.shippingAddressCopy)
       .subscribe((data) => {
         if (data) {
           this.shippingAddressDialog.hide();
@@ -208,7 +209,7 @@ export class OverviewComponent implements OnInit {
             this.language.generalSuccessfulyExecuteAction
           );
           this.getShippingAddresses();
-          this.selectShippingAddress(this.shippingAddress, false);
+          this.selectShippingAddress(this.shippingAddressCopy, false);
         }
       });
   }
@@ -232,10 +233,11 @@ export class OverviewComponent implements OnInit {
         ''
       );
     } else if (
-      (this.currentStep === 1 && !this.user.address) ||
-      !this.user.city ||
-      !this.user.country_id ||
-      !this.user.zip
+      this.currentStep === 1 &&
+      (!this.user.address ||
+        !this.user.city ||
+        !this.user.country_id ||
+        !this.user.zip)
     ) {
       this.shippingAddressCopy = this.helpService.copyObject(this.user);
       this.shippingActionType = 'edit';
@@ -335,7 +337,7 @@ export class OverviewComponent implements OnInit {
 
   changeCountry(event: any) {
     console.log(event);
-    this.shippingAddress.country_name = event.itemData.name;
+    this.shippingAddressCopy.country_name = event.itemData.name;
   }
 
   getPricePerItem(price: number, quantity: number) {

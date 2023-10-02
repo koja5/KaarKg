@@ -211,7 +211,7 @@ export class PaymentAdditionalAmountComponent implements OnInit {
     this.subtotalNetoForProduct = Number(this.subtotalBruto);
     this.subtotalNeto += this.shipping;
     this.subtotalBruto += this.shipping;
-    this.vat = Number(this.subtotalNetoWithoutShipping * 0.2).toFixed(2);
+    this.vat = Number(this.subtotalNeto * 0.2).toFixed(2);
     this.emitProperty.emit({ name: 'vat', value: this.vat });
     this.emitProperty.emit({ name: 'subtotalNeto', value: this.subtotalNeto });
   }
