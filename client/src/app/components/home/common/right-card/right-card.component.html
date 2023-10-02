@@ -37,6 +37,8 @@
                     <span class="cart-product-info">
                         <span class="cart-product-qty"></span> {{item.product_number}}
                     </span>
+                    <span *ngIf="item.persantage" class="e-badge e-badge-danger article-label">-
+                        {{item.persantage}}%</span>
                 </div>
 
                 <figure class="product-image-container">

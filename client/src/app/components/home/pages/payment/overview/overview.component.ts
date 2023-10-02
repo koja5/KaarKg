@@ -20,6 +20,7 @@ export class OverviewComponent implements OnInit {
   @ViewChild('shippingAddressDialog') shippingAddressDialog!: DialogComponent;
   @ViewChild('confirmDialogComponent')
   public confirmDialogComponent!: ConfirmDialogComponent;
+  public addressTitleDialog!: string;
   public user: any;
   public shippingAddresses: any;
   public language: any;
@@ -125,6 +126,7 @@ export class OverviewComponent implements OnInit {
   }
 
   editDialogShippingAddress(address: any, mainShippingAddress: boolean) {
+    this.addressTitleDialog = this.language.checkoutEditShippingInformation;
     this.shippingAddressCopy = this.helpService.copyObject(address);
     this.mainShippingAddressEditable = mainShippingAddress;
     this.shippingActionType = 'edit';
@@ -141,6 +143,7 @@ export class OverviewComponent implements OnInit {
   createDialogNewShippingAddress() {
     this.shippingAddress = new ShippingAddress();
     this.shippingAddressCopy = new ShippingAddress();
+    this.addressTitleDialog = this.language.checkoutAddShippingInformation;
     this.shippingAddressCopy.country_id = 14;
     this.shippingAddressCopy.country_name = 'Österreich';
     this.shippingActionType = 'create';
@@ -319,6 +322,9 @@ export class OverviewComponent implements OnInit {
   }
 
   changeQuantity(index: number) {
+    if (this.products[index].quantity === 0) {
+      this.products[index].quantity = 1;
+    }
     this.helpService.addNewQuantityToCart(
       this.products[index],
       this.products[index].quantity

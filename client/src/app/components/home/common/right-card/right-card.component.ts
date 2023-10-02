@@ -100,6 +100,9 @@ export class RightCardComponent implements OnInit {
   }
 
   changeQuantity(index: number) {
+    if (this.products[index].quantity === 0) {
+      this.products[index].quantity = 1;
+    }
     this.helpService.addNewQuantityToCart(
       this.products[index],
       this.products[index].quantity

@@ -202,10 +202,10 @@ export class CheckoutComponent implements OnInit {
       this.shippingAddress.zip +
       ' ' +
       this.shippingAddress.city +
-      ', ' +
-      this.shippingAddress.telephone +
-      ', ' +
-      this.shippingAddress.email
+      (this.shippingAddress.telephone
+        ? ', ' + this.shippingAddress.telephone
+        : '') +
+      (this.shippingAddress.email ? ', ' + this.shippingAddress.email : '')
     );
   }
 

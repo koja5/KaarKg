@@ -70,7 +70,7 @@ export class LoginComponent implements OnInit {
     this.subscribe = this.messageService
       .getLogoutRefresh()
       .subscribe((message) => {
-        console.log('TEST');
+        
       });
   }
 

@@ -91,6 +91,8 @@
                                             <span class="cart-product-info">
                                                 <span class="cart-product-qty"></span> {{item.product_number}}
                                             </span>
+                                            <span *ngIf="item.persantage" class="e-badge e-badge-danger article-label">-
+                                                {{item.persantage}}%</span>
                                         </td>
                                         <td class="product-single-qty">
                                             <div class="input-group bootstrap-touchspin bootstrap-touchspin-injected">
@@ -211,8 +213,8 @@
 
 </div>
 
-<ejs-dialog #shippingAddressDialog [showCloseIcon]='true' header="{{language.checkoutShippingInformation}}"
-    [position]="{Y: 100}" [visible]='false' width="450px" isModal="true">
+<ejs-dialog #shippingAddressDialog [showCloseIcon]='true' header="{{addressTitleDialog}}" [position]="{Y: 100}"
+    [visible]='false' width="450px" isModal="true">
     <ng-template #content>
         <form #myForm="ngForm">
             <div class="field">

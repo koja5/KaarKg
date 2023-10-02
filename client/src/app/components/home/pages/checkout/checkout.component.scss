@@ -64,7 +64,6 @@
 
 .shipping {
   padding-bottom: 16px;
-  border-bottom: 1px solid #c3c3c3;
 }
 
 .shipping li {
@@ -147,4 +146,9 @@ button:hover {
   margin-left: -9px;
   margin-top: -8px;
   display: inline-block;
+}
+
+.shipping-container {
+  display: flex;
+  justify-content: space-between;
 }

@@ -67,27 +67,29 @@
     </div>
     <div class="payment col-md-6">
         <h4>{{language.checkoutPrepayment}}</h4>
-        <div class="field mb-3 text-left" *ngIf="shippingAddress.email">
+        <div class="field mb-3 text-left" *ngIf="mainAddress.email">
             <label for="email">{{language.checkoutEmail}}</label>
-            <input name="email" [(ngModel)]="shippingAddress.email" readonly>
+            <input name="email" [(ngModel)]="mainAddress.email" readonly>
         </div>
 
-        <div class="field text-left shipping">
-            <label>{{language.checkoutShippingInformation}}</label>
-            <p>{{shippingAddress.firstname}} {{shippingAddress.lastname}}</p>
-            <p>{{shippingAddress.address}}</p>
-            <p *ngIf="shippingAddress.company">{{shippingAddress.company}}</p>
-            <p>{{shippingAddress.zip}} {{shippingAddress.city}}</p>
-            <p>
-                <ejs-combobox class="field input shipping-country" *ngIf="countries" [id]="'country'" name="country"
-                    [dataSource]="countries" [fields]="{
-                        text: 'name' , 'value' : 'id' }" [allowFiltering]="true"
-                    [(ngModel)]="shippingAddress.country_id" [placeholder]="language.checkoutCountryPlaceholder"
-                    readonly>
-                </ejs-combobox>
-            </p>
-            <p>{{shippingAddress.telephone}}</p>
-            <!-- <input name="firstname" placeholder="{{language.checkoutFirstname}}" [(ngModel)]="shippingAddress.firstname"
+
+        <div class="shipping-container border-bottom">
+
+            <div class="field text-left shipping">
+                <label>{{language.checkoutShippingInvoiceAddress}}</label>
+                <p>{{mainAddress.firstname}} {{mainAddress.lastname}}</p>
+                <p>{{mainAddress.address}}</p>
+                <p *ngIf="mainAddress.company">{{mainAddress.company}}</p>
+                <p>{{mainAddress.zip}} {{mainAddress.city}}</p>
+                <p>
+                    <ejs-combobox class="field input shipping-country" *ngIf="countries" [id]="'country'" name="country"
+                        [dataSource]="countries" [fields]="{
+                        text: 'name' , 'value' : 'id' }" [allowFiltering]="true" [(ngModel)]="mainAddress.country_id"
+                        [placeholder]="language.checkoutCountryPlaceholder" readonly>
+                    </ejs-combobox>
+                </p>
+                <p>{{mainAddress.telephone}}</p>
+                <!-- <input name="firstname" placeholder="{{language.checkoutFirstname}}" [(ngModel)]="shippingAddress.firstname"
                 readonly>
             <input name="lastname" placeholder="{{language.checkoutLastname}}" [(ngModel)]="shippingAddress.lastname"
                 readonly>
@@ -112,6 +114,25 @@
             </div>
             <input *ngIf="shippingAddress.telephone" name="telephone" placeholder="{{language.checkoutTelephone}}" [(ngModel)]="shippingAddress.telephone"
                 readonly> -->
+            </div>
+
+            <div class="field text-left shipping">
+                <label>{{language.checkoutShippingDeliveryAddress}}</label>
+                <p>{{shippingAddress.firstname}} {{shippingAddress.lastname}}</p>
+                <p>{{shippingAddress.address}}</p>
+                <p *ngIf="shippingAddress.company">{{shippingAddress.company}}</p>
+                <p>{{shippingAddress.zip}} {{shippingAddress.city}}</p>
+                <p>
+                    <ejs-combobox class="field input shipping-country" *ngIf="countries" [id]="'country'" name="country"
+                        [dataSource]="countries" [fields]="{
+                        text: 'name' , 'value' : 'id' }" [allowFiltering]="true"
+                        [(ngModel)]="shippingAddress.country_id" [placeholder]="language.checkoutCountryPlaceholder"
+                        readonly>
+                    </ejs-combobox>
+                </p>
+                <p>{{shippingAddress.telephone}}</p>
+            </div>
+
         </div>
 
         <div class="field text-left mt-2 mb-4" *ngIf="paymentOption === language.paymentPayOptionsForMail">

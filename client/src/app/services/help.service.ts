@@ -348,7 +348,6 @@ export class HelpService {
     delete item.title_short;
     delete item.name;
     delete item.available;
-    delete item.persantage;
     delete item.new;
     delete item.discount_price;
     delete item.price_neto;
