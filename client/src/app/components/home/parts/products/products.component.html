@@ -8,4 +8,83 @@
 
 <!--  -->
 
-{{result | json}}
+<!-- {{result | json}} -->
+
+
+<div *ngFor="let item of products; let i = index"
+    class="product-default inner-quickview inner-icon col-lg-2 col-md-3 col-sm-6 col-xs-12">
+    <figure>
+        <span class='e-badge e-badge-danger not-available'
+            *ngIf="!item.available">{{language.productNotAvailable}}</span>
+        <a>
+            <img src="./assets/images/products/{{item.image}}" width="205"
+                height="205" alt="product">
+        </a>
+
+        <div class="btn-icon-group-left">
+            <a class="btn-icon btn-add-cart product-type-simple"><app-mat-icon
+                    icon="favorite" class="hover-icon"></app-mat-icon></a>
+        </div>
+        <div class="btn-icon-group">
+            <a *ngIf="item.available" class="btn-icon btn-add-cart product-type-simple"><app-mat-icon
+                    icon="shopping_basket" class="hover-icon"></app-mat-icon></a>
+        </div>
+        <a class="btn-quickview">{{language.productQuickView}}
+        </a>
+    </figure>
+    <div class="product-details">
+        <div class="category-wrap">
+            <div class="category-list">
+                <a class="product-category">{{item.name}}</a>
+            </div>
+            <!--  -->
+        </div>
+        <h3 class="product-title">
+            <a>{{item.title}}</a>
+        </h3>
+
+        <p>
+            {{item.product_number}}
+            <span *ngIf="item.discount_price"
+                class='e-badge e-badge-success article-label'>{{language.productAction}}</span>
+            <span *ngIf="item.new" class='e-badge e-badge-success article-label'>{{language.productNew}}</span>
+            <span *ngIf="item.persantage" class='e-badge e-badge-danger article-label'>-{{item.persantage | number:
+                '.0'}}%</span>
+
+        </p>
+        <span *ngIf="item.number_of_pieces > 1" class="package">{{language.productPackageFirstPart}}
+            {{item.number_of_pieces}}
+            {{language.productPackageLastPart}}</span>
+        <!-- <div class="ratings-container">
+        <div class="product-ratings">
+            <span class="ratings" style="width:100%"></span>
+            <span class="tooltiptext tooltip-top"></span>
+        </div>
+    </div> -->
+        <!-- End .product-container -->
+
+        <div class="price-box" *ngIf="item.discount_price">
+            <span class="old-price">€ {{item.price | number: '.2'}}</span>
+            <span *ngIf="accountType == 0 || accountType === 1" class="product-price discount-price">€
+                {{item.discount_price | number: '.2'}} <span class="vat">{{language.productExcludeVat}}</span></span>
+            <span *ngIf="accountType && accountType === 2" class="product-price discount-price">€
+                {{item.discount_price | number: '.2'}} <span class="vat">{{language.productExcludeVat}}</span></span>
+            <span *ngIf="accountType == undefined || accountType == -1 || accountType === 3"
+                class="product-price discount-price">€
+                {{item.discount_price |
+                number: '.2'}} <span class="vat">{{language.productIncludeVat}}</span></span>
+        </div>
+
+        <div class="price-box" *ngIf="!item.discount_price">
+            <span *ngIf="accountType == 0 || accountType === 1" class="product-price">€
+                {{item.price | number: '.2'}} <span class="vat">{{language.productExcludeVat}}</span></span>
+            <span *ngIf="accountType && accountType === 2" class="product-price">€
+                {{item.price | number: '.2'}} <span class="vat">{{language.productExcludeVat}}</span></span>
+            <span *ngIf="accountType == undefined || accountType == -1 || accountType === 3" class="product-price">€
+                {{item.price |
+                number: '.2'}} <span class="vat">{{language.productIncludeVat}}</span></span>
+        </div>
+        <!-- End .price-box -->
+    </div>
+    <!-- End .product-details -->
+</div>

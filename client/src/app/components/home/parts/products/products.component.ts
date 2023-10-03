@@ -64,6 +64,7 @@ export class ProductsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.language = this.helpService.getLanguage();
     // this.http
     //   .get('http://localhost:3001/api/getUsers')
     //   .subscribe((result: any) => {
@@ -71,9 +72,9 @@ export class ProductsComponent implements OnInit {
     //   });
 
     this.http
-      .get('http://localhost:3001/api/getUsers')
+      .get('http://localhost:3001/api/getAllProducts')
       .subscribe((data: any) => {
-        this.result = data;
+        this.products = data;
       });
   }
 }
