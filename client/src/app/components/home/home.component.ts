@@ -252,6 +252,7 @@ export class HomeComponent implements OnInit {
   hideLoginDialog() {
     this.loginDialogShow = false;
     this.loginDialog.hide();
+    this.loginFormTitle = this.language.loginTitleLogin;
   }
 
   closeNavigation() {

@@ -202,7 +202,7 @@
     "checkoutShippingNotAvailable": "nach Aufwand",
     "checkoutAddShippingInformation": "Lieferadresse hinzufügen",
     "checkoutEditShippingInformation": "Lieferadresse bearbeiten",
-    "checkoutSaveShippingInformation": "Lieferadresse speichern",
+   "checkoutSaveShippingInformation": "Lieferadresse speichern",
     "checkoutEmail": "E-Mail",
     "checkoutCountry": "Land",
     "checkoutCountryPlaceholder": "Wählen Sie Ihr Land",
