@@ -31,6 +31,7 @@
     "@angular/platform-server": "^16.1.2",
     "@angular/router": "^16.1.2",
     "@auth0/angular-jwt": "^5.1.2",
+    "@gorniv/ngx-universal": "^2.2.3",
     "@nguniversal/express-engine": "^16.2.0",
     "@ngx-translate/http-loader": "github:ngx-translate/http-loader",
     "@stripe/stripe-js": "^1.54.1",

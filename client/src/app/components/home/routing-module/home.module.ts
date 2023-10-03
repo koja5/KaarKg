@@ -34,6 +34,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { firstValueFrom, isObservable, Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { CoreModule } from './core.module';
+import { TransferHttpService } from '@gorniv/ngx-universal';
 
 @NgModule({
   declarations: [
@@ -69,6 +70,6 @@ import { CoreModule } from './core.module';
     MatDialogModule,
     
   ],
-  providers: [],
+  providers: [TransferHttpService],
 })
 export class HomedModule {}
