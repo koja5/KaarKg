@@ -5,7 +5,6 @@ import { OverviewComponent } from '../overview/overview.component';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'overview',
     pathMatch: 'full',
   },
   {

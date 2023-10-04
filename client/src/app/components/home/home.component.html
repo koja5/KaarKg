@@ -113,6 +113,7 @@
 
                     <div class="col-lg-9">
                         <!-- <app-products [searchProduct]="searchProduct"></app-products> -->
+                        TEST
                         <router-outlet></router-outlet>
                     </div>
 
@@ -139,13 +140,13 @@
 
     <!-- DIALOGS -->
 
-    <ejs-dialog #loginDialog [showCloseIcon]='true' [header]="loginFormTitle" [position]="{Y: 100}" [visible]='false'
+    <!-- <ejs-dialog #loginDialog [showCloseIcon]='true' [header]="loginFormTitle" [position]="{Y: 100}" [visible]='false'
         width="450px" (close)="hideLoginDialog()" isModal="true">
         <ng-template #content>
             <app-login #login *ngIf="loginDialogShow" (closeLoginDialog)="closeLoginDialog()"
                 (changeLoginFormTypeEvent)="changeLoginFormType($event)"></app-login>
         </ng-template>
-    </ejs-dialog>
+    </ejs-dialog> -->
 
     <!-- END DIALOGS -->
 

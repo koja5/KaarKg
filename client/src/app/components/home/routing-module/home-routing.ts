@@ -17,11 +17,6 @@ import { PrivacyPolicyComponent } from '../pages/documents/privacy-policy/privac
 
 const routes: Routes = [
   {
-    path: '',
-    redirectTo: 'category/Neuheiten',
-    component: ProductsComponent,
-  },
-  {
     path: 'category/:category',
     component: ProductsComponent,
   },

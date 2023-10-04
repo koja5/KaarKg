@@ -10,6 +10,7 @@ const mailServer = require("./providers/mail_server/mail-server");
 const upload = require("./providers/upload");
 const fileSystemApi = require("./providers/file-system-api");
 const sqlDatabase = require("./providers/config/sql-database");
+var cors = require("cors");
 sqlDatabase.connect();
 
 const express = require("express");
@@ -45,6 +46,8 @@ app.use(
   })
 );
 app.use(cookieParser());
+
+app.use(cors());
 
 //providers
 app.use("/api", api);

@@ -21,7 +21,7 @@ import { CallApiService } from 'src/app/services/call-api.service';
 import { ConfigurationService } from 'src/app/services/configuration.service';
 import { HelpService } from 'src/app/services/help.service';
 import { MessageService } from 'src/app/services/message.service';
-import { ToastrComponent } from '../common/toastr/toastr.component';
+import { ToastrDynamicComponent } from '../common/toastr/toastr.component';
 import { DynamicFormsComponent } from '../dynamic-forms/dynamic-forms.component';
 // import { saveAs } from 'file-saver';
 import { FilterSettingsModel } from '@syncfusion/ej2-angular-grids';
@@ -67,7 +67,7 @@ export class DynamicGridComponent implements OnInit {
     private configurationService: ConfigurationService,
     private apiService: CallApiService,
     private helpService: HelpService,
-    private toastr: ToastrComponent,
+    private toastr: ToastrDynamicComponent,
     private routerNavigate: Router,
     private router: ActivatedRoute,
     private messageService: MessageService

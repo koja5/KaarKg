@@ -82,20 +82,6 @@ import { ColorpickerComponent } from '../dynamic-fields/inputs/colorpicker/color
     NumericTextBoxModule,
     SwitchModule,
     ColorPickerModule,
-  ],
-  entryComponents: [
-    DynamicFieldsDirective,
-    TextBoxComponent,
-    LabelComponent,
-    ButtonComponent,
-    DynamicIconComponent,
-    ComboboxComponent,
-    MultiselectComponent,
-    DatepickerComponent,
-    DatetimepickerComponent,
-    NumericTextboxComponent,
-    SwitchComponent,
-    ColorpickerComponent,
-  ],
+  ]
 })
 export class DynamicFormsModule {}

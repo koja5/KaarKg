@@ -5,7 +5,7 @@ import { DynamicActionButtonComponent } from '../../dynamic-action-button/dynami
 import { DynamicFormsModule } from '../../dynamic-forms/dynamic-forms-module/dynamic-forms.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SharingModule } from 'src/app/sharing.module';
-import { ToastrComponent } from '../../common/toastr/toastr.component';
+import { ToastrDynamicComponent } from '../../common/toastr/toastr.component';
 import { DialogModalComponent } from 'src/app/components/common/dialog-modal/dialog-modal.component';
 import { DialogAllModule } from '@syncfusion/ej2-angular-popups';
 import {
@@ -43,7 +43,7 @@ import { DynamicTextFormComponent } from '../../dynamic-text-form/dynamic-text-f
     DynamicFormsComponent,
     DynamicActionButtonComponent,
     DialogModalComponent,
-    ToastrComponent,
+    ToastrDynamicComponent,
     DynamicTextFormComponent
   ],
   exports: [
@@ -51,7 +51,7 @@ import { DynamicTextFormComponent } from '../../dynamic-text-form/dynamic-text-f
     DynamicFormsComponent,
     DynamicActionButtonComponent,
     DialogModalComponent,
-    ToastrComponent,
+    ToastrDynamicComponent,
     DynamicTextFormComponent
   ],
   imports: [
@@ -77,13 +77,12 @@ import { DynamicTextFormComponent } from '../../dynamic-text-form/dynamic-text-f
     PageService,
     GroupService,
     ResizeService,
-    ToastrComponent,
+    ToastrDynamicComponent,
     DayService,
     WeekService,
     WorkWeekService,
     MonthService,
     AgendaService,
-  ],
-  entryComponents: [DynamicFormsComponent],
+  ]
 })
 export class DynamicModule {}

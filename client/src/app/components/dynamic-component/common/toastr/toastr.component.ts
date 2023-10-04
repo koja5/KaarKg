@@ -3,11 +3,11 @@ import { ToastrService } from 'ngx-toastr';
 import { HelpService } from 'src/app/services/help.service';
 
 @Component({
-  selector: 'app-toastr',
+  selector: 'app-dynamic-toastr',
   templateUrl: './toastr.component.html',
   styleUrls: ['./toastr.component.scss'],
 })
-export class ToastrComponent implements OnInit {
+export class ToastrDynamicComponent implements OnInit {
   private language: any;
 
   constructor(

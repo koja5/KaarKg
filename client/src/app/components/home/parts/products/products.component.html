@@ -1,6 +1,8 @@
 <app-loader *ngIf="!language || loader"></app-loader>
+<!-- 
+<app-cover-background *ngIf="!loader"></app-cover-background> -->
 
-<app-cover-background *ngIf="!loader"></app-cover-background>
+{{products | json}}
 
 <div class="main-content mb-4" *ngIf="language&&!loader">
     <section class="home-section mb-2">
@@ -55,21 +57,20 @@
                             <span class='e-badge e-badge-danger not-available'
                                 *ngIf="!item.available">{{language.productNotAvailable}}</span>
                             <a>
-                                <img src="./assets/images/products/{{item.image}}"
+                                <img src="http://localhost:4200/assets/images/products/{{item.image}}"
                                     (error)="getNoImageAvailablePicture(i)" width="205" height="205" alt="product">
                             </a>
 
                             <div class="btn-icon-group-left">
-                                <a (click)="addToFavorite(item)"
-                                    class="btn-icon btn-add-cart product-type-simple"><app-mat-icon icon="favorite"
+                                <a class="btn-icon btn-add-cart product-type-simple"><app-mat-icon icon="favorite"
                                         class="hover-icon"></app-mat-icon></a>
                             </div>
                             <div class="btn-icon-group">
-                                <a *ngIf="item.available" (click)="addToCart(item)"
+                                <a *ngIf="item.available"
                                     class="btn-icon btn-add-cart product-type-simple"><app-mat-icon
                                         icon="shopping_basket" class="hover-icon"></app-mat-icon></a>
                             </div>
-                            <a (click)="quickViewItem(item)" class="btn-quickview">{{language.productQuickView}}
+                            <a class="btn-quickview">{{language.productQuickView}}
                             </a>
                         </figure>
                         <div class="product-details">
@@ -80,7 +81,7 @@
                                 <!--  -->
                             </div>
                             <h3 class="product-title">
-                                <a (click)="quickViewItem(item)">{{item.title}}</a>
+                                <a>{{item.title}}</a>
                             </h3>
 
                             <p>
@@ -142,9 +143,9 @@
     </section>
 </div>
 
-<ejs-dialog #quickView [showCloseIcon]='true' [visible]='false' width="750px" isModal="true">
+<!-- <ejs-dialog #quickView [showCloseIcon]='true' [visible]='false' width="750px" isModal="true">
     <ng-template #content>
         <app-product-item *ngIf="item" [item]="item" [accountType]="accountType"
             (hideProductItemDialogEvent)="hideProductItemDialog()"></app-product-item>
     </ng-template>
-</ejs-dialog>
+</ejs-dialog> -->

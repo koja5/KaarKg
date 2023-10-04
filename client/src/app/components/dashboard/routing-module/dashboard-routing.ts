@@ -22,7 +22,6 @@ import { MailRejectedKindergardenInfoConfigComponent } from '../pages/mail-confi
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'navigation-product',
     pathMatch: 'full',
   },
   {

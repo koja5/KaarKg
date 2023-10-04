@@ -47,14 +47,14 @@ export class NavigationComponent implements OnInit {
   }
 
   initialize() {
-    this.service
-      .callGetMethod('api/getAllNavigationProducts', '')
-      .subscribe((products) => {
-        this.language = this.helpService.getLanguage();
-        this.navigations = this.repackNavigationMenu(
-          this.groupBy(products, 'category_id')
-        );
-      });
+    // this.service
+    //   .callGetMethod('/api/getAllNavigationProducts', '')
+    //   .subscribe((products) => {
+    //     this.language = this.helpService.getLanguage();
+    //     this.navigations = this.repackNavigationMenu(
+    //       this.groupBy(products, 'category_id')
+    //     );
+    //   });
   }
 
   groupBy(arr: any, property: any) {

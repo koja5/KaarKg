@@ -10,7 +10,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ItemModel } from '@syncfusion/ej2-angular-splitbuttons';
 import { CallApiService } from 'src/app/services/call-api.service';
 import { HelpService } from 'src/app/services/help.service';
-import { ToastrComponent } from '../common/toastr/toastr.component';
+import { ToastrDynamicComponent } from '../common/toastr/toastr.component';
 import { FormConfig } from '../dynamic-forms/models/form-config';
 import { DialogComponent } from '@syncfusion/ej2-angular-popups';
 
@@ -37,7 +37,7 @@ export class DynamicActionButtonComponent implements OnInit {
   constructor(
     private helpService: HelpService,
     private apiService: CallApiService,
-    private toastr: ToastrComponent,
+    private toastr: ToastrDynamicComponent,
     private router: ActivatedRoute
   ) {}
 

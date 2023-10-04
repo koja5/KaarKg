@@ -1342,7 +1342,7 @@ router.post("/deleteProduct", auth, function (req, res, next) {
 
 /* USERS */
 
-router.get("/getUsers", async (req, res, next) => {
+router.get("/getUsers", auth, async (req, res, next) => {
   try {
     connection.getConnection(function (err, conn) {
       if (err) {

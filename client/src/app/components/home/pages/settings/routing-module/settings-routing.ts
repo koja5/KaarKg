@@ -6,7 +6,6 @@ import { ChangePersonalInfoComponent } from '../items/change-personal-info/chang
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'change-personal-info',
   },
   {
     path: 'change-personal-info',
