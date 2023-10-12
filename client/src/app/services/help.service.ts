@@ -266,7 +266,7 @@ export class HelpService {
     let ind = 1;
     if (currentFavorite != '') {
       for (let i = 0; i < currentFavorite['length']; i++) {
-        if (currentFavorite[i]['title'] === item.title) {
+        if (currentFavorite[i]['product_number'] === item.product_number) {
           (currentFavorite as []).splice(i, 1);
           ind = 0;
         }
@@ -309,7 +309,7 @@ export class HelpService {
     let ind = 1;
     if (currentFavorite.length > 0) {
       for (let i = 0; i < currentFavorite['length']; i++) {
-        if (currentFavorite[i]['title'] === item.title) {
+        if (currentFavorite[i]['product_number'] === item.product_number) {
           /*(currentFavorite as []).splice(i, 1);*/
           currentFavorite[i].quantity++;
           ind = 0;

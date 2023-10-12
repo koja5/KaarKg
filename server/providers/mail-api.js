@@ -550,7 +550,7 @@ router.post("/sentErrorLogToAdmin", function (req, res, next) {
   body["template"] = "sent_log_to_admin.hjs";
   body["subject"] = "Error log for KaarKG!"
   body["email"] = req.body.email;
-  body["info"] = req.body.info;
+  body["info"] = req.body.message;
 
   var options = {
     url: process.env.link_api + "mail-server/sendMail",

@@ -81,11 +81,10 @@ module.exports = class CustomTransport extends Transport {
 
     //add data
     arr.push(info);
-    console.log(this.filename);
-    // if (this.filename === "info.log") {
-    //   this.sendErrorToMail(info);
-    // }
 
+    if (this.filename === "error.log" && info && info.message) {
+      this.sendErrorToMail(info.message);
+    }
     //convert it back to json
     const json = JSON.stringify(arr);
     try {
@@ -96,6 +95,7 @@ module.exports = class CustomTransport extends Transport {
         "utf8",
         function (err) {
           if (err) return err;
+          console.log(this.filename);
           return true;
         }
       );
@@ -114,11 +114,11 @@ module.exports = class CustomTransport extends Transport {
     callback();
   }
 
-  sendErrorToMail(info) {
+  sendErrorToMail(message) {
     var options = {
       url: process.env.link_api + "/sentErrorLogToAdmin",
       method: "POST",
-      body: { email: process.env.admin_mail, info: info },
+      body: { email: process.env.admin_mail, info: message },
       json: true,
     };
     request(options, function (error, response, body) {});

@@ -69,9 +69,7 @@ export class LoginComponent implements OnInit {
 
     this.subscribe = this.messageService
       .getLogoutRefresh()
-      .subscribe((message) => {
-        
-      });
+      .subscribe((message) => {});
   }
 
   ngOnDestroy(): void {
@@ -314,6 +312,7 @@ export class LoginComponent implements OnInit {
         this.service
           .callPostMethod('/api/getProductPriceForLoginUser', products)
           .subscribe((data) => {
+            console.log(data);
             this.setRealPrice(data, products);
             this.helpService.setLocalStorage('cart', products);
             this.messageService.sentRefreshCartInformation();
@@ -352,6 +351,7 @@ export class LoginComponent implements OnInit {
       for (let j = 0; j < products.length; j++) {
         if (data[i].id == products[j].id) {
           products[j].price = data[i].price;
+          products[j].persantage = data[i].persantage;
           data.splice(i, 1);
           i = 0;
           break;

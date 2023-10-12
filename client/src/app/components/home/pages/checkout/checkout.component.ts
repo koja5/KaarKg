@@ -39,6 +39,7 @@ export class CheckoutComponent implements OnInit {
   public shippingPrices: any;
   public paymentOption: any;
   public additionalPay: any = {};
+  public paymentOptionView!: string;
 
   constructor(
     public helpService: HelpService,
@@ -56,6 +57,12 @@ export class CheckoutComponent implements OnInit {
       this.storageService.getLocalStorageObject('shipping');
     this.paymentOption =
       this.helpService.getSessionStorageStringValue('payment');
+    this.paymentOptionView =
+      this.paymentOption === this.language.paymentPrepaymentOptionsForMail
+        ? this.language.paymentPrepaymentOptions
+        : this.paymentOption === this.language.paymentPerInvoiceOptionsForMail
+        ? this.language.paymentPerInvoiceOptions
+        : this.language.paymentPayOptions;
     this.getMainAddress();
   }
 

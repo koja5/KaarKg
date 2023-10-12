@@ -2082,15 +2082,15 @@ function getProductPriceByAccountType(userType, products) {
   }
   if (userType === 0 || userType === 1) {
     query =
-      "select id, case when discount_price_dealer then discount_price_dealer else price_dealer end as 'price' from articles where " +
+      "select id, case when discount_price_dealer then CAST((((price_dealer - discount_price_dealer)/price_dealer) * 100) as DECIMAL(16,0)) else 0 end as 'persantage', case when discount_price_dealer then discount_price_dealer else price_dealer end as 'price' from articles where " +
       condition;
   } else if (userType === 2) {
     query =
-      "select id, case when discount_price_kindergarden then discount_price_kindergarden else price_kindergarden end as 'price' from articles where " +
+      "select id, case when discount_price_kindergarden then CAST((((price_kindergarden - discount_price_kindergarden)/price_kindergarden) * 100) as DECIMAL(16,0)) else 0 end as 'persantage', case when discount_price_kindergarden then discount_price_kindergarden else price_kindergarden end as 'price' from articles where " +
       condition;
   } else if (userType === 3 || !userType) {
     query =
-      "select id, CAST(price as DECIMAL(16,2)) as 'price_neto', case when discount_price then discount_price else CAST(price_bruto as DECIMAL(16,2)) end as 'price' from articles where " +
+      "select id, case when discount_price then CAST((((price_bruto - discount_price)/price_bruto) * 100) as DECIMAL(16,0)) else 0 end as 'persantage', CAST(price as DECIMAL(16,2)) as 'price_neto', case when discount_price then discount_price else CAST(price_bruto as DECIMAL(16,2)) end as 'price' from articles where " +
       condition;
   }
   return query;
