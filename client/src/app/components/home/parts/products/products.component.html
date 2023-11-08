@@ -89,7 +89,7 @@
                                     class='e-badge e-badge-success article-label'>{{language.productAction}}</span>
                                 <span *ngIf="item.new"
                                     class='e-badge e-badge-success article-label'>{{language.productNew}}</span>
-                                <span *ngIf="item.persantage"
+                                <span *ngIf="item.persantage&&item.discount_price"
                                     class='e-badge e-badge-danger article-label'>-{{item.persantage | number:
                                     '.0'}}%</span>
 
