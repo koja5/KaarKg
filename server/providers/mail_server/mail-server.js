@@ -8,6 +8,7 @@ const logger = require("../config/logger");
 
 var smtpTransport = nodemailer.createTransport({
   service: process.env.smtp_host,
+  port: process.env.smtp_port,
   auth: {
     user: process.env.smtp_user,
     pass: process.env.smtp_pass,

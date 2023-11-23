@@ -107,7 +107,11 @@ router.post("/signUp", async function (req, res, next) {
                       body: req.body,
                       json: true,
                     };
-                    request(options_admin, function (error, response, body) {});
+                    request(options_admin, function (error, response, body) {
+                      console.log("GRESKA SE DESILA!");
+                      console.log(response);
+                      console.log(body);
+                    });
                   }
                 }
 
