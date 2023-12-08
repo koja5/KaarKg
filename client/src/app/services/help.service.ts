@@ -10,6 +10,8 @@ import { MessageService } from './message.service';
 import { CallApiService } from './call-api.service';
 import { Router } from '@angular/router';
 import { isEmpty } from 'rxjs';
+import * as CryptoJS from 'crypto-js';
+import { environment } from '../../environments/environment.prod';
 
 @Injectable({
   providedIn: 'root',
@@ -106,6 +108,14 @@ export class HelpService {
 
   getSessionStorageStringValue(key: string) {
     return sessionStorage.getItem(key);
+  }
+
+  getSessionStorage(key: string) {
+    if (sessionStorage.getItem(key) != null) {
+      return sessionStorage.getItem(key);
+    } else {
+      return null as any;
+    }
   }
 
   getUserType() {
@@ -343,6 +353,11 @@ export class HelpService {
     this.messageService.sentRefreshCartInformation();
   }
 
+  addToCartWholeModel(data: any) {
+    this.setLocalStorage('cart', JSON.stringify(data));
+    this.messageService.sentRefreshCartInformation();
+  }
+
   removeUnnecessaryProperty(item: any) {
     delete item.description;
     delete item.title_short;
@@ -367,43 +382,6 @@ export class HelpService {
     return UserType;
   }
 
-  // checkRealProductPriceForCart() {
-  //   const products = this.storageService.getCookieObject('cart');
-  //   if (products.length) {
-  //     if (this.getAccountTypeId() != false) {
-  //       this.service
-  //         .callPostMethod('/api/getProductPriceForLoginUser', products)
-  //         .subscribe((data) => {
-  //           this.setRealPrice(data, products);
-  //           this.storageService.setCookieObject('cart', products);
-  //           this.messageService.sentRefreshCartInformation();
-  //         });
-  //     } else {
-  //       this.service
-  //         .callPostMethod('/api/getProductPrice', products)
-  //         .subscribe((data) => {
-  //           this.setRealPrice(data, products);
-  //           this.storageService.setCookieObject('cart', products);
-  //           this.messageService.sentRefreshCartInformation();
-  //         });
-  //     }
-  //   }
-  // }
-
-  // setRealPrice(data: any, products: any) {
-  //   let i = 0;
-  //   while (i < data.length) {
-  //     for (let j = 0; j < products.length; j++) {
-  //       if (data[i].id == products[j].id) {
-  //         products[j].price = data[i].price;
-  //         data.splice(i, 1);
-  //         i = 0;
-  //         break;
-  //       }
-  //     }
-  //   }
-  // }
-
   openLink(link: string) {
     const contains = link.indexOf(window.location.origin);
     if (contains != -1) {
@@ -414,5 +392,34 @@ export class HelpService {
     } else {
       window.open(link);
     }
+  }
+
+  encrypt(value: any) {
+    return CryptoJS.AES.encrypt(
+      JSON.stringify(value),
+      environment.ENCRIPTY_KEY
+    ).toString();
+  }
+
+  decrypt(value: any) {
+    return CryptoJS.AES.decrypt(value, environment.ENCRIPTY_KEY).toString(
+      CryptoJS.enc.Utf8
+    );
+  }
+
+  packNewPriceAndPersantage(products: any, data: any) {
+    for (let i = 0; i < products.length; i++) {
+      for (let j = 0; j < data.length; j++) {
+        if (products[i].id == data[i].id) {
+          products[i].price = data[i].discount_price
+            ? data[i].discount_price
+            : data[i].price;
+          products[i].persantage = data[i].persantage;
+          data.splice(j, 1);
+          break;
+        }
+      }
+    }
+    return products;
   }
 }

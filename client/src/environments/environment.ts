@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  code: 'pk_live_51Nrf4dKDXPZf33rnZ7espIkWJ6RnCLZHizmXz9h9bhHQKinnZ1VDmrjCDEwmDWitu0RaaYiGOfmB9tDw9f3BGNp700PkDbeePO',
+  code: 'pk_test_51LhYhHL4uVudLiXA5WwSojoMtx6m0rOM7fufOkPllausovqA0BhBJ0Id0ROuRb336IVLZMjshamhIIOlT1hFOAAS00zH00KnIN',
   version: 'DEV'
 };
 

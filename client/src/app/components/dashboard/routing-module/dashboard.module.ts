@@ -32,6 +32,8 @@ import { TextConfigurationComponent } from '../pages/text-configuration/text-con
 import { MailApprovedKindergardenInfoConfigComponent } from '../pages/mail-configuration/mail-approved-kindergarden-info-config/mail-approved-kindergarden-info-config.component';
 import { MailRejectedDealerInfoConfigComponent } from '../pages/mail-configuration/mail-rejected-dealer-info-config/mail-rejected-dealer-info-config.component';
 import { MailRejectedKindergardenInfoConfigComponent } from '../pages/mail-configuration/mail-rejected-kindergarden-info-config/mail-rejected-kindergarden-info-config.component';
+import { OrdersComponent } from '../pages/orders/orders.component';
+import { OrderDetailsComponent } from '../pages/orders/order-details/order-details.component';
 
 @NgModule({
   declarations: [
@@ -54,6 +56,8 @@ import { MailRejectedKindergardenInfoConfigComponent } from '../pages/mail-confi
     MailInvoiceCustomerConfigComponent,
     MailInvoiceSuperadminConfigComponent,
     TextConfigurationComponent,
+    OrdersComponent,
+    OrderDetailsComponent
   ],
   imports: [
     CommonModule,

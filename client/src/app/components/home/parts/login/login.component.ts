@@ -224,7 +224,9 @@ export class LoginComponent implements OnInit {
     } else if (
       this.helpService.getSessionStorageStringValue('previous') === 'checkout'
     ) {
-      this.router.navigate(['payment']);
+      setTimeout(() => {
+        this.router.navigate(['payment']);
+      }, 100);
     }
     // else if (token.type === UserType.superadmin) {
     //   window.location.reload();
@@ -326,8 +328,8 @@ export class LoginComponent implements OnInit {
         this.service
           .callPostMethod('/api/getProductPrice', products)
           .subscribe((data) => {
-            this.setRealPrice(data, products);
-            this.helpService.setLocalStorage('cart', products);
+            const realPrice = this.setRealPrice(data, products);
+            this.helpService.setLocalStorage('cart', realPrice);
             this.messageService.sentRefreshCartInformation();
             if (!this.helpService.getSessionStorageStringValue('previous')) {
               window.location.reload();
@@ -358,6 +360,8 @@ export class LoginComponent implements OnInit {
         }
       }
     }
+
+    return products;
   }
 
   getCountries() {
@@ -369,7 +373,6 @@ export class LoginComponent implements OnInit {
   }
 
   changeCountry(event: any) {
-    console.log(event);
     this.registerForm.value.country_name = event.itemData.name;
     this.registerForm.controls['country_name'].setValue(event.itemData.name);
   }

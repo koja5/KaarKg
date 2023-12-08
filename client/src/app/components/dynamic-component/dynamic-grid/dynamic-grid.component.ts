@@ -133,7 +133,6 @@ export class DynamicGridComponent implements OnInit {
 
   initializeConfig() {
     this.language = this.helpService.getLanguage();
-    console.log(this.language);
 
     this.configurationService
       .getConfiguration(this.path, this.file)
@@ -348,6 +347,42 @@ export class DynamicGridComponent implements OnInit {
     }
   }
 
+  showDetails(event: any, data: any, template: any) {
+    if (template.open === 'new-page') {
+      let params = null;
+      if (template.encrypt) {
+        params = this.helpService.encrypt(
+          template.field ? data[template.field] : data
+        );
+      } else if (template.saveInStorage) {
+        if (template.saveInStorage.type === 'sessionStorage') {
+          this.helpService.setSessionStorage(
+            template.saveInStorage.key,
+            template.field ? data[template.field] : data
+          );
+        } else if (template.saveInStorage.type === 'localStorage') {
+          this.helpService.setLocalStorage(
+            template.saveInStorage.key,
+            template.field ? data[template.field] : data
+          );
+        } else if (template.saveInStorage.type === 'cookie') {
+          // set in cookie
+        }
+      } else {
+        params = template.field ? data[template.field] : data;
+      }
+
+      if (template.parametersInLink) {
+        const link = (template.route ? template.route : '') + params;
+        this.helpService.openLink(link);
+      } else {
+        this.helpService.openLink(template.route);
+      }
+    } else if (template.open === 'popup') {
+      // do something
+    }
+  }
+
   toolbarClick(args: ClickEventArgs): void {
     if (args.item.prefixIcon === 'e-excelexport') {
       // 'Grid_excelexport' -> Grid component id + _ + toolbar item name
@@ -369,7 +404,6 @@ export class DynamicGridComponent implements OnInit {
   }
 
   contextMenuClick(event: any) {
-    console.log(event);
     if (event && event.item.properties.iconCss === 'e-icons e-copy') {
       this.setValue(this.config.config, event.rowInfo.rowData);
 

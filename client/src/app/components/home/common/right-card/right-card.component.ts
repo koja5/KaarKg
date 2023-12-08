@@ -53,7 +53,9 @@ export class RightCardComponent implements OnInit {
       this.products = this.helpService.getLocalStorage('favorite');
     } else if (this.type === 'cart') {
       this.products = this.helpService.getLocalStorage('cart');
-      // this.checkRealProductPrice();
+      if (this.products && this.products.length) {
+        this.checkRealProductPrice();
+      }
     }
   }
 
@@ -121,5 +123,18 @@ export class RightCardComponent implements OnInit {
 
   getPricePerItem(price: number, quantity: number) {
     return Number(price * quantity).toFixed(2);
+  }
+
+  checkRealProductPrice() {
+    this.service
+      .callPostMethod('/api/getProductsByIdForLoginUser', this.products)
+      .subscribe((data) => {
+        this.products = this.helpService.packNewPriceAndPersantage(
+          this.products,
+          data
+        );
+        this.helpService.addToCartWholeModel(this.products);
+        this.helpService.setSessionStorage('new-price', 1);
+      });
   }
 }

@@ -1,0 +1,135 @@
+<div class="invoice-box text-end">
+    <button class="btn btn-primary" (click)="printOrder()">{{language.orderPrint}}</button>
+</div>
+
+<body id="invoice">
+    <!-- partial:index.partial.html -->
+    <div class="invoice-box">
+        <table cellpadding="0" cellspacing="0">
+            <tr>
+                <table>
+                    <td style="text-align:center;">
+                        <a href="https://kaarkg.at" target="_blank">
+                            <img width="200" src="https://kaarkg.at/assets/images/logo-black.png">
+                        </a>
+                    </td>
+                </table>
+            </tr>
+
+            <tr>
+                <table cellspacing="0px" cellpadding="2px">
+                    <tr class="heading">
+                        <td style="width:60%;">
+                            {{data.language.invoiceTitle}}
+                        </td>
+                        <td style="width:10%; text-align:center;">
+                            {{data.language.invoiceQuantity}}
+                        </td>
+                        <td style="width:10%; text-align:right;">
+                            {{data.language.invoicePrice}}
+                        </td>
+                        <td style="width:20%; text-align:right;">
+                            {{data.language.invoiceTotalPerRow}}
+                        </td>
+                    </tr>
+
+                    <tr class="item" *ngFor="let item of data.products">
+                        <td style="width:60%;">
+                            {{item.title}} ({{item.product_number}})
+                        </td>
+                        <td style="width:10%; text-align:center;">
+                            {{item.quantity}}
+                        </td>
+                        <td style="width:10%; text-align:right;">
+                            € {{item.neto}}
+                        </td>
+                        <td style="width:20%; text-align:right;">
+                            € {{item.bruto}}
+                        </td>
+                    </tr>
+                    <tr class="item">
+                        <td style="width:60%;">
+                            {{data.language.invoiceShipping}}
+                        </td>
+                        <td style="width:10%; text-align:center;">
+                        </td>
+                        <td style="width:10%; text-align:right;">
+                        </td>
+                        <td style="width:20%; text-align:right;">
+                            {{data.shipping}}
+                        </td>
+                    </tr>
+                </table>
+            </tr>
+
+            <tr class="total">
+                <table>
+                    <tr>
+                        <td colspan="5" align="right"> {{data.language.invoiceSubtotal}} <b> € {{data.subtotalNeto.toFixed(2)}}
+                            </b>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="5" align="right"> {{data.language.invoiceVat}} <b> € {{data.vat}} </b> </td>
+                    </tr>
+                    <tr>
+                        <td colspan="5" align="right"> {{data.language.invoiceTotal}}: <b> € {{data.total}} </b> </td>
+                    </tr>
+                </table>
+            </tr>
+            <tr class="information">
+                <td colspan="3">
+                    <table>
+                        <tr>
+                            <td colspan="2">
+                                <b> {{data.language.invoiceMainAddress}} </b> <br>
+                                {{data.mainAddress.firstname}} {{data.mainAddress.lastname}} <br>
+                                {{data.mainAddress.company}}<br>
+                                {{data.mainAddress.address}}<br>
+                                {{data.mainAddress.zip}} {{data.mainAddress.city}}<br>
+                                {{data.mainAddress.country_name}}<br>
+                                Tel: {{data.mainAddress.telephone}}<br>
+                                E-mail: {{data.mainAddress.email}}<br>
+
+                            </td>
+                            <td> <b> {{data.language.invoiceShippingAddress}} </b><br>
+                                {{data.shippingAddress.firstname}} {{data.shippingAddress.lastname}} <br>
+                                {{data.shippingAddress.company}}<br>
+                                {{data.shippingAddress.address}}<br>
+                                {{data.shippingAddress.zip}} {{data.shippingAddress.city}}<br>
+                                {{data.shippingAddress.country_name}}<br>
+                                {{data.shippingAddress.telephone}}<br>
+                                {{data.shippingAddress.email}}<br>
+
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <table cellspacing="0px" cellpadding="2px">
+                    <tr>
+                        <td width="50%">
+                            <b> {{data.language.invoiceOrderDate}}: </b> {{data.orderDate}}<br>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="50%">
+                            <b> {{data.language.invoicePaymentType}}: </b> {{data.paymentOption}}<br>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="50%">
+                            <b> {{data.mainAddress.user_number ? data.language.userNumber + ": " +
+                                data.mainAddress.user_number : ''}} </b><br>
+                        </td>
+                    </tr>
+                </table>
+            </tr>
+        </table>
+
+
+    </div>
+    <!-- partial -->
+
+</body>

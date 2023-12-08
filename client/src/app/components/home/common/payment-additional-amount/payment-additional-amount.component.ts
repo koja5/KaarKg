@@ -166,7 +166,6 @@ export class PaymentAdditionalAmountComponent implements OnInit {
       for (let i = 0; i < this.products.length; i++) {
         this.products[i].bruto = this.products[i].price;
         this.products[i].neto = Number(this.products[i].price / 1.2).toFixed(2);
-        // products[i].bruto = products[i].price;
         this.products[i].vat = '20%';
       }
     } else {

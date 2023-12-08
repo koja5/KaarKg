@@ -1,0 +1,401 @@
+{
+    "pageSize": 10,
+    "request": {
+        "type": "GET",
+        "api": "/api/getAllOrders",
+        "parameters": [],
+        "fields": "",
+        "root": ""
+    },
+    "paging": {
+        "enable": true,
+        "settings": {
+            "pageSizes": true,
+            "pageSize": 20
+        }
+    },
+    "sorting": {
+        "enable": true,
+        "initialSorting": {
+            "columns": [
+                {
+                    "field": "order_date",
+                    "direction": "Descending"
+                }
+            ]
+        }
+    },
+    "grouping": {
+        "enable": true,
+        "group": []
+    },
+    "filtering": {
+        "enable": false
+    },
+    "customGrouping": false,
+    "allowResizing": true,
+    "reorderable": true,
+    "selectable": true,
+    "scrollable": false,
+    "hideable": true,
+    "refresh": false,
+    "reset": true,
+    "contextMenuItems": [
+        "AutoFit",
+        "AutoFitAll",
+        "SortAscending",
+        "SortDescending",
+        "Copy",
+        "Delete",
+        "Save",
+        "Cancel",
+        "FirstPage",
+        "PrevPage",
+        "LastPage",
+        "NextPage",
+        "Group",
+        "Ungroup"
+    ],
+    "toolbar": [
+        "Delete",
+        "Print",
+        "Search"
+    ],
+    "editSettings": {
+        "allowEditing": false,
+        "allowAdding": false,
+        "allowDeleting": true,
+        "showDeleteConfirmDialog": true,
+        "mode": "Dialog"
+    },
+    "editSettingsRequest": {
+        "add": {
+            "type": "POST",
+            "api": "/api/createProduct",
+            "parameters": [],
+            "fields": "",
+            "root": ""
+        },
+        "edit": {
+            "type": "POST",
+            "api": "/api/updateProduct",
+            "parameters": [],
+            "fields": "",
+            "root": ""
+        },
+        "delete": {
+            "type": "POST",
+            "api": "/api/deleteOrder",
+            "parameters": [],
+            "fields": "",
+            "root": ""
+        }
+    },
+    "columns": [
+        {
+            "title": "invoiceOrderDate",
+            "filterable": true,
+            "hideable": true,
+            "type": "string",
+            "class": "text-align-right",
+            "field": "order_date",
+            "validation": {
+                "required": true
+            }
+        },
+        {
+            "title": "userCompany",
+            "filterable": true,
+            "hideable": true,
+            "type": "string",
+            "class": "text-align-right",
+            "field": "company",
+            "validation": {
+                "required": true
+            }
+        },
+        {
+            "title": "checkoutFirstname",
+            "filterable": true,
+            "hideable": true,
+            "type": "string",
+            "class": "text-align-right",
+            "field": "firstname",
+            "validation": {
+                "required": true
+            }
+        },
+        {
+            "title": "checkoutLastname",
+            "filterable": true,
+            "hideable": true,
+            "type": "string",
+            "class": "text-align-right",
+            "field": "lastname",
+            "validation": {
+                "required": true
+            }
+        },
+        {
+            "title": "checkoutEmail",
+            "filterable": true,
+            "hideable": true,
+            "type": "string",
+            "class": "text-align-right",
+            "field": "email",
+            "validation": {
+                "required": true
+            }
+        },
+        {
+            "title": "checkoutTelephone",
+            "filterable": true,
+            "hideable": true,
+            "type": "string",
+            "class": "text-align-right",
+            "field": "telephone",
+            "validation": {
+                "required": true
+            }
+        },
+        {
+            "title": "checkoutShippingInvoiceAddress",
+            "filterable": true,
+            "hideable": true,
+            "type": "string",
+            "class": "text-align-right",
+            "field": "address",
+            "validation": {
+                "required": true
+            }
+        },
+        {
+            "title": "invoicePaymentType",
+            "filterable": true,
+            "hideable": true,
+            "type": "string",
+            "class": "text-align-right",
+            "field": "payment_option",
+            "validation": {
+                "required": true
+            }
+        },
+        {
+            "title": "",
+            "filterable": true,
+            "hideable": true,
+            "type": "string",
+            "class": "text-align-right",
+            "field": "address",
+            "validation": {
+                "required": true
+            },
+            "template": {
+                "type": "details-button",
+                "content": "orderShowDetails",
+                "class": "btn btn-sm btn-primary",
+                "open": "new-page",
+                "route": "/dashboard/order-details/",
+                "parametersInLink": false,
+                "field": "order_details",
+                "saveInStorage": {
+                    "type": "sessionStorage",
+                    "key": "order"
+                }
+            }
+        }
+    ],
+    "config": [
+        {
+            "type": "textbox",
+            "width": "col-md-12 hide",
+            "class": "e-outline",
+            "name": "id",
+            "title": "ID",
+            "field": "id",
+            "readonly": true
+        },
+        {
+            "type": "textbox",
+            "width": "col-md-12",
+            "class": "e-outline",
+            "name": "product_number",
+            "title": "productNumber",
+            "field": "product_number"
+        },
+        {
+            "type": "textbox",
+            "width": "col-md-12",
+            "class": "e-outline",
+            "name": "title",
+            "title": "productTitle",
+            "field": "title"
+        },
+        {
+            "type": "textbox",
+            "width": "col-md-12",
+            "class": "e-outline",
+            "name": "title_short",
+            "title": "productTitleShort",
+            "field": "title_short"
+        },
+        {
+            "type": "textbox",
+            "multiline": true,
+            "width": "col-md-12",
+            "class": "e-outline",
+            "name": "description",
+            "title": "productDescription",
+            "field": "description"
+        },
+        {
+            "type": "numeric",
+            "width": "col-md-3",
+            "class": "e-outline",
+            "name": "price",
+            "title": "productPrice",
+            "field": "price"
+        },
+        {
+            "type": "numeric",
+            "width": "col-md-3",
+            "class": "e-outline",
+            "name": "price_bruto",
+            "title": "productPrice",
+            "field": "price_bruto"
+        },
+        {
+            "type": "numeric",
+            "width": "col-md-3",
+            "class": "e-outline",
+            "name": "price_dealer",
+            "title": "productPriceDealer",
+            "field": "price_dealer"
+        },
+        {
+            "type": "numeric",
+            "width": "col-md-3",
+            "class": "e-outline",
+            "name": "price_kindergarden",
+            "title": "productPriceKindergarden",
+            "field": "price_kindergarden"
+        },
+        {
+            "type": "datepicker",
+            "width": "col-md-6",
+            "class": "e-outline",
+            "format": "dd.MM.yyyy",
+            "name": "discount_date_from",
+            "title": "productDiscrountDateFrom",
+            "field": "discount_date_from"
+        },
+        {
+            "type": "datepicker",
+            "width": "col-md-6",
+            "class": "e-outline",
+            "format": "dd.MM.yyyy",
+            "name": "discount_date_to",
+            "title": "productDiscrountDateTo",
+            "field": "discount_date_to"
+        },
+        {
+            "type": "numeric",
+            "width": "col-md-4",
+            "class": "e-outline",
+            "name": "discount_price",
+            "title": "productDiscrountPrice",
+            "field": "discount_price"
+        },
+        {
+            "type": "numeric",
+            "width": "col-md-4",
+            "class": "e-outline",
+            "name": "discount_price_dealer",
+            "title": "productDiscrountPriceDealer",
+            "field": "discount_price_dealer"
+        },
+        {
+            "type": "numeric",
+            "width": "col-md-4",
+            "class": "e-outline",
+            "name": "discount_price_kindergarden",
+            "title": "productDiscrountPriceKindergarden",
+            "field": "discount_price_dealer"
+        },
+        {
+            "type": "datepicker",
+            "width": "col-md-12",
+            "class": "e-outline",
+            "format": "dd.MM.yyyy",
+            "name": "new_product_until_date",
+            "title": "productNewUntilDate",
+            "field": "new_product_until_date"
+        },
+        {
+            "type": "numeric",
+            "width": "col-md-12",
+            "class": "e-outline",
+            "name": "number_of_pieces",
+            "title": "productNumberOfPieces",
+            "field": "number_of_pieces"
+        },
+        {
+            "type": "combobox",
+            "width": "col-md-12",
+            "class": "e-outline",
+            "name": "category_id",
+            "title": "productCategory",
+            "field": {
+                "text": "name",
+                "value": "id",
+                "groupBy": "category_name"
+            },
+            "request": {
+                "type": "GET",
+                "api": "/api/getAllNavigationProductsWithName",
+                "parameters": [],
+                "fields": "",
+                "root": ""
+            },
+            "placeholder": "productCountryPlaceholder",
+            "fieldConfig": {
+                "ignoreAccent": false,
+                "filter": true
+            },
+            "required": true
+        },
+        {
+            "type": "switch",
+            "width": "col-md-12 pt-2",
+            "class": "e-outline",
+            "name": "available",
+            "title": "productAvailable",
+            "field": "available"
+        },
+        {
+            "type": "switch",
+            "width": "col-md-12 pt-2",
+            "class": "e-outline",
+            "name": "visibility",
+            "title": "productVisibility",
+            "field": "visibility"
+        },
+        {
+            "type": "switch",
+            "width": "col-md-12 pt-2",
+            "class": "e-outline",
+            "name": "dealer_only",
+            "title": "productDealerOnly",
+            "field": "dealer_only"
+        },
+        {
+            "type": "button",
+            "width": "col-md-12",
+            "class": "e-info button-action",
+            "name": "submit",
+            "title": "productSave",
+            "field": "submit",
+            "positionClass": "position-end mt-3 col-md-12"
+        }
+    ]
+}

@@ -68,6 +68,14 @@
                 }}" (select)="clickDropDownButton($event, data, item.template)"></button>
           </div>
 
+          <div *ngIf="item.template.type === 'details-button'">
+            <button class="{{item.template.class}}" (click)="showDetails($event, data, item.template)">{{
+              language[item.template.content]
+              ? language[item.template.content]
+              : item.template.content
+              }}</button>
+          </div>
+
           <div *ngIf="item.template.type === 'fileType'">
             <mat-icon class="mat-icon notranslate material-icons mat-icon-no-color" aria-hidden="false">{{
               getFileTypeIcon(data, item.template.field) }}</mat-icon>
@@ -113,7 +121,7 @@
 </div>
 
 <ejs-dialog #contextMenuDialog [showCloseIcon]='true' isModal="true" [visible]='false'>
-  <app-dynamic-forms *ngIf="config.config && config.config.length > 0" [config]="config" [partOfGrid]="true"
+  <app-dynamic-forms *ngIf="config && config.config && config.config.length > 0" [config]="config" [partOfGrid]="true"
     (submit)="submitEmitter($event)" #form="dynamicForm">
   </app-dynamic-forms>
 </ejs-dialog>

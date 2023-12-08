@@ -20,8 +20,6 @@ export class SwitchComponent implements OnInit {
 
   ngOnInit(): void {
     this.language = this.helpService.getLanguage();
-    console.log(this.config);
-    console.log(this.group.get('active'));
   }
 
   checkRights() {

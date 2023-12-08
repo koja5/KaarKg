@@ -27,6 +27,11 @@
         "icon": "inventory_2",
         "title": "Produkte",
         "link": "/dashboard/all-products"
+      },
+      {
+        "icon": "archive",
+        "title": "Bestellungen",
+        "link": "/dashboard/orders"
       }
     ]
   },

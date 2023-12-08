@@ -59,7 +59,6 @@ export class NavigationProductComponent implements OnInit {
           text: 'name',
           child: 'subChild',
         };
-        console.log(this.field);
       });
   }
 

@@ -59,7 +59,6 @@ export class RecoveryPasswordComponent implements OnInit {
   }
 
   recoveryPassword() {
-    console.log(this.registerForm);
     this.submitted = true;
     if (this.registerForm.valid) {
       this.registerForm.value['email'] = this.router.snapshot.params['email'];

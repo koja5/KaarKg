@@ -141,6 +141,17 @@ export class CheckoutComponent implements OnInit {
       });
 
     this.service
+      .callPostMethod('/api/createOrder', {
+        user_id: this.mainAddress.id,
+        order_date: orderDate,
+        payment_option: this.paymentOption,
+        order_details: JSON.stringify(data),
+      })
+      .subscribe((data) => {
+        console.log(data);
+      });
+
+    this.service
       .callPostMethod('/api/sendInvoiceToSuperadmin', data)
       .subscribe((data) => {
         if (!data) {

@@ -358,5 +358,7 @@
     "superadminAGBConfigurationPage": "Link zu den AGB",
     "superadminImpressumConfigurationPage": "Link zum Impressum",
     "superadminPrivacyPolicyConfigurationPage": "Link zur Datenschutzerklärung",
-    "superadminPreselectedCountryForRegistration": "Wählen Sie das Standardland für die Registrierung aus"
+    "superadminPreselectedCountryForRegistration": "Wählen Sie das Standardland für die Registrierung aus",
+    "orderShowDetails": "Detail",
+    "orderPrint": "Drucken"
 }

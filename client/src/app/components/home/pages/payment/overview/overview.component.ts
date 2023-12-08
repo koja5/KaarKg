@@ -85,6 +85,14 @@ export class OverviewComponent implements OnInit {
     }
   }
 
+  doWeNeedToSetNewPrice() {
+    if (!this.helpService.getSessionStorage('new-price')) {
+      this.checkRealProductPrice();
+    } else {
+      this.helpService.removeSessionStorage('new-price');
+    }
+  }
+
   getShippingAddresses() {
     this.loader = true;
     this.service
@@ -342,11 +350,22 @@ export class OverviewComponent implements OnInit {
   }
 
   changeCountry(event: any) {
-    console.log(event);
     this.shippingAddressCopy.country_name = event.itemData.name;
   }
 
   getPricePerItem(price: number, quantity: number) {
     return Number(price * quantity).toFixed(2);
+  }
+
+  checkRealProductPrice() {
+    this.service
+      .callPostMethod('/api/getProductsByIdForLoginUser', this.products)
+      .subscribe((data) => {
+        this.products = this.helpService.packNewPriceAndPersantage(
+          this.products,
+          data
+        );
+        this.helpService.addToCartWholeModel(this.products);
+      });
   }
 }
